@@ -43,12 +43,12 @@ const fallbackShowcase = [
     angle: "Pensada para vender por WhatsApp y facilitar cambios frecuentes.",
     highlights: [
       "Catalogo con categorias y filtros",
-      "Editor para cambiar contenido desde el navegador",
+      "Editor central con vista previa en vivo",
       "Botones directos a pedido, mapa y preguntas frecuentes",
     ],
     tags: ["Catalogo", "Pedidos", "WhatsApp"],
     editorDemo: true,
-    editorCopy: "Edita textos, productos, colores y CTA sin tocar codigo.",
+    editorCopy: "Edita textos, imagenes, colores y CTA desde un editor central separado de la plantilla.",
   },
   {
     slug: "restaurant",
@@ -60,11 +60,11 @@ const fallbackShowcase = [
     highlights: [
       "Presentacion clara del lugar y la experiencia",
       "Secciones para menu, historia y reservas",
-      "Diseno limpio para celular y escritorio",
+      "Editor central para ajustar mensajes y CTA",
     ],
     tags: ["Menu", "Reservas", "Presentacion"],
     editorDemo: true,
-    editorCopy: "Ajusta propuesta, experiencia y reserva desde una ruta de edicion separada.",
+    editorCopy: "Ajusta propuesta, experiencia y reserva desde un editor central separado de la plantilla.",
   },
   {
     slug: "gym",
@@ -76,11 +76,11 @@ const fallbackShowcase = [
     highlights: [
       "Planes y clases en bloques faciles de leer",
       "Secciones para entrenadores, horarios y beneficios",
-      "Botones de contacto visibles desde el inicio",
+      "Editor central para promesa, CTA y datos de contacto",
     ],
     tags: ["Planes", "Clases", "Contacto"],
     editorDemo: true,
-    editorCopy: "Edita promesa, planes, CTA y datos de contacto sin salir del navegador.",
+    editorCopy: "Edita promesa, planes, CTA y datos de contacto desde un editor central reutilizable.",
   },
   {
     slug: "tattoo-studio",
@@ -92,11 +92,11 @@ const fallbackShowcase = [
     highlights: [
       "Galeria de trabajos como pieza principal",
       "Secciones para artistas, cuidados y preguntas comunes",
-      "WhatsApp como contacto principal",
+      "Editor central para mensaje, enlaces e informacion clave",
     ],
     tags: ["Galeria", "Estilo", "Contacto"],
     editorDemo: true,
-    editorCopy: "Ajusta mensaje, estilos, CTA y datos clave para vender mejor por WhatsApp.",
+    editorCopy: "Ajusta mensaje, estilos, CTA y datos clave desde el mismo editor central.",
   },
 ];
 
@@ -123,12 +123,9 @@ function escapeHtml(value) {
     .replace(/"/g, "&quot;");
 }
 
-function getDemoHref(entry, editMode = false) {
-  const href = entry?.entry || "#";
-  if (!editMode || !href || href === "#") {
-    return href;
-  }
-  return href.includes("?") ? `${href}&edit=1` : `${href}?edit=1`;
+function getEditorHref(entry) {
+  const slug = String(entry?.slug || "").trim();
+  return slug ? `editor.html?template=${encodeURIComponent(slug)}` : "editor.html";
 }
 
 function buildCaseCard(entry, index) {
@@ -138,7 +135,7 @@ function buildCaseCard(entry, index) {
   const tags = (entry.tags || [])
     .map((item) => `<span>${escapeHtml(item)}</span>`)
     .join("");
-  const demoHref = getDemoHref(entry, false);
+  const demoHref = entry.entry || "#";
   const notesHref = entry.readme || "#";
   const classes = ["case-card"];
 
@@ -177,83 +174,19 @@ function buildCaseCard(entry, index) {
 }
 
 function buildEditorCard(entry) {
-  const helperCopy = entry.editorCopy || entry.summary || "";
-
   return `
     <article class="editor-mini-card" data-reveal>
-      <small>Editor disponible</small>
+      <small>Editor central</small>
       <h3>${escapeHtml(entry.name || "")}</h3>
-      <p>${escapeHtml(helperCopy)}</p>
+      <p>${escapeHtml(entry.editorCopy || entry.summary || "")}</p>
       <div class="case-tags">
         ${(entry.tags || []).map((item) => `<span class="editor-pill">${escapeHtml(item)}</span>`).join("")}
       </div>
       <footer>
-        <a href="${escapeHtml(getDemoHref(entry, true))}" ${externalLinkAttrs}>Abrir editor</a>
+        <a href="${escapeHtml(getEditorHref(entry))}" ${externalLinkAttrs}>Abrir editor</a>
       </footer>
     </article>
   `;
-}
-
-function buildEditorSelectionCard(entry, index) {
-  const highlights = (entry.highlights || [])
-    .map((item) => `<li>${escapeHtml(item)}</li>`)
-    .join("");
-  const tags = (entry.tags || [])
-    .map((item) => `<span>${escapeHtml(item)}</span>`)
-    .join("");
-  const editorHref = getDemoHref(entry, true);
-  const demoHref = getDemoHref(entry, false);
-  const classes = ["case-card", "selection-card"];
-
-  if (index === 0) {
-    classes.push("case-card-featured");
-  }
-
-  if (entry.editorDemo) {
-    classes.push("case-card-editable");
-  }
-
-  return `
-    <article class="${classes.join(" ")}" data-reveal data-editor-slug="${escapeHtml(entry.slug || "")}">
-      <div class="case-media" style="background-image:url('${escapeHtml(entry.cover || "")}')"></div>
-      <div class="case-body">
-        <div class="case-top">
-          <span class="case-kicker">${escapeHtml(entry.eyebrow || entry.category || "")}</span>
-          <span class="case-status">Editor disponible</span>
-        </div>
-        <div>
-          <h3>${escapeHtml(entry.name || "")}</h3>
-          <p class="case-summary">${escapeHtml(entry.summary || "")}</p>
-        </div>
-        <p class="case-angle">${escapeHtml(entry.editorCopy || entry.angle || "")}</p>
-        <ul class="case-highlights">${highlights}</ul>
-        <div class="case-footer">
-          <div class="case-tags">${tags}</div>
-          <div class="case-links">
-            <a href="${escapeHtml(editorHref)}" ${externalLinkAttrs}>Abrir editor</a>
-            <a href="${escapeHtml(demoHref)}" ${externalLinkAttrs}>Ver demo</a>
-          </div>
-        </div>
-      </div>
-    </article>
-  `;
-}
-
-function highlightSelectedEditorCard() {
-  const slug = decodeURIComponent(window.location.hash.replace(/^#/, ""));
-  if (!slug) {
-    return;
-  }
-
-  const cards = [...document.querySelectorAll("[data-editor-slug]")];
-  const selected = cards.find((card) => card.dataset.editorSlug === slug);
-
-  if (!selected) {
-    return;
-  }
-
-  selected.classList.add("is-selected");
-  selected.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
 function revealOnScroll() {
@@ -277,26 +210,17 @@ function revealOnScroll() {
   nodes.forEach((node) => observer.observe(node));
 }
 
-async function loadPortfolioEntries() {
+async function renderPortfolio() {
   const [templates, showcase] = await Promise.all([
     fetchJson("catalog/templates.json", fallbackTemplates),
     fetchJson("catalog/showcase.json", fallbackShowcase),
   ]);
 
   const showcaseBySlug = new Map(showcase.map((item) => [item.slug, item]));
-  return templates
+  const merged = templates
     .map((item) => ({ ...item, ...(showcaseBySlug.get(item.slug) || {}) }))
     .sort((a, b) => (a.order || 99) - (b.order || 99));
-}
 
-function renderFooterYear() {
-  const yearNode = document.getElementById("footerYear");
-  if (yearNode) {
-    yearNode.textContent = new Date().getFullYear();
-  }
-}
-
-function renderPortfolioPage(merged) {
   const caseGrid = document.getElementById("templateGrid");
   const editorGrid = document.getElementById("editorTemplateGrid");
 
@@ -309,26 +233,12 @@ function renderPortfolioPage(merged) {
       ? merged.map(buildEditorCard).join("")
       : '<article class="editor-mini-card"><h3>Editor en crecimiento</h3><p>Las siguientes demos editables apareceran aqui.</p></article>';
   }
-}
 
-function renderEditorPage(merged) {
-  const editorPageGrid = document.getElementById("editorPageGrid");
-
-  if (!editorPageGrid) {
-    return;
+  const yearNode = document.getElementById("footerYear");
+  if (yearNode) {
+    yearNode.textContent = new Date().getFullYear();
   }
 
-  editorPageGrid.innerHTML = merged.length
-    ? merged.map((entry, index) => buildEditorSelectionCard(entry, index)).join("")
-    : '<article class="case-loading">No se encontraron demos para mostrar.</article>';
-  highlightSelectedEditorCard();
-}
-
-async function renderPortfolio() {
-  const merged = await loadPortfolioEntries();
-  renderPortfolioPage(merged);
-  renderEditorPage(merged);
-  renderFooterYear();
   revealOnScroll();
 }
 

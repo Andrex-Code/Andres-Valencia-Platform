@@ -13,7 +13,7 @@
     ],
     "tags": ["Catalogo", "Pedidos", "WhatsApp"],
     "editorDemo": true,
-    "editorCopy": "Edita textos, productos, colores y CTA sin tocar codigo."
+    "editorCopy": "Edita textos, imagenes, colores y CTA desde un editor central separado de la plantilla."
   },
   {
     "slug": "restaurant",
@@ -29,7 +29,7 @@
     ],
     "tags": ["Menu", "Reservas", "Presentacion"],
     "editorDemo": true,
-    "editorCopy": "Ajusta propuesta, experiencia y reserva desde una ruta de edicion separada."
+    "editorCopy": "Ajusta propuesta, experiencia y reserva desde un editor central separado de la plantilla."
   },
   {
     "slug": "gym",
@@ -45,7 +45,7 @@
     ],
     "tags": ["Planes", "Clases", "Contacto"],
     "editorDemo": true,
-    "editorCopy": "Edita promesa, planes, CTA y datos de contacto sin salir del navegador."
+    "editorCopy": "Edita promesa, planes, CTA y datos de contacto desde un editor central reutilizable."
   },
   {
     "slug": "tattoo-studio",
@@ -61,6 +61,6 @@
     ],
     "tags": ["Galeria", "Estilo", "Contacto"],
     "editorDemo": true,
-    "editorCopy": "Ajusta mensaje, estilos, CTA y datos clave para vender mejor por WhatsApp."
+    "editorCopy": "Ajusta mensaje, estilos, CTA y datos clave desde el mismo editor central."
   }
 ]
