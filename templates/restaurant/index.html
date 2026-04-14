@@ -1,0 +1,2188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--
+  ═══════════════════════════════════════════════════════════════
+  DESIGN RESEARCH NOTES — AUBERGINE RESTAURANT TEMPLATE
+  ═══════════════════════════════════════════════════════════════
+
+  BRANDS STUDIED:
+  Noma (Copenhagen), Eleven Madison Park (NYC), Canlis (Seattle),
+  Osteria Francescana (Modena), Le Bernardin (NYC), The Fat Duck (Bray)
+
+  ── PATTERN 1: Editorial / Anti-Template Layout ───────────────
+  Elite restaurant sites reject the navbar→hero→3-column grid pattern.
+  They use asymmetric image/text splits (60/40 or 70/30), with images
+  bleeding to the edge and generous whitespace inside the text column.
+  Alternating layout direction (image-left / image-right) creates
+  rhythm without repetition.
+
+  ── PATTERN 2: Typography as Identity ─────────────────────────
+  Display: Cormorant Garamond — hairline serifs, extreme stroke contrast,
+  "precious and fragile" at large scale. Confirmed use on fine dining
+  sites globally. Set at 0.9–1.0 line-height for compressed editorial look.
+  Body: Inter 300 (light) — neutral, airy. Reads as expensive by restraint.
+  All caps UI labels: letter-spacing 0.2em — signals craft, not template.
+  Rule: No Montserrat, Raleway, or Oswald — overused in generic templates.
+
+  ── PATTERN 3: Color Through Restraint ────────────────────────
+  Warm Neutral/Editorial palette (Canlis archetype):
+  --ivory:    #faf8f5  (warm off-white base — never pure #fff)
+  --stone:    #f0ebe3  (slightly deeper warm white for sections)
+  --ink:      #1c1c1a  (warm near-black — never pure #000)
+  --taupe:    #77726c  (secondary/muted text — confirmed from Osteria)
+  --sienna:   #8b6f4e  (warm brown accent — used sparingly, not everywhere)
+  --cream:    #f5f0e8  (champagne for dark-section text)
+  --charcoal: #2a2825  (dark section backgrounds)
+  Color philosophy: Color comes from photography only. One warm accent.
+
+  ── PATTERN 4: Hero Without Cliché ───────────────────────────
+  Split viewport pattern: left half editorial serif typography, right half
+  full-bleed atmospheric food photography. Clean vertical axis between
+  them. NO centered-text-over-dark-image. NO gradient overlay.
+  Navigation: transparent until scroll, then warm off-white with border.
+  Reserve CTA: outlined ghost button (not filled) — the premium signal.
+
+  ── PATTERN 5: Menu as Typeset Content ───────────────────────
+  PDF menus are an anti-pattern. Menu is coded as a designed HTML section.
+  Tasting courses: course number + name in large italic serif left, poetic
+  2-line description right. À la carte: flex rows with name left, price
+  right, 1px warm border between items. Section headers: 0.7rem spaced caps.
+  Photography for menu: one large editorial shot per section, not per dish.
+
+  FONTS: Google Fonts — Cormorant Garamond (300,400,400i,600,700),
+         Inter (300,400,500)
+  ═══════════════════════════════════════════════════════════════
+-->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aubergine — Modern French Cuisine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════════════════
+   CUSTOM PROPERTIES
+   ═══════════════════════════════════════════════════ */
+:root {
+  /* Palette */
+  --ivory:    #faf8f5;
+  --stone:    #f0ebe3;
+  --ink:      #1c1c1a;
+  --taupe:    #77726c;
+  --sienna:   #8b6f4e;
+  --sienna-light: #b9977a;
+  --cream:    #f5f0e8;
+  --charcoal: #2a2825;
+  --border:   #e4ddd5;
+
+  /* Typography */
+  --serif:    'Cormorant Garamond', Georgia, serif;
+  --sans:     'Inter', system-ui, sans-serif;
+
+  /* Layout */
+  --nav-h:    80px;
+  --max-w:    1380px;
+  --pad-x:    clamp(24px, 5vw, 80px);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease:     cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+
+/* ═══════════════════════════════════════════════════
+   RESET
+   ═══════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  background: var(--ivory);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.65;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; width: 100%; height: 100%; object-fit: cover; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+.container {
+  width: min(var(--max-w), 100% - var(--pad-x) * 2);
+  margin-inline: auto;
+}
+
+/* ═══════════════════════════════════════════════════
+   UTILITIES
+   ═══════════════════════════════════════════════════ */
+.label {
+  font-family: var(--sans);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--taupe);
+}
+.label--light { color: var(--sienna-light); }
+
+/* Scroll reveal base states */
+[data-reveal] {
+  opacity: 0;
+  transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+}
+[data-reveal="up"]    { transform: translateY(48px); }
+[data-reveal="left"]  { transform: translateX(-40px); }
+[data-reveal="right"] { transform: translateX(40px); }
+[data-reveal="fade"]  { transform: none; }
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translate(0);
+}
+
+/* Staggered delay helpers */
+[data-delay="1"] { transition-delay: 0.1s; }
+[data-delay="2"] { transition-delay: 0.2s; }
+[data-delay="3"] { transition-delay: 0.35s; }
+[data-delay="4"] { transition-delay: 0.5s; }
+
+/* ═══════════════════════════════════════════════════
+   NAVIGATION
+   ═══════════════════════════════════════════════════ */
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 200;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  transition: background 0.5s ease, border-color 0.5s ease;
+  border-bottom: 1px solid transparent;
+}
+.nav.is-scrolled {
+  background: var(--ivory);
+  border-bottom-color: var(--border);
+}
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.nav__logo {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  line-height: 1;
+}
+.nav__logo em {
+  font-style: italic;
+  font-weight: 300;
+}
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+.nav__link {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  position: relative;
+  padding-bottom: 2px;
+  transition: color 0.3s ease;
+}
+.nav__link::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 1px;
+  background: var(--sienna);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s var(--ease);
+}
+.nav__link:hover { color: var(--ink); }
+.nav__link:hover::after { transform: scaleX(1); }
+
+.nav__reserve {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  padding: 10px 22px;
+  border-radius: 1px;
+  transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease;
+}
+.nav__reserve:hover {
+  background: var(--ink);
+  color: var(--ivory);
+}
+
+/* Hamburger */
+.nav__burger {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  padding: 6px;
+  width: 36px;
+}
+.nav__burger span {
+  display: block;
+  width: 100%; height: 1px;
+  background: var(--ink);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform-origin: center;
+}
+.nav__burger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.nav__burger.open span:nth-child(2) { opacity: 0; }
+.nav__burger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+/* Mobile overlay */
+.nav__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 190;
+  background: var(--ivory);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 36px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.nav__overlay.open { opacity: 1; pointer-events: all; }
+.nav__overlay a {
+  font-family: var(--serif);
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  transition: color 0.3s ease;
+}
+.nav__overlay a:hover { color: var(--sienna); }
+
+/* ═══════════════════════════════════════════════════
+   HERO — SPLIT VIEWPORT
+   ═══════════════════════════════════════════════════ */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100svh;
+  padding-top: var(--nav-h);
+}
+.hero__text-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 80px var(--pad-x) 80px clamp(24px, 6vw, 100px);
+  position: relative;
+}
+.hero__text-col::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 1px; height: 100%;
+  background: var(--border);
+}
+.hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 36px;
+}
+.hero__eyebrow::before {
+  content: '';
+  display: block;
+  width: 32px; height: 1px;
+  background: var(--sienna);
+  flex-shrink: 0;
+}
+.hero__title {
+  font-family: var(--serif);
+  font-size: clamp(4rem, 6.5vw, 8rem);
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 40px;
+}
+.hero__title em {
+  font-style: italic;
+  display: block;
+}
+.hero__desc {
+  font-size: 0.9375rem;
+  font-weight: 300;
+  color: var(--taupe);
+  max-width: 340px;
+  line-height: 1.75;
+  margin-bottom: 56px;
+}
+.hero__actions {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.btn-reserve {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ivory);
+  background: var(--ink);
+  padding: 16px 36px;
+  border-radius: 1px;
+  display: inline-block;
+  transition: background 0.35s ease;
+  position: relative;
+  overflow: hidden;
+}
+.btn-reserve::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--sienna);
+  transform: translateX(-101%);
+  transition: transform 0.4s var(--ease);
+}
+.btn-reserve:hover::before { transform: translateX(0); }
+.btn-reserve span { position: relative; z-index: 1; }
+
+.hero__link {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: color 0.3s ease;
+}
+.hero__link svg { transition: transform 0.3s ease; }
+.hero__link:hover { color: var(--ink); }
+.hero__link:hover svg { transform: translateX(4px); }
+
+.hero__scroll-hint {
+  position: absolute;
+  bottom: 36px; left: clamp(24px, 6vw, 100px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+.hero__scroll-line {
+  width: 1px; height: 48px;
+  background: var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.hero__scroll-line::after {
+  content: '';
+  position: absolute;
+  top: -100%; left: 0;
+  width: 100%; height: 50%;
+  background: var(--sienna);
+  animation: drip 2.2s ease infinite;
+}
+@keyframes drip {
+  0%   { top: -50%; }
+  100% { top: 110%; }
+}
+
+.hero__img-col {
+  position: relative;
+  overflow: hidden;
+}
+.hero__img-col img {
+  object-position: center 40%;
+  transition: transform 8s ease;
+}
+.hero__img-col:hover img { transform: scale(1.04); }
+
+.hero__img-caption {
+  position: absolute;
+  bottom: 32px; right: 28px;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════════════════
+   AWARDS STRIP
+   ═══════════════════════════════════════════════════ */
+.awards {
+  background: var(--charcoal);
+  padding: 32px 0;
+  overflow: hidden;
+}
+.awards__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(32px, 5vw, 80px);
+  flex-wrap: wrap;
+}
+.award-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.55;
+  transition: opacity 0.3s ease;
+}
+.award-item:hover { opacity: 1; }
+.award-item__symbol {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  color: var(--cream);
+  letter-spacing: 0.1em;
+}
+.award-item__name {
+  font-size: 0.5625rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--cream);
+  opacity: 0.6;
+}
+.award-divider {
+  width: 1px; height: 32px;
+  background: rgba(245,240,232,0.15);
+}
+
+/* ═══════════════════════════════════════════════════
+   MANIFESTO / STATEMENT
+   ═══════════════════════════════════════════════════ */
+.manifesto {
+  padding: clamp(80px, 12vw, 160px) 0;
+  background: var(--ivory);
+}
+.manifesto__inner {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: clamp(40px, 6vw, 100px);
+  align-items: start;
+}
+.manifesto__label-col {
+  padding-top: 8px;
+}
+.manifesto__quote {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 3.5vw, 4rem);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.15;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-left: 0;
+}
+.manifesto__quote::before {
+  content: '\201C';
+  font-size: 8rem;
+  line-height: 0;
+  color: var(--border);
+  position: absolute;
+  top: 50px; left: -20px;
+  font-family: var(--serif);
+}
+.manifesto__attribution {
+  margin-top: 32px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.manifesto__attribution::before {
+  content: '';
+  display: block;
+  width: 28px; height: 1px;
+  background: var(--sienna);
+}
+.manifesto__author {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--taupe);
+}
+
+/* ═══════════════════════════════════════════════════
+   STORY / ABOUT — ASYMMETRIC BLOCK
+   ═══════════════════════════════════════════════════ */
+.story {
+  padding: 0 0 clamp(80px, 10vw, 140px) 0;
+  overflow: hidden;
+}
+.story__block {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  min-height: 620px;
+}
+.story__block:nth-child(2) {
+  grid-template-columns: 5fr 7fr;
+  margin-top: 2px;
+}
+.story__img {
+  position: relative;
+  overflow: hidden;
+  min-height: 520px;
+}
+.story__img img {
+  transition: transform 0.8s var(--ease);
+}
+.story__img:hover img { transform: scale(1.04); }
+.story__img-index {
+  position: absolute;
+  top: 28px; left: 28px;
+  font-family: var(--serif);
+  font-size: 0.75rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.6);
+}
+.story__text {
+  background: var(--stone);
+  padding: clamp(40px, 7vw, 100px) clamp(32px, 6vw, 80px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.story__text .label { margin-bottom: 24px; }
+.story__heading {
+  font-family: var(--serif);
+  font-size: clamp(2.25rem, 3.5vw, 4.25rem);
+  font-weight: 300;
+  line-height: 1.05;
+  color: var(--ink);
+  margin-bottom: 28px;
+  letter-spacing: -0.01em;
+}
+.story__heading em { font-style: italic; }
+.story__body {
+  font-size: 0.9375rem;
+  font-weight: 300;
+  color: var(--taupe);
+  line-height: 1.8;
+  max-width: 420px;
+}
+.story__body + .story__body { margin-top: 16px; }
+.story__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 40px;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  transition: gap 0.3s ease;
+}
+.story__link:hover { gap: 18px; }
+.story__link span { border-bottom: 1px solid var(--sienna); padding-bottom: 1px; }
+
+/* ═══════════════════════════════════════════════════
+   MENU SECTION
+   ═══════════════════════════════════════════════════ */
+.menu {
+  padding: clamp(80px, 10vw, 140px) 0;
+  background: var(--ivory);
+}
+.menu__header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: end;
+  margin-bottom: clamp(48px, 7vw, 96px);
+}
+.menu__title {
+  font-family: var(--serif);
+  font-size: clamp(3rem, 5vw, 6rem);
+  font-weight: 300;
+  line-height: 0.95;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.menu__title em { font-style: italic; display: block; }
+.menu__intro {
+  font-size: 0.9375rem;
+  font-weight: 300;
+  color: var(--taupe);
+  line-height: 1.75;
+  max-width: 400px;
+  align-self: end;
+}
+
+/* Menu tabs */
+.menu__tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 60px;
+}
+.menu__tab {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  padding: 14px 28px 14px 0;
+  position: relative;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  background: none;
+  border: none;
+}
+.menu__tab::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 0;
+  width: 100%; height: 1px;
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s var(--ease);
+}
+.menu__tab.active { color: var(--ink); }
+.menu__tab.active::after { transform: scaleX(1); }
+
+/* Menu panels */
+.menu__panel { display: none; }
+.menu__panel.active { display: block; }
+
+/* Tasting menu layout */
+.tasting-courses {
+  display: grid;
+  gap: 0;
+}
+.course {
+  display: grid;
+  grid-template-columns: 80px 1fr 1fr;
+  gap: 32px;
+  align-items: start;
+  padding: 36px 0;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s ease;
+}
+.course:hover { background: var(--stone); margin: 0 -24px; padding-left: 24px; padding-right: 24px; }
+.course__num {
+  font-family: var(--serif);
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--border);
+  line-height: 1;
+  padding-top: 4px;
+  letter-spacing: -0.02em;
+}
+.course__name {
+  font-family: var(--serif);
+  font-size: clamp(1.25rem, 2vw, 1.875rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.1;
+}
+.course__desc {
+  font-size: 0.875rem;
+  font-weight: 300;
+  color: var(--taupe);
+  line-height: 1.75;
+}
+
+/* A la carte layout */
+.alacarte-section { margin-bottom: 60px; }
+.alacarte-section:last-child { margin-bottom: 0; }
+.alacarte__heading {
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 4px;
+}
+.menu-item {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--border);
+  transition: padding-left 0.3s ease;
+}
+.menu-item:hover { padding-left: 12px; }
+.menu-item__left { flex: 1; }
+.menu-item__name {
+  font-family: var(--serif);
+  font-size: 1.1875rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.menu-item__desc {
+  font-size: 0.8125rem;
+  font-weight: 300;
+  color: var(--taupe);
+  line-height: 1.65;
+}
+.menu-item__price {
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--taupe);
+  white-space: nowrap;
+}
+
+.menu__note {
+  margin-top: 48px;
+  padding: 28px 32px;
+  border: 1px solid var(--border);
+  border-radius: 1px;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+.menu__note-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.menu__note-text {
+  font-size: 0.8125rem;
+  font-weight: 300;
+  color: var(--taupe);
+  line-height: 1.7;
+}
+
+/* ═══════════════════════════════════════════════════
+   PRESS / TESTIMONIALS
+   ═══════════════════════════════════════════════════ */
+.press {
+  padding: clamp(80px, 10vw, 140px) 0;
+  background: var(--charcoal);
+}
+.press__header {
+  text-align: center;
+  margin-bottom: 72px;
+}
+.press__header .label--light { margin-bottom: 20px; display: block; }
+.press__title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 3.5vw, 3.75rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--cream);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+.press__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(245,240,232,0.08);
+}
+.press__card {
+  background: var(--charcoal);
+  padding: 52px 44px;
+  transition: background 0.3s ease;
+}
+.press__card:hover { background: #322f2b; }
+.press__quote-mark {
+  font-family: var(--serif);
+  font-size: 3.5rem;
+  line-height: 0.8;
+  color: var(--sienna);
+  opacity: 0.5;
+  margin-bottom: 20px;
+  display: block;
+}
+.press__text {
+  font-family: var(--serif);
+  font-size: 1.125rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--cream);
+  line-height: 1.7;
+  margin-bottom: 32px;
+  opacity: 0.9;
+}
+.press__source {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.press__source::before {
+  content: '';
+  display: block;
+  width: 20px; height: 1px;
+  background: var(--sienna);
+  flex-shrink: 0;
+}
+.press__pub {
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--sienna-light);
+}
+
+/* ═══════════════════════════════════════════════════
+   GALLERY
+   ═══════════════════════════════════════════════════ */
+.gallery {
+  padding: clamp(80px, 10vw, 140px) 0;
+  overflow: hidden;
+}
+.gallery__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+.gallery__title {
+  font-family: var(--serif);
+  font-size: clamp(2.5rem, 4vw, 5rem);
+  font-weight: 300;
+  line-height: 0.95;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.gallery__title em { font-style: italic; display: block; }
+.gallery__cta {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+  transition: color 0.3s ease, gap 0.3s ease;
+}
+.gallery__cta:hover { color: var(--ink); gap: 16px; }
+
+.gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 280px 280px;
+  gap: 4px;
+}
+.gallery__item {
+  overflow: hidden;
+  background: var(--stone);
+  cursor: pointer;
+}
+.gallery__item:nth-child(1) { grid-column: span 5; grid-row: span 2; }
+.gallery__item:nth-child(2) { grid-column: span 4; }
+.gallery__item:nth-child(3) { grid-column: span 3; }
+.gallery__item:nth-child(4) { grid-column: span 3; }
+.gallery__item:nth-child(5) { grid-column: span 4; }
+.gallery__item img {
+  transition: transform 0.7s var(--ease), filter 0.4s ease;
+  filter: brightness(0.9) saturate(0.95);
+}
+.gallery__item:hover img {
+  transform: scale(1.06);
+  filter: brightness(1) saturate(1.05);
+}
+
+/* ═══════════════════════════════════════════════════
+   CHEF SECTION
+   ═══════════════════════════════════════════════════ */
+.chef {
+  padding: 0 0 clamp(80px, 10vw, 140px) 0;
+  overflow: hidden;
+}
+.chef__block {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  min-height: 560px;
+}
+.chef__img {
+  position: relative;
+  overflow: hidden;
+}
+.chef__img img {
+  object-position: center 15%;
+  filter: grayscale(15%);
+  transition: transform 0.8s var(--ease), filter 0.5s ease;
+}
+.chef__img:hover img {
+  transform: scale(1.03);
+  filter: grayscale(0%);
+}
+.chef__content {
+  background: var(--stone);
+  padding: clamp(48px, 7vw, 100px) clamp(40px, 6vw, 90px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.chef__content .label { margin-bottom: 24px; }
+.chef__name {
+  font-family: var(--serif);
+  font-size: clamp(2.5rem, 4vw, 5.5rem);
+  font-weight: 300;
+  line-height: 0.95;
+  color: var(--ink);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+.chef__name em { font-style: italic; }
+.chef__title {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--sienna);
+  margin-bottom: 32px;
+}
+.chef__bio {
+  font-size: 0.9375rem;
+  font-weight: 300;
+  color: var(--taupe);
+  line-height: 1.8;
+  max-width: 460px;
+}
+.chef__bio + .chef__bio { margin-top: 14px; }
+.chef__credentials {
+  display: flex;
+  gap: 32px;
+  margin-top: 44px;
+  flex-wrap: wrap;
+}
+.chef__credential {
+  border-left: 2px solid var(--sienna);
+  padding-left: 16px;
+}
+.chef__credential-num {
+  font-family: var(--serif);
+  font-size: 1.75rem;
+  font-weight: 300;
+  color: var(--ink);
+  line-height: 1;
+}
+.chef__credential-label {
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  margin-top: 4px;
+}
+
+/* ═══════════════════════════════════════════════════
+   RESERVATION SECTION
+   ═══════════════════════════════════════════════════ */
+.reservation {
+  padding: clamp(80px, 10vw, 140px) 0;
+  background: var(--charcoal);
+  position: relative;
+  overflow: hidden;
+}
+.reservation::before {
+  content: 'Reserve';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--serif);
+  font-size: clamp(8rem, 20vw, 22rem);
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(245,240,232,0.03);
+  white-space: nowrap;
+  pointer-events: none;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.reservation__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 7vw, 100px);
+  align-items: start;
+}
+.reservation__info .label--light { margin-bottom: 24px; display: block; }
+.reservation__title {
+  font-family: var(--serif);
+  font-size: clamp(2.5rem, 4vw, 5rem);
+  font-weight: 300;
+  line-height: 1;
+  color: var(--cream);
+  letter-spacing: -0.01em;
+  margin-bottom: 32px;
+}
+.reservation__title em { font-style: italic; display: block; }
+.reservation__desc {
+  font-size: 0.9375rem;
+  font-weight: 300;
+  color: rgba(245,240,232,0.55);
+  line-height: 1.8;
+  max-width: 380px;
+  margin-bottom: 48px;
+}
+.reservation__details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.reservation__detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.reservation__detail-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--sienna);
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+.reservation__detail-label {
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--sienna-light);
+  margin-bottom: 3px;
+}
+.reservation__detail-value {
+  font-size: 0.875rem;
+  font-weight: 300;
+  color: rgba(245,240,232,0.7);
+  line-height: 1.5;
+}
+
+/* Form */
+.reservation__form {
+  background: rgba(245,240,232,0.04);
+  border: 1px solid rgba(245,240,232,0.1);
+  padding: clamp(36px, 5vw, 56px) clamp(28px, 4vw, 48px);
+  border-radius: 1px;
+}
+.form__heading {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--cream);
+  margin-bottom: 36px;
+  letter-spacing: 0.01em;
+}
+.form-group {
+  margin-bottom: 28px;
+}
+.form-group label {
+  display: block;
+  font-size: 0.5625rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.4);
+  margin-bottom: 10px;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(245,240,232,0.15);
+  padding: 10px 0;
+  font-family: var(--sans);
+  font-size: 0.9375rem;
+  font-weight: 300;
+  color: var(--cream);
+  outline: none;
+  transition: border-color 0.3s ease;
+  appearance: none;
+  border-radius: 0;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-bottom-color: var(--sienna);
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: rgba(245,240,232,0.2);
+}
+.form-group select option { background: var(--charcoal); color: var(--cream); }
+.form-group textarea { height: 90px; resize: none; }
+
+.form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+/* Party size chips */
+.party-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
+.party-chip {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: rgba(245,240,232,0.5);
+  border: 1px solid rgba(245,240,232,0.12);
+  padding: 6px 14px;
+  border-radius: 1px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  background: none;
+}
+.party-chip.selected,
+.party-chip:hover {
+  color: var(--cream);
+  border-color: var(--sienna);
+  background: rgba(139,111,78,0.15);
+}
+
+.form__submit {
+  width: 100%;
+  font-family: var(--sans);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  background: var(--cream);
+  border: none;
+  padding: 18px 32px;
+  border-radius: 1px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.35s ease, color 0.35s ease;
+  position: relative;
+  overflow: hidden;
+}
+.form__submit::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--sienna);
+  transform: translateY(101%);
+  transition: transform 0.4s var(--ease);
+}
+.form__submit:hover::before { transform: translateY(0); }
+.form__submit span { position: relative; z-index: 1; }
+.form__submit:hover span { color: var(--cream); }
+
+/* ═══════════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════════ */
+footer {
+  background: var(--ink);
+  padding: 72px 0 40px;
+}
+.footer__top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: clamp(32px, 5vw, 72px);
+  padding-bottom: 64px;
+  border-bottom: 1px solid rgba(245,240,232,0.1);
+  margin-bottom: 40px;
+}
+.footer__brand-logo {
+  font-family: var(--serif);
+  font-size: 1.75rem;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  color: var(--cream);
+  display: block;
+  margin-bottom: 20px;
+  line-height: 1;
+}
+.footer__brand-logo em { font-style: italic; }
+.footer__tagline {
+  font-size: 0.875rem;
+  font-weight: 300;
+  color: rgba(245,240,232,0.45);
+  line-height: 1.75;
+  max-width: 280px;
+  margin-bottom: 36px;
+}
+.footer__socials {
+  display: flex;
+  gap: 16px;
+}
+.footer__social {
+  width: 36px; height: 36px;
+  border: 1px solid rgba(245,240,232,0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+.footer__social:hover {
+  border-color: var(--sienna);
+  background: rgba(139,111,78,0.12);
+}
+.footer__social svg { width: 14px; height: 14px; fill: rgba(245,240,232,0.55); transition: fill 0.3s ease; }
+.footer__social:hover svg { fill: var(--sienna-light); }
+.footer__col-title {
+  font-size: 0.5625rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.3);
+  margin-bottom: 20px;
+}
+.footer__links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.footer__links a {
+  font-size: 0.875rem;
+  font-weight: 300;
+  color: rgba(245,240,232,0.55);
+  transition: color 0.3s ease;
+  letter-spacing: 0.02em;
+}
+.footer__links a:hover { color: var(--cream); }
+.footer__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.footer__copy {
+  font-size: 0.75rem;
+  font-weight: 300;
+  color: rgba(245,240,232,0.25);
+  letter-spacing: 0.04em;
+}
+.footer__legal {
+  display: flex;
+  gap: 24px;
+}
+.footer__legal a {
+  font-size: 0.75rem;
+  font-weight: 300;
+  color: rgba(245,240,232,0.25);
+  transition: color 0.3s ease;
+  letter-spacing: 0.04em;
+}
+.footer__legal a:hover { color: rgba(245,240,232,0.5); }
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════ */
+@media (max-width: 1280px) {
+  .chef__block { grid-template-columns: 1fr 1fr; }
+  .gallery__grid { grid-template-rows: 240px 240px; }
+}
+
+@media (max-width: 1024px) {
+  .hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero__text-col {
+    padding: 64px var(--pad-x);
+    min-height: 75svh;
+    justify-content: center;
+  }
+  .hero__text-col::after { display: none; }
+  .hero__img-col { height: 55vw; min-height: 320px; }
+  .hero__scroll-hint { display: none; }
+
+  .manifesto__inner { grid-template-columns: 1fr; gap: 24px; }
+  .manifesto__label-col { display: none; }
+
+  .story__block,
+  .story__block:nth-child(2) { grid-template-columns: 1fr; }
+  .story__img { min-height: 60vw; }
+
+  .press__grid { grid-template-columns: 1fr; gap: 1px; }
+  .gallery__grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+  }
+  .gallery__item { aspect-ratio: 4/3; }
+  .gallery__item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+  .gallery__item:nth-child(2),
+  .gallery__item:nth-child(3),
+  .gallery__item:nth-child(4),
+  .gallery__item:nth-child(5) { grid-column: span 1; }
+
+  .chef__block { grid-template-columns: 1fr; }
+  .chef__img { min-height: 60vw; }
+
+  .reservation__inner { grid-template-columns: 1fr; }
+
+  .footer__top { grid-template-columns: 1fr 1fr; }
+
+  .course { grid-template-columns: 48px 1fr 1fr; gap: 20px; }
+}
+
+@media (max-width: 768px) {
+  .nav__links, .nav__reserve { display: none; }
+  .nav__burger { display: flex; }
+
+  .hero__title { font-size: clamp(3rem, 12vw, 5rem); }
+  .story__block:nth-child(2) .story__img { order: -1; }
+
+  .menu__header { grid-template-columns: 1fr; }
+  .menu__tabs { overflow-x: auto; }
+
+  .course { grid-template-columns: 1fr; }
+  .course__num { font-size: 1.25rem; }
+
+  .footer__top { grid-template-columns: 1fr; }
+  .form__row { grid-template-columns: 1fr; }
+  .awards__inner { gap: 24px; }
+}
+
+@media (max-width: 375px) {
+  .hero__actions { flex-direction: column; align-items: flex-start; }
+  .chef__credentials { gap: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════
+     NAVIGATION
+     ═══════════════════════════════════════════════════ -->
+<nav class="nav" id="nav">
+  <div class="container">
+    <div class="nav__inner">
+      <a href="#" class="nav__logo"><em>Aubergine</em></a>
+      <ul class="nav__links">
+        <li><a href="#story" class="nav__link">Our Story</a></li>
+        <li><a href="#menu" class="nav__link">Menu</a></li>
+        <li><a href="#chef" class="nav__link">Chef</a></li>
+        <li><a href="#gallery" class="nav__link">Gallery</a></li>
+      </ul>
+      <a href="#reserve" class="nav__reserve">Reserve a Table</a>
+      <button class="nav__burger" id="navBurger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="nav__overlay" id="navOverlay">
+  <a href="#story"   class="nav-ol-link">Story</a>
+  <a href="#menu"    class="nav-ol-link">Menu</a>
+  <a href="#chef"    class="nav-ol-link">Chef</a>
+  <a href="#gallery" class="nav-ol-link">Gallery</a>
+  <a href="#reserve" class="nav-ol-link">Reserve</a>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     HERO — SPLIT VIEWPORT
+     ═══════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero__text-col">
+    <div class="hero__eyebrow">
+      <span class="label">Seasonal · Modern French · New York</span>
+    </div>
+    <h1 class="hero__title">
+      Where every
+      <em>plate tells</em>
+      a season.
+    </h1>
+    <p class="hero__desc">A twelve-course journey through the finest ingredients of the moment, composed with classical technique and a restless curiosity about what French cuisine can still become.</p>
+    <div class="hero__actions">
+      <a href="#reserve" class="btn-reserve"><span>Reserve a Table</span></a>
+      <a href="#menu" class="hero__link">
+        Explore the menu
+        <svg width="18" height="10" viewBox="0 0 18 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1 5h16M12 1l4 4-4 4" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+    <div class="hero__scroll-hint">
+      <div class="hero__scroll-line"></div>
+      <span class="label">Scroll</span>
+    </div>
+  </div>
+  <div class="hero__img-col">
+    <img
+      src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&q=85"
+      alt="A composed dish at Aubergine — seared scallop with celery root purée and black truffle"
+      loading="eager">
+    <span class="hero__img-caption">Scallop · Black Truffle · Winter 2024</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     AWARDS STRIP
+     ═══════════════════════════════════════════════════ -->
+<div class="awards" data-reveal="fade">
+  <div class="awards__inner">
+    <div class="award-item">
+      <span class="award-item__symbol">⭑⭑</span>
+      <span class="award-item__name">Michelin Stars</span>
+    </div>
+    <div class="award-divider"></div>
+    <div class="award-item">
+      <span class="award-item__symbol" style="font-size:0.9rem;letter-spacing:0.06em">JAMES BEARD</span>
+      <span class="award-item__name">Best New Restaurant</span>
+    </div>
+    <div class="award-divider"></div>
+    <div class="award-item">
+      <span class="award-item__symbol">No. 18</span>
+      <span class="award-item__name">World's 50 Best</span>
+    </div>
+    <div class="award-divider"></div>
+    <div class="award-item">
+      <span class="award-item__symbol" style="font-size:0.9rem;font-style:italic">Forbes</span>
+      <span class="award-item__name">Five-Star Rating</span>
+    </div>
+    <div class="award-divider"></div>
+    <div class="award-item">
+      <span class="award-item__symbol" style="font-size:0.9rem;letter-spacing:0.04em">AAA ◆◆◆◆◆</span>
+      <span class="award-item__name">Five Diamond</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     MANIFESTO
+     ═══════════════════════════════════════════════════ -->
+<section class="manifesto">
+  <div class="container">
+    <div class="manifesto__inner">
+      <div class="manifesto__label-col">
+        <span class="label">Our Philosophy</span>
+      </div>
+      <div data-reveal="up">
+        <blockquote class="manifesto__quote">
+          The table is the most honest place I know. Ingredients cannot lie about the season, and a guest cannot hide how they feel when something moves them.
+        </blockquote>
+        <div class="manifesto__attribution">
+          <span class="manifesto__author">Chef Élise Marchand, Executive Chef &amp; Partner</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     STORY — ASYMMETRIC BLOCKS
+     ═══════════════════════════════════════════════════ -->
+<section class="story" id="story">
+  <!-- Block 1: image left, text right -->
+  <div class="story__block">
+    <div class="story__img" data-reveal="fade">
+      <img
+        src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=900&q=80"
+        alt="The Aubergine dining room — intimate, candlelit, sixty covers">
+      <span class="story__img-index">01 / 02</span>
+    </div>
+    <div class="story__text">
+      <span class="label" data-reveal="up">Our Space</span>
+      <h2 class="story__heading" data-reveal="up" data-delay="1">
+        Sixty covers.<br>
+        <em>One experience.</em>
+      </h2>
+      <p class="story__body" data-reveal="up" data-delay="2">
+        Aubergine occupies a 19th-century townhouse in the West Village, its dining room a study in restrained elegance — pale oak, aged bronze, and linen that remembers what tablecloths used to mean.
+      </p>
+      <p class="story__body" data-reveal="up" data-delay="2">
+        We keep sixty covers because we believe that is the number at which a kitchen can still whisper rather than shout. Every service is a performance with a cast that knows the audience by name.
+      </p>
+      <a href="#chef" class="story__link" data-reveal="up" data-delay="3">
+        <span>Meet the team</span>
+        <svg width="16" height="9" viewBox="0 0 16 9" fill="none">
+          <path d="M1 4.5h14M10.5 1l4.5 3.5-4.5 3.5" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- Block 2: text left, image right -->
+  <div class="story__block">
+    <div class="story__text">
+      <span class="label" data-reveal="up">The Philosophy</span>
+      <h2 class="story__heading" data-reveal="up" data-delay="1">
+        <em>Radical</em><br>
+        seasonality.
+      </h2>
+      <p class="story__body" data-reveal="up" data-delay="2">
+        Our menu changes completely with the seasons — not as a marketing note, but because we source exclusively from eight farms within two hundred miles of the restaurant. When the last of the autumn chestnuts are gone, they are gone.
+      </p>
+      <p class="story__body" data-reveal="up" data-delay="2">
+        This constraint is our greatest creative freedom. It forces invention rather than repetition, and it connects every dish to the landscape that made it possible.
+      </p>
+      <a href="#menu" class="story__link" data-reveal="up" data-delay="3">
+        <span>View current menu</span>
+        <svg width="16" height="9" viewBox="0 0 16 9" fill="none">
+          <path d="M1 4.5h14M10.5 1l4.5 3.5-4.5 3.5" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+    <div class="story__img" data-reveal="fade">
+      <img
+        src="https://images.unsplash.com/photo-1607478900766-efe13248b125?w=900&q=80"
+        alt="Seasonal produce sourced from partner farms in the Hudson Valley">
+      <span class="story__img-index">02 / 02</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     MENU
+     ═══════════════════════════════════════════════════ -->
+<section class="menu" id="menu">
+  <div class="container">
+    <div class="menu__header">
+      <div data-reveal="left">
+        <span class="label" style="margin-bottom:20px;display:block">Winter 2024</span>
+        <h2 class="menu__title">
+          The
+          <em>menu.</em>
+        </h2>
+      </div>
+      <p class="menu__intro" data-reveal="right">
+        All menus are composed around what is finest at this exact moment. Dietary requirements are accommodated with pleasure — please inform us at the time of reservation.
+      </p>
+    </div>
+
+    <div class="menu__tabs" role="tablist" data-reveal="up">
+      <button class="menu__tab active" data-tab="tasting" role="tab" aria-selected="true">Tasting Menu</button>
+      <button class="menu__tab" data-tab="alacarte" role="tab" aria-selected="false">À La Carte</button>
+      <button class="menu__tab" data-tab="wine" role="tab" aria-selected="false">Wine Pairing</button>
+    </div>
+
+    <!-- TASTING MENU -->
+    <div class="menu__panel active" id="panel-tasting" data-reveal="up">
+      <div class="tasting-courses">
+        <div class="course">
+          <span class="course__num">I</span>
+          <div class="course__name">Amuse-Bouche</div>
+          <p class="course__desc">A single bite: compressed cucumber with Osetra caviar, crème fraîche, and a frozen disc of dill oil. The first signal of the kitchen's intention.</p>
+        </div>
+        <div class="course">
+          <span class="course__num">II</span>
+          <div class="course__name">Oyster &amp; Sea</div>
+          <p class="course__desc">Kumamoto oyster, sea urchin emulsion, pickled green apple, frozen horseradish snow. Served at 2°C.</p>
+        </div>
+        <div class="course">
+          <span class="course__num">III</span>
+          <div class="course__name">Chestnut &amp; Truffle</div>
+          <p class="course__desc">Chestnut velouté poured tableside over a porcelain cup of shaved black truffle and toasted brioche croutons. Autumn's farewell.</p>
+        </div>
+        <div class="course">
+          <span class="course__num">IV</span>
+          <div class="course__name">Diver Scallop</div>
+          <p class="course__desc">Maine diver scallop, celery root in three preparations, verjus beurre blanc, micro herbs from our kitchen garden.</p>
+        </div>
+        <div class="course">
+          <span class="course__num">V</span>
+          <div class="course__name">Duck Confit</div>
+          <p class="course__desc">48-hour Moulard duck leg, fermented black garlic, sunchoke purée, pomegranate reduction, duck jus aged thirty days.</p>
+        </div>
+        <div class="course">
+          <span class="course__num">VI</span>
+          <div class="course__name">A5 Wagyu</div>
+          <p class="course__desc">Four ounces of Miyazaki A5 striploin, charred leek ash butter, bone marrow soufflé, Périgueux sauce. The quiet centre of the evening.</p>
+        </div>
+        <div class="course">
+          <span class="course__num">VII–IX</span>
+          <div class="course__name">Cheese &amp; Dessert</div>
+          <p class="course__desc">Curated affinage cart from Murray's, followed by a pre-dessert of citrus sorbet, and a composed dessert of Valrhona chocolate with smoked salt caramel.</p>
+        </div>
+        <div class="course">
+          <span class="course__num">X</span>
+          <div class="course__name">Mignardises</div>
+          <p class="course__desc">A selection of house-made confections: pâte de fruit, salted caramel bonbons, and a single madeleine, warm from the oven.</p>
+        </div>
+      </div>
+      <div class="menu__note" style="margin-top:48px">
+        <span class="menu__note-icon">◉</span>
+        <p class="menu__note-text">
+          The tasting menu is <strong>$245 per person</strong>, excluding beverages and service. Wine pairing available at $145 or $225 (Grand Cru). Menus are composed for the full table — we cannot offer tasting and à la carte simultaneously. <em>Please inform us of any dietary restrictions at booking.</em>
+        </p>
+      </div>
+    </div>
+
+    <!-- À LA CARTE -->
+    <div class="menu__panel" id="panel-alacarte">
+      <div class="alacarte-section">
+        <h3 class="alacarte__heading">To Begin</h3>
+        <div class="menu-item">
+          <div class="menu-item__left">
+            <div class="menu-item__name">Steak Tartare</div>
+            <div class="menu-item__desc">Prime beef, capers, cornichons, egg yolk, Dijon, sourdough crisps</div>
+          </div>
+          <span class="menu-item__price">$28</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item__left">
+            <div class="menu-item__name">Foie Gras Torchon</div>
+            <div class="menu-item__desc">Hudson Valley foie, fig mostarda, port gel, brioche toasts, Maldon salt</div>
+          </div>
+          <span class="menu-item__price">$36</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item__left">
+            <div class="menu-item__name">Burrata</div>
+            <div class="menu-item__desc">Stracciatella, roasted heirloom tomatoes, aged balsamic, herb oil, grilled country bread</div>
+          </div>
+          <span class="menu-item__price">$22</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item__left">
+            <div class="menu-item__name">French Onion Soup</div>
+            <div class="menu-item__desc">Eight-hour caramelized onion, Comté croûte, smoked bone marrow</div>
+          </div>
+          <span class="menu-item__price">$19</span>
+        </div>
+      </div>
+      <div class="alacarte-section">
+        <h3 class="alacarte__heading">Mains</h3>
+        <div class="menu-item">
+          <div class="menu-item__left">
+            <div class="menu-item__name">Sole Meunière</div>
+            <div class="menu-item__desc">Dover sole, brown butter, lemon, capers, haricots verts, herb beurre blanc</div>
+          </div>
+          <span class="menu-item__price">$58</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item__left">
+            <div class="menu-item__name">Côte de Bœuf</div>
+            <div class="menu-item__desc">Dry-aged ribeye for two (34 oz), sauce Béarnaise, pommes frites, dressed frisée</div>
+          </div>
+          <span class="menu-item__price">$145</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item__left">
+            <div class="menu-item__name">Canard à l'Orange</div>
+            <div class="menu-item__desc">Roasted duck breast, bitter orange, daikon, wilted endive, duck jus</div>
+          </div>
+          <span class="menu-item__price">$54</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item__left">
+            <div class="menu-item__name">Risotto Truffe</div>
+            <div class="menu-item__desc">Carnaroli, Périgord black truffle, Comté, aged Parmigiano, chive</div>
+          </div>
+          <span class="menu-item__price">$46</span>
+        </div>
+      </div>
+      <div class="alacarte-section">
+        <h3 class="alacarte__heading">Desserts</h3>
+        <div class="menu-item">
+          <div class="menu-item__left">
+            <div class="menu-item__name">Soufflé au Chocolat</div>
+            <div class="menu-item__desc">Valrhona 72%, salted caramel sauce, crème anglaise — please allow 20 minutes</div>
+          </div>
+          <span class="menu-item__price">$18</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item__left">
+            <div class="menu-item__name">Île Flottante</div>
+            <div class="menu-item__desc">Soft meringue, crème anglaise, praline, seasonal fruit compote</div>
+          </div>
+          <span class="menu-item__price">$16</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item__left">
+            <div class="menu-item__name">Cheese Selection</div>
+            <div class="menu-item__desc">Five domestic and French cheeses, seasonal condiments, house crackers</div>
+          </div>
+          <span class="menu-item__price">$24</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- WINE PAIRING -->
+    <div class="menu__panel" id="panel-wine">
+      <div class="alacarte-section">
+        <h3 class="alacarte__heading">Curated Pairings</h3>
+        <div class="menu-item">
+          <div class="menu-item__left">
+            <div class="menu-item__name">Classic Pairing — Six Wines</div>
+            <div class="menu-item__desc">A journey through Burgundy, the Loire, and Alsace, selected by Sommelier Théo Laurent to mirror the tasting menu's arc</div>
+          </div>
+          <span class="menu-item__price">$145</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item__left">
+            <div class="menu-item__name">Grand Cru Pairing — Six Wines</div>
+            <div class="menu-item__desc">Domaine Leroy, Raveneau, and Leflaive alongside cellar selections from our 12,000-bottle cave. Reserved six weeks in advance.</div>
+          </div>
+          <span class="menu-item__price">$225</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item__left">
+            <div class="menu-item__name">Non-Alcoholic Pairing</div>
+            <div class="menu-item__desc">Six pairings of fermented teas, pressed juices, and botanical shrubs — a serious program for guests who don't drink.</div>
+          </div>
+          <span class="menu-item__price">$85</span>
+        </div>
+      </div>
+      <div class="alacarte-section">
+        <h3 class="alacarte__heading">By the Glass</h3>
+        <div class="menu-item">
+          <div class="menu-item__left">
+            <div class="menu-item__name">2021 Puligny-Montrachet, Domaine Leflaive</div>
+            <div class="menu-item__desc">Côte de Beaune · Chardonnay · Burgundy</div>
+          </div>
+          <span class="menu-item__price">$38</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item__left">
+            <div class="menu-item__name">2019 Chambolle-Musigny, Roumier</div>
+            <div class="menu-item__desc">Côte de Nuits · Pinot Noir · Burgundy</div>
+          </div>
+          <span class="menu-item__price">$52</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item__left">
+            <div class="menu-item__name">NV Champagne, Krug Grande Cuvée</div>
+            <div class="menu-item__desc">Multi-Vintage · Pinot Noir, Chardonnay, Meunier · Reims</div>
+          </div>
+          <span class="menu-item__price">$45</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     PRESS
+     ═══════════════════════════════════════════════════ -->
+<section class="press">
+  <div class="container">
+    <div class="press__header" data-reveal="up">
+      <span class="label label--light">As Written By</span>
+      <h2 class="press__title">What they are saying.</h2>
+    </div>
+    <div class="press__grid">
+      <div class="press__card" data-reveal="up" data-delay="1">
+        <span class="press__quote-mark">"</span>
+        <p class="press__text">Chef Marchand has accomplished something genuinely rare — a fine dining restaurant that feels urgent. Every plate is a provocation, every course a question about what French cuisine might become if freed from its own mythology.</p>
+        <div class="press__source">
+          <span class="press__pub">The New York Times, ★★★★</span>
+        </div>
+      </div>
+      <div class="press__card" data-reveal="up" data-delay="2">
+        <span class="press__quote-mark">"</span>
+        <p class="press__text">The scallop course alone — diver scallop, celery root, verjus — is worth the trip from wherever you are. In a city full of very good restaurants, Aubergine is something rarer: a very important one.</p>
+        <div class="press__source">
+          <span class="press__pub">Bon Appétit, Restaurant of the Year</span>
+        </div>
+      </div>
+      <div class="press__card" data-reveal="up" data-delay="3">
+        <span class="press__quote-mark">"</span>
+        <p class="press__text">Two Michelin stars that feel understated. The room is intimate without being precious, the service informed without being theatrical. And the food? The food is the kind that makes you call someone the moment you leave.</p>
+        <div class="press__source">
+          <span class="press__pub">Eater New York, Essential Restaurant</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     GALLERY
+     ═══════════════════════════════════════════════════ -->
+<section class="gallery" id="gallery">
+  <div class="container">
+    <div class="gallery__header" data-reveal="fade">
+      <h2 class="gallery__title">
+        The
+        <em>experience.</em>
+      </h2>
+      <a href="#reserve" class="gallery__cta">
+        Reserve your table
+        <svg width="16" height="9" viewBox="0 0 16 9" fill="none">
+          <path d="M1 4.5h14M10.5 1l4.5 3.5-4.5 3.5" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+    <div class="gallery__grid">
+      <div class="gallery__item">
+        <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=900&q=80" alt="Aubergine dining room atmosphere">
+      </div>
+      <div class="gallery__item">
+        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=700&q=80" alt="Duck confit with black garlic">
+      </div>
+      <div class="gallery__item">
+        <img src="https://images.unsplash.com/photo-1625938144755-652e08e359b7?w=700&q=80" alt="Wine cellar at Aubergine">
+      </div>
+      <div class="gallery__item">
+        <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?w=700&q=80" alt="Composed dessert — chocolate soufflé">
+      </div>
+      <div class="gallery__item">
+        <img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=700&q=80" alt="Tableside pour — chestnut velouté">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     CHEF
+     ═══════════════════════════════════════════════════ -->
+<section class="chef" id="chef">
+  <div class="chef__block">
+    <div class="chef__img" data-reveal="fade">
+      <img
+        src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=800&q=80"
+        alt="Chef Élise Marchand in the Aubergine kitchen">
+    </div>
+    <div class="chef__content">
+      <span class="label" data-reveal="up">The Kitchen</span>
+      <h2 class="chef__name" data-reveal="up" data-delay="1">
+        <em>Élise</em><br>Marchand
+      </h2>
+      <p class="chef__title" data-reveal="up" data-delay="2">Executive Chef &amp; Partner</p>
+      <p class="chef__bio" data-reveal="up" data-delay="2">
+        Élise trained under Alain Passard at L'Arpège and Heston Blumenthal at The Fat Duck before returning to New York — where she grew up — to open Aubergine in 2016. Her cooking is rooted in classical technique but refuses its conservatism.
+      </p>
+      <p class="chef__bio" data-reveal="up" data-delay="2">
+        She writes a seasonal forager's journal, works closely with six Hudson Valley farms, and believes that the most important thing a chef can do is remain curious about the ingredients themselves rather than the impression they create.
+      </p>
+      <div class="chef__credentials" data-reveal="up" data-delay="3">
+        <div class="chef__credential">
+          <div class="chef__credential-num">22</div>
+          <div class="chef__credential-label">Years cooking</div>
+        </div>
+        <div class="chef__credential">
+          <div class="chef__credential-num">⭑⭑</div>
+          <div class="chef__credential-label">Michelin Stars</div>
+        </div>
+        <div class="chef__credential">
+          <div class="chef__credential-num">6</div>
+          <div class="chef__credential-label">Farm partners</div>
+        </div>
+        <div class="chef__credential">
+          <div class="chef__credential-num">4×</div>
+          <div class="chef__credential-label">James Beard finalist</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     RESERVATION
+     ═══════════════════════════════════════════════════ -->
+<section class="reservation" id="reserve">
+  <div class="container">
+    <div class="reservation__inner">
+      <div class="reservation__info">
+        <span class="label label--light" data-reveal="up">Reserve a Table</span>
+        <h2 class="reservation__title" data-reveal="up" data-delay="1">
+          Join us for
+          <em>an evening.</em>
+        </h2>
+        <p class="reservation__desc" data-reveal="up" data-delay="2">
+          Reservations are accepted up to 60 days in advance. Tables for parties of six or more, private dining, and special occasions: please contact us directly.
+        </p>
+        <div class="reservation__details" data-reveal="up" data-delay="3">
+          <div class="reservation__detail">
+            <div class="reservation__detail-dot"></div>
+            <div>
+              <div class="reservation__detail-label">Dinner Service</div>
+              <div class="reservation__detail-value">Tuesday – Saturday · Seatings at 6pm &amp; 8:45pm</div>
+            </div>
+          </div>
+          <div class="reservation__detail">
+            <div class="reservation__detail-dot"></div>
+            <div>
+              <div class="reservation__detail-label">Location</div>
+              <div class="reservation__detail-value">34 Commerce Street, West Village, New York, NY 10014</div>
+            </div>
+          </div>
+          <div class="reservation__detail">
+            <div class="reservation__detail-dot"></div>
+            <div>
+              <div class="reservation__detail-label">Dress</div>
+              <div class="reservation__detail-value">Smart casual. We only ask that you arrive.</div>
+            </div>
+          </div>
+          <div class="reservation__detail">
+            <div class="reservation__detail-dot"></div>
+            <div>
+              <div class="reservation__detail-label">Cancellations</div>
+              <div class="reservation__detail-value">48 hours notice required. Credit card held on file.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reservation__form" data-reveal="right">
+        <h3 class="form__heading">Make a Reservation</h3>
+        <form id="reserveForm" novalidate>
+          <div class="form__row">
+            <div class="form-group">
+              <label for="r-fname">First Name</label>
+              <input type="text" id="r-fname" name="fname" placeholder="Élise" autocomplete="given-name" required>
+            </div>
+            <div class="form-group">
+              <label for="r-lname">Last Name</label>
+              <input type="text" id="r-lname" name="lname" placeholder="Marchand" autocomplete="family-name" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="r-email">Email Address</label>
+            <input type="email" id="r-email" name="email" placeholder="you@example.com" autocomplete="email" required>
+          </div>
+          <div class="form-group">
+            <label for="r-phone">Phone Number</label>
+            <input type="tel" id="r-phone" name="phone" placeholder="+1 (212) 000-0000" autocomplete="tel">
+          </div>
+          <div class="form-group">
+            <label>Party Size</label>
+            <div class="party-chips">
+              <button type="button" class="party-chip" data-size="1">1</button>
+              <button type="button" class="party-chip selected" data-size="2">2</button>
+              <button type="button" class="party-chip" data-size="3">3</button>
+              <button type="button" class="party-chip" data-size="4">4</button>
+              <button type="button" class="party-chip" data-size="5">5</button>
+              <button type="button" class="party-chip" data-size="6+">6+</button>
+            </div>
+            <input type="hidden" name="party_size" id="partySize" value="2">
+          </div>
+          <div class="form__row">
+            <div class="form-group">
+              <label for="r-date">Date</label>
+              <input type="date" id="r-date" name="date" required>
+            </div>
+            <div class="form-group">
+              <label for="r-seating">Seating</label>
+              <select id="r-seating" name="seating">
+                <option value="18:00">6:00 PM</option>
+                <option value="20:45">8:45 PM</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="r-occasion">Special Occasion or Request</label>
+            <textarea id="r-occasion" name="occasion" placeholder="Anniversary, birthday, dietary restrictions, food allergies, preferred table..."></textarea>
+          </div>
+          <button type="submit" class="form__submit">
+            <span id="submitText">Request Reservation</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer__top">
+      <div>
+        <a href="#" class="footer__brand-logo"><em>Aubergine</em></a>
+        <p class="footer__tagline">Modern French cuisine in the West Village. Two Michelin stars. Sixty covers. Open Tuesday through Saturday.</p>
+        <div class="footer__socials">
+          <!-- Instagram -->
+          <a href="#" class="footer__social" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <!-- Facebook -->
+          <a href="#" class="footer__social" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <!-- X / Twitter -->
+          <a href="#" class="footer__social" aria-label="Twitter">
+            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <p class="footer__col-title">Visit</p>
+        <ul class="footer__links">
+          <li><a href="#">34 Commerce Street</a></li>
+          <li><a href="#">West Village, NY 10014</a></li>
+          <li><a href="#">(212) 555-0182</a></li>
+          <li><a href="#">hello@auberginenyc.com</a></li>
+          <li style="margin-top:16px;"><a href="#">Tue–Sat, 6pm &amp; 8:45pm</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer__col-title">Explore</p>
+        <ul class="footer__links">
+          <li><a href="#story">Our Story</a></li>
+          <li><a href="#menu">The Menu</a></li>
+          <li><a href="#chef">Chef Marchand</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#">Private Dining</a></li>
+          <li><a href="#">Press &amp; Media</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer__col-title">Reserve</p>
+        <ul class="footer__links">
+          <li><a href="#reserve">Book a Table</a></li>
+          <li><a href="#">Private Events</a></li>
+          <li><a href="#">Gift Certificates</a></li>
+          <li><a href="#">Wine Cave Tours</a></li>
+          <li><a href="#">Chef's Table</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p class="footer__copy">© 2024 Aubergine LLC. All rights reserved.</p>
+      <div class="footer__legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Accessibility</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════
+     JAVASCRIPT
+     ═══════════════════════════════════════════════════ -->
+<script>
+(function () {
+  'use strict';
+
+  /* ── NAV SCROLL STATE ────────────────────────────── */
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('is-scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  /* ── MOBILE NAV ──────────────────────────────────── */
+  const burger  = document.getElementById('navBurger');
+  const overlay = document.getElementById('navOverlay');
+  burger.addEventListener('click', () => {
+    const open = burger.classList.toggle('open');
+    overlay.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  document.querySelectorAll('.nav-ol-link').forEach(link => {
+    link.addEventListener('click', () => {
+      burger.classList.remove('open');
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+
+  /* ── SCROLL REVEAL ───────────────────────────────── */
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('is-visible'));
+  }
+
+  /* ── MENU TABS ───────────────────────────────────── */
+  const tabs   = document.querySelectorAll('.menu__tab');
+  const panels = document.querySelectorAll('.menu__panel');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+      panels.forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+      const target = document.getElementById('panel-' + tab.dataset.tab);
+      if (target) target.classList.add('active');
+    });
+  });
+
+  /* ── PARTY SIZE CHIPS ────────────────────────────── */
+  const chips     = document.querySelectorAll('.party-chip');
+  const partySizeInput = document.getElementById('partySize');
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      chips.forEach(c => c.classList.remove('selected'));
+      chip.classList.add('selected');
+      partySizeInput.value = chip.dataset.size;
+    });
+  });
+
+  /* ── SMOOTH ANCHOR SCROLL ────────────────────────── */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href').slice(1);
+      if (!id) return;
+      const target = document.getElementById(id);
+      if (!target) return;
+      e.preventDefault();
+      const navH = parseInt(getComputedStyle(document.documentElement)
+        .getPropertyValue('--nav-h'), 10) || 80;
+      window.scrollTo({
+        top: target.getBoundingClientRect().top + window.scrollY - navH,
+        behavior: 'smooth'
+      });
+    });
+  });
+
+  /* ── SET MIN DATE FOR RESERVATION ───────────────── */
+  const dateInput = document.getElementById('r-date');
+  if (dateInput) {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    dateInput.min = tomorrow.toISOString().split('T')[0];
+  }
+
+  /* ── RESERVATION FORM SUBMIT ─────────────────────── */
+  const form = document.getElementById('reserveForm');
+  if (form) {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const btn  = document.getElementById('submitText');
+      const orig = btn.textContent;
+      btn.textContent = 'We have your request — you will hear from us shortly.';
+      form.querySelectorAll('input, select, textarea').forEach(el => el.disabled = true);
+      setTimeout(() => {
+        btn.textContent = orig;
+        form.reset();
+        form.querySelectorAll('input, select, textarea').forEach(el => el.disabled = false);
+        chips.forEach(c => c.classList.remove('selected'));
+        chips[1]?.classList.add('selected');
+        if (partySizeInput) partySizeInput.value = '2';
+      }, 5000);
+    });
+  }
+
+  /* ── HERO IMAGE SUBTLE PARALLAX (desktop only) ───── */
+  if (window.matchMedia('(min-width: 1024px) and (prefers-reduced-motion: no-preference)').matches) {
+    const heroImg = document.querySelector('.hero__img-col img');
+    if (heroImg) {
+      window.addEventListener('scroll', () => {
+        const pct = window.scrollY / window.innerHeight;
+        heroImg.style.transform = `scale(1) translateY(${pct * 30}px)`;
+      }, { passive: true });
+    }
+  }
+
+})();
+</script>
+</body>
+</html>

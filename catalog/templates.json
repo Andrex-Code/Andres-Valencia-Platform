@@ -1,0 +1,26 @@
+﻿[
+  {
+    "slug": "gym",
+    "name": "IRONFORM Gym",
+    "category": "fitness",
+    "entry": "templates/gym/index.html",
+    "readme": "templates/gym/README.md",
+    "status": "ready"
+  },
+  {
+    "slug": "restaurant",
+    "name": "Aubergine",
+    "category": "restaurant",
+    "entry": "templates/restaurant/index.html",
+    "readme": "templates/restaurant/README.md",
+    "status": "ready"
+  },
+  {
+    "slug": "tattoo-studio",
+    "name": "Sombra Ink",
+    "category": "tattoo",
+    "entry": "templates/tattoo-studio/index.html",
+    "readme": "templates/tattoo-studio/README.md",
+    "status": "ready"
+  }
+]
