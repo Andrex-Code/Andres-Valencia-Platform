@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Editor central de demos | Andres Valencia</title>
+  <title>Selector de editor | Andres Valencia</title>
   <meta
     name="description"
-    content="Edita textos, enlaces, imagenes y mensajes clave desde un editor central separado de las plantillas."
+    content="Selecciona una plantilla y abre otra pestaña lista para editarla con el editor visual."
   />
-  <meta property="og:title" content="Editor central de demos | Andres Valencia" />
+  <meta property="og:title" content="Selector de editor | Andres Valencia" />
   <meta
     property="og:description"
-    content="Una herramienta central para editar demos actuales y futuras sin tocar codigo."
+    content="Un punto central para elegir la demo y abrirla lista para editar en otra pestaña."
   />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="es_CO" />
@@ -40,13 +40,13 @@
         />
         <span class="brand-copy">
           <strong>Andres Valencia</strong>
-          <small>Editor central</small>
+          <small>Selector del editor</small>
         </span>
       </a>
 
       <div class="nav-links">
         <a href="index.html#trabajos">Portafolio</a>
-        <a href="#editorCentral">Editor</a>
+        <a href="#selector">Seleccion</a>
         <a href="index.html#faq">Preguntas</a>
       </div>
 
@@ -54,109 +54,84 @@
     </nav>
   </header>
 
-  <main class="shell editor-app" id="editorCentral">
-    <section class="editor-app-head">
-      <p class="section-label">Editor separado de las plantillas</p>
-      <h1>Un solo editor para todas las demos actuales y futuras.</h1>
+  <main class="shell editor-launcher" id="selector">
+    <section class="editor-launcher-head" data-reveal>
+      <p class="section-label">Selector del editor</p>
+      <h1>Elige una plantilla y se abre en otra pestana lista para editar.</h1>
       <p>
-        Elige una plantilla, abre la vista previa y haz clic sobre cualquier zona para editar
-        texto, enlaces, imagenes y estilos basicos sin tocar la plantilla base.
+        Esta pagina ya no edita aqui mismo. Desde aqui eliges la demo y el editor visual se abre
+        sobre la plantilla real para trabajar texto, enlaces, imagenes y CTA donde haces clic.
       </p>
     </section>
 
-    <section class="editor-app-layout" aria-label="Editor visual">
-      <aside class="editor-panel">
-        <h2>Plantillas disponibles</h2>
-        <p>
-          Este panel carga las demos registradas en el catalogo. Cuando agregues una nueva
-          plantilla, podra entrar al mismo editor central.
+    <section class="editor-launcher-layout">
+      <article class="editor-launcher-focus" id="editorLauncherFocus" data-reveal>
+        <small class="editor-launcher-label">Plantilla seleccionada</small>
+        <h2 id="editorLauncherTitle">Cargando plantillas...</h2>
+        <p id="editorLauncherDescription">
+          En un momento veras la demo recomendada para abrirla en otra pestana con el editor listo.
         </p>
-        <div class="editor-template-list" id="editorTemplateList">
-          <article class="editor-empty-card">Cargando plantillas...</article>
-        </div>
-      </aside>
 
-      <section class="editor-preview-shell">
-        <div class="editor-preview-top">
-          <div class="editor-preview-copy">
-            <strong id="editorPreviewTitle">Selecciona una demo para comenzar</strong>
-            <p id="editorPreviewSubtitle">
-              La vista previa mantiene la plantilla intacta y aplica tus cambios encima desde este
-              editor central.
-            </p>
-          </div>
-
-          <div class="editor-preview-actions">
-            <a
-              class="editor-action-btn"
-              id="editorOpenPreview"
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Abrir demo
-            </a>
-            <button class="editor-action-btn" type="button" id="editorExportBtn">
-              Exportar JSON
-            </button>
-            <button class="editor-action-btn" type="button" id="editorImportBtn">
-              Importar JSON
-            </button>
-            <button class="editor-action-btn is-primary" type="button" id="editorResetBtn">
-              Restablecer demo
-            </button>
-          </div>
+        <div class="editor-launcher-actions">
+          <a
+            class="btn btn-primary"
+            id="editorLauncherEdit"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Abrir para editar
+          </a>
+          <a
+            class="btn btn-secondary"
+            id="editorLauncherView"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Ver demo
+          </a>
         </div>
 
-        <iframe
-          class="editor-preview-frame"
-          id="editorPreviewFrame"
-          title="Vista previa editable"
-          loading="eager"
-        ></iframe>
+        <div class="editor-launcher-steps">
+          <article>
+            <span>01</span>
+            <div>
+              <strong>Seleccionas la demo</strong>
+              <p>Eliges la estructura que mejor se adapta al negocio.</p>
+            </div>
+          </article>
+          <article>
+            <span>02</span>
+            <div>
+              <strong>Se abre en otra pestana</strong>
+              <p>El portafolio y este selector se quedan abiertos para seguir comparando.</p>
+            </div>
+          </article>
+          <article>
+            <span>03</span>
+            <div>
+              <strong>Editas donde haces clic</strong>
+              <p>Las opciones aparecen junto al elemento seleccionado, no en una barra lateral.</p>
+            </div>
+          </article>
+        </div>
+
+        <p class="editor-launcher-status" id="editorLauncherStatus">
+          Los cambios del editor se guardan localmente por plantilla y puedes exportarlos cuando
+          quieras.
+        </p>
+      </article>
+
+      <section class="editor-launcher-grid" id="editorLauncherGrid" aria-label="Plantillas editables">
+        <article class="editor-launcher-card is-loading">Cargando demos...</article>
       </section>
-
-      <aside class="editor-panel">
-        <h2>Inspector</h2>
-        <p>
-          Haz clic dentro de la vista previa para editar bloques puntuales o usa los ajustes
-          globales para cambiar titulo, descripcion y estilos generales.
-        </p>
-
-        <div class="editor-panel-section">
-          <h3>Ajustes globales</h3>
-          <div class="editor-field-list" id="editorGlobalFields"></div>
-        </div>
-
-        <div class="editor-selection-state" id="editorSelectionState">
-          <strong>Elemento seleccionado</strong>
-          <p id="editorSelectionHelp">
-            Selecciona una zona dentro de la vista previa para editarla desde aqui.
-          </p>
-          <code id="editorSelectionCode">Sin seleccion</code>
-        </div>
-
-        <div class="editor-panel-section">
-          <h3>Propiedades del elemento</h3>
-          <div class="editor-field-list" id="editorFieldList">
-            <article class="editor-empty-card">
-              Aqui apareceran las propiedades del elemento que selecciones.
-            </article>
-          </div>
-        </div>
-
-        <p class="editor-status" id="editorStatus">
-          Los cambios se guardan en este navegador por plantilla. Tambien puedes exportarlos a
-          JSON.
-        </p>
-        <input id="editorImportFile" type="file" accept="application/json" hidden />
-      </aside>
     </section>
   </main>
 
   <footer class="footer shell">
     <span>Andres Valencia</span>
-    <span>Editor central para demos web</span>
+    <span>Editor visual para demos web</span>
     <span id="footerYear"></span>
   </footer>
 

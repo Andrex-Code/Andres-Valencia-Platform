@@ -128,6 +128,15 @@ function getEditorHref(entry) {
   return slug ? `editor.html?template=${encodeURIComponent(slug)}` : "editor.html";
 }
 
+function getLiveEditHref(entry) {
+  const demoHref = String(entry?.entry || "").trim();
+  if (!demoHref) {
+    return "#";
+  }
+
+  return demoHref.includes("?") ? `${demoHref}&edit=1` : `${demoHref}?edit=1`;
+}
+
 function buildCaseCard(entry, index) {
   const highlights = (entry.highlights || [])
     .map((item) => `<li>${escapeHtml(item)}</li>`)
@@ -165,6 +174,7 @@ function buildCaseCard(entry, index) {
           <div class="case-tags">${tags}</div>
           <div class="case-links">
             <a href="${escapeHtml(demoHref)}" ${externalLinkAttrs}>Ver demo</a>
+            <a href="${escapeHtml(getLiveEditHref(entry))}" ${externalLinkAttrs}>Editar</a>
             <a href="${escapeHtml(notesHref)}" ${externalLinkAttrs}>Ver notas</a>
           </div>
         </div>
@@ -183,7 +193,8 @@ function buildEditorCard(entry) {
         ${(entry.tags || []).map((item) => `<span class="editor-pill">${escapeHtml(item)}</span>`).join("")}
       </div>
       <footer>
-        <a href="${escapeHtml(getEditorHref(entry))}" ${externalLinkAttrs}>Abrir editor</a>
+        <a href="${escapeHtml(getEditorHref(entry))}" ${externalLinkAttrs}>Elegir plantilla</a>
+        <a href="${escapeHtml(getLiveEditHref(entry))}" ${externalLinkAttrs}>Editar ahora</a>
       </footer>
     </article>
   `;

@@ -1,53 +1,238 @@
-const fallbackTemplates=[{slug:"panaderia",name:"Panaderia La Chiquita",category:"bakery",entry:"templates/panaderia/index.html",readme:"templates/panaderia/README.md",status:"ready"},{slug:"restaurant",name:"Aubergine",category:"restaurant",entry:"templates/restaurant/index.html",readme:"templates/restaurant/README.md",status:"ready"},{slug:"gym",name:"IRONFORM Gym",category:"fitness",entry:"templates/gym/index.html",readme:"templates/gym/README.md",status:"ready"},{slug:"tattoo-studio",name:"Sombra Ink",category:"tattoo",entry:"templates/tattoo-studio/index.html",readme:"templates/tattoo-studio/README.md",status:"ready"}];
-const fallbackShowcase=[{slug:"panaderia",order:1,eyebrow:"Panaderia / catalogo editable",summary:"Pagina para mostrar productos del dia, recibir pedidos y responder dudas rapido.",editorCopy:"Edita textos, CTA, imagenes y mensajes desde un editor central separado de la plantilla."},{slug:"restaurant",order:2,eyebrow:"Restaurante / menu y reservas",summary:"Pagina para mostrar el lugar, la carta y facilitar reservas.",editorCopy:"Ajusta propuesta, reservas, enlaces e imagenes desde el editor central."},{slug:"gym",order:3,eyebrow:"Gimnasio / planes y clases",summary:"Pagina comercial para mostrar planes, clases y datos clave.",editorCopy:"Edita promesa, planes, CTA y datos de contacto sin salir del editor central."},{slug:"tattoo-studio",order:4,eyebrow:"Tattoo / portafolio visual",summary:"Sitio para mostrar trabajos, estilo y datos de contacto.",editorCopy:"Ajusta mensaje, galeria, CTA y datos clave con un flujo separado de la demo."}];
-const STORAGE_PREFIX="av-central-editor::";
-const STYLE_ID="av-central-editor-style";
-const CUSTOM_STYLE_ID="av-central-editor-custom-css";
-const BLOCKED=new Set(["html","head","body","meta","link","script","style","noscript"]);
-const TEXT_TAGS=new Set(["a","button","label","small","span","strong","em","b","i","h1","h2","h3","h4","h5","h6","p","li","blockquote","figcaption"]);
-const dom={templateList:document.getElementById("editorTemplateList"),previewFrame:document.getElementById("editorPreviewFrame"),previewTitle:document.getElementById("editorPreviewTitle"),previewSubtitle:document.getElementById("editorPreviewSubtitle"),openPreview:document.getElementById("editorOpenPreview"),exportBtn:document.getElementById("editorExportBtn"),importBtn:document.getElementById("editorImportBtn"),resetBtn:document.getElementById("editorResetBtn"),importFile:document.getElementById("editorImportFile"),globalFields:document.getElementById("editorGlobalFields"),fieldList:document.getElementById("editorFieldList"),status:document.getElementById("editorStatus"),selectionHelp:document.getElementById("editorSelectionHelp"),selectionCode:document.getElementById("editorSelectionCode"),footerYear:document.getElementById("footerYear")};
-let templates=[],selectedTemplate=null,currentState=null,previewDocument=null,liveDefaults={pageTitle:"",metaDescription:"",customCss:""},activeSelection={selector:"",element:null};
-async function fetchJson(path,fallback){try{const response=await fetch(path);if(!response.ok)throw new Error(`No se pudo cargar ${path}`);return await response.json();}catch(error){console.warn(error);return fallback;}}
-function escapeHtml(value){return String(value??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
-function normalizeState(value={}){return{pageTitle:typeof value.pageTitle==="string"?value.pageTitle:"",metaDescription:typeof value.metaDescription==="string"?value.metaDescription:"",customCss:typeof value.customCss==="string"?value.customCss:"",patches:value&&typeof value.patches==="object"&&value.patches?value.patches:{}};}
-function getStorageKey(slug){return `${STORAGE_PREFIX}${slug}`;}
-function loadState(slug){try{return normalizeState(JSON.parse(localStorage.getItem(getStorageKey(slug))||"{}"));}catch(error){console.warn(error);return normalizeState();}}
-function persistState(){if(selectedTemplate&&currentState)localStorage.setItem(getStorageKey(selectedTemplate.slug),JSON.stringify(currentState));}
-function setStatus(message){if(dom.status)dom.status.textContent=message;}
-function updateUrl(slug){const url=new URL(window.location.href);url.searchParams.set("template",slug);window.history.replaceState({},"",url);}
-function ensurePatch(selector){if(!currentState.patches[selector])currentState.patches[selector]={};return currentState.patches[selector];}
-function formatCss(value){return value&&value!=="rgba(0, 0, 0, 0)"?value:"";}
-function parseBg(value){if(!value||value==="none")return"";const match=value.match(/url\((['"]?)(.*?)\1\)/i);return match?match[2]:value;}
-function toBg(value){const trimmed=String(value||"").trim();if(!trimmed)return"";if(trimmed.startsWith("url(")||trimmed.startsWith("linear-gradient("))return trimmed;return `url("${trimmed.replace(/"/g,'\\"')}")`;}
-function selectorEscape(value){if(window.CSS?.escape)return window.CSS.escape(value);return String(value).replace(/[^a-zA-Z0-9_-]/g,"\\$&");}
-function describeElement(element){if(!element)return"Sin seleccion";const tag=element.tagName.toLowerCase();const id=element.id?`#${element.id}`:"";const classes=[...element.classList].slice(0,3).map((item)=>`.${item}`).join("");return `${tag}${id}${classes}`;}
-function isSelectable(element){if(!element||element.nodeType!==Node.ELEMENT_NODE)return false;const tag=element.tagName.toLowerCase();if(BLOCKED.has(tag))return false;const rect=element.getBoundingClientRect();return rect.width>8&&rect.height>8;}
-function findSelectableTarget(target){let element=target?.nodeType===Node.ELEMENT_NODE?target:target?.parentElement;while(element&&element!==previewDocument.body){if(isSelectable(element))return element;element=element.parentElement;}return null;}
-function buildSelector(element){if(!previewDocument||!element)return"";if(element.id){const idSelector=`#${selectorEscape(element.id)}`;if(previewDocument.querySelectorAll(idSelector).length===1)return idSelector;}const parts=[];let current=element;while(current&&current.nodeType===Node.ELEMENT_NODE&&current!==previewDocument.body){let segment=current.tagName.toLowerCase();const usableClasses=[...current.classList].filter((item)=>!item.startsWith("is-")&&!item.startsWith("has-")).slice(0,2);if(usableClasses.length)segment+=usableClasses.map((item)=>`.`+selectorEscape(item)).join("");if(current.parentElement){const siblings=[...current.parentElement.children].filter((item)=>item.tagName===current.tagName);if(siblings.length>1)segment+=`:nth-of-type(${siblings.indexOf(current)+1})`;}parts.unshift(segment);const selector=parts.join(" > ");if(previewDocument.querySelectorAll(selector).length===1)return selector;current=current.parentElement;}return parts.join(" > ");}
-function clearMarks(){if(!previewDocument)return;previewDocument.querySelectorAll("[data-av-editor-hover]").forEach((node)=>node.removeAttribute("data-av-editor-hover"));previewDocument.querySelectorAll("[data-av-editor-selected]").forEach((node)=>node.removeAttribute("data-av-editor-selected"));}
-function markSelection(element){clearMarks();if(element)element.setAttribute("data-av-editor-selected","true");}
-function renderTemplateList(){if(!dom.templateList)return;if(!templates.length){dom.templateList.innerHTML='<article class="editor-empty-card">No hay plantillas disponibles en el catalogo.</article>';return;}dom.templateList.innerHTML=templates.map((template)=>`<button class="editor-template-btn${selectedTemplate?.slug===template.slug?" is-active":""}" type="button" data-template-slug="${escapeHtml(template.slug)}"><strong>${escapeHtml(template.name||template.slug)}</strong><span>${escapeHtml(template.eyebrow||template.category||"Demo web")}</span><small>${escapeHtml(template.editorCopy||template.summary||"Editor central disponible.")}</small></button>`).join("");}
-function renderGlobalFields(){if(!dom.globalFields||!selectedTemplate)return;const pageTitle=currentState.pageTitle||liveDefaults.pageTitle||"";const metaDescription=currentState.metaDescription||liveDefaults.metaDescription||"";const customCss=currentState.customCss||"";dom.globalFields.innerHTML=`<label class="editor-field"><span>Titulo SEO</span><input type="text" data-global-field="pageTitle" value="${escapeHtml(pageTitle)}" placeholder="Titulo del documento" /><small>Cambia el titulo de la pestana y el encabezado SEO de la demo.</small></label><label class="editor-field"><span>Descripcion SEO</span><textarea data-global-field="metaDescription" placeholder="Descripcion corta para buscadores y redes">${escapeHtml(metaDescription)}</textarea><small>Ideal para afinar el mensaje comercial que aparece al compartir la pagina.</small></label><label class="editor-field"><span>CSS adicional</span><textarea data-global-field="customCss" placeholder=".hero { border-radius: 32px; }">${escapeHtml(customCss)}</textarea><small>Sirve para ajustes globales sin tocar el archivo original de la plantilla.</small></label>`;}
-function renderFieldList(fields=[]){if(!dom.fieldList)return;if(!fields.length){dom.fieldList.innerHTML='<article class="editor-empty-card">Selecciona un bloque de la vista previa para editar texto, enlaces, imagenes o estilos basicos.</article>';return;}dom.fieldList.innerHTML=fields.map((field)=>{if(field.type==="select"){return `<label class="editor-field"><span>${escapeHtml(field.label)}</span><select data-selection-field="${escapeHtml(field.key)}">${field.options.map((option)=>`<option value="${escapeHtml(option.value)}"${option.value===field.value?" selected":""}>${escapeHtml(option.label)}</option>`).join("")}</select>${field.help?`<small>${escapeHtml(field.help)}</small>`:""}</label>`;}if(field.type==="textarea"){return `<label class="editor-field"><span>${escapeHtml(field.label)}</span><textarea data-selection-field="${escapeHtml(field.key)}" placeholder="${escapeHtml(field.placeholder||"")}">${escapeHtml(field.value||"")}</textarea>${field.help?`<small>${escapeHtml(field.help)}</small>`:""}</label>`;}return `<label class="editor-field"><span>${escapeHtml(field.label)}</span><input type="${escapeHtml(field.type||"text")}" data-selection-field="${escapeHtml(field.key)}" value="${escapeHtml(field.value||"")}" placeholder="${escapeHtml(field.placeholder||"")}" />${field.help?`<small>${escapeHtml(field.help)}</small>`:""}</label>`;}).join("");}
-function getSelectionFields(element){if(!element)return[];const tag=element.tagName.toLowerCase();const computed=previewDocument?.defaultView?.getComputedStyle(element)||window.getComputedStyle(element);const fields=[];const textOnly=element.children.length===0||TEXT_TAGS.has(tag)||tag==="summary"||tag==="option";if(textOnly&&tag!=="img"&&tag!=="input"&&tag!=="textarea"){fields.push({key:"textContent",label:"Texto visible",type:"textarea",value:element.textContent?.trim()||"",help:"Reemplaza el texto visible del elemento seleccionado."});}else if(tag!=="img"&&tag!=="input"&&tag!=="textarea"){fields.push({key:"innerHTML",label:"HTML interno",type:"textarea",value:element.innerHTML?.trim()||"",help:"Util para bloques complejos. Cambialo con cuidado para no romper la estructura."});}if(tag==="a"){fields.push({key:"href",label:"Destino del enlace",type:"text",value:element.getAttribute("href")||"",placeholder:"https://...",help:"Puedes usar una URL completa, WhatsApp o un ancla interna."},{key:"target",label:"Comportamiento del enlace",type:"select",value:element.getAttribute("target")||"",options:[{value:"",label:"Abrir en la misma pestana"},{value:"_blank",label:"Abrir en otra pestana"}],help:"Conviene abrir en otra pestana cuando el portafolio debe quedar visible."});}if(tag==="img"){fields.push({key:"src",label:"URL de la imagen",type:"text",value:element.getAttribute("src")||"",placeholder:"https://...",help:"Usa una imagen publica accesible desde la web."},{key:"alt",label:"Texto alternativo",type:"text",value:element.getAttribute("alt")||"",placeholder:"Descripcion de la imagen",help:"Ayuda al SEO y a la accesibilidad."});}if(tag==="input"||tag==="textarea"){fields.push({key:"placeholder",label:"Placeholder",type:"text",value:element.getAttribute("placeholder")||"",placeholder:"Escribe aqui...",help:"Texto de ayuda visible dentro del campo."},{key:"value",label:"Valor inicial",type:"text",value:element.value||element.getAttribute("value")||"",help:"Solo recomendado para demos de ejemplo o formularios de prueba."});}if(tag!=="img"){fields.push({key:"backgroundImage",label:"Imagen de fondo",type:"text",value:parseBg(element.style.backgroundImage||computed.backgroundImage),placeholder:"https://... o linear-gradient(...)",help:"Sirve para heroes, tarjetas y fondos visuales."});}fields.push({key:"backgroundColor",label:"Color de fondo",type:"text",value:formatCss(element.style.backgroundColor||computed.backgroundColor),placeholder:"#111111 o rgba(...)",help:"Puedes usar hex, rgb o rgba."});if(tag!=="img"){fields.push({key:"color",label:"Color del texto",type:"text",value:formatCss(element.style.color||computed.color),placeholder:"#ffffff o rgb(...)",help:"Util para titulares, botones y textos destacados."});}return fields;}
-function applyPatchToElement(element,patch){if(!element||!patch)return;if(Object.prototype.hasOwnProperty.call(patch,"textContent"))element.textContent=patch.textContent;if(Object.prototype.hasOwnProperty.call(patch,"innerHTML"))element.innerHTML=patch.innerHTML;if(Object.prototype.hasOwnProperty.call(patch,"href"))patch.href?element.setAttribute("href",patch.href):element.removeAttribute("href");if(Object.prototype.hasOwnProperty.call(patch,"target")){if(patch.target){element.setAttribute("target",patch.target);if(patch.target==="_blank")element.setAttribute("rel","noopener noreferrer");}else{element.removeAttribute("target");}}if(Object.prototype.hasOwnProperty.call(patch,"src"))patch.src?element.setAttribute("src",patch.src):element.removeAttribute("src");if(Object.prototype.hasOwnProperty.call(patch,"alt"))patch.alt?element.setAttribute("alt",patch.alt):element.removeAttribute("alt");if(Object.prototype.hasOwnProperty.call(patch,"placeholder"))patch.placeholder?element.setAttribute("placeholder",patch.placeholder):element.removeAttribute("placeholder");if(Object.prototype.hasOwnProperty.call(patch,"value")){element.value=patch.value;if(patch.value)element.setAttribute("value",patch.value);else element.removeAttribute("value");}if(Object.prototype.hasOwnProperty.call(patch,"backgroundImage"))element.style.backgroundImage=patch.backgroundImage?toBg(patch.backgroundImage):"";if(Object.prototype.hasOwnProperty.call(patch,"backgroundColor"))element.style.backgroundColor=patch.backgroundColor||"";if(Object.prototype.hasOwnProperty.call(patch,"color"))element.style.color=patch.color||"";}
-function applyStateToPreview(){if(!previewDocument||!currentState)return;previewDocument.title=currentState.pageTitle||liveDefaults.pageTitle||previewDocument.title;const metaDescription=previewDocument.querySelector('meta[name="description"]');if(metaDescription){metaDescription.setAttribute("content",currentState.metaDescription||liveDefaults.metaDescription||metaDescription.getAttribute("content")||"");}let customStyle=previewDocument.getElementById(CUSTOM_STYLE_ID);if(!customStyle&&previewDocument.head){customStyle=previewDocument.createElement("style");customStyle.id=CUSTOM_STYLE_ID;previewDocument.head.appendChild(customStyle);}if(customStyle)customStyle.textContent=currentState.customCss||"";Object.entries(currentState.patches||{}).forEach(([selector,patch])=>{const element=previewDocument.querySelector(selector);if(element)applyPatchToElement(element,patch);});}
-function refreshSelection(){if(!previewDocument||!activeSelection.selector)return;const nextElement=previewDocument.querySelector(activeSelection.selector);activeSelection.element=nextElement||null;markSelection(activeSelection.element);}
-function injectEditorStyle(){if(!previewDocument?.head)return;let styleNode=previewDocument.getElementById(STYLE_ID);if(!styleNode){styleNode=previewDocument.createElement("style");styleNode.id=STYLE_ID;previewDocument.head.appendChild(styleNode);}styleNode.textContent='html{scroll-behavior:smooth;}body{cursor:crosshair;}[data-av-editor-hover]{outline:2px dashed rgba(47,160,255,.85)!important;outline-offset:4px!important;}[data-av-editor-selected]{outline:3px solid rgba(255,92,30,.92)!important;outline-offset:4px!important;box-shadow:0 0 0 6px rgba(255,92,30,.18)!important;}';}
-function renderSelection(element,selector){activeSelection={selector:selector||"",element:element||null};if(!element||!selector){dom.selectionCode.textContent="Sin seleccion";dom.selectionHelp.textContent="Selecciona una zona dentro de la vista previa para editarla desde aqui.";renderFieldList([]);clearMarks();return;}dom.selectionCode.textContent=selector;dom.selectionHelp.textContent=`Editando ${describeElement(element)}.`;markSelection(element);renderFieldList(getSelectionFields(element));}
-function handlePreviewHover(event){const element=findSelectableTarget(event.target);if(!element)return;previewDocument.querySelectorAll("[data-av-editor-hover]").forEach((node)=>{if(!node.hasAttribute("data-av-editor-selected"))node.removeAttribute("data-av-editor-hover");});if(!element.hasAttribute("data-av-editor-selected"))element.setAttribute("data-av-editor-hover","true");}
-function handlePreviewClick(event){const element=findSelectableTarget(event.target);if(!element)return;event.preventDefault();event.stopPropagation();const selector=buildSelector(element);renderSelection(element,selector);}
-function bindPreviewEvents(){if(!previewDocument)return;previewDocument.addEventListener("mouseover",handlePreviewHover,true);previewDocument.addEventListener("click",handlePreviewClick,true);}
-function syncLiveDefaults(){if(!previewDocument)return;liveDefaults={pageTitle:previewDocument.title||"",metaDescription:previewDocument.querySelector('meta[name="description"]')?.getAttribute("content")||"",customCss:currentState?.customCss||""};}
-function loadPreview(){if(!selectedTemplate||!dom.previewFrame)return;setStatus("Cargando demo seleccionada...");dom.previewFrame.src=selectedTemplate.entry;}
-function updatePreviewHeader(){if(!selectedTemplate)return;dom.previewTitle.textContent=selectedTemplate.name||selectedTemplate.slug;dom.previewSubtitle.textContent=selectedTemplate.editorCopy||selectedTemplate.summary||"Editor central para editar textos, imagenes, enlaces y estilos basicos.";dom.openPreview.href=selectedTemplate.entry||"#";}
-function selectTemplate(slug){const match=templates.find((template)=>template.slug===slug)||templates[0];if(!match)return;selectedTemplate=match;currentState=loadState(match.slug);previewDocument=null;liveDefaults={pageTitle:"",metaDescription:"",customCss:currentState?.customCss||""};activeSelection={selector:"",element:null};updatePreviewHeader();renderTemplateList();renderGlobalFields();renderSelection(null,"");updateUrl(match.slug);loadPreview();}
-function downloadJson(data,fileName){const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});const href=URL.createObjectURL(blob);const anchor=document.createElement("a");anchor.href=href;anchor.download=fileName;anchor.click();URL.revokeObjectURL(href);}
-function exportState(){if(!selectedTemplate||!currentState)return;downloadJson({version:1,slug:selectedTemplate.slug,template:{name:selectedTemplate.name,entry:selectedTemplate.entry},state:currentState},`${selectedTemplate.slug}-editor.json`);setStatus("Se exporto el JSON de esta demo.");}
-async function importState(file){if(!file||!selectedTemplate)return;try{const text=await file.text();const payload=JSON.parse(text);currentState=normalizeState(payload?.state||payload);persistState();renderGlobalFields();renderSelection(null,"");loadPreview();setStatus("Se importo el JSON y se aplico a la demo actual.");}catch(error){console.error(error);setStatus("No se pudo importar el archivo JSON.");}}
-function resetCurrentTemplate(){if(!selectedTemplate)return;localStorage.removeItem(getStorageKey(selectedTemplate.slug));currentState=normalizeState();renderGlobalFields();renderSelection(null,"");loadPreview();setStatus("La demo seleccionada volvio a su estado base.");}
-function handleGlobalInput(event){const field=event.target?.dataset?.globalField;if(!field||!currentState)return;currentState[field]=event.target.value;persistState();applyStateToPreview();setStatus("Ajuste global guardado en este navegador.");}
-function handleSelectionInput(event){const field=event.target?.dataset?.selectionField;if(!field||!currentState||!activeSelection.selector)return;const patch=ensurePatch(activeSelection.selector);patch[field]=event.target.value;persistState();applyStateToPreview();refreshSelection();setStatus("Cambio aplicado sobre la vista previa.");}
-function attachUiEvents(){dom.templateList?.addEventListener("click",(event)=>{const button=event.target.closest("[data-template-slug]");if(!button)return;selectTemplate(button.dataset.templateSlug);});dom.globalFields?.addEventListener("input",handleGlobalInput);dom.fieldList?.addEventListener("input",handleSelectionInput);dom.fieldList?.addEventListener("change",handleSelectionInput);dom.exportBtn?.addEventListener("click",exportState);dom.importBtn?.addEventListener("click",()=>dom.importFile?.click());dom.importFile?.addEventListener("change",(event)=>{importState(event.target.files?.[0]);event.target.value="";});dom.resetBtn?.addEventListener("click",resetCurrentTemplate);dom.previewFrame?.addEventListener("load",()=>{previewDocument=dom.previewFrame.contentDocument;if(!previewDocument)return;syncLiveDefaults();injectEditorStyle();bindPreviewEvents();applyStateToPreview();renderGlobalFields();refreshSelection();setStatus("Vista previa lista. Haz clic sobre cualquier bloque para editarlo.");});}
-async function init(){const [catalogTemplates,showcase]=await Promise.all([fetchJson("catalog/templates.json",fallbackTemplates),fetchJson("catalog/showcase.json",fallbackShowcase)]);const showcaseBySlug=new Map(showcase.map((item)=>[item.slug,item]));templates=catalogTemplates.map((template)=>({...template,...(showcaseBySlug.get(template.slug)||{})})).sort((a,b)=>(a.order||99)-(b.order||99));if(dom.footerYear)dom.footerYear.textContent=new Date().getFullYear();attachUiEvents();renderTemplateList();const requestedSlug=new URL(window.location.href).searchParams.get("template");selectTemplate(requestedSlug||templates[0]?.slug||"");}
+const fallbackTemplates = [
+  {
+    slug: "panaderia",
+    name: "Panaderia La Chiquita",
+    category: "bakery",
+    entry: "templates/panaderia/index.html",
+    readme: "templates/panaderia/README.md",
+    status: "ready",
+  },
+  {
+    slug: "restaurant",
+    name: "Aubergine",
+    category: "restaurant",
+    entry: "templates/restaurant/index.html",
+    readme: "templates/restaurant/README.md",
+    status: "ready",
+  },
+  {
+    slug: "gym",
+    name: "IRONFORM Gym",
+    category: "fitness",
+    entry: "templates/gym/index.html",
+    readme: "templates/gym/README.md",
+    status: "ready",
+  },
+  {
+    slug: "tattoo-studio",
+    name: "Sombra Ink",
+    category: "tattoo",
+    entry: "templates/tattoo-studio/index.html",
+    readme: "templates/tattoo-studio/README.md",
+    status: "ready",
+  },
+];
+
+const fallbackShowcase = [
+  {
+    slug: "panaderia",
+    order: 1,
+    cover: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1400&q=80&auto=format&fit=crop",
+    eyebrow: "Panaderia / catalogo editable",
+    summary: "Pagina para mostrar productos del dia, recibir pedidos y responder dudas rapido.",
+    angle: "Pensada para vender por WhatsApp y facilitar cambios frecuentes.",
+    tags: ["Catalogo", "Pedidos", "WhatsApp"],
+    editorCopy: "Editor visual sobre la plantilla real para cambiar texto, CTA y presentacion.",
+  },
+  {
+    slug: "restaurant",
+    order: 2,
+    cover: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1400&q=80&auto=format&fit=crop",
+    eyebrow: "Restaurante / menu y reservas",
+    summary: "Pagina para mostrar el lugar, la carta y facilitar reservas.",
+    angle: "Busca transmitir confianza y ganas de visitar el sitio.",
+    tags: ["Menu", "Reservas", "Presentacion"],
+    editorCopy: "Editor visual para tocar mensaje, secciones, enlaces e imagenes desde la propia demo.",
+  },
+  {
+    slug: "gym",
+    order: 3,
+    cover: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1400&q=80&auto=format&fit=crop",
+    eyebrow: "Gimnasio / planes y clases",
+    summary: "Pagina comercial para mostrar planes, clases y datos clave.",
+    angle: "La idea es explicar rapido la oferta y llevar al contacto.",
+    tags: ["Planes", "Clases", "Contacto"],
+    editorCopy: "Editor visual para ajustar promesa, CTA, planes y datos clave donde haces clic.",
+  },
+  {
+    slug: "tattoo-studio",
+    order: 4,
+    cover: "https://images.unsplash.com/photo-1583744946564-b52ac1c389c8?w=1400&q=80&auto=format&fit=crop",
+    eyebrow: "Tattoo / portafolio visual",
+    summary: "Sitio para mostrar trabajos, estilo y datos de contacto.",
+    angle: "La confianza entra por las piezas publicadas y un contacto claro.",
+    tags: ["Galeria", "Estilo", "Contacto"],
+    editorCopy: "Editor visual para cambiar piezas, textos y CTA sin depender de una barra lateral.",
+  },
+];
+
+const dom = {
+  grid: document.getElementById("editorLauncherGrid"),
+  title: document.getElementById("editorLauncherTitle"),
+  description: document.getElementById("editorLauncherDescription"),
+  editLink: document.getElementById("editorLauncherEdit"),
+  viewLink: document.getElementById("editorLauncherView"),
+  status: document.getElementById("editorLauncherStatus"),
+  footerYear: document.getElementById("footerYear"),
+};
+
+let entries = [];
+let activeSlug = "";
+
+async function fetchJson(path, fallback) {
+  try {
+    const response = await fetch(path);
+    if (!response.ok) {
+      throw new Error(`No se pudo cargar ${path}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.warn(error);
+    return fallback;
+  }
+}
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function getPreviewHref(entry) {
+  return entry?.entry || "#";
+}
+
+function getEditHref(entry) {
+  const previewHref = getPreviewHref(entry);
+  if (!previewHref || previewHref === "#") {
+    return "#";
+  }
+
+  return previewHref.includes("?") ? `${previewHref}&edit=1` : `${previewHref}?edit=1`;
+}
+
+function updateUrl(slug) {
+  const url = new URL(window.location.href);
+  url.searchParams.set("template", slug);
+  window.history.replaceState({}, "", url);
+}
+
+function renderFocus(entry) {
+  if (!entry) {
+    return;
+  }
+
+  dom.title.textContent = entry.name || "Selecciona una plantilla";
+  dom.description.textContent =
+    entry.editorCopy ||
+    entry.angle ||
+    "Se abrira otra pestana con la plantilla lista para editar sobre la demo real.";
+  dom.editLink.href = getEditHref(entry);
+  dom.viewLink.href = getPreviewHref(entry);
+  dom.status.textContent =
+    "Haz clic en cualquier bloque cuando se abra la demo y las opciones apareceran junto al elemento seleccionado.";
+}
+
+function buildCard(entry) {
+  const isActive = entry.slug === activeSlug;
+  const tagList = (entry.tags || [])
+    .map((item) => `<span>${escapeHtml(item)}</span>`)
+    .join("");
+
+  return `
+    <article class="editor-launcher-card${isActive ? " is-active" : ""}" data-template-card="${escapeHtml(entry.slug)}">
+      <div class="editor-launcher-card-cover" style="background-image:url('${escapeHtml(entry.cover || "")}')"></div>
+      <div class="editor-launcher-card-top">
+        <small>${escapeHtml(entry.eyebrow || entry.category || "Demo web")}</small>
+        <span>${isActive ? "Seleccionada" : "Lista para editar"}</span>
+      </div>
+      <div>
+        <h3>${escapeHtml(entry.name || "")}</h3>
+        <p>${escapeHtml(entry.summary || "")}</p>
+      </div>
+      <p>${escapeHtml(entry.editorCopy || entry.angle || "")}</p>
+      <div class="editor-launcher-card-tags">${tagList}</div>
+      <div class="editor-launcher-card-actions">
+        <a href="${escapeHtml(getEditHref(entry))}" target="_blank" rel="noopener noreferrer">Editar</a>
+        <a href="${escapeHtml(getPreviewHref(entry))}" target="_blank" rel="noopener noreferrer">Ver demo</a>
+        <button type="button" data-select-template="${escapeHtml(entry.slug)}">Seleccionar aqui</button>
+      </div>
+    </article>
+  `;
+}
+
+function renderGrid() {
+  if (!dom.grid) {
+    return;
+  }
+
+  if (!entries.length) {
+    dom.grid.innerHTML = '<article class="editor-launcher-card is-loading">No hay demos listas para editar.</article>';
+    return;
+  }
+
+  dom.grid.innerHTML = entries.map(buildCard).join("");
+}
+
+function setActiveTemplate(slug) {
+  const nextEntry = entries.find((entry) => entry.slug === slug) || entries[0];
+  if (!nextEntry) {
+    return;
+  }
+
+  activeSlug = nextEntry.slug;
+  updateUrl(activeSlug);
+  renderFocus(nextEntry);
+  renderGrid();
+}
+
+function attachEvents() {
+  dom.grid?.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-select-template]");
+    const card = event.target.closest("[data-template-card]");
+    const slug = button?.dataset.selectTemplate || card?.dataset.templateCard;
+
+    if (!slug) {
+      return;
+    }
+
+    if (button) {
+      event.preventDefault();
+    }
+
+    setActiveTemplate(slug);
+  });
+}
+
+async function init() {
+  const [templates, showcase] = await Promise.all([
+    fetchJson("catalog/templates.json", fallbackTemplates),
+    fetchJson("catalog/showcase.json", fallbackShowcase),
+  ]);
+
+  const showcaseBySlug = new Map(showcase.map((item) => [item.slug, item]));
+  entries = templates
+    .map((template) => ({ ...template, ...(showcaseBySlug.get(template.slug) || {}) }))
+    .sort((a, b) => (a.order || 99) - (b.order || 99));
+
+  if (dom.footerYear) {
+    dom.footerYear.textContent = new Date().getFullYear();
+  }
+
+  attachEvents();
+  setActiveTemplate(new URL(window.location.href).searchParams.get("template") || entries[0]?.slug || "");
+}
+
 init();
