@@ -682,6 +682,59 @@ select {
   gap: 14px;
 }
 
+.page-intro {
+  max-width: 74ch;
+  padding: 92px 0 16px;
+}
+
+.page-intro h1 {
+  margin: 0;
+  color: var(--heading);
+  font-family: "DM Serif Display", serif;
+  font-size: clamp(2.8rem, 5vw, 4.8rem);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+}
+
+.page-intro p:not(.section-label) {
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.section-tight {
+  padding-top: 20px;
+}
+
+.selection-note {
+  margin-bottom: 24px;
+  padding: 22px 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  background: linear-gradient(180deg, rgba(24, 24, 24, 0.96), rgba(17, 17, 17, 0.98));
+  box-shadow: var(--shadow);
+}
+
+.selection-note strong {
+  display: block;
+  color: var(--heading);
+  font-size: 1rem;
+}
+
+.selection-note p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.selection-card.is-selected {
+  border-color: var(--accent);
+  box-shadow:
+    0 0 0 1px rgba(126, 169, 201, 0.32),
+    var(--shadow);
+}
+
 .editor-mini-card {
   padding: 20px;
 }

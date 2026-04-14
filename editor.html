@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Editor de demos | Andres Valencia</title>
+  <meta
+    name="description"
+    content="Selecciona la demo que quieres abrir o trabajar sin cerrar el portafolio principal."
+  />
+  <meta property="og:title" content="Editor de demos | Andres Valencia" />
+  <meta
+    property="og:description"
+    content="Una pagina central para elegir la demo que quieres abrir en otra pestaña."
+  />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_CO" />
+  <link rel="icon" type="image/svg+xml" href="assets/brand/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="assets/css/site.css" />
+</head>
+<body>
+  <div class="site-aura" aria-hidden="true"></div>
+
+  <header class="nav-wrap">
+    <nav class="nav shell" aria-label="Principal">
+      <a class="brand" href="index.html" aria-label="Volver al portafolio">
+        <img
+          class="brand-logo"
+          src="assets/brand/logo-mark.svg"
+          alt="Logo Andres Valencia"
+          width="46"
+          height="46"
+        />
+        <span class="brand-copy">
+          <strong>Andres Valencia</strong>
+          <small>Editor de demos</small>
+        </span>
+      </a>
+
+      <div class="nav-links">
+        <a href="index.html#trabajos">Portafolio</a>
+        <a href="#seleccion">Seleccion</a>
+        <a href="index.html#faq">Preguntas</a>
+      </div>
+
+      <a class="nav-cta" href="index.html">Volver al portafolio</a>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <section class="page-intro" id="seleccion" data-reveal>
+      <p class="section-label">Seleccion de demo</p>
+      <h1>Elige la demo que quieres abrir sin perder la portada.</h1>
+      <p>
+        Esta pagina sirve como puente. Desde aqui escoges la demo, la abres en otra pestaña y el
+        portafolio principal se queda disponible para seguir comparando propuestas.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="index.html#trabajos">Volver a las demos</a>
+        <a
+          class="btn btn-secondary"
+          href="https://wa.me/573007561667?text=Hola,%20quiero%20trabajar%20una%20demo%20de%20mi%20sitio%20web."
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Hablar por WhatsApp
+        </a>
+      </div>
+    </section>
+
+    <section class="section section-tight">
+      <div class="selection-note" data-reveal>
+        <strong>Panaderia ya trae editor visual completo.</strong>
+        <p>
+          Las otras demos se abren por esta misma ruta para revisarlas aparte y seguir llevando el
+          editor al resto del catalogo.
+        </p>
+      </div>
+
+      <div class="case-grid selection-grid" id="editorPageGrid">
+        <article class="case-loading">Cargando demos...</article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer shell">
+    <span>Andres Valencia</span>
+    <span>Paginas web para negocios</span>
+    <span id="footerYear"></span>
+  </footer>
+
+  <script type="module" src="assets/js/site.js"></script>
+</body>
+</html>
