@@ -1,0 +1,393 @@
+{
+  "businesses": [
+    {
+      "slug": "panaderia-belalcazar",
+      "name": "Panaderia La Chiquita",
+      "category": "Panaderia",
+      "city": "Belalcazar, Caldas, Colombia",
+      "whatsapp": "573007561667",
+      "hero_title": "Pan fresco, tortas y antojos del dia en Panaderia La Chiquita",
+      "hero_subtitle": "Panaderia local con productos frescos, atencion cercana y pedidos faciles por WhatsApp.",
+      "items_label": "Productos",
+      "items": [
+        {
+          "name": "Pan alinado",
+          "description": "Crujiente por fuera y suave por dentro, ideal para el desayuno.",
+          "price": "2.500",
+          "category": "Pan tradicional",
+          "image": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=900&q=80&auto=format&fit=crop",
+          "status": "active",
+          "badge": "",
+          "search_terms": "",
+          "featured": true
+        },
+        {
+          "name": "Pan campesino",
+          "description": "Miga suave, corteza dorada y sabor casero para compartir.",
+          "price": "3.200",
+          "category": "Pan tradicional",
+          "image": "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=900&q=80&auto=format&fit=crop",
+          "status": "active",
+          "badge": "",
+          "search_terms": "",
+          "featured": true
+        },
+        {
+          "name": "Mogolla integral",
+          "description": "Ideal para desayuno y onces, con textura suave y sabor balanceado.",
+          "price": "2.000",
+          "category": "Panes especiales",
+          "image": "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=900&q=80&auto=format&fit=crop",
+          "status": "active",
+          "badge": "",
+          "search_terms": "",
+          "featured": true
+        },
+        {
+          "name": "Pan de queso",
+          "description": "Recien horneado, suave por dentro y con mucho sabor.",
+          "price": "2.965",
+          "category": "Panes especiales",
+          "image": "https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=900&q=80&auto=format&fit=crop",
+          "status": "active",
+          "badge": "",
+          "search_terms": "",
+          "featured": true
+        },
+        {
+          "name": "Pastel de guayaba",
+          "description": "Hojaldre relleno, horneado del dia, perfecto para acompanar un cafe.",
+          "price": "3.500",
+          "category": "Hojaldres y pasteleria",
+          "image": "https://images.unsplash.com/photo-1483695028939-5bb13f8648b0?w=900&q=80&auto=format&fit=crop",
+          "status": "active",
+          "badge": "",
+          "search_terms": "",
+          "featured": false
+        },
+        {
+          "name": "Croissant de mantequilla",
+          "description": "Laminado, liviano y dorado, con textura hojaldrada.",
+          "price": "4.500",
+          "category": "Hojaldres y pasteleria",
+          "image": "https://images.unsplash.com/photo-1555507036-ab794f575c4d?w=900&q=80&auto=format&fit=crop",
+          "status": "active",
+          "badge": "",
+          "search_terms": "",
+          "featured": false
+        },
+        {
+          "name": "Torta de vainilla por porcion",
+          "description": "Porcion suave y esponjosa para celebraciones o antojos del dia.",
+          "price": "6.500",
+          "category": "Tortas y postres",
+          "image": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=900&q=80&auto=format&fit=crop",
+          "status": "active",
+          "badge": "",
+          "search_terms": "",
+          "featured": false
+        },
+        {
+          "name": "Torta de chocolate por porcion",
+          "description": "Bizcocho humedo con cubierta cremosa y sabor intenso.",
+          "price": "7.000",
+          "category": "Tortas y postres",
+          "image": "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=900&q=80&auto=format&fit=crop",
+          "status": "active",
+          "badge": "",
+          "search_terms": "",
+          "featured": false
+        },
+        {
+          "name": "Chocolate caliente",
+          "description": "Bebida caliente tradicional para una tarde de pan y onces.",
+          "price": "3.999",
+          "category": "Bebidas",
+          "image": "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=900&q=80&auto=format&fit=crop",
+          "status": "active",
+          "badge": "",
+          "search_terms": "",
+          "featured": false
+        },
+        {
+          "name": "Cafe americano",
+          "description": "Cafe recien preparado para acompanar panes, hojaldres y postres.",
+          "price": "2.500",
+          "category": "Bebidas",
+          "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=900&q=80&auto=format&fit=crop",
+          "status": "active",
+          "badge": "",
+          "search_terms": "",
+          "featured": false
+        }
+      ],
+      "client_password": "pan12345",
+      "address": "Parque principal, Belalcazar, Caldas",
+      "open_hours": "Lunes a Sabado 6:00 a.m. - 8:00 p.m. | Domingo 6:30 a.m. - 2:00 p.m.",
+      "order_note": "Pedidos por WhatsApp para recoger en tienda",
+      "short_description": "Mostramos panes, tortas y productos del dia de una forma clara para que mas personas conozcan la panaderia y pidan facil por WhatsApp.",
+      "about_text": "Panaderia La Chiquita trabaja con horneado diario, productos de vitrina y atencion cercana para las familias del sector. La idea de la pagina es que la gente vea rapido lo que ofreces, encuentre precios y pueda escribir sin complicaciones.",
+      "map_query": "Panaderia La Chiquita Belalcazar Caldas",
+      "faq": [
+        {
+          "q": "Reciben pedidos por WhatsApp?",
+          "a": "Si, te confirmamos disponibilidad y tiempo aproximado de entrega o recogida."
+        },
+        {
+          "q": "Manejan encargos para eventos?",
+          "a": "Si, puedes escribirnos para pedidos especiales de pan y pasteleria."
+        },
+        {
+          "q": "Puedo preguntar por productos del dia?",
+          "a": "Claro, por WhatsApp te compartimos lo recien salido del horno."
+        }
+      ],
+      "cake_gallery": [
+        "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1200&q=80&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=1200&q=80&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=1200&q=80&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=1200&q=80&auto=format&fit=crop"
+      ],
+      "sample_seed_version": 2,
+      "brand_tagline": "Panaderia artesanal",
+      "utility_badges": [
+        "Belalcazar, Caldas, Colombia",
+        "Pan y pasteleria del dia",
+        "Pedidos por WhatsApp"
+      ],
+      "hero_badge": "Panaderia local en Colombia",
+      "hero_image": "https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=1600&q=80&auto=format&fit=crop",
+      "hero_secondary_image": "https://images.unsplash.com/photo-1483695028939-5bb13f8648b0?w=1200&q=80&auto=format&fit=crop",
+      "story_image": "https://images.unsplash.com/photo-1555507036-ab794f575c4d?w=1200&q=80&auto=format&fit=crop",
+      "hero_caption_title": "Productos que antojan desde el primer vistazo",
+      "hero_caption_text": "Una vitrina digital clara para mostrar panes, tortas, horarios y pedidos sin enredos.",
+      "hero_note_label": "Encargos y pedidos",
+      "hero_note_title": "Todo listo para vender mejor por celular",
+      "hero_note_text": "Muestra productos, resuelve dudas rapido y lleva a la gente directo a WhatsApp.",
+      "hero_highlights": [
+        "Desayuno",
+        "Onces",
+        "Tortas",
+        "Encargos"
+      ],
+      "featured_title": "Lo mas pedido en la vitrina",
+      "featured_subtitle": "Una seleccion pensada para provocar antojo y ayudar a que el cliente encuentre rapido lo mejor del dia.",
+      "cakes_title": "Tortas y encargos especiales",
+      "cakes_subtitle": "Espacio ideal para mostrar tortas de celebracion, encargos personalizados y trabajos destacados.",
+      "story_title": "Una panaderia cercana, bien presentada y facil de contactar",
+      "story_points": [
+        "Fotos y precios visibles para que el cliente decida rapido.",
+        "Categorias claras para buscar mejor desde el celular.",
+        "Pedido directo por WhatsApp sin pasos innecesarios."
+      ],
+      "catalog_title": "Catalogo de productos",
+      "catalog_subtitle": "Busca por nombre, filtra por categoria y encuentra mas rapido lo que quieres pedir.",
+      "catalog_placeholder": "Buscar pan, torta, hojaldre o bebida...",
+      "contact_title": "Informacion para pedir o visitarnos",
+      "contact_text": "Atendemos pedidos por WhatsApp, consultas sobre disponibilidad y encargos especiales.",
+      "footer_note": "Pagina comercial para visibilidad local y pedidos directos.",
+      "announcement_badge": "Horneado del dia",
+      "announcement_text": "Haz tu pedido por WhatsApp y recoge en tienda sin enredos.",
+      "announcement_cta_label": "Ver catalogo",
+      "nav_label_home": "Inicio",
+      "nav_label_featured": "Destacados",
+      "nav_label_cakes": "Tortas",
+      "nav_label_story": "Nosotros",
+      "nav_label_catalog": "Catalogo",
+      "nav_label_contact": "Contacto",
+      "nav_label_faq": "FAQ",
+      "nav_cta_label": "Pedir por WhatsApp",
+      "hero_primary_cta_label": "Hacer pedido",
+      "hero_secondary_cta_label": "Como llegar",
+      "hero_note_cta_label": "Consultar por WhatsApp",
+      "meta_label_address": "Direccion",
+      "meta_label_hours": "Horario",
+      "meta_label_orders": "Pedidos",
+      "featured_kicker": "Lo que mas se mueve",
+      "cakes_kicker": "Tortas y celebraciones",
+      "story_kicker": "Conoce la panaderia",
+      "catalog_kicker": "Catalogo completo",
+      "catalog_clear_label": "Limpiar busqueda",
+      "catalog_empty_message": "No encontramos productos con esa busqueda. Prueba otra palabra o cambia de categoria.",
+      "catalog_sort_label": "Ordenar",
+      "catalog_results_label": "productos visibles hoy",
+      "contact_kicker": "Contacto directo",
+      "contact_primary_cta_label": "Escribir por WhatsApp",
+      "contact_secondary_cta_label": "Abrir mapa",
+      "faq_kicker": "Dudas frecuentes",
+      "faq_title": "Preguntas frecuentes",
+      "seo_title": "Panaderia La Chiquita",
+      "seo_description": "Mostramos panes, tortas y productos del dia de una forma clara para que mas personas conozcan la panaderia y pidan facil por WhatsApp.",
+      "show_announcement": true,
+      "show_featured": true,
+      "show_cakes": true,
+      "show_story": true,
+      "show_catalog": true,
+      "show_contact": true,
+      "show_faq": true,
+      "show_category_shortcuts": true,
+      "show_catalog_filters": true,
+      "show_catalog_search": true,
+      "show_category_boards": true,
+      "show_whatsapp_float": true,
+      "featured_limit": 4,
+      "theme_preset": "artesanal",
+      "theme_background": "#f5ede2",
+      "theme_surface": "#fffaf3",
+      "theme_surface_strong": "#fffdf9",
+      "theme_text": "#2b1c14",
+      "theme_muted": "#6d594b",
+      "theme_line": "#e3cfbc",
+      "theme_soft": "#f2e5d4",
+      "theme_accent": "#b86736",
+      "theme_accent_dark": "#964d22"
+    },
+    {
+      "slug": "psicologia-manizales",
+      "name": "Psicologia en Manizales",
+      "category": "Psicologia",
+      "city": "Manizales, Caldas",
+      "whatsapp": "573007561667",
+      "hero_title": "Acompanamiento psicologico profesional",
+      "hero_subtitle": "Espacio seguro y confidencial para trabajar bienestar emocional y salud mental.",
+      "items_label": "Servicios",
+      "items": [
+        {
+          "name": "Terapia individual",
+          "description": "Sesiones enfocadas en manejo emocional y crecimiento personal.",
+          "price": "120.000",
+          "category": "Servicios",
+          "status": "active",
+          "image": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=900&q=80&auto=format&fit=crop",
+          "badge": "",
+          "search_terms": "",
+          "featured": false
+        },
+        {
+          "name": "Terapia de pareja",
+          "description": "Mejora de comunicacion y resolucion de conflictos.",
+          "price": "180.000",
+          "category": "Servicios",
+          "status": "active",
+          "image": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=900&q=80&auto=format&fit=crop",
+          "badge": "",
+          "search_terms": "",
+          "featured": false
+        },
+        {
+          "name": "Primera valoracion",
+          "description": "Evaluacion inicial para definir plan de trabajo.",
+          "price": "90.000",
+          "category": "Servicios",
+          "status": "active",
+          "image": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=900&q=80&auto=format&fit=crop",
+          "badge": "",
+          "search_terms": "",
+          "featured": false
+        }
+      ],
+      "client_password": "psi12345",
+      "address": "Manizales, Caldas",
+      "open_hours": "Lunes a Sabado 6:00 a.m. - 8:00 p.m.",
+      "order_note": "Pedidos por WhatsApp",
+      "short_description": "Panaderia artesanal para todos los dias.",
+      "about_text": "Somos una panaderia de barrio enfocada en frescura, buen sabor y atencion cercana para nuestras familias y vecinos.",
+      "map_query": "Psicologia en Manizales, Manizales, Caldas",
+      "faq": [
+        {
+          "q": "¿Reciben pedidos por WhatsApp?",
+          "a": "Si, te confirmamos disponibilidad y tiempo de entrega."
+        },
+        {
+          "q": "¿Manejan productos por encargo?",
+          "a": "Si, especialmente para eventos y pedidos especiales."
+        },
+        {
+          "q": "¿Qué medios de pago aceptan?",
+          "a": "Efectivo, transferencia y medios disponibles en el punto."
+        }
+      ],
+      "cake_gallery": [
+        "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1200&q=80&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=1200&q=80&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=1200&q=80&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=1200&q=80&auto=format&fit=crop"
+      ]
+    },
+    {
+      "slug": "ingenieria-civil-caldas",
+      "name": "Ingenieria Civil Caldas",
+      "category": "Ingenieria Civil",
+      "city": "Caldas, Colombia",
+      "whatsapp": "573007561667",
+      "hero_title": "Proyectos civiles con calidad y cumplimiento",
+      "hero_subtitle": "Planeacion, construccion y supervision para obras seguras y bien ejecutadas.",
+      "items_label": "Servicios",
+      "items": [
+        {
+          "name": "Diseno y presupuesto de obra",
+          "description": "Planeacion tecnica y costos detallados.",
+          "price": "Cotizar",
+          "category": "Servicios",
+          "status": "active",
+          "image": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=900&q=80&auto=format&fit=crop",
+          "badge": "",
+          "search_terms": "",
+          "featured": false
+        },
+        {
+          "name": "Direccion y supervision",
+          "description": "Control de calidad, tiempos y recursos.",
+          "price": "Cotizar",
+          "category": "Servicios",
+          "status": "active",
+          "image": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=900&q=80&auto=format&fit=crop",
+          "badge": "",
+          "search_terms": "",
+          "featured": false
+        },
+        {
+          "name": "Remodelaciones",
+          "description": "Mejoras estructurales y funcionales en vivienda o comercio.",
+          "price": "Cotizar",
+          "category": "Servicios",
+          "status": "active",
+          "image": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=900&q=80&auto=format&fit=crop",
+          "badge": "",
+          "search_terms": "",
+          "featured": false
+        }
+      ],
+      "client_password": "civil12345",
+      "address": "Caldas, Colombia",
+      "open_hours": "Lunes a Sabado 6:00 a.m. - 8:00 p.m.",
+      "order_note": "Pedidos por WhatsApp",
+      "short_description": "Panaderia artesanal para todos los dias.",
+      "about_text": "Somos una panaderia de barrio enfocada en frescura, buen sabor y atencion cercana para nuestras familias y vecinos.",
+      "map_query": "Ingenieria Civil Caldas, Caldas, Colombia",
+      "faq": [
+        {
+          "q": "¿Reciben pedidos por WhatsApp?",
+          "a": "Si, te confirmamos disponibilidad y tiempo de entrega."
+        },
+        {
+          "q": "¿Manejan productos por encargo?",
+          "a": "Si, especialmente para eventos y pedidos especiales."
+        },
+        {
+          "q": "¿Qué medios de pago aceptan?",
+          "a": "Efectivo, transferencia y medios disponibles en el punto."
+        }
+      ],
+      "cake_gallery": [
+        "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1200&q=80&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=1200&q=80&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=1200&q=80&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=1200&q=80&auto=format&fit=crop"
+      ]
+    }
+  ],
+  "admin": {
+    "owner_password": "andres2026"
+  }
+}

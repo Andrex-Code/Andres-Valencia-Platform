@@ -1,17 +1,16 @@
-# Panadería La Chiquita
+# Panaderia La Chiquita
 
-**Categoría:** Panadería / Repostería  
-**Concepto:** Estética artesanal cálida con catálogo de productos y pedidos por WhatsApp.
+## Concepto
+Demo para panaderia o reposteria local con una direccion artesanal calida, catalogo por categorias y pedidos directos por WhatsApp.
 
-## Características
-- Catálogo con búsqueda y filtros por categoría
-- Galería de tortas con carrusel
-- Sección de productos destacados
-- CTA directo a WhatsApp con mensaje pre-escrito
-- Diseño responsive mobile-first
+## Lo importante
+- Catalogo con busqueda, filtros y vitrina por categorias.
+- Galeria de tortas con carrusel.
+- FAQ y cierre comercial para quitar friccion antes del pedido.
+- Editor visual en el navegador con guardado local, importacion y exportacion JSON.
 
 ## Paleta
-- Fondo: crema cálido (#f5ede2)
-- Acento: caramelo (#b86736)
-- Texto: marrón oscuro (#2b1c14)
-- Tipografía: Fraunces (display) + Manrope (body)
+- Fondo: crema calido `#f5ede2`
+- Acento: caramelo `#b86736`
+- Texto: marron oscuro `#2b1c14`
+- Tipografia: Fraunces + Manrope

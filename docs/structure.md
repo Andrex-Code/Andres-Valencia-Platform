@@ -1,20 +1,23 @@
-﻿# Estructura del Proyecto
+# Estructura del Proyecto
 
 ## Objetivo
-Escalar un catálogo de muchas plantillas de negocio sin desordenar la raíz.
+Separar con claridad la capa comercial publica de la capa de studio interno para que el portafolio pueda crecer sin desorden.
 
-## Estructura recomendada
-- `index.html`: catálogo principal.
-- `catalog/templates.json`: inventario central de plantillas.
-- `templates/<slug>/`: una carpeta por plantilla.
-- `docs/`: guías de operación.
-- `scripts/`: automatizaciones (scaffolding, validaciones, etc.).
+## Estructura actual
+- `index.html`: portada principal del portafolio.
+- `assets/`: estilos y scripts del sitio publico.
+- `catalog/templates.json`: inventario base de demos.
+- `catalog/showcase.json`: copy comercial y metadata de las tarjetas del portafolio.
+- `templates/<slug>/`: demos publicas por vertical.
+- `studio/`: sistema Python interno para admin, exportacion estatica y exploracion CMS.
+- `docs/`: documentacion operativa y referencias.
+- `scripts/`: automatizaciones para crear nuevas plantillas.
 
-## Convención de nombres
-- Usar `kebab-case` en slugs de plantilla.
-- Ejemplo: `templates/dental-clinic`, `templates/real-estate`, `templates/law-firm`.
+## Convenciones
+- Slugs en `kebab-case`.
+- Cada template debe incluir como minimo `index.html` y `README.md`.
+- El contenido del portafolio se centraliza en `catalog/`, no se duplica manualmente en varias zonas.
 
-## Regla de escalabilidad
-Cada plantilla debe incluir mínimo:
-- `index.html`
-- `README.md`
+## Regla operativa
+- Cambios de marketing, narrativa y demos publicas: `index.html`, `assets/`, `catalog/`, `templates/`.
+- Cambios del studio interno o admin multi-negocio: `studio/`.

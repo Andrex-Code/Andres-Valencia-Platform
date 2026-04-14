@@ -1484,9 +1484,47 @@
     }
   </style>
 </head>
-<body>
-  
-  
+<body class="edit-mode">
+  <div class="visual-editor-bar">
+    <div class="visual-editor-inner">
+      <div class="visual-editor-copy">
+        <strong>Editor visual demo</strong>
+        <span>Guarda en este navegador, exporta JSON o importa una version previa sin tocar codigo.</span>
+      </div>
+      <div class="visual-editor-actions">
+        <button class="visual-btn ghost" type="button" id="openAdvancedEditor">Diseno y secciones</button>
+        <button class="visual-btn primary" type="button" id="pageEditorSave">Guardar y aplicar</button>
+        <button class="visual-btn ghost" type="button" id="pageEditorExport">Exportar JSON</button>
+        <button class="visual-btn ghost" type="button" id="pageEditorImport">Importar JSON</button>
+        <button class="visual-btn ghost" type="button" id="pageEditorReset">Restablecer demo</button>
+        <input id="pageEditorImportFile" type="file" accept="application/json" hidden />
+      </div>
+    </div>
+  </div>
+
+  <div class="visual-editor-drawer" id="visualEditorDrawer" aria-hidden="true">
+    <div class="visual-editor-backdrop" id="visualEditorBackdrop"></div>
+    <aside class="visual-editor-panel">
+      <div class="visual-editor-head">
+        <div>
+          <small>Modo contenido</small>
+          <h3 id="editorPanelTitle">Editor visual</h3>
+          <p id="editorPanelHint">Selecciona una seccion de la pagina para editarla.</p>
+        </div>
+        <button class="visual-btn ghost" type="button" id="editorCloseBtn">Cerrar</button>
+      </div>
+      <div class="visual-editor-nav" id="editorPanelNav"></div>
+      <div class="visual-editor-body" id="editorPanelBody"></div>
+      <div class="visual-editor-foot">
+        <span id="editorPanelStatus">Los cambios se guardan manualmente.</span>
+        <div class="visual-editor-actions">
+          <button class="visual-btn ghost" type="button" id="editorCancelBtn">Cancelar</button>
+          <button class="visual-btn primary" type="button" id="editorSaveBtn">Guardar y aplicar</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+
   <div class="utility editable-block" data-editor-section="navigation">
     
     <div class="utility-inner">
@@ -2110,26 +2148,33 @@
 
   <a class="whatsapp-float" href="https://wa.me/573007561667?text=Hola,%20quiero%20hacer%20un%20pedido%20en%20Panaderia%20La%20Chiquita." target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
   <script>
-    const menuToggle = document.getElementById('menuToggle');
-    const navPanel = document.getElementById('navPanel');
-    const navLinks = [...document.querySelectorAll('.nav-links a')];
-    const catalogSearch = document.getElementById('catalogSearch');
-    const catalogGrid = document.getElementById('catalogGrid');
-    const catalogBoards = document.getElementById('catalogBoards');
-    const catalogCount = document.getElementById('catalogCount');
-    const catalogEmpty = document.getElementById('catalogEmpty');
-    const catalogClear = document.getElementById('catalogClear');
-    const catalogSort = document.getElementById('catalogSort');
-    const catalogFilters = [...document.querySelectorAll('.catalog-filter')];
-    const categoryShortcuts = [...document.querySelectorAll('.category-shortcut')];
-    const catalogCards = [...document.querySelectorAll('.catalog-card')];
+    let menuToggle;
+    let navPanel;
+    let navLinks = [];
+    let catalogSearch;
+    let catalogGrid;
+    let catalogBoards;
+    let catalogCount;
+    let catalogEmpty;
+    let catalogClear;
+    let catalogSort;
+    let catalogFilters = [];
+    let categoryShortcuts = [];
+    let catalogCards = [];
+    let cakeCarousel;
+    let cakesPrev;
+    let cakesNext;
+    let editableBlocks = [];
     let activeFilter = 'all';
+    let catalogSearchTerm = '';
+    let catalogSortValue = 'default';
     const visualEditEnabled = true;
     const initialBusinessData = {"slug": "panaderia-belalcazar", "name": "Panaderia La Chiquita", "category": "Panaderia", "city": "Belalcazar, Caldas, Colombia", "whatsapp": "573007561667", "hero_title": "Pan fresco, tortas y antojos del dia en Panaderia La Chiquita", "hero_subtitle": "Panaderia local con productos frescos, atencion cercana y pedidos faciles por WhatsApp.", "items_label": "Productos", "items": [{"name": "Pan alinado", "description": "Crujiente por fuera y suave por dentro, ideal para el desayuno.", "price": "2.500", "category": "Pan tradicional", "image": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=900&q=80&auto=format&fit=crop", "status": "active", "badge": "", "search_terms": "", "featured": true}, {"name": "Pan campesino", "description": "Miga suave, corteza dorada y sabor casero para compartir.", "price": "3.200", "category": "Pan tradicional", "image": "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=900&q=80&auto=format&fit=crop", "status": "active", "badge": "", "search_terms": "", "featured": true}, {"name": "Mogolla integral", "description": "Ideal para desayuno y onces, con textura suave y sabor balanceado.", "price": "2.000", "category": "Panes especiales", "image": "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=900&q=80&auto=format&fit=crop", "status": "active", "badge": "", "search_terms": "", "featured": true}, {"name": "Pan de queso", "description": "Recien horneado, suave por dentro y con mucho sabor.", "price": "2.965", "category": "Panes especiales", "image": "https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=900&q=80&auto=format&fit=crop", "status": "active", "badge": "", "search_terms": "", "featured": true}, {"name": "Pastel de guayaba", "description": "Hojaldre relleno, horneado del dia, perfecto para acompanar un cafe.", "price": "3.500", "category": "Hojaldres y pasteleria", "image": "https://images.unsplash.com/photo-1483695028939-5bb13f8648b0?w=900&q=80&auto=format&fit=crop", "status": "active", "badge": "", "search_terms": "", "featured": false}, {"name": "Croissant de mantequilla", "description": "Laminado, liviano y dorado, con textura hojaldrada.", "price": "4.500", "category": "Hojaldres y pasteleria", "image": "https://images.unsplash.com/photo-1555507036-ab794f575c4d?w=900&q=80&auto=format&fit=crop", "status": "active", "badge": "", "search_terms": "", "featured": false}, {"name": "Torta de vainilla por porcion", "description": "Porcion suave y esponjosa para celebraciones o antojos del dia.", "price": "6.500", "category": "Tortas y postres", "image": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=900&q=80&auto=format&fit=crop", "status": "active", "badge": "", "search_terms": "", "featured": false}, {"name": "Torta de chocolate por porcion", "description": "Bizcocho humedo con cubierta cremosa y sabor intenso.", "price": "7.000", "category": "Tortas y postres", "image": "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=900&q=80&auto=format&fit=crop", "status": "active", "badge": "", "search_terms": "", "featured": false}, {"name": "Chocolate caliente", "description": "Bebida caliente tradicional para una tarde de pan y onces.", "price": "3.999", "category": "Bebidas", "image": "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=900&q=80&auto=format&fit=crop", "status": "active", "badge": "", "search_terms": "", "featured": false}, {"name": "Cafe americano", "description": "Cafe recien preparado para acompanar panes, hojaldres y postres.", "price": "2.500", "category": "Bebidas", "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=900&q=80&auto=format&fit=crop", "status": "active", "badge": "", "search_terms": "", "featured": false}], "address": "Parque principal, Belalcazar, Caldas", "open_hours": "Lunes a Sabado 6:00 a.m. - 8:00 p.m. | Domingo 6:30 a.m. - 2:00 p.m.", "order_note": "Pedidos por WhatsApp para recoger en tienda", "short_description": "Mostramos panes, tortas y productos del dia de una forma clara para que mas personas conozcan la panaderia y pidan facil por WhatsApp.", "about_text": "Panaderia La Chiquita trabaja con horneado diario, productos de vitrina y atencion cercana para las familias del sector. La idea de la pagina es que la gente vea rapido lo que ofreces, encuentre precios y pueda escribir sin complicaciones.", "map_query": "Panaderia La Chiquita Belalcazar Caldas", "faq": [{"q": "Reciben pedidos por WhatsApp?", "a": "Si, te confirmamos disponibilidad y tiempo aproximado de entrega o recogida."}, {"q": "Manejan encargos para eventos?", "a": "Si, puedes escribirnos para pedidos especiales de pan y pasteleria."}, {"q": "Puedo preguntar por productos del dia?", "a": "Claro, por WhatsApp te compartimos lo recien salido del horno."}], "cake_gallery": ["https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1200&q=80&auto=format&fit=crop", "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=1200&q=80&auto=format&fit=crop", "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=1200&q=80&auto=format&fit=crop", "https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=1200&q=80&auto=format&fit=crop"], "sample_seed_version": 2, "brand_tagline": "Panaderia artesanal", "utility_badges": ["Belalcazar, Caldas, Colombia", "Pan y pasteleria del dia", "Pedidos por WhatsApp"], "hero_badge": "Panaderia local en Colombia", "hero_image": "https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=1600&q=80&auto=format&fit=crop", "hero_secondary_image": "https://images.unsplash.com/photo-1483695028939-5bb13f8648b0?w=1200&q=80&auto=format&fit=crop", "story_image": "https://images.unsplash.com/photo-1555507036-ab794f575c4d?w=1200&q=80&auto=format&fit=crop", "hero_caption_title": "Productos que antojan desde el primer vistazo", "hero_caption_text": "Una vitrina digital clara para mostrar panes, tortas, horarios y pedidos sin enredos.", "hero_note_label": "Encargos y pedidos", "hero_note_title": "Todo listo para vender mejor por celular", "hero_note_text": "Muestra productos, resuelve dudas rapido y lleva a la gente directo a WhatsApp.", "hero_highlights": ["Desayuno", "Onces", "Tortas", "Encargos"], "featured_title": "Lo mas pedido en la vitrina", "featured_subtitle": "Una seleccion pensada para provocar antojo y ayudar a que el cliente encuentre rapido lo mejor del dia.", "cakes_title": "Tortas y encargos especiales", "cakes_subtitle": "Espacio ideal para mostrar tortas de celebracion, encargos personalizados y trabajos destacados.", "story_title": "Una panaderia cercana, bien presentada y facil de contactar", "story_points": ["Fotos y precios visibles para que el cliente decida rapido.", "Categorias claras para buscar mejor desde el celular.", "Pedido directo por WhatsApp sin pasos innecesarios."], "catalog_title": "Catalogo de productos", "catalog_subtitle": "Busca por nombre, filtra por categoria y encuentra mas rapido lo que quieres pedir.", "catalog_placeholder": "Buscar pan, torta, hojaldre o bebida...", "contact_title": "Informacion para pedir o visitarnos", "contact_text": "Atendemos pedidos por WhatsApp, consultas sobre disponibilidad y encargos especiales.", "footer_note": "Pagina comercial para visibilidad local y pedidos directos.", "announcement_badge": "Horneado del dia", "announcement_text": "Haz tu pedido por WhatsApp y recoge en tienda sin enredos.", "announcement_cta_label": "Ver catalogo", "nav_label_home": "Inicio", "nav_label_featured": "Destacados", "nav_label_cakes": "Tortas", "nav_label_story": "Nosotros", "nav_label_catalog": "Catalogo", "nav_label_contact": "Contacto", "nav_label_faq": "FAQ", "nav_cta_label": "Pedir por WhatsApp", "hero_primary_cta_label": "Hacer pedido", "hero_secondary_cta_label": "Como llegar", "hero_note_cta_label": "Consultar por WhatsApp", "meta_label_address": "Direccion", "meta_label_hours": "Horario", "meta_label_orders": "Pedidos", "featured_kicker": "Lo que mas se mueve", "cakes_kicker": "Tortas y celebraciones", "story_kicker": "Conoce la panaderia", "catalog_kicker": "Catalogo completo", "catalog_clear_label": "Limpiar busqueda", "catalog_empty_message": "No encontramos productos con esa busqueda. Prueba otra palabra o cambia de categoria.", "catalog_sort_label": "Ordenar", "catalog_results_label": "productos visibles hoy", "contact_kicker": "Contacto directo", "contact_primary_cta_label": "Escribir por WhatsApp", "contact_secondary_cta_label": "Abrir mapa", "faq_kicker": "Dudas frecuentes", "faq_title": "Preguntas frecuentes", "seo_title": "Panaderia La Chiquita", "seo_description": "Mostramos panes, tortas y productos del dia de una forma clara para que mas personas conozcan la panaderia y pidan facil por WhatsApp.", "show_announcement": true, "show_featured": true, "show_cakes": true, "show_story": true, "show_catalog": true, "show_contact": true, "show_faq": true, "show_category_shortcuts": true, "show_catalog_filters": true, "show_catalog_search": true, "show_category_boards": true, "show_whatsapp_float": true, "featured_limit": 4, "theme_preset": "artesanal", "theme_background": "#f5ede2", "theme_surface": "#fffaf3", "theme_surface_strong": "#fffdf9", "theme_text": "#2b1c14", "theme_muted": "#6d594b", "theme_line": "#e3cfbc", "theme_soft": "#f2e5d4", "theme_accent": "#b86736", "theme_accent_dark": "#964d22"};
     let draftBusiness = visualEditEnabled ? JSON.parse(JSON.stringify(initialBusinessData)) : null;
     let activeEditorSection = null;
     let activeEditorMeta = {};
     let hasUnsavedChanges = false;
+    const STORAGE_KEY = 'av-panaderia-demo-v2';
     const editorDrawer = document.getElementById('visualEditorDrawer');
     const editorBackdrop = document.getElementById('visualEditorBackdrop');
     const editorBody = document.getElementById('editorPanelBody');
@@ -2141,8 +2186,11 @@
     const editorSaveBtn = document.getElementById('editorSaveBtn');
     const openAdvancedEditor = document.getElementById('openAdvancedEditor');
     const pageEditorSave = document.getElementById('pageEditorSave');
+    const pageEditorExport = document.getElementById('pageEditorExport');
+    const pageEditorImport = document.getElementById('pageEditorImport');
+    const pageEditorImportFile = document.getElementById('pageEditorImportFile');
+    const pageEditorReset = document.getElementById('pageEditorReset');
     const editorNav = document.getElementById('editorPanelNav');
-    const editableBlocks = visualEditEnabled ? [...document.querySelectorAll('[data-editor-section]')] : [];
     const saveKeys = [
       'name',
       'category',
@@ -2241,7 +2289,37 @@
       'items'
     ];
 
-    if (menuToggle && navPanel) {
+    function refreshInteractiveRefs() {
+      menuToggle = document.getElementById('menuToggle');
+      navPanel = document.getElementById('navPanel');
+      navLinks = [...document.querySelectorAll('.nav-links a')];
+      catalogSearch = document.getElementById('catalogSearch');
+      catalogGrid = document.getElementById('catalogGrid');
+      catalogBoards = document.getElementById('catalogBoards');
+      catalogCount = document.getElementById('catalogCount');
+      catalogEmpty = document.getElementById('catalogEmpty');
+      catalogClear = document.getElementById('catalogClear');
+      catalogSort = document.getElementById('catalogSort');
+      catalogFilters = [...document.querySelectorAll('.catalog-filter')];
+      categoryShortcuts = [...document.querySelectorAll('.category-shortcut')];
+      catalogCards = [...document.querySelectorAll('.catalog-card')];
+      cakeCarousel = document.getElementById('cakeCarousel');
+      cakesPrev = document.getElementById('cakesPrev');
+      cakesNext = document.getElementById('cakesNext');
+      editableBlocks = visualEditEnabled ? [...document.querySelectorAll('[data-editor-section]')] : [];
+
+      if (catalogSearch) {
+        catalogSearch.value = catalogSearchTerm;
+      }
+      if (catalogSort) {
+        catalogSort.value = catalogSortValue;
+      }
+    }
+
+    function bindMenuEvents() {
+      if (!menuToggle || !navPanel) {
+        return;
+      }
       menuToggle.addEventListener('click', () => {
         const isOpen = navPanel.classList.toggle('is-open');
         menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
@@ -2255,7 +2333,8 @@
     }
 
     function applyCatalogFilters() {
-      const term = (catalogSearch?.value || '').trim().toLowerCase();
+      catalogSearchTerm = (catalogSearch?.value || '').trim();
+      const term = catalogSearchTerm.toLowerCase();
       let visible = 0;
 
       catalogCards.forEach((card) => {
@@ -2297,7 +2376,8 @@
       if (!catalogGrid || !catalogSort) {
         return;
       }
-      const direction = catalogSort.value || 'default';
+      const direction = catalogSort.value || catalogSortValue || 'default';
+      catalogSortValue = direction;
       const sorted = [...catalogCards].sort((a, b) => {
         if (direction === 'name-asc') {
           return (a.dataset.name || '').localeCompare(b.dataset.name || '', 'es');
@@ -2325,43 +2405,44 @@
       applyCatalogFilters();
     }
 
-    if (catalogSearch) {
-      catalogSearch.addEventListener('input', applyCatalogFilters);
-    }
+    function bindCatalogEvents() {
+      if (catalogSearch) {
+        catalogSearch.addEventListener('input', applyCatalogFilters);
+      }
 
-    if (catalogClear) {
-      catalogClear.addEventListener('click', () => {
-        if (catalogSearch) {
-          catalogSearch.value = '';
-        }
-        setFilter('all');
+      if (catalogClear) {
+        catalogClear.addEventListener('click', () => {
+          if (catalogSearch) {
+            catalogSearch.value = '';
+          }
+          setFilter('all');
+        });
+      }
+
+      catalogFilters.forEach((button) => {
+        button.addEventListener('click', () => setFilter(button.dataset.filter || 'all'));
       });
-    }
 
-    catalogFilters.forEach((button) => {
-      button.addEventListener('click', () => setFilter(button.dataset.filter || 'all'));
-    });
-
-    categoryShortcuts.forEach((button) => {
-      button.addEventListener('click', () => setFilter(button.dataset.filter || 'all'));
-    });
-
-    if (catalogSort) {
-      catalogSort.addEventListener('change', () => {
-        applyCatalogSort();
-        applyCatalogFilters();
+      categoryShortcuts.forEach((button) => {
+        button.addEventListener('click', () => setFilter(button.dataset.filter || 'all'));
       });
+
+      if (catalogSort) {
+        catalogSort.addEventListener('change', () => {
+          applyCatalogSort();
+          applyCatalogFilters();
+        });
+      }
+
+      syncFilterState();
+      applyCatalogSort();
+      applyCatalogFilters();
     }
 
-    syncFilterState();
-    applyCatalogSort();
-    applyCatalogFilters();
-
-    const cakeCarousel = document.getElementById('cakeCarousel');
-    const cakesPrev = document.getElementById('cakesPrev');
-    const cakesNext = document.getElementById('cakesNext');
-
-    if (cakeCarousel && cakesPrev && cakesNext) {
+    function bindCarouselEvents() {
+      if (!cakeCarousel || !cakesPrev || !cakesNext) {
+        return;
+      }
       const scrollAmount = () => Math.max(280, Math.floor(cakeCarousel.clientWidth * 0.82));
 
       cakesPrev.addEventListener('click', () => {
@@ -2587,6 +2668,695 @@
         theme_accent_dark: '#99552a'
       }
     };
+
+    const toggleKeys = [
+      'show_announcement',
+      'show_featured',
+      'show_cakes',
+      'show_story',
+      'show_catalog',
+      'show_contact',
+      'show_faq',
+      'show_category_shortcuts',
+      'show_catalog_filters',
+      'show_catalog_search',
+      'show_category_boards',
+      'show_whatsapp_float'
+    ];
+
+    const themeVariableMap = {
+      theme_background: '--bg',
+      theme_surface: '--paper',
+      theme_surface_strong: '--paper-strong',
+      theme_text: '--ink',
+      theme_muted: '--muted',
+      theme_line: '--line',
+      theme_soft: '--cream',
+      theme_accent: '--caramel',
+      theme_accent_dark: '--caramel-dark'
+    };
+
+    function deepClone(value) {
+      return JSON.parse(JSON.stringify(value));
+    }
+
+    function asBoolean(value) {
+      if (typeof value === 'boolean') {
+        return value;
+      }
+      return ['1', 'true', 'yes', 'si', 'on'].includes(String(value ?? '').trim().toLowerCase());
+    }
+
+    function normalizeTextList(value, fallback = []) {
+      const source = Array.isArray(value) ? value : fallback;
+      return source.map((item) => String(item ?? '').trim()).filter(Boolean);
+    }
+
+    function normalizeFaqRows(value, fallback = []) {
+      const source = Array.isArray(value) ? value : fallback;
+      return source
+        .map((item) => ({
+          q: String(item?.q ?? '').trim(),
+          a: String(item?.a ?? '').trim()
+        }))
+        .filter((item) => item.q && item.a);
+    }
+
+    function normalizeGallery(value, fallback = []) {
+      const source = Array.isArray(value) ? value : fallback;
+      return source.map((item) => String(item ?? '').trim()).filter(Boolean);
+    }
+
+    function normalizeItems(items, defaultCategory, fallbackItems = []) {
+      const source = Array.isArray(items) && items.length ? items : fallbackItems;
+      return source
+        .map((item) => ({
+          name: String(item?.name ?? '').trim(),
+          description: String(item?.description ?? '').trim(),
+          price: String(item?.price ?? '').trim(),
+          category: String(item?.category ?? defaultCategory).trim() || defaultCategory,
+          badge: String(item?.badge ?? '').trim(),
+          search_terms: String(item?.search_terms ?? '').trim(),
+          image: String(item?.image ?? '').trim(),
+          status: String(item?.status ?? 'active').trim().toLowerCase() === 'inactive' ? 'inactive' : 'active',
+          featured: asBoolean(item?.featured)
+        }))
+        .filter((item) => item.name.length > 0);
+    }
+
+    function normalizeBusinessData(raw = {}) {
+      const base = deepClone(initialBusinessData);
+      const next = { ...base, ...deepClone(raw || {}) };
+
+      toggleKeys.forEach((key) => {
+        next[key] = asBoolean(next[key]);
+      });
+
+      next.slug = base.slug;
+      next.name = String(next.name || base.name).trim() || base.name;
+      next.city = String(next.city || base.city).trim() || base.city;
+      next.category = String(next.category || base.category).trim() || base.category;
+      next.address = String(next.address || base.address).trim() || base.address;
+      next.open_hours = String(next.open_hours || base.open_hours).trim() || base.open_hours;
+      next.order_note = String(next.order_note || base.order_note).trim() || base.order_note;
+      next.short_description = String(next.short_description || base.short_description).trim() || base.short_description;
+      next.hero_title = String(next.hero_title || base.hero_title).trim() || base.hero_title;
+      next.hero_subtitle = String(next.hero_subtitle || base.hero_subtitle).trim() || base.hero_subtitle;
+      next.about_text = String(next.about_text || base.about_text).trim() || base.about_text;
+      next.map_query = String(next.map_query || base.map_query).trim() || base.map_query;
+      next.whatsapp = String(next.whatsapp || base.whatsapp).replace(/[^\d]/g, '') || base.whatsapp;
+      next.items_label = String(next.items_label || base.items_label).trim() || base.items_label;
+      next.utility_badges = normalizeTextList(next.utility_badges, base.utility_badges);
+      next.hero_highlights = normalizeTextList(next.hero_highlights, base.hero_highlights);
+      next.story_points = normalizeTextList(next.story_points, base.story_points);
+      next.cake_gallery = normalizeGallery(next.cake_gallery, base.cake_gallery);
+      next.faq = normalizeFaqRows(next.faq, base.faq);
+      next.items = normalizeItems(next.items, next.items_label, base.items);
+
+      const parsedLimit = Number(next.featured_limit);
+      next.featured_limit = Number.isFinite(parsedLimit) ? Math.max(1, Math.min(12, parsedLimit)) : base.featured_limit;
+
+      Object.keys(themeVariableMap).forEach((key) => {
+        next[key] = String(next[key] || base[key]).trim() || base[key];
+      });
+
+      return next;
+    }
+
+    function buildSavePayload() {
+      const payload = {};
+      saveKeys.forEach((key) => {
+        payload[key] = draftBusiness[key];
+      });
+      return payload;
+    }
+
+    function loadStoredDraft() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) {
+          return null;
+        }
+        return normalizeBusinessData(JSON.parse(raw));
+      } catch (error) {
+        console.warn('No se pudo recuperar el borrador guardado.', error);
+        return null;
+      }
+    }
+
+    function saveDraftToStorage(payload) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+        return true;
+      } catch (error) {
+        console.warn('No se pudo guardar el borrador.', error);
+        return false;
+      }
+    }
+
+    function clearStoredDraft() {
+      try {
+        localStorage.removeItem(STORAGE_KEY);
+      } catch (error) {
+        console.warn('No se pudo limpiar el borrador guardado.', error);
+      }
+    }
+
+    function deriveBrandMark(name) {
+      const words = String(name || '').trim().split(/\s+/).filter(Boolean);
+      return (words.slice(0, 2).map((word) => word[0]).join('') || 'LC').toUpperCase();
+    }
+
+    function buildMapLink() {
+      return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(draftBusiness.map_query || draftBusiness.name || '')}`;
+    }
+
+    function buildWhatsAppLink(message) {
+      const text = message || `Hola, quiero hacer un pedido en ${draftBusiness.name}.`;
+      return `https://wa.me/${draftBusiness.whatsapp}?text=${encodeURIComponent(text)}`;
+    }
+
+    function buildItemWhatsAppLink(itemName) {
+      return buildWhatsAppLink(`Hola, quiero pedir ${itemName} en ${draftBusiness.name}.`);
+    }
+
+    function formatDisplayPrice(rawValue) {
+      const value = String(rawValue || '').trim();
+      if (!value) {
+        return 'Cotizar';
+      }
+      return value.toLowerCase() === 'cotizar' ? 'Cotizar' : `$ ${value}`;
+    }
+
+    function getActiveItems() {
+      return (draftBusiness.items || [])
+        .map((item, index) => ({ ...item, __index: index }))
+        .filter((item) => item.status !== 'inactive');
+    }
+
+    function getFeaturedItems(activeItems) {
+      const featured = activeItems.filter((item) => item.featured);
+      const source = featured.length ? featured : activeItems;
+      return source.slice(0, draftBusiness.featured_limit || 4);
+    }
+
+    function getCategoryGroups(activeItems) {
+      const groups = new Map();
+      activeItems.forEach((item) => {
+        const key = item.category || draftBusiness.items_label || 'Productos';
+        if (!groups.has(key)) {
+          groups.set(key, []);
+        }
+        groups.get(key).push(item);
+      });
+      return [...groups.entries()].map(([category, items]) => ({ category, items }));
+    }
+
+    function applyThemeVariables() {
+      Object.entries(themeVariableMap).forEach(([field, cssVar]) => {
+        document.documentElement.style.setProperty(cssVar, draftBusiness[field] || initialBusinessData[field]);
+      });
+
+      document.title = draftBusiness.seo_title || draftBusiness.name;
+      const metaDescription = document.querySelector('meta[name="description"]');
+      const metaOgTitle = document.querySelector('meta[property="og:title"]');
+      const metaOgDescription = document.querySelector('meta[property="og:description"]');
+      const metaOgImage = document.querySelector('meta[property="og:image"]');
+      if (metaDescription) {
+        metaDescription.setAttribute('content', draftBusiness.seo_description || draftBusiness.short_description);
+      }
+      if (metaOgTitle) {
+        metaOgTitle.setAttribute('content', draftBusiness.seo_title || draftBusiness.name);
+      }
+      if (metaOgDescription) {
+        metaOgDescription.setAttribute('content', draftBusiness.seo_description || draftBusiness.short_description);
+      }
+      if (metaOgImage) {
+        metaOgImage.setAttribute('content', draftBusiness.hero_image || initialBusinessData.hero_image);
+      }
+    }
+
+    function renderUtilitySection() {
+      const utility = document.querySelector('.utility');
+      if (!utility) {
+        return;
+      }
+      if (!draftBusiness.show_announcement) {
+        utility.style.display = 'none';
+        return;
+      }
+      utility.style.display = '';
+      const badges = (draftBusiness.utility_badges || []).map((item) => `<span class="utility-badge">${escapeHtml(item)}</span>`).join('');
+      utility.innerHTML = `
+        <div class="utility-inner">
+          <div class="utility-badges">${badges}</div>
+          <div class="utility-side">
+            <div class="utility-copy">
+              <strong>${escapeHtml(draftBusiness.announcement_badge || '')}</strong>
+              <span>${escapeHtml(draftBusiness.announcement_text || '')}</span>
+            </div>
+            <a class="utility-link" href="#catalogo">${escapeHtml(draftBusiness.announcement_cta_label || 'Ver catalogo')}</a>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderBrandSection() {
+      const navWrap = document.querySelector('.nav-wrap');
+      if (!navWrap) {
+        return;
+      }
+      navWrap.innerHTML = `
+        <nav class="nav">
+          <a class="brand" href="#inicio">
+            <span class="brand-mark">${escapeHtml(deriveBrandMark(draftBusiness.name))}</span>
+            <span class="brand-copy">
+              <small>${escapeHtml(draftBusiness.brand_tagline || '')}</small>
+              <strong>${escapeHtml(draftBusiness.name || '')}</strong>
+              <span>${escapeHtml(draftBusiness.city || '')}</span>
+            </span>
+          </a>
+          <button class="menu-toggle" type="button" id="menuToggle" aria-expanded="false" aria-controls="navPanel">Menu</button>
+          <div class="nav-panel" id="navPanel">
+            <div class="nav-links">
+              <a href="#inicio">${escapeHtml(draftBusiness.nav_label_home || 'Inicio')}</a>
+              <a href="#destacados">${escapeHtml(draftBusiness.nav_label_featured || 'Destacados')}</a>
+              <a href="#tortas">${escapeHtml(draftBusiness.nav_label_cakes || 'Tortas')}</a>
+              <a href="#historia">${escapeHtml(draftBusiness.nav_label_story || 'Nosotros')}</a>
+              <a href="#catalogo">${escapeHtml(draftBusiness.nav_label_catalog || 'Catalogo')}</a>
+              <a href="#contacto">${escapeHtml(draftBusiness.nav_label_contact || 'Contacto')}</a>
+              <a href="#faq">${escapeHtml(draftBusiness.nav_label_faq || 'FAQ')}</a>
+            </div>
+            <a class="nav-cta" href="${buildWhatsAppLink()}" target="_blank" rel="noopener noreferrer">${escapeHtml(draftBusiness.nav_cta_label || 'Pedir por WhatsApp')}</a>
+          </div>
+        </nav>
+      `;
+    }
+
+    function renderHeroSection() {
+      const hero = document.getElementById('inicio');
+      if (!hero) {
+        return;
+      }
+      const highlights = (draftBusiness.hero_highlights || []).map((item) => `<span class="chip">${escapeHtml(item)}</span>`).join('');
+      hero.innerHTML = `
+        <section class="hero-copy rise">
+          <span class="eyebrow">${escapeHtml(draftBusiness.hero_badge || '')}</span>
+          <h1>${escapeHtml(draftBusiness.hero_title || '')}</h1>
+          <p>${escapeHtml(draftBusiness.short_description || '')}</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="${buildWhatsAppLink()}" target="_blank" rel="noopener noreferrer">${escapeHtml(draftBusiness.hero_primary_cta_label || 'Hacer pedido')}</a>
+            <a class="btn ghost" href="${buildMapLink()}" target="_blank" rel="noopener noreferrer">${escapeHtml(draftBusiness.hero_secondary_cta_label || 'Como llegar')}</a>
+          </div>
+          <div class="hero-chips">${highlights}</div>
+          <div class="hero-meta">
+            <article class="meta-card">
+              <small>${escapeHtml(draftBusiness.meta_label_address || 'Direccion')}</small>
+              <strong>${escapeHtml(draftBusiness.address || '')}</strong>
+            </article>
+            <article class="meta-card">
+              <small>${escapeHtml(draftBusiness.meta_label_hours || 'Horario')}</small>
+              <strong>${escapeHtml(draftBusiness.open_hours || '')}</strong>
+            </article>
+            <article class="meta-card">
+              <small>${escapeHtml(draftBusiness.meta_label_orders || 'Pedidos')}</small>
+              <strong>${escapeHtml(draftBusiness.order_note || '')}</strong>
+            </article>
+          </div>
+        </section>
+
+        <section class="hero-visual rise" style="animation-delay:.08s">
+          <article class="hero-photo" style="background-image:url('${escapeHtml(draftBusiness.hero_image || initialBusinessData.hero_image)}')">
+            <div class="hero-caption">
+              <strong>${escapeHtml(draftBusiness.hero_caption_title || '')}</strong>
+              <span>${escapeHtml(draftBusiness.hero_caption_text || '')}</span>
+            </div>
+          </article>
+          <div class="hero-stack">
+            <article class="mini-photo" style="background-image:url('${escapeHtml(draftBusiness.hero_secondary_image || initialBusinessData.hero_secondary_image)}')"></article>
+            <article class="note-card">
+              <small>${escapeHtml(draftBusiness.hero_note_label || '')}</small>
+              <h2>${escapeHtml(draftBusiness.hero_note_title || '')}</h2>
+              <p>${escapeHtml(draftBusiness.hero_note_text || '')}</p>
+              <a class="btn primary" href="${buildWhatsAppLink()}" target="_blank" rel="noopener noreferrer">${escapeHtml(draftBusiness.hero_note_cta_label || 'Consultar por WhatsApp')}</a>
+            </article>
+          </div>
+        </section>
+      `;
+    }
+
+    function renderFeaturedSection(activeItems) {
+      const section = document.getElementById('destacados');
+      if (!section) {
+        return;
+      }
+      if (!draftBusiness.show_featured) {
+        section.style.display = 'none';
+        return;
+      }
+      section.style.display = '';
+      const fallbackBadges = ['Favorito del dia', 'Mas pedido', 'Recien hecho', 'Recomendado'];
+      const cards = getFeaturedItems(activeItems)
+        .map((item, index) => `
+          <article class="product-card rise" data-editor-section="catalog" data-editor-item-index="${item.__index}" style="animation-delay:${(0.1 + index * 0.08).toFixed(2)}s">
+            <div class="product-image" style="background-image:url('${escapeHtml(item.image || initialBusinessData.hero_image)}')"></div>
+            <span class="product-badge">${escapeHtml(item.badge || fallbackBadges[index] || 'Destacado')}</span>
+            <h3>${escapeHtml(item.name)}</h3>
+            <p>${escapeHtml(item.description)}</p>
+            <div class="product-meta">
+              <small>${escapeHtml(item.category)}</small>
+              <div class="product-meta-right">
+                <strong>${escapeHtml(formatDisplayPrice(item.price))}</strong>
+                <a href="${buildItemWhatsAppLink(item.name)}" target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
+              </div>
+            </div>
+          </article>
+        `)
+        .join('');
+
+      section.innerHTML = `
+        <div class="panel">
+          <span class="section-kicker">${escapeHtml(draftBusiness.featured_kicker || '')}</span>
+          <h2 class="section-title">${escapeHtml(draftBusiness.featured_title || '')}</h2>
+          <p class="section-sub">${escapeHtml(draftBusiness.featured_subtitle || '')}</p>
+          <div class="featured-grid">${cards}</div>
+        </div>
+      `;
+    }
+
+    function renderCakesSection() {
+      const section = document.getElementById('tortas');
+      if (!section) {
+        return;
+      }
+      if (!draftBusiness.show_cakes) {
+        section.style.display = 'none';
+        return;
+      }
+      section.style.display = '';
+      const slides = (draftBusiness.cake_gallery || [])
+        .map((imageUrl, index) => `
+          <article class="cake-slide" data-editor-section="cakes" data-editor-gallery-index="${index}" style="background-image:url('${escapeHtml(imageUrl)}')">
+            <div class="cake-overlay">
+              <small>${escapeHtml(draftBusiness.cakes_kicker || '')}</small>
+              <strong>Encargo ${index + 1}</strong>
+            </div>
+          </article>
+        `)
+        .join('');
+
+      section.innerHTML = `
+        <div class="panel">
+          <div class="carousel-head">
+            <div>
+              <span class="section-kicker">${escapeHtml(draftBusiness.cakes_kicker || '')}</span>
+              <h2 class="section-title">${escapeHtml(draftBusiness.cakes_title || '')}</h2>
+              <p class="section-sub">${escapeHtml(draftBusiness.cakes_subtitle || '')}</p>
+            </div>
+            <div class="carousel-controls">
+              <button class="carousel-btn" type="button" id="cakesPrev">Anterior</button>
+              <button class="carousel-btn" type="button" id="cakesNext">Siguiente</button>
+            </div>
+          </div>
+          <div class="cake-carousel" id="cakeCarousel">${slides}</div>
+        </div>
+      `;
+    }
+
+    function renderStorySection() {
+      const section = document.getElementById('historia');
+      if (!section) {
+        return;
+      }
+      if (!draftBusiness.show_story) {
+        section.style.display = 'none';
+        return;
+      }
+      section.style.display = '';
+      const points = (draftBusiness.story_points || []).map((item) => `<span>${escapeHtml(item)}</span>`).join('');
+      section.innerHTML = `
+        <div class="story-grid">
+          <article class="story-photo rise" style="background-image:url('${escapeHtml(draftBusiness.story_image || initialBusinessData.story_image)}')"></article>
+          <article class="story-copy rise" style="animation-delay:.08s">
+            <span class="section-kicker">${escapeHtml(draftBusiness.story_kicker || '')}</span>
+            <h2 class="section-title">${escapeHtml(draftBusiness.story_title || '')}</h2>
+            <p>${escapeHtml(draftBusiness.about_text || '')}</p>
+            <div class="story-points">${points}</div>
+          </article>
+        </div>
+      `;
+    }
+
+    function renderCatalogSection(activeItems) {
+      const section = document.getElementById('catalogo');
+      if (!section) {
+        return;
+      }
+      if (!draftBusiness.show_catalog) {
+        section.style.display = 'none';
+        return;
+      }
+      section.style.display = '';
+      const groups = getCategoryGroups(activeItems);
+      const shortcuts = groups
+        .map((group) => `
+          <button class="category-shortcut" type="button" data-filter="${escapeHtml(group.category)}">
+            <strong>${escapeHtml(group.category)}</strong>
+            <span>${group.items.length} productos</span>
+          </button>
+        `)
+        .join('');
+      const filters = groups
+        .map((group) => `<button class="catalog-filter" type="button" data-filter="${escapeHtml(group.category)}">${escapeHtml(group.category)}</button>`)
+        .join('');
+      const cards = activeItems
+        .map((item, index) => {
+          const searchable = `${item.name} ${item.description} ${item.category} ${item.search_terms}`.toLowerCase();
+          return `
+            <article class="catalog-card rise" data-search="${escapeHtml(searchable)}" data-name="${escapeHtml(item.name.toLowerCase())}" data-price="${escapeHtml(item.price)}" data-category="${escapeHtml(item.category)}" data-editor-section="catalog" data-editor-item-index="${item.__index}" style="animation-delay:${(0.04 + index * 0.04).toFixed(2)}s">
+              <div class="catalog-image" style="background-image:url('${escapeHtml(item.image || initialBusinessData.hero_image)}')"></div>
+              <div class="catalog-copy">
+                <span class="catalog-category">${escapeHtml(item.category)}</span>
+                <h3>${escapeHtml(item.name)}</h3>
+                <p>${escapeHtml(item.description)}</p>
+                <div class="catalog-foot">
+                  <strong>${escapeHtml(formatDisplayPrice(item.price))}</strong>
+                  <a href="${buildItemWhatsAppLink(item.name)}" class="catalog-link" target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
+                </div>
+              </div>
+            </article>
+          `;
+        })
+        .join('');
+      const boards = groups
+        .map((group) => `
+          <section class="menu-board">
+            <small>Del horno a tu mesa</small>
+            <h3>${escapeHtml(group.category)}</h3>
+            ${group.items.map((item) => `
+              <article class="menu-item">
+                <div class="menu-thumb" style="background-image:url('${escapeHtml(item.image || initialBusinessData.hero_image)}')"></div>
+                <div class="menu-copy">
+                  <h4>${escapeHtml(item.name)}</h4>
+                  <p>${escapeHtml(item.description)}</p>
+                  <small>${escapeHtml(item.category)}</small>
+                </div>
+                <strong>${escapeHtml(formatDisplayPrice(item.price))}</strong>
+              </article>
+            `).join('')}
+          </section>
+        `)
+        .join('');
+
+      section.innerHTML = `
+        <div class="panel">
+          <span class="section-kicker">${escapeHtml(draftBusiness.catalog_kicker || '')}</span>
+          <h2 class="section-title">${escapeHtml(draftBusiness.catalog_title || '')}</h2>
+          <p class="section-sub">${escapeHtml(draftBusiness.catalog_subtitle || '')}</p>
+          <div class="catalog-shell">
+            ${draftBusiness.show_category_shortcuts ? `<div class="category-scroller">${shortcuts}</div>` : ''}
+            <div class="catalog-toolbar">
+              ${draftBusiness.show_catalog_search ? `
+                <div class="search-wrap">
+                  <input id="catalogSearch" class="catalog-search" type="text" value="${escapeHtml(catalogSearchTerm)}" placeholder="${escapeHtml(draftBusiness.catalog_placeholder || '')}" />
+                  <button class="catalog-clear" type="button" id="catalogClear">${escapeHtml(draftBusiness.catalog_clear_label || 'Limpiar busqueda')}</button>
+                </div>
+              ` : '<div></div>'}
+              <div class="catalog-summary">
+                <span><strong id="catalogCount">${activeItems.length}</strong> <span id="catalogResultsLabel">${escapeHtml(draftBusiness.catalog_results_label || '')}</span></span>
+                <label class="catalog-sort-wrap">
+                  <span>${escapeHtml(draftBusiness.catalog_sort_label || 'Ordenar')}</span>
+                  <select id="catalogSort" class="catalog-sort">
+                    <option value="default" ${catalogSortValue === 'default' ? 'selected' : ''}>Recomendado</option>
+                    <option value="name-asc" ${catalogSortValue === 'name-asc' ? 'selected' : ''}>Nombre A-Z</option>
+                    <option value="price-asc" ${catalogSortValue === 'price-asc' ? 'selected' : ''}>Precio menor</option>
+                    <option value="price-desc" ${catalogSortValue === 'price-desc' ? 'selected' : ''}>Precio mayor</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+            ${draftBusiness.show_catalog_filters ? `<div class="catalog-filters"><button class="catalog-filter" type="button" data-filter="all">Todo</button>${filters}</div>` : ''}
+            <div class="catalog-grid" id="catalogGrid">${cards}</div>
+            <div class="catalog-empty" id="catalogEmpty">${escapeHtml(draftBusiness.catalog_empty_message || '')}</div>
+            <div class="menu-grid" id="catalogBoards" style="${draftBusiness.show_category_boards ? '' : 'display:none'}">${boards}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderContactSection() {
+      const section = document.getElementById('contacto');
+      if (!section) {
+        return;
+      }
+      if (!draftBusiness.show_contact) {
+        section.style.display = 'none';
+        return;
+      }
+      section.style.display = '';
+      section.innerHTML = `
+        <div class="panel">
+          <span class="section-kicker">${escapeHtml(draftBusiness.contact_kicker || '')}</span>
+          <h2 class="section-title">${escapeHtml(draftBusiness.contact_title || '')}</h2>
+          <p class="section-sub">${escapeHtml(draftBusiness.contact_text || '')}</p>
+          <div class="contact-grid">
+            <article class="contact-card">
+              <div class="contact-list">
+                <span><strong>Negocio:</strong> ${escapeHtml(draftBusiness.name || '')}</span>
+                <span><strong>Ciudad:</strong> ${escapeHtml(draftBusiness.city || '')}</span>
+                <span><strong>Direccion:</strong> ${escapeHtml(draftBusiness.address || '')}</span>
+                <span><strong>Horario:</strong> ${escapeHtml(draftBusiness.open_hours || '')}</span>
+                <span><strong>WhatsApp:</strong> +${escapeHtml(draftBusiness.whatsapp || '')}</span>
+              </div>
+              <div class="contact-actions">
+                <a class="btn primary" href="${buildWhatsAppLink()}" target="_blank" rel="noopener noreferrer">${escapeHtml(draftBusiness.contact_primary_cta_label || 'Escribir por WhatsApp')}</a>
+                <a class="btn ghost" href="${buildMapLink()}" target="_blank" rel="noopener noreferrer">${escapeHtml(draftBusiness.contact_secondary_cta_label || 'Abrir mapa')}</a>
+              </div>
+            </article>
+            <article class="schedule-card">
+              <small>${escapeHtml(draftBusiness.announcement_badge || '')}</small>
+              <h3>${escapeHtml(draftBusiness.hero_subtitle || '')}</h3>
+              <p>${escapeHtml(draftBusiness.contact_text || '')}</p>
+              <p><strong>Nota:</strong> ${escapeHtml(draftBusiness.order_note || '')}</p>
+            </article>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderFaqSection() {
+      const section = document.getElementById('faq');
+      if (!section) {
+        return;
+      }
+      if (!draftBusiness.show_faq) {
+        section.style.display = 'none';
+        return;
+      }
+      section.style.display = '';
+      const rows = (draftBusiness.faq || [])
+        .map((item) => `
+          <article class="faq-card">
+            <h4>${escapeHtml(item.q)}</h4>
+            <p>${escapeHtml(item.a)}</p>
+          </article>
+        `)
+        .join('');
+      section.innerHTML = `
+        <div class="panel">
+          <span class="section-kicker">${escapeHtml(draftBusiness.faq_kicker || '')}</span>
+          <h2 class="section-title">${escapeHtml(draftBusiness.faq_title || '')}</h2>
+          <div class="faq-grid">${rows}</div>
+        </div>
+      `;
+    }
+
+    function renderFooterElements() {
+      const footer = document.querySelector('footer.footer');
+      if (footer) {
+        footer.innerHTML = `
+          <span>${escapeHtml(draftBusiness.name || '')} - ${escapeHtml(draftBusiness.city || '')}</span>
+          <span>${escapeHtml(draftBusiness.footer_note || '')}</span>
+        `;
+      }
+      const floatButton = document.querySelector('.whatsapp-float');
+      if (!floatButton) {
+        return;
+      }
+      if (!draftBusiness.show_whatsapp_float) {
+        floatButton.style.display = 'none';
+        return;
+      }
+      floatButton.style.display = '';
+      floatButton.href = buildWhatsAppLink();
+      floatButton.textContent = draftBusiness.nav_cta_label || 'Pedir por WhatsApp';
+    }
+
+    function bindEditableHotspots() {
+      editableBlocks.forEach((block) => {
+        if (block.dataset.editorBound === '1') {
+          return;
+        }
+        block.dataset.editorBound = '1';
+        block.addEventListener('click', (event) => {
+          if (event.defaultPrevented) {
+            return;
+          }
+          const explicitTrigger = event.target.closest('[data-editor-open]');
+          const clickedInteractive = event.target.closest('a, button, input, textarea, select');
+          if (clickedInteractive && !explicitTrigger) {
+            return;
+          }
+          event.preventDefault();
+          event.stopPropagation();
+          const section = explicitTrigger?.dataset.editorOpen || block.dataset.editorSection;
+          const meta = {};
+          const itemIndex = explicitTrigger?.dataset.editorItemIndex || block.dataset.editorItemIndex;
+          const galleryIndex = explicitTrigger?.dataset.editorGalleryIndex || block.dataset.editorGalleryIndex;
+          const faqIndex = explicitTrigger?.dataset.editorFaqIndex || block.dataset.editorFaqIndex;
+          if (itemIndex !== undefined && itemIndex !== null && itemIndex !== '') {
+            meta.itemIndex = Number(itemIndex);
+          }
+          if (galleryIndex !== undefined && galleryIndex !== null && galleryIndex !== '') {
+            meta.galleryIndex = Number(galleryIndex);
+          }
+          if (faqIndex !== undefined && faqIndex !== null && faqIndex !== '') {
+            meta.faqIndex = Number(faqIndex);
+          }
+          if (section) {
+            openVisualEditor(section, meta);
+          }
+        });
+      });
+    }
+
+    function wirePageInteractions() {
+      refreshInteractiveRefs();
+      bindMenuEvents();
+      bindCatalogEvents();
+      bindCarouselEvents();
+      bindEditableHotspots();
+    }
+
+    function renderBusinessPage() {
+      draftBusiness = normalizeBusinessData(draftBusiness);
+      applyThemeVariables();
+      const activeItems = getActiveItems();
+      renderUtilitySection();
+      renderBrandSection();
+      renderHeroSection();
+      renderFeaturedSection(activeItems);
+      renderCakesSection();
+      renderStorySection();
+      renderCatalogSection(activeItems);
+      renderContactSection();
+      renderFaqSection();
+      renderFooterElements();
+      wirePageInteractions();
+      if (activeEditorSection) {
+        renderEditor(activeEditorSection, activeEditorMeta);
+      }
+    }
 
     function applyThemePreset(presetKey) {
       const preset = themePresets[presetKey];
@@ -2817,10 +3587,10 @@
     function markDirty(nextState = true) {
       hasUnsavedChanges = nextState;
       if (editorStatus) {
-        editorStatus.textContent = nextState ? 'Tienes cambios sin guardar.' : 'Los cambios se guardan manualmente.';
+        editorStatus.textContent = nextState ? 'Tienes cambios sin aplicar en la demo.' : 'La demo esta sincronizada con el ultimo guardado.';
       }
       if (pageEditorSave) {
-        pageEditorSave.textContent = nextState ? 'Guardar cambios pendientes' : 'Guardar cambios';
+        pageEditorSave.textContent = nextState ? 'Guardar cambios pendientes' : 'Guardar y aplicar';
       }
     }
 
@@ -2981,15 +3751,11 @@
       return clone;
     }
 
-    async function saveVisualEditor() {
-      if (!visualEditEnabled || !draftBusiness) {
+    function exportVisualEditorJson() {
+      if (!draftBusiness) {
         return;
       }
-      persistCurrentSection();
-      const payload = {};
-      saveKeys.forEach((key) => {
-        payload[key] = draftBusiness[key];
-      });
+      const payload = buildSavePayload();
       const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -2997,8 +3763,66 @@
       a.download = (draftBusiness.slug || 'negocio') + '-cambios.json';
       a.click();
       URL.revokeObjectURL(url);
+    }
+
+    async function saveVisualEditor() {
+      if (!visualEditEnabled || !draftBusiness) {
+        return;
+      }
+      persistCurrentSection();
+      const payload = buildSavePayload();
+      saveDraftToStorage(payload);
+      renderBusinessPage();
       markDirty(false);
-      editorStatus.textContent = 'Cambios exportados como JSON. Envíalo por WhatsApp para aplicarlos.';
+      if (editorStatus) {
+        editorStatus.textContent = 'Cambios guardados en este navegador y aplicados a la demo.';
+      }
+    }
+
+    function importVisualEditorJson(file) {
+      if (!file) {
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const parsed = JSON.parse(String(reader.result || '{}'));
+          activeFilter = 'all';
+          catalogSearchTerm = '';
+          catalogSortValue = 'default';
+          draftBusiness = normalizeBusinessData({ ...initialBusinessData, ...parsed });
+          saveDraftToStorage(buildSavePayload());
+          renderBusinessPage();
+          markDirty(false);
+          if (editorStatus) {
+            editorStatus.textContent = 'Archivo importado y aplicado correctamente.';
+          }
+          if (editorDrawer) {
+            renderEditor(activeEditorSection || 'brand', activeEditorMeta);
+          }
+        } catch (error) {
+          if (editorStatus) {
+            editorStatus.textContent = 'No se pudo importar ese archivo JSON.';
+          }
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function resetVisualEditorDemo() {
+      draftBusiness = normalizeBusinessData(initialBusinessData);
+      activeFilter = 'all';
+      catalogSearchTerm = '';
+      catalogSortValue = 'default';
+      clearStoredDraft();
+      renderBusinessPage();
+      markDirty(false);
+      if (editorStatus) {
+        editorStatus.textContent = 'La demo volvio a su version base.';
+      }
+      if (activeEditorSection) {
+        renderEditor(activeEditorSection, activeEditorMeta);
+      }
     }
 
     if (visualEditEnabled) {
@@ -3008,38 +3832,6 @@
         }
         event.preventDefault();
         event.returnValue = '';
-      });
-
-      editableBlocks.forEach((block) => {
-        block.addEventListener('click', (event) => {
-          if (event.defaultPrevented) {
-            return;
-          }
-          const explicitTrigger = event.target.closest('[data-editor-open]');
-          const clickedInteractive = event.target.closest('a, button, input, textarea, select');
-          if (clickedInteractive && !explicitTrigger) {
-            return;
-          }
-          event.preventDefault();
-          event.stopPropagation();
-          const section = explicitTrigger?.dataset.editorOpen || block.dataset.editorSection;
-          const meta = {};
-          const itemIndex = explicitTrigger?.dataset.editorItemIndex || block.dataset.editorItemIndex;
-          const galleryIndex = explicitTrigger?.dataset.editorGalleryIndex || block.dataset.editorGalleryIndex;
-          const faqIndex = explicitTrigger?.dataset.editorFaqIndex || block.dataset.editorFaqIndex;
-          if (itemIndex !== undefined && itemIndex !== null && itemIndex !== '') {
-            meta.itemIndex = Number(itemIndex);
-          }
-          if (galleryIndex !== undefined && galleryIndex !== null && galleryIndex !== '') {
-            meta.galleryIndex = Number(galleryIndex);
-          }
-          if (faqIndex !== undefined && faqIndex !== null && faqIndex !== '') {
-            meta.faqIndex = Number(faqIndex);
-          }
-          if (section) {
-            openVisualEditor(section, meta);
-          }
-        });
       });
 
       if (editorBackdrop) {
@@ -3056,6 +3848,21 @@
       }
       if (pageEditorSave) {
         pageEditorSave.addEventListener('click', saveVisualEditor);
+      }
+      if (pageEditorExport) {
+        pageEditorExport.addEventListener('click', exportVisualEditorJson);
+      }
+      if (pageEditorImport) {
+        pageEditorImport.addEventListener('click', () => pageEditorImportFile?.click());
+      }
+      if (pageEditorImportFile) {
+        pageEditorImportFile.addEventListener('change', (event) => {
+          importVisualEditorJson(event.target.files?.[0]);
+          event.target.value = '';
+        });
+      }
+      if (pageEditorReset) {
+        pageEditorReset.addEventListener('click', resetVisualEditorDemo);
       }
       if (openAdvancedEditor) {
         openAdvancedEditor.addEventListener('click', () => openVisualEditor('appearance'));
@@ -3228,6 +4035,16 @@
           }
         });
       }
+
+      const storedDraft = loadStoredDraft();
+      if (storedDraft) {
+        draftBusiness = storedDraft;
+      } else {
+        draftBusiness = normalizeBusinessData(initialBusinessData);
+      }
+
+      renderBusinessPage();
+      markDirty(false);
     }
   </script>
 </body>

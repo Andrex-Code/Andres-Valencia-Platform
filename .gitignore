@@ -3,8 +3,16 @@ __pycache__/
 *.pyc
 *.pyo
 
-# AV System (separate repo)
+# Legacy local lab
 av-system/
+
+# Studio local artifacts
+studio/.vercel/
+studio/.vercel-global/
+studio/deploy/
+studio/static/uploads/
+studio/tools/
+studio/__pycache__/
 
 # OS
 .DS_Store
@@ -17,3 +25,6 @@ desktop.ini
 
 # Claude local settings
 .claude/settings.local.json
+
+# Vercel local linkage
+.vercel/

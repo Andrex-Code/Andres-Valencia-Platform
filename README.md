@@ -1,19 +1,24 @@
-﻿# Web Templates Workspace
+# Andres Valencia Web Portfolio
 
-Este repositorio ahora está organizado como un catálogo escalable de plantillas de negocio.
+Portafolio comercial con demos por industria, un editor visual funcional en la demo de panaderia y una base documentada para evolucionar un studio interno.
 
-## Estructura
-- `index.html`: catálogo principal.
-- `catalog/templates.json`: metadata central.
-- `templates/`: plantillas por tipo de negocio.
-- `scripts/new-template.ps1`: generador de nuevas plantillas.
-- `docs/structure.md`: guía de estructura.
+## Mapa rapido
+- `index.html`: portada publica del portafolio.
+- `assets/`: estilos y scripts del sitio principal.
+- `catalog/`: inventario y copy de los casos.
+- `templates/`: demos publicas por vertical.
+- `studio/`: sistema Python versionado como base interna.
+- `PROJECT_KNOWLEDGE.md`: documento maestro para no perder contexto.
 
-## Crear nueva plantilla
-Ejecuta:
+## Documentos clave
+- `PROJECT_KNOWLEDGE.md`
+- `docs/DEPLOYMENT.md`
+- `docs/REFERENCES.md`
+- `docs/structure.md`
 
+## Crear una nueva plantilla
 ```powershell
 ./scripts/new-template.ps1 -Slug "dental-clinic" -Name "Dental Clinic" -Category "health"
 ```
 
-Después agrega la entrada correspondiente en `catalog/templates.json`.
+Despues agrega la entrada correspondiente en `catalog/templates.json` y el copy comercial en `catalog/showcase.json`.

@@ -3,1062 +3,357 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Andrés Valencia | Diseño Web Profesional para Negocios</title>
-  <meta name="description" content="Diseño páginas web profesionales para negocios en Colombia. Landing pages, sistemas de citas y mantenimiento. Resultados en 7-9 días." />
-  <meta property="og:title" content="Andrés Valencia — Diseño Web para Negocios" />
-  <meta property="og:description" content="Páginas web profesionales orientadas a conversión. Landing pages, sistemas de citas y mantenimiento mensual." />
+  <title>Andres Valencia | Portafolio web para negocios</title>
+  <meta
+    name="description"
+    content="Portafolio de Andres Valencia: sitios web para negocios con direccion visual propia, enfoque comercial y editor visual funcional."
+  />
+  <meta property="og:title" content="Andres Valencia | Portafolio web para negocios" />
+  <meta
+    property="og:description"
+    content="Sitios web con criterio comercial, demos por industria y un editor visual listo para operar contenido sin romper el diseno."
+  />
   <meta property="og:type" content="website" />
-  <meta property="og:locale" content="es_CO" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='20' width='100' height='100' fill='%23F5F5F5'/><text x='50' y='68' text-anchor='middle' font-size='48' font-weight='bold' fill='%230A0A0A' font-family='sans-serif'>AV</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #0A0A0A;
-      --surface: #141414;
-      --card: #1A1A1A;
-      --line: #2D2D2D;
-      --text: #E0E0E0;
-      --heading: #F5F5F5;
-      --muted: #888888;
-      --accent: #E8E8E8;
-      --accent-hover: #FFFFFF;
-      --label: #8B939E;
-      --max: min(1120px, 90%);
-      --radius: 12px;
-      --t: all .3s ease;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: "DM Sans", sans-serif;
-      color: var(--text);
-      background: var(--bg);
-      line-height: 1.6;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    .container { width: var(--max); margin: 0 auto; }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(16px);
-      transition: opacity .6s ease, transform .6s ease;
-    }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-
-    /* ── Nav ── */
-    .nav-wrap {
-      position: sticky;
-      top: 0;
-      z-index: 80;
-      border-bottom: 1px solid var(--line);
-      background: rgba(10,10,10,.92);
-      backdrop-filter: blur(12px);
-    }
-    .nav {
-      width: var(--max);
-      margin: 0 auto;
-      height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-    .brand {
-      text-decoration: none;
-      color: var(--heading);
-      display: inline-flex;
-      gap: 10px;
-      align-items: center;
-      font-weight: 700;
-      font-size: .95rem;
-      letter-spacing: .02em;
-    }
-    .brand-mark {
-      width: 34px;
-      height: 34px;
-      border-radius: 8px;
-      display: grid;
-      place-items: center;
-      color: var(--bg);
-      font-size: 13px;
-      font-weight: 700;
-      background: var(--heading);
-    }
-    .nav-links {
-      display: flex;
-      gap: 24px;
-      font-size: .85rem;
-      font-weight: 500;
-    }
-    .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      transition: var(--t);
-      letter-spacing: .01em;
-    }
-    .nav-links a:hover { color: var(--heading); }
-    .nav-cta {
-      text-decoration: none;
-      font-size: .82rem;
-      font-weight: 600;
-      color: var(--bg);
-      background: var(--heading);
-      padding: 10px 18px;
-      border-radius: 8px;
-      transition: var(--t);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .nav-cta:hover { background: var(--accent-hover); }
-    .wa-icon { width: 16px; height: 16px; fill: currentColor; }
-
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 6px;
-    }
-    .hamburger span {
-      width: 22px;
-      height: 2px;
-      background: var(--heading);
-      border-radius: 2px;
-    }
-    .mobile-menu {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 90;
-      background: rgba(10,10,10,.97);
-      backdrop-filter: blur(16px);
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 32px;
-    }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a {
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: var(--heading);
-      text-decoration: none;
-    }
-    .mobile-menu .close-btn {
-      position: absolute;
-      top: 20px;
-      right: 22px;
-      background: none;
-      border: none;
-      font-size: 2rem;
-      cursor: pointer;
-      color: var(--heading);
-      line-height: 1;
-    }
-
-    /* ── Hero ── */
-    .hero {
-      padding: 100px 0 60px;
-      text-align: center;
-    }
-    .hero-label {
-      font-size: .72rem;
-      font-weight: 600;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: var(--label);
-      margin-bottom: 20px;
-    }
-    .hero h1 {
-      font-family: "DM Serif Display", serif;
-      font-size: clamp(2.4rem, 5.5vw, 4.2rem);
-      line-height: 1.05;
-      color: var(--heading);
-      max-width: 18ch;
-      margin: 0 auto 20px;
-      font-weight: 400;
-    }
-    .hero p {
-      color: var(--muted);
-      max-width: 52ch;
-      margin: 0 auto 32px;
-      font-size: 1.05rem;
-    }
-    .hero-actions {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .btn {
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border-radius: 8px;
-      padding: 13px 22px;
-      font-size: .88rem;
-      font-weight: 600;
-      border: 1px solid transparent;
-      transition: var(--t);
-    }
-    .btn.primary {
-      color: var(--bg);
-      background: var(--heading);
-    }
-    .btn.primary:hover { background: var(--accent-hover); }
-    .btn.secondary {
-      color: var(--text);
-      border-color: var(--line);
-      background: transparent;
-    }
-    .btn.secondary:hover { border-color: var(--muted); color: var(--heading); }
-
-    /* ── Metrics ── */
-    .metrics-bar {
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      padding: 28px 0;
-      margin-bottom: 20px;
-    }
-    .metrics-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      text-align: center;
-      gap: 16px;
-    }
-    .metric-val {
-      font-family: "DM Serif Display", serif;
-      font-size: 1.6rem;
-      color: var(--heading);
-      display: block;
-      margin-bottom: 4px;
-    }
-    .metric-label {
-      font-size: .75rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: .08em;
-    }
-
-    /* ── Sections ── */
-    .section {
-      padding: 80px 0;
-    }
-    .section-rule {
-      width: 100%;
-      height: 1px;
-      background: var(--line);
-      border: none;
-    }
-    .section-label {
-      font-size: .7rem;
-      font-weight: 600;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: var(--label);
-      margin-bottom: 12px;
-    }
-    .section-title {
-      font-family: "DM Serif Display", serif;
-      font-size: clamp(1.7rem, 3.2vw, 2.6rem);
-      color: var(--heading);
-      line-height: 1.1;
-      margin-bottom: 10px;
-      font-weight: 400;
-    }
-    .section-desc {
-      color: var(--muted);
-      font-size: .95rem;
-      max-width: 54ch;
-      margin-bottom: 40px;
-    }
-
-    /* ── Works ── */
-    .works {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-    }
-    .work {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      overflow: hidden;
-      background: var(--card);
-      transition: var(--t);
-      display: flex;
-      flex-direction: column;
-    }
-    .work:hover {
-      border-color: #3a3a3a;
-      transform: translateY(-2px);
-    }
-    .work-cover {
-      height: 200px;
-      background-size: cover;
-      background-position: center;
-      position: relative;
-      filter: grayscale(40%);
-      transition: filter .4s ease;
-    }
-    .work:hover .work-cover { filter: grayscale(0%); }
-    .work-cover::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,.6), transparent);
-    }
-    .badge {
-      position: absolute;
-      left: 12px;
-      bottom: 12px;
-      z-index: 2;
-      color: var(--heading);
-      border: 1px solid rgba(255,255,255,.2);
-      border-radius: 6px;
-      font-size: .65rem;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      font-weight: 600;
-      padding: 5px 10px;
-      background: rgba(0,0,0,.5);
-    }
-    .work-body {
-      padding: 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      flex: 1;
-    }
-    .work h4 {
-      font-size: 1.05rem;
-      color: var(--heading);
-      font-weight: 600;
-    }
-    .work p { color: var(--muted); font-size: .88rem; flex: 1; }
-    .tags { display: flex; gap: 6px; flex-wrap: wrap; }
-    .tag {
-      border: 1px solid var(--line);
-      background: transparent;
-      border-radius: 6px;
-      font-size: .65rem;
-      font-weight: 500;
-      color: var(--muted);
-      padding: 4px 8px;
-    }
-    .work-links { display: flex; gap: 8px; }
-    .work-links a {
-      text-decoration: none;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 9px 14px;
-      font-size: .82rem;
-      font-weight: 600;
-      color: var(--text);
-      background: transparent;
-      transition: var(--t);
-    }
-    .work-links a:hover { border-color: var(--muted); }
-    .work-links a.primary {
-      color: var(--bg);
-      border-color: var(--accent);
-      background: var(--heading);
-    }
-    .work-links a.primary:hover { background: var(--accent-hover); }
-
-    /* ── Editor Feature ── */
-    .editor-feature {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--surface);
-      padding: 40px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      align-items: center;
-    }
-    .editor-feature-text .section-label { margin-bottom: 10px; }
-    .editor-feature-text h3 {
-      font-family: "DM Serif Display", serif;
-      font-size: 1.8rem;
-      color: var(--heading);
-      line-height: 1.1;
-      margin-bottom: 14px;
-      font-weight: 400;
-    }
-    .editor-feature-text p {
-      color: var(--muted);
-      font-size: .92rem;
-      margin-bottom: 12px;
-      line-height: 1.65;
-    }
-    .editor-feature-text ul {
-      list-style: none;
-      margin-bottom: 24px;
-    }
-    .editor-feature-text li {
-      color: var(--text);
-      font-size: .88rem;
-      padding: 6px 0;
-      border-bottom: 1px solid var(--line);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .editor-feature-text li::before {
-      content: "";
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--heading);
-      flex-shrink: 0;
-    }
-    .editor-preview {
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      overflow: hidden;
-      background: var(--card);
-    }
-    .editor-preview-bar {
-      background: #1f1f1f;
-      padding: 10px 14px;
-      display: flex;
-      gap: 6px;
-      border-bottom: 1px solid var(--line);
-    }
-    .editor-preview-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #333;
-    }
-    .editor-preview-body {
-      padding: 20px;
-    }
-    .editor-preview-body .mock-line {
-      height: 8px;
-      border-radius: 4px;
-      background: #2a2a2a;
-      margin-bottom: 8px;
-    }
-    .editor-preview-body .mock-line.short { width: 60%; }
-    .editor-preview-body .mock-line.med { width: 80%; }
-    .editor-preview-body .mock-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-top: 12px;
-    }
-    .editor-preview-body .mock-card {
-      height: 60px;
-      border-radius: 6px;
-      background: #222;
-      border: 1px solid #2d2d2d;
-    }
-    .editor-preview-body .mock-btn {
-      margin-top: 14px;
-      height: 32px;
-      width: 120px;
-      border-radius: 6px;
-      background: var(--heading);
-    }
-
-    /* ── Demo Selector ── */
-    .demo-selector {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-top: 20px;
-    }
-    .demo-card {
-      text-decoration: none;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: var(--card);
-      padding: 16px;
-      text-align: center;
-      transition: var(--t);
-    }
-    .demo-card:hover {
-      border-color: var(--accent);
-    }
-    .demo-card-icon {
-      font-size: 1.6rem;
-      margin-bottom: 8px;
-      display: block;
-    }
-    .demo-card-name {
-      font-size: .85rem;
-      font-weight: 600;
-      color: var(--heading);
-      display: block;
-      margin-bottom: 4px;
-    }
-    .demo-card-cat {
-      font-size: .7rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: .06em;
-    }
-
-    /* ── Services ── */
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-    .service {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--card);
-      padding: 24px;
-    }
-    .service h4 {
-      font-size: .95rem;
-      color: var(--heading);
-      margin-bottom: 8px;
-      font-weight: 600;
-    }
-    .service p {
-      color: var(--muted);
-      font-size: .85rem;
-    }
-
-    /* ── Pricing ── */
-    .pricing-wrap {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--card);
-      overflow: hidden;
-    }
-    .pricing-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: .86rem;
-    }
-    .pricing-table th,
-    .pricing-table td {
-      text-align: left;
-      padding: 14px 16px;
-      border-bottom: 1px solid var(--line);
-      vertical-align: top;
-    }
-    .pricing-table th {
-      background: var(--surface);
-      font-size: .7rem;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      color: var(--muted);
-      font-weight: 600;
-    }
-    .pricing-table td { color: var(--text); }
-    .pricing-table td strong { color: var(--heading); }
-    .pricing-table tr:last-child td { border-bottom: none; }
-    .pricing-notes {
-      margin-top: 14px;
-      color: var(--muted);
-      font-size: .85rem;
-    }
-    .pricing-notes strong { color: var(--text); }
-
-    /* ── Process ── */
-    .process {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-    }
-    .step {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--card);
-      padding: 22px;
-    }
-    .step-num {
-      display: inline-grid;
-      place-items: center;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.08);
-      color: var(--heading);
-      font-size: .75rem;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-    .step h5 {
-      font-size: .92rem;
-      color: var(--heading);
-      margin-bottom: 6px;
-      font-weight: 600;
-    }
-    .step p { color: var(--muted); font-size: .82rem; }
-
-    /* ── FAQ ── */
-    .faq-list { display: grid; gap: 10px; }
-    .faq-item {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--card);
-      padding: 18px;
-    }
-    .faq-item h4 {
-      font-size: .92rem;
-      color: var(--heading);
-      margin-bottom: 6px;
-      font-weight: 600;
-    }
-    .faq-item p { color: var(--muted); font-size: .85rem; }
-
-    /* ── CTA ── */
-    .cta {
-      margin: 0 0 60px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--surface);
-      padding: 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-    }
-    .cta h6 {
-      font-family: "DM Serif Display", serif;
-      font-size: clamp(1.4rem, 2.8vw, 2rem);
-      color: var(--heading);
-      line-height: 1.1;
-      margin-bottom: 8px;
-      font-weight: 400;
-    }
-    .cta p { color: var(--muted); font-size: .9rem; max-width: 50ch; }
-    .cta .buttons { display: flex; gap: 10px; flex-wrap: wrap; }
-
-    /* ── Footer ── */
-    .footer {
-      border-top: 1px solid var(--line);
-      padding: 20px 0 32px;
-      color: #555;
-      font-size: .8rem;
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 980px) {
-      .works { grid-template-columns: 1fr; }
-      .services-grid { grid-template-columns: 1fr; }
-      .process { grid-template-columns: repeat(2, 1fr); }
-      .metrics-grid { grid-template-columns: repeat(2, 1fr); }
-      .editor-feature { grid-template-columns: 1fr; }
-      .demo-selector { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 720px) {
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
-      .process { grid-template-columns: 1fr; }
-      .cta { flex-direction: column; align-items: flex-start; }
-      .hero { padding: 60px 0 40px; }
-      .section { padding: 50px 0; }
-      .editor-feature { padding: 24px; }
-      .demo-selector { grid-template-columns: 1fr; }
-    }
-  </style>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="assets/css/site.css" />
 </head>
 <body>
-  <div class="nav-wrap">
-    <nav class="nav">
-      <a class="brand" href="#inicio">
-        <span class="brand-mark">AV</span>
-        <span>Andrés Valencia</span>
-      </a>
-      <div class="nav-links">
-        <a href="#trabajos">Trabajos</a>
-        <a href="#editor">Editor</a>
-        <a href="#servicios">Servicios</a>
-        <a href="#inversion">Inversión</a>
-        <a href="#proceso">Proceso</a>
-        <a href="#faq">FAQ</a>
-      </div>
-      <a class="nav-cta" href="https://wa.me/573007561667" target="_blank" rel="noopener noreferrer"><svg class="wa-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Hablemos</a>
-      <button class="hamburger" aria-label="Menú" onclick="document.querySelector('.mobile-menu').classList.add('open')">
-        <span></span><span></span><span></span>
-      </button>
+  <div class="page-glow" aria-hidden="true"></div>
+
+  <header class="site-nav">
+    <a class="brand" href="#inicio" aria-label="Ir al inicio">
+      <span class="brand-mark">AV</span>
+      <span class="brand-copy">
+        <strong>Andres Valencia</strong>
+        <small>Digital atelier para negocios locales</small>
+      </span>
+    </a>
+
+    <nav class="nav-links" aria-label="Principal">
+      <a href="#trabajos">Trabajos</a>
+      <a href="#editor">Editor</a>
+      <a href="#sistema">Sistema</a>
+      <a href="#faq">FAQ</a>
     </nav>
-  </div>
 
-  <div class="mobile-menu">
-    <button class="close-btn" aria-label="Cerrar" onclick="this.parentElement.classList.remove('open')">&times;</button>
-    <a href="#trabajos" onclick="this.parentElement.classList.remove('open')">Trabajos</a>
-    <a href="#editor" onclick="this.parentElement.classList.remove('open')">Editor</a>
-    <a href="#servicios" onclick="this.parentElement.classList.remove('open')">Servicios</a>
-    <a href="#inversion" onclick="this.parentElement.classList.remove('open')">Inversión</a>
-    <a href="#proceso" onclick="this.parentElement.classList.remove('open')">Proceso</a>
-    <a href="#faq" onclick="this.parentElement.classList.remove('open')">FAQ</a>
-    <a href="https://wa.me/573007561667" target="_blank" rel="noopener noreferrer">Hablemos por WhatsApp</a>
-  </div>
-
-  <header class="hero container" id="inicio">
-    <div class="reveal">
-      <p class="hero-label">Diseño Web Profesional</p>
-      <h1>Páginas web que convierten visitantes en clientes</h1>
-      <p>Diseño profesional, estructura clara y llamados a la acción directos para negocios que buscan resultados reales.</p>
-      <div class="hero-actions">
-        <a class="btn primary" href="#trabajos">Ver portafolio</a>
-        <a class="btn secondary" href="#contacto">Solicitar cotización</a>
-      </div>
-    </div>
+    <a
+      class="nav-cta"
+      href="https://wa.me/573007561667?text=Hola,%20quiero%20hablar%20sobre%20mi%20pagina%20web."
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      WhatsApp
+    </a>
   </header>
 
-  <section class="metrics-bar reveal">
-    <div class="container">
-      <div class="metrics-grid">
-        <div>
-          <span class="metric-val">7–9</span>
-          <span class="metric-label">Días de entrega</span>
+  <main>
+    <section class="hero shell" id="inicio">
+      <div class="hero-copy" data-reveal>
+        <p class="eyebrow">Portafolio curado para conversion</p>
+        <h1>Diseno web con criterio comercial, no layouts reciclados.</h1>
+        <p class="hero-lead">
+          Construyo sitios para negocios que necesitan verse serios, vender mejor desde celular
+          y seguir moviendo contenido sin depender de un desarrollador para cada cambio.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#trabajos">Ver trabajos</a>
+          <a class="btn btn-secondary" href="templates/panaderia/index.html">Abrir editor real</a>
         </div>
-        <div>
-          <span class="metric-val">100%</span>
-          <span class="metric-label">Mobile first</span>
-        </div>
-        <div>
-          <span class="metric-val">SEO</span>
-          <span class="metric-label">Estructura semántica</span>
-        </div>
-        <div>
-          <span class="metric-val">Editor</span>
-          <span class="metric-label">Visual incluido</span>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <main class="container">
-
-    <!-- Trabajos -->
-    <section class="section" id="trabajos">
-      <p class="section-label reveal">Portafolio</p>
-      <h2 class="section-title reveal">Proyectos por tipo de negocio</h2>
-      <p class="section-desc reveal">Cada demo es una página funcional. Ábrela para ver la experiencia completa.</p>
-
-      <div class="works">
-        <article class="work reveal">
-          <div class="work-cover" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1400&q=80&auto=format&fit=crop');">
-            <span class="badge">Fitness</span>
-          </div>
-          <div class="work-body">
-            <h4>IRONFORM Gym</h4>
-            <p>Estética premium para gimnasios con clases y planes de membresía.</p>
-            <div class="tags">
-              <span class="tag">Lead generation</span>
-              <span class="tag">Brand look</span>
-              <span class="tag">Landing</span>
-            </div>
-            <div class="work-links">
-              <a class="primary" href="templates/gym/index.html">Ver demo</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="work reveal">
-          <div class="work-cover" style="background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1400&q=80&auto=format&fit=crop');">
-            <span class="badge">Restaurante</span>
-          </div>
-          <div class="work-body">
-            <h4>Aubergine</h4>
-            <p>Diseño editorial para restaurantes con menú, historia y reservas.</p>
-            <div class="tags">
-              <span class="tag">High-end</span>
-              <span class="tag">Storytelling</span>
-              <span class="tag">Reservas</span>
-            </div>
-            <div class="work-links">
-              <a class="primary" href="templates/restaurant/index.html">Ver demo</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="work reveal">
-          <div class="work-cover" style="background-image: url('https://images.unsplash.com/photo-1583744946564-b52ac1c389c8?w=1400&q=80&auto=format&fit=crop');">
-            <span class="badge">Tattoo Studio</span>
-          </div>
-          <div class="work-body">
-            <h4>Sombra Ink</h4>
-            <p>Alto contraste para estudios de tatuajes con CTA directo a WhatsApp.</p>
-            <div class="tags">
-              <span class="tag">Visual impact</span>
-              <span class="tag">Social proof</span>
-              <span class="tag">Contacto directo</span>
-            </div>
-            <div class="work-links">
-              <a class="primary" href="templates/tattoo-studio/index.html">Ver demo</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="work reveal">
-          <div class="work-cover" style="background-image: url('https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1400&q=80&auto=format&fit=crop');">
-            <span class="badge">Panadería</span>
-          </div>
-          <div class="work-body">
-            <h4>Panadería La Chiquita</h4>
-            <p>Catálogo con búsqueda, filtros y pedidos directos por WhatsApp.</p>
-            <div class="tags">
-              <span class="tag">Catálogo</span>
-              <span class="tag">WhatsApp orders</span>
-              <span class="tag">Artesanal</span>
-            </div>
-            <div class="work-links">
-              <a class="primary" href="templates/panaderia/index.html">Ver demo</a>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <hr class="section-rule" />
-
-    <!-- Editor Visual -->
-    <section class="section" id="editor">
-      <div class="editor-feature reveal">
-        <div class="editor-feature-text">
-          <p class="section-label">Incluido con tu página</p>
-          <h3>Editor visual para que actualices tu página sin depender de nadie</h3>
-          <p>Cada página que entrego incluye un panel de edición donde puedes cambiar textos, productos, imágenes, colores y secciones completas. Sin código, sin complicaciones.</p>
-          <ul>
-            <li>Edita textos, precios e imágenes en tiempo real</li>
-            <li>Agrega o elimina productos del catálogo</li>
-            <li>Cambia colores y tipografía con un clic</li>
-            <li>Gestiona FAQ, galería y secciones de contacto</li>
-            <li>Exporta los cambios como archivo listo para publicar</li>
-          </ul>
-          <a class="btn primary" href="templates/panaderia/index.html">Probar el editor en vivo</a>
-        </div>
-        <div class="editor-preview">
-          <div class="editor-preview-bar">
-            <span class="editor-preview-dot"></span>
-            <span class="editor-preview-dot"></span>
-            <span class="editor-preview-dot"></span>
-          </div>
-          <div class="editor-preview-body">
-            <div class="mock-line short"></div>
-            <div class="mock-line med"></div>
-            <div class="mock-line"></div>
-            <div class="mock-grid">
-              <div class="mock-card"></div>
-              <div class="mock-card"></div>
-              <div class="mock-card"></div>
-              <div class="mock-card"></div>
-            </div>
-            <div class="mock-btn"></div>
-          </div>
+        <div class="hero-notes">
+          <article>
+            <span>Direccion visual</span>
+            <strong>Una identidad distinta por industria</strong>
+          </article>
+          <article>
+            <span>Operacion</span>
+            <strong>Editor de contenido sin tocar el layout</strong>
+          </article>
+          <article>
+            <span>Entrega</span>
+            <strong>GitHub y Vercel listos para publicar</strong>
+          </article>
         </div>
       </div>
 
-      <p class="section-label reveal" style="margin-top: 40px;">Prueba el editor</p>
-      <h2 class="section-title reveal">Selecciona una demo para editarla</h2>
-      <p class="section-desc reveal">Haz clic en cualquier demo para abrir el editor visual y experimentar cómo funciona.</p>
-      <div class="demo-selector reveal">
-        <a class="demo-card" href="templates/panaderia/index.html">
-          <span class="demo-card-icon">🍞</span>
-          <span class="demo-card-name">La Chiquita</span>
-          <span class="demo-card-cat">Panadería</span>
-        </a>
-        <a class="demo-card" href="templates/gym/index.html">
-          <span class="demo-card-icon">🏋️</span>
-          <span class="demo-card-name">IRONFORM</span>
-          <span class="demo-card-cat">Gimnasio</span>
-        </a>
-        <a class="demo-card" href="templates/restaurant/index.html">
-          <span class="demo-card-icon">🍽️</span>
-          <span class="demo-card-name">Aubergine</span>
-          <span class="demo-card-cat">Restaurante</span>
-        </a>
-        <a class="demo-card" href="templates/tattoo-studio/index.html">
-          <span class="demo-card-icon">🖋️</span>
-          <span class="demo-card-name">Sombra Ink</span>
-          <span class="demo-card-cat">Tattoo Studio</span>
-        </a>
-      </div>
+      <aside class="hero-rail" data-reveal>
+        <article class="signal-card signal-card-main">
+          <span class="signal-label">Direccion del estudio</span>
+          <h2>Websites que ayudan a vender, explicar y cerrar.</h2>
+          <p>
+            El enfoque mezcla narrativa de marca, performance y una capa operativa clara para que
+            el negocio no se quede congelado despues del lanzamiento.
+          </p>
+        </article>
+
+        <article class="signal-card signal-card-accent">
+          <div class="signal-metric">
+            <strong>4</strong>
+            <span>demos por industria</span>
+          </div>
+          <div class="signal-metric">
+            <strong>1</strong>
+            <span>editor visual usable ya</span>
+          </div>
+          <div class="signal-metric">
+            <strong>100%</strong>
+            <span>mobile-first y estatico para Vercel</span>
+          </div>
+        </article>
+      </aside>
     </section>
 
-    <hr class="section-rule" />
-
-    <!-- Servicios -->
-    <section class="section" id="servicios">
-      <p class="section-label reveal">Servicios</p>
-      <h2 class="section-title reveal">Lo que incluye cada proyecto</h2>
-      <p class="section-desc reveal">Paquetes claros para negocios que necesitan presencia online funcional.</p>
-      <div class="services-grid">
-        <article class="service reveal">
-          <h4>Landing page comercial</h4>
-          <p>Página de una sola sección larga para presentar servicios, generar confianza y captar contactos.</p>
-        </article>
-        <article class="service reveal">
-          <h4>Sistema de citas</h4>
-          <p>Integración de agenda por WhatsApp o formulario para negocios que atienden por reserva.</p>
-        </article>
-        <article class="service reveal">
-          <h4>Mantenimiento mensual</h4>
-          <p>Actualización de textos, imágenes, cambios menores y soporte para mantener la web al día.</p>
-        </article>
-      </div>
-    </section>
-
-    <hr class="section-rule" />
-
-    <!-- Inversión -->
-    <section class="section" id="inversion">
-      <p class="section-label reveal">Inversión</p>
-      <h2 class="section-title reveal">Rangos de inversión (COP)</h2>
-      <p class="section-desc reveal">Sin sorpresas. Rangos claros según el alcance de tu proyecto.</p>
-      <div class="pricing-wrap reveal">
-        <table class="pricing-table">
-          <thead>
-            <tr>
-              <th>Plan</th>
-              <th>Ideal para</th>
-              <th>Incluye</th>
-              <th>Inversión</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Base</strong></td>
-              <td>Negocio que necesita presencia inicial</td>
-              <td>Landing page, CTA a WhatsApp, mapa, formulario simple</td>
-              <td><strong>$900.000 – $1.400.000</strong></td>
-            </tr>
-            <tr>
-              <td><strong>Pro</strong></td>
-              <td>Negocio que quiere vender de forma activa</td>
-              <td>Landing optimizada, sección de servicios, testimonios, SEO base y analítica</td>
-              <td><strong>$1.500.000 – $2.400.000</strong></td>
-            </tr>
-            <tr>
-              <td><strong>Pro + Citas</strong></td>
-              <td>Barberías, psicólogos, tatuadores</td>
-              <td>Todo lo del plan Pro + flujo de citas y recordatorios básicos</td>
-              <td><strong>$2.500.000 – $3.800.000</strong></td>
-            </tr>
-            <tr>
-              <td><strong>Mantenimiento</strong></td>
-              <td>Cliente con web que quiere soporte</td>
-              <td>2 a 4 ajustes al mes, respaldo y soporte</td>
-              <td><strong>$180.000 – $450.000 / mes</strong></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="pricing-notes reveal">
-        Tiempo estimado: <strong>7 a 9 días hábiles</strong>. Si se termina antes, se entrega antes.
-        El valor exacto depende de complejidad, cantidad de secciones y recursos entregados por el cliente.
-      </p>
-    </section>
-
-    <hr class="section-rule" />
-
-    <!-- Proceso -->
-    <section class="section" id="proceso">
-      <p class="section-label reveal">Proceso</p>
-      <h2 class="section-title reveal">Cómo trabajamos</h2>
-      <p class="section-desc reveal">Flujo profesional: discovery, estructura, diseño, desarrollo y entrega.</p>
-      <div class="process">
-        <article class="step reveal">
-          <span class="step-num">1</span>
-          <h5>Brief y objetivos</h5>
-          <p>Reunimos información del negocio, público, competencia y meta principal.</p>
-        </article>
-        <article class="step reveal">
-          <span class="step-num">2</span>
-          <h5>Estructura y copy</h5>
-          <p>Defino arquitectura, secciones y textos orientados a conversión.</p>
-        </article>
-        <article class="step reveal">
-          <span class="step-num">3</span>
-          <h5>Diseño y desarrollo</h5>
-          <p>Construyo el sitio responsive, integro CTA, WhatsApp y citas si aplica.</p>
-        </article>
-        <article class="step reveal">
-          <span class="step-num">4</span>
-          <h5>Revisión y entrega</h5>
-          <p>Ajustes finales y entrega en 7 a 9 días hábiles, o antes si queda listo.</p>
-        </article>
-      </div>
-    </section>
-
-    <hr class="section-rule" />
-
-    <!-- FAQ -->
-    <section class="section" id="faq">
-      <p class="section-label reveal">FAQ</p>
-      <h2 class="section-title reveal">Preguntas frecuentes</h2>
-      <p class="section-desc reveal">Respuestas claras para avanzar con seguridad.</p>
-      <div class="faq-list">
-        <article class="faq-item reveal">
-          <h4>¿Cómo se paga el proyecto?</h4>
-          <p>50% de anticipo para iniciar y 50% contra entrega final.</p>
-        </article>
-        <article class="faq-item reveal">
-          <h4>¿Cuánto tarda en estar lista mi página?</h4>
-          <p>El tiempo promedio es de 7 a 9 días hábiles. Si se termina antes, se entrega antes.</p>
-        </article>
-        <article class="faq-item reveal">
-          <h4>¿Incluye cambios o ajustes?</h4>
-          <p>Sí. Incluye una ronda de ajustes finales. Cambios extra o nuevas secciones se cotizan aparte.</p>
-        </article>
-        <article class="faq-item reveal">
-          <h4>¿El dominio y hosting están incluidos?</h4>
-          <p>No por defecto. Se cotizan aparte o se configuran con tu proveedor actual.</p>
-        </article>
-        <article class="faq-item reveal">
-          <h4>¿Puedo editar mi página después?</h4>
-          <p>Sí. Cada página incluye un editor visual para que actualices textos, productos e imágenes sin código.</p>
-        </article>
-      </div>
-    </section>
-
-    <hr class="section-rule" />
-
-    <!-- CTA -->
-    <section class="cta reveal" id="contacto">
+    <section class="proof-strip shell" data-reveal>
       <div>
-        <h6>¿Listo para tu web profesional?</h6>
-        <p>Cuéntame tu tipo de negocio y te recomiendo el plan ideal según objetivo, presupuesto y tiempos.</p>
+        <span class="proof-label">Posicionamiento</span>
+        <strong>Sitios para restaurantes, fitness, tattoo y retail local.</strong>
       </div>
-      <div class="buttons">
-        <a class="btn primary" href="https://wa.me/573007561667" target="_blank" rel="noopener noreferrer"><svg class="wa-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Escribir por WhatsApp</a>
-        <a class="btn secondary" href="#trabajos">Ver demos</a>
+      <div>
+        <span class="proof-label">Metodo</span>
+        <strong>Diseccion por categoria, storytelling y CTA de negocio.</strong>
+      </div>
+      <div>
+        <span class="proof-label">Operacion</span>
+        <strong>Base documental para crecer sin perder contexto.</strong>
       </div>
     </section>
 
-    <footer class="footer">
-      <span>Andrés Valencia — Diseño Web Profesional</span>
-      <span><span id="year"></span></span>
-    </footer>
+    <section class="section shell" id="trabajos">
+      <div class="section-head" data-reveal>
+        <p class="section-label">Trabajos</p>
+        <h2>Casos con una direccion visual distinta y un motivo comercial claro.</h2>
+        <p>
+          Cada demo responde a una industria concreta. No hay una plantilla base disfrazada:
+          cambian tono, jerarquia, ritmo visual y estrategia de conversion.
+        </p>
+      </div>
+
+      <div class="case-grid" id="templateGrid">
+        <article class="case-loading">Cargando demos...</article>
+      </div>
+    </section>
+
+    <section class="section shell editor-section" id="editor">
+      <div class="editor-copy" data-reveal>
+        <p class="section-label">Editor</p>
+        <h2>La capa operativa ya no es una promesa: la demo de panaderia edita de verdad.</h2>
+        <p>
+          El editor visual sigue una logica de “content editor”: cambia textos, imagenes,
+          productos, FAQ, colores y visibilidad de secciones sin tocar la estructura del sitio.
+        </p>
+
+        <ul class="editor-points">
+          <li>Guarda los cambios en el navegador para continuar despues.</li>
+          <li>Importa y exporta JSON para mover versiones entre equipos o clientes.</li>
+          <li>Protege el layout: editas contenido, no rompes el diseno.</li>
+          <li>Sirve como demo real del producto que luego se industrializa.</li>
+        </ul>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="templates/panaderia/index.html">Probar editor</a>
+          <a class="btn btn-secondary" href="#sistema">Ver sistema de trabajo</a>
+        </div>
+      </div>
+
+      <div class="editor-panel" data-reveal>
+        <div class="editor-window">
+          <div class="editor-window-bar">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="editor-window-body">
+            <div class="editor-window-copy">
+              <small>Content-safe editing</small>
+              <strong>Marca, portada, catalogo, FAQ y apariencia</strong>
+              <p>
+                La idea no es un builder infinito. Es una interfaz corta, entendible y alineada con
+                el tipo de cambio que el cliente realmente necesita hacer.
+              </p>
+            </div>
+
+            <div class="editor-window-steps">
+              <article>
+                <span>01</span>
+                <strong>Editar</strong>
+                <p>Texto, imagenes, colores y productos.</p>
+              </article>
+              <article>
+                <span>02</span>
+                <strong>Guardar</strong>
+                <p>Persistencia local para seguir trabajando.</p>
+              </article>
+              <article>
+                <span>03</span>
+                <strong>Exportar</strong>
+                <p>JSON portable para versionado o publicacion.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+
+        <div class="editor-templates" id="editorTemplateGrid"></div>
+      </div>
+    </section>
+
+    <section class="section shell" id="sistema">
+      <div class="section-head" data-reveal>
+        <p class="section-label">Sistema</p>
+        <h2>La oferta deja de verse como “te hago una pagina” y se vuelve un producto serio.</h2>
+        <p>
+          Esta estructura me sirve para vender mejor, y a ti para entender rapido que se toca,
+          que se publica y donde vive cada cosa del proyecto.
+        </p>
+      </div>
+
+      <div class="system-grid">
+        <article class="system-card" data-reveal>
+          <small>Direccion</small>
+          <h3>Investigacion por categoria y una narrativa propia por sitio.</h3>
+          <p>
+            El look nace del negocio, no del constructor. Cada vertical tiene referencias reales,
+            tono, jerarquia y densidad visual distintas.
+          </p>
+        </article>
+
+        <article class="system-card" data-reveal>
+          <small>Produccion</small>
+          <h3>Frontend estatico rapido para mostrar, compartir y desplegar sin friccion.</h3>
+          <p>
+            El portafolio vive bien en GitHub + Vercel, con demos publicas claras y una base de
+            contenido que se puede extender con orden.
+          </p>
+        </article>
+
+        <article class="system-card" data-reveal>
+          <small>Operacion</small>
+          <h3>Un studio local separado para evolucionar hacia un CMS real.</h3>
+          <p>
+            El codigo Python queda documentado y versionado como base interna, pero sin forzar una
+            mala arquitectura de persistencia en Vercel.
+          </p>
+        </article>
+      </div>
+
+      <div class="process-rail" data-reveal>
+        <article>
+          <span>01</span>
+          <strong>Definir angulo</strong>
+          <p>Que vende, para quien y con que tono debe hablar la pagina.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <strong>Construir demo</strong>
+          <p>Diseccion visual, estructura de contenido y CTA de alta claridad.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <strong>Operar y publicar</strong>
+          <p>Editor, documentacion, GitHub y despliegue listos para seguir iterando.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section shell">
+      <div class="section-head" data-reveal>
+        <p class="section-label">Oferta</p>
+        <h2>Lo que conviene vender desde este portafolio.</h2>
+        <p>
+          El negocio no necesita hablar de “cualquier web”. Conviene empaquetar mejor el valor y
+          diferenciar lo que es demo publica, catalogo editable o sistema interno.
+        </p>
+      </div>
+
+      <div class="offer-grid">
+        <article class="offer-card" data-reveal>
+          <small>Landing premium</small>
+          <h3>Para negocios que venden confianza, agenda o reputacion.</h3>
+          <p>Ideal para estudios, restaurantes, servicios premium y marcas personales.</p>
+        </article>
+
+        <article class="offer-card" data-reveal>
+          <small>Catalogo editable</small>
+          <h3>Para retail local, panaderias, menus y negocios con inventario corto.</h3>
+          <p>Incluye contenido modular, filtros, CTA a WhatsApp y editor visual enfocado.</p>
+        </article>
+
+        <article class="offer-card" data-reveal>
+          <small>Studio interno</small>
+          <h3>Para cuando haga falta escalar hacia gestion multi-negocio.</h3>
+          <p>
+            La base Python queda lista como laboratorio interno, pero se desplegara solo cuando la
+            persistencia se mueva a storage serio.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section shell faq-section" id="faq">
+      <div class="section-head" data-reveal>
+        <p class="section-label">FAQ</p>
+        <h2>Preguntas que este portafolio deberia responder sin rodeos.</h2>
+      </div>
+
+      <div class="faq-grid">
+        <article class="faq-card" data-reveal>
+          <h3>Que hace distinta a cada demo?</h3>
+          <p>
+            La direccion visual, el tono, la estructura narrativa y la logica comercial. No es una
+            misma plantilla con colores nuevos.
+          </p>
+        </article>
+
+        <article class="faq-card" data-reveal>
+          <h3>El editor ya se puede usar?</h3>
+          <p>
+            Si. La demo de panaderia ya permite editar, guardar localmente, exportar e importar
+            contenido sin depender de un backend para el portafolio publico.
+          </p>
+        </article>
+
+        <article class="faq-card" data-reveal>
+          <h3>Que queda como siguiente mejora grande?</h3>
+          <p>
+            Llevar el studio interno a almacenamiento persistente real para publicar una version
+            multi-negocio sin depender del sistema de archivos local.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section shell final-cta" id="contacto" data-reveal>
+      <p class="section-label">Contacto</p>
+      <h2>Si el negocio necesita una web que se vea mejor y opere mejor, ya tenemos la base.</h2>
+      <p>
+        El siguiente paso es escoger la vertical correcta, convertirla en caso de estudio real y
+        cerrar un flujo de entrega que aguante cambios futuros sin desorden.
+      </p>
+      <div class="hero-actions">
+        <a
+          class="btn btn-primary"
+          href="https://wa.me/573007561667?text=Hola,%20quiero%20trabajar%20mi%20sitio%20web."
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Hablar por WhatsApp
+        </a>
+        <a class="btn btn-secondary" href="PROJECT_KNOWLEDGE.md">Leer base del proyecto</a>
+      </div>
+    </section>
   </main>
 
-  <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12 });
+  <footer class="site-footer shell">
+    <span>Andres Valencia</span>
+    <span>Portafolio web para negocios</span>
+    <span id="footerYear"></span>
+  </footer>
 
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+  <script type="module" src="assets/js/site.js"></script>
 </body>
 </html>
