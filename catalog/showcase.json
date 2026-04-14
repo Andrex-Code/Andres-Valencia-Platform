@@ -3,61 +3,61 @@
     "slug": "panaderia",
     "order": 1,
     "cover": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1400&q=80&auto=format&fit=crop",
-    "eyebrow": "Catalogo editable / retail local",
-    "summary": "Storefront artesanal para mostrar productos del dia, resolver dudas y mandar pedidos a WhatsApp con la menor friccion posible.",
-    "angle": "Pensado para negocios que viven de frecuencia, antojo y rapidez: primero vende, luego adorna.",
+    "eyebrow": "Panaderia / editor activo",
+    "summary": "Catalogo ligero para panaderias y negocios de mostrador que venden por rotacion diaria y pedidos rapidos.",
+    "angle": "La prioridad es mostrar producto, despejar dudas en segundos y llevar el pedido a WhatsApp sin pasos de sobra.",
     "highlights": [
-      "Busqueda, filtros y vitrina por categorias",
-      "Editor visual con guardado local, importacion y exportacion JSON",
-      "CTA directos a pedido, mapa y FAQ"
+      "Busqueda y filtros por categoria",
+      "Editor visual con guardado local e importacion y exportacion JSON",
+      "Mapa, FAQ y CTA directos a pedido"
     ],
-    "tags": ["Editable", "WhatsApp", "Catalogo"],
+    "tags": ["Editable", "Retail local", "WhatsApp"],
     "editorDemo": true,
-    "editorCopy": "La demo ideal para mostrar el producto-editor desde el mismo portafolio."
+    "editorCopy": "La demo donde ya se ve el producto real: editar contenido sin tocar la estructura."
   },
   {
     "slug": "restaurant",
     "order": 2,
     "cover": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1400&q=80&auto=format&fit=crop",
-    "eyebrow": "Editorial hospitality / premium dining",
-    "summary": "Direccion visual tipo magazine para restaurantes donde el prestigio depende de atmosfera, tono y presentacion.",
-    "angle": "La venta pasa por deseo y posicionamiento; el sitio necesita parecer una marca, no un menu en linea barato.",
+    "eyebrow": "Restaurante / editorial",
+    "summary": "Propuesta para restaurantes que necesitan transmitir atmosfera, carta y nivel de servicio desde la primera pantalla.",
+    "angle": "La web no compite por tener mas widgets; compite por percepcion, tono y deseo de reserva.",
     "highlights": [
-      "Hero editorial partido en dos",
-      "Jerarquia tipografica para marca y menu",
-      "Reservas y storytelling como piezas centrales"
+      "Jerarquia tipografica de corte editorial",
+      "Bloques para menu, historia y reservas",
+      "Ritmo visual sobrio para desktop y mobile"
     ],
-    "tags": ["High-end", "Editorial", "Storytelling"],
+    "tags": ["Editorial", "Reservas", "Servicio"],
     "editorDemo": false
   },
   {
     "slug": "gym",
     "order": 3,
     "cover": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1400&q=80&auto=format&fit=crop",
-    "eyebrow": "Lead generation / premium fitness",
-    "summary": "Una propuesta de gimnasio premium que se siente marca y no folleto de clases.",
-    "angle": "La prioridad es deseo aspiracional, claridad comercial y una energia visual que siembre membresia.",
+    "eyebrow": "Fitness / captacion",
+    "summary": "Landing comercial para gimnasios y estudios que venden membresia, autoridad y energia de marca.",
+    "angle": "Todo el sistema visual empuja claridad de oferta, aspiracion y cierre rapido.",
     "highlights": [
-      "Direccion dark-luxury con jerarquia agresiva",
-      "Planes, clases y entrenadores con estructura comercial",
-      "Ritmo visual para pantallas grandes y mobile"
+      "Hero de marca con tono premium",
+      "Planes, clases y entrenadores con lectura clara",
+      "CTA enfocados a captar prospectos"
     ],
-    "tags": ["Fitness", "Brand-heavy", "Leads"],
+    "tags": ["Fitness", "Captacion", "Marca"],
     "editorDemo": false
   },
   {
     "slug": "tattoo-studio",
     "order": 4,
     "cover": "https://images.unsplash.com/photo-1583744946564-b52ac1c389c8?w=1400&q=80&auto=format&fit=crop",
-    "eyebrow": "Subculture branding / contacto directo",
-    "summary": "Sitio de alto contraste para un estudio de tatuajes que necesita parecer deseable y facil de contactar.",
-    "angle": "No vende funcionalidad solamente; vende identidad, estilo y confianza en el trabajo del estudio.",
+    "eyebrow": "Tattoo / portafolio",
+    "summary": "Portafolio directo para estudios que viven de estilo, prueba visual y confianza en el trabajo.",
+    "angle": "Aqui la marca no se explica con discursos largos; se demuestra con tono, composicion y contacto inmediato.",
     "highlights": [
-      "Portafolio visual con CTA claros",
-      "Composicion intensa y tono de marca coherente",
-      "WhatsApp como cierre principal"
+      "Galeria visual como prueba principal",
+      "Contraste alto y tono de marca consistente",
+      "WhatsApp como cierre dominante"
     ],
-    "tags": ["Tattoo", "Impacto visual", "Contacto"],
+    "tags": ["Tattoo", "Portafolio", "Contacto"],
     "editorDemo": false
   }
 ]
