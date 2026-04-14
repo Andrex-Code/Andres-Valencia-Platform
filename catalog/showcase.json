@@ -13,7 +13,7 @@
     ],
     "tags": ["Catalogo", "Pedidos", "WhatsApp"],
     "editorDemo": true,
-    "editorCopy": "Aqui ya puedes cambiar contenido de verdad sin tocar codigo."
+    "editorCopy": "Edita textos, productos, colores y CTA sin tocar codigo."
   },
   {
     "slug": "restaurant",
@@ -28,7 +28,8 @@
       "Diseno limpio para celular y escritorio"
     ],
     "tags": ["Menu", "Reservas", "Presentacion"],
-    "editorDemo": false
+    "editorDemo": true,
+    "editorCopy": "Ajusta propuesta, experiencia y reserva desde una ruta de edicion separada."
   },
   {
     "slug": "gym",
@@ -43,7 +44,8 @@
       "Botones de contacto visibles desde el inicio"
     ],
     "tags": ["Planes", "Clases", "Contacto"],
-    "editorDemo": false
+    "editorDemo": true,
+    "editorCopy": "Edita promesa, planes, CTA y datos de contacto sin salir del navegador."
   },
   {
     "slug": "tattoo-studio",
@@ -58,6 +60,7 @@
       "WhatsApp como contacto principal"
     ],
     "tags": ["Galeria", "Estilo", "Contacto"],
-    "editorDemo": false
+    "editorDemo": true,
+    "editorCopy": "Ajusta mensaje, estilos, CTA y datos clave para vender mejor por WhatsApp."
   }
 ]

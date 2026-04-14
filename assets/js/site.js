@@ -48,7 +48,7 @@ const fallbackShowcase = [
     ],
     tags: ["Catalogo", "Pedidos", "WhatsApp"],
     editorDemo: true,
-    editorCopy: "Aqui ya puedes cambiar contenido de verdad sin tocar codigo.",
+    editorCopy: "Edita textos, productos, colores y CTA sin tocar codigo.",
   },
   {
     slug: "restaurant",
@@ -63,7 +63,8 @@ const fallbackShowcase = [
       "Diseno limpio para celular y escritorio",
     ],
     tags: ["Menu", "Reservas", "Presentacion"],
-    editorDemo: false,
+    editorDemo: true,
+    editorCopy: "Ajusta propuesta, experiencia y reserva desde una ruta de edicion separada.",
   },
   {
     slug: "gym",
@@ -78,7 +79,8 @@ const fallbackShowcase = [
       "Botones de contacto visibles desde el inicio",
     ],
     tags: ["Planes", "Clases", "Contacto"],
-    editorDemo: false,
+    editorDemo: true,
+    editorCopy: "Edita promesa, planes, CTA y datos de contacto sin salir del navegador.",
   },
   {
     slug: "tattoo-studio",
@@ -93,7 +95,8 @@ const fallbackShowcase = [
       "WhatsApp como contacto principal",
     ],
     tags: ["Galeria", "Estilo", "Contacto"],
-    editorDemo: false,
+    editorDemo: true,
+    editorCopy: "Ajusta mensaje, estilos, CTA y datos clave para vender mejor por WhatsApp.",
   },
 ];
 
@@ -120,9 +123,12 @@ function escapeHtml(value) {
     .replace(/"/g, "&quot;");
 }
 
-function getEditorSelectorHref(entry) {
-  const slug = String(entry?.slug || "").trim();
-  return slug ? `editor.html#${encodeURIComponent(slug)}` : "editor.html";
+function getDemoHref(entry, editMode = false) {
+  const href = entry?.entry || "#";
+  if (!editMode || !href || href === "#") {
+    return href;
+  }
+  return href.includes("?") ? `${href}&edit=1` : `${href}?edit=1`;
 }
 
 function buildCaseCard(entry, index) {
@@ -132,7 +138,7 @@ function buildCaseCard(entry, index) {
   const tags = (entry.tags || [])
     .map((item) => `<span>${escapeHtml(item)}</span>`)
     .join("");
-  const demoHref = entry.entry || "#";
+  const demoHref = getDemoHref(entry, false);
   const notesHref = entry.readme || "#";
   const classes = ["case-card"];
 
@@ -150,7 +156,7 @@ function buildCaseCard(entry, index) {
       <div class="case-body">
         <div class="case-top">
           <span class="case-kicker">${escapeHtml(entry.eyebrow || entry.category || "")}</span>
-          <span class="case-status">${entry.editorDemo ? "Se puede editar" : "Lista para mostrar"}</span>
+          <span class="case-status">${entry.editorDemo ? "Editor disponible" : "Lista para mostrar"}</span>
         </div>
         <div>
           <h3>${escapeHtml(entry.name || "")}</h3>
@@ -171,20 +177,18 @@ function buildCaseCard(entry, index) {
 }
 
 function buildEditorCard(entry) {
-  const helperCopy = entry.editorDemo
-    ? entry.editorCopy || entry.summary || ""
-    : "Abre esta demo desde una pagina aparte para revisarla sin salir del portafolio.";
+  const helperCopy = entry.editorCopy || entry.summary || "";
 
   return `
     <article class="editor-mini-card" data-reveal>
-      <small>${escapeHtml(entry.editorDemo ? "Editor visual listo" : "Elegir demo")}</small>
+      <small>Editor disponible</small>
       <h3>${escapeHtml(entry.name || "")}</h3>
       <p>${escapeHtml(helperCopy)}</p>
       <div class="case-tags">
         ${(entry.tags || []).map((item) => `<span class="editor-pill">${escapeHtml(item)}</span>`).join("")}
       </div>
       <footer>
-        <a href="${escapeHtml(getEditorSelectorHref(entry))}" ${externalLinkAttrs}>Abrir selector</a>
+        <a href="${escapeHtml(getDemoHref(entry, true))}" ${externalLinkAttrs}>Abrir editor</a>
       </footer>
     </article>
   `;
@@ -197,8 +201,8 @@ function buildEditorSelectionCard(entry, index) {
   const tags = (entry.tags || [])
     .map((item) => `<span>${escapeHtml(item)}</span>`)
     .join("");
-  const demoHref = entry.entry || "#";
-  const notesHref = entry.readme || "#";
+  const editorHref = getDemoHref(entry, true);
+  const demoHref = getDemoHref(entry, false);
   const classes = ["case-card", "selection-card"];
 
   if (index === 0) {
@@ -215,23 +219,19 @@ function buildEditorSelectionCard(entry, index) {
       <div class="case-body">
         <div class="case-top">
           <span class="case-kicker">${escapeHtml(entry.eyebrow || entry.category || "")}</span>
-          <span class="case-status">${entry.editorDemo ? "Editor visual listo" : "Base lista para trabajar"}</span>
+          <span class="case-status">Editor disponible</span>
         </div>
         <div>
           <h3>${escapeHtml(entry.name || "")}</h3>
           <p class="case-summary">${escapeHtml(entry.summary || "")}</p>
         </div>
-        <p class="case-angle">${escapeHtml(
-          entry.editorDemo
-            ? entry.editorCopy || entry.angle || ""
-            : "Se abre por separado para revisarla y seguir llevando este mismo flujo al resto del catalogo."
-        )}</p>
+        <p class="case-angle">${escapeHtml(entry.editorCopy || entry.angle || "")}</p>
         <ul class="case-highlights">${highlights}</ul>
         <div class="case-footer">
           <div class="case-tags">${tags}</div>
           <div class="case-links">
-            <a href="${escapeHtml(demoHref)}" ${externalLinkAttrs}>${entry.editorDemo ? "Abrir editor" : "Abrir demo"}</a>
-            <a href="${escapeHtml(notesHref)}" ${externalLinkAttrs}>Ver notas</a>
+            <a href="${escapeHtml(editorHref)}" ${externalLinkAttrs}>Abrir editor</a>
+            <a href="${escapeHtml(demoHref)}" ${externalLinkAttrs}>Ver demo</a>
           </div>
         </div>
       </div>
@@ -284,11 +284,9 @@ async function loadPortfolioEntries() {
   ]);
 
   const showcaseBySlug = new Map(showcase.map((item) => [item.slug, item]));
-  const merged = templates
+  return templates
     .map((item) => ({ ...item, ...(showcaseBySlug.get(item.slug) || {}) }))
     .sort((a, b) => (a.order || 99) - (b.order || 99));
-
-  return merged;
 }
 
 function renderFooterYear() {
