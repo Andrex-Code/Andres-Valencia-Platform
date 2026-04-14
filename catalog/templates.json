@@ -22,5 +22,13 @@
     "entry": "templates/tattoo-studio/index.html",
     "readme": "templates/tattoo-studio/README.md",
     "status": "ready"
+  },
+  {
+    "slug": "panaderia",
+    "name": "Panadería La Chiquita",
+    "category": "bakery",
+    "entry": "templates/panaderia/index.html",
+    "readme": "templates/panaderia/README.md",
+    "status": "ready"
   }
 ]
