@@ -2,6 +2,14 @@
 __pycache__/
 *.pyc
 *.pyo
+*.log
+
+# Local backups
+backup-before-github-sync-*/
+
+# Portable runtimes and local helpers
+tools/python/
+tools/tmp/
 
 # Studio local artifacts
 studio/.vercel/
@@ -10,6 +18,12 @@ studio/deploy/
 studio/static/uploads/
 studio/tools/
 studio/__pycache__/
+
+# AV System local artifacts
+av-system/static/uploads/
+av-system/tools/
+av-system/__pycache__/
+av-system/deploy/*/uploads/
 
 # OS
 .DS_Store

@@ -13,11 +13,13 @@ Este repo se publica como sitio estatico.
 2. El portafolio no necesita build step.
 3. El despliegue puede hacerse con `vercel --prod` o conectando el repo en Vercel para publicar en cada push.
 
-## Studio interno
-`studio/` no se despliega junto al portafolio publico en la arquitectura actual.
+## Sistema local activo
+`av-system/` es la carpeta activa para el sistema Python local.
+
+`studio/` queda como referencia legada y no debe tomarse como la fuente principal para nuevos cambios.
 
 ### Por que
-- El sistema hoy guarda cambios en `studio/data/businesses.json`.
+- El sistema hoy guarda cambios en `av-system/data/businesses.json`.
 - Tambien contempla subidas locales de archivos.
 - Vercel es excelente para frontends estaticos y funciones serverless, pero esta capa necesita storage duradero para operar bien.
 
@@ -26,14 +28,26 @@ Este repo se publica como sitio estatico.
 - Mover imagenes a Blob o storage equivalente.
 - Reemplazar las escrituras locales del filesystem por llamadas a storage duradero.
 
-## Ejecucion local del studio
+## Ejecucion local del sistema
 ```powershell
-cd studio
+cd av-system
 python app.py
 ```
 
-## Exportacion estatica desde el studio
+Tambien puedes usar desde la raiz:
+
+```text
+run-av-system.cmd
+```
+
+## Exportacion estatica desde el sistema
 ```powershell
-cd studio
+cd av-system
 python export_static.py
+```
+
+Tambien puedes usar desde la raiz:
+
+```text
+export-av-system.cmd
 ```

@@ -19,27 +19,31 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&display=swap"
     rel="stylesheet"
   />
   <link rel="stylesheet" href="assets/css/site.css" />
 </head>
 <body>
-  <div class="site-aura" aria-hidden="true"></div>
+  <div class="page-grid" aria-hidden="true"></div>
+  <div class="page-glow page-glow-a" aria-hidden="true"></div>
+  <div class="page-glow page-glow-b" aria-hidden="true"></div>
 
   <header class="nav-wrap">
     <nav class="nav shell" aria-label="Principal">
       <a class="brand" href="#inicio" aria-label="Ir al inicio">
-        <img
-          class="brand-logo"
-          src="assets/brand/logo-mark.svg"
-          alt="Logo Andres Valencia"
-          width="46"
-          height="46"
-        />
+        <span class="brand-mark">
+          <img
+            class="brand-logo"
+            src="assets/brand/logo-mark.svg"
+            alt="Logo Andres Valencia"
+            width="44"
+            height="44"
+          />
+        </span>
         <span class="brand-copy">
           <strong>Andres Valencia</strong>
-          <small>Portafolio comercial</small>
+          <small>Sitios web con direccion comercial</small>
         </span>
       </a>
 
@@ -56,88 +60,135 @@
         target="_blank"
         rel="noopener noreferrer"
       >
-        WhatsApp
+        Hablar por WhatsApp
       </a>
     </nav>
   </header>
 
-  <main class="shell">
-    <section class="hero" id="inicio">
+  <main>
+    <section class="hero shell" id="inicio">
       <div class="hero-copy" data-reveal>
-        <p class="eyebrow">Portafolio comercial</p>
-        <h1>Paginas web para negocios y profesionales que necesitan verse serios y conseguir mejores clientes.</h1>
+        <p class="eyebrow">Portafolio para negocios y profesionales</p>
+        <h1>
+          Sitios web que se sienten mas serios,
+          <span>se entienden mas rapido</span>
+          y hacen mas facil que el cliente te escriba.
+        </h1>
         <p class="hero-lead">
-          No se trata solo de tener una pagina bonita. Se trata de tener una vitrina clara,
-          creible y bien dirigida para que el cliente entienda lo que ofreces y te escriba mas
-          facil desde el celular.
+          Uso una mezcla de estructura comercial, diseno editorial y criterio visual para que cada
+          pagina no solo se vea bien: explique mejor, transmita mas confianza y avance con mas
+          claridad hacia la accion.
         </p>
 
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#implementaciones">Ver trabajos reales</a>
-          <a class="btn btn-secondary" href="#plantillas">Ver plantillas base</a>
+          <a class="btn btn-primary" href="#implementaciones">Ver implementaciones</a>
+          <a class="btn btn-secondary" href="#plantillas">Explorar plantillas</a>
         </div>
 
         <div class="hero-proof">
-          <span>Direccion visual con criterio</span>
-          <span>Copy claro para vender mejor</span>
-          <span>CTA listos para WhatsApp, reservas o cotizacion</span>
+          <span>Copy con intencion comercial</span>
+          <span>Jerarquia visual mas premium</span>
+          <span>CTA listos para WhatsApp o cotizacion</span>
+        </div>
+
+        <div class="hero-stats">
+          <article class="hero-stat">
+            <small>Plantillas base</small>
+            <strong id="heroTemplateCount">00</strong>
+            <p>estructuras sectoriales listas para personalizar</p>
+          </article>
+          <article class="hero-stat">
+            <small>Implementaciones</small>
+            <strong id="heroImplementationCount">00</strong>
+            <p>casos reales o ya aterrizados a negocio</p>
+          </article>
+          <article class="hero-stat">
+            <small>Demos editables</small>
+            <strong id="heroEditorCount">00</strong>
+            <p>versiones para seguir ajustando sin rehacer todo</p>
+          </article>
         </div>
       </div>
 
-      <aside class="hero-aside" data-reveal>
-        <article class="hero-panel hero-panel-lead">
-          <span class="panel-label">Mi enfoque</span>
-          <h2>No vendo paginas de relleno. Construyo estructuras que ayudan a negocios reales a verse mejor y convertir.</h2>
+      <aside class="hero-aside" data-reveal style="--delay: 1;">
+        <article class="hero-panel hero-panel-profile">
+          <span class="hero-panel-badge">AV</span>
+          <p class="panel-label">Direccion de proyecto</p>
+          <h2>No vendo paginas de relleno. Construyo recorridos que ordenan promesa, confianza y accion.</h2>
           <p>
-            Arranco desde una base fuerte cuando conviene, pero cada proyecto se aterriza con su
-            propio mensaje, tono, secciones y recorrido comercial.
+            Mi trabajo no empieza en el color o la animacion. Empieza en entender que debe quedar
+            clarisimo desde el primer pantallazo para que la pagina tenga peso, no solo presencia.
           </p>
+
+          <div class="hero-panel-lines">
+            <article>
+              <span>Ideal para</span>
+              <strong>negocios locales, marcas personales, consultores y servicios especializados</strong>
+            </article>
+            <article>
+              <span>Lo que cuido</span>
+              <strong>titulares, pruebas de confianza, ritmo visual, CTA y claridad comercial</strong>
+            </article>
+          </div>
         </article>
 
-        <article class="hero-panel hero-panel-list">
-          <div>
-            <span class="panel-number" id="heroTemplateCount">00</span>
-            <p>plantillas base listas para adaptar segun el sector</p>
+        <article class="hero-panel hero-panel-track">
+          <p class="panel-label">Como se lee este portafolio</p>
+
+          <div class="track-step">
+            <span>01</span>
+            <div>
+              <strong>Implementaciones</strong>
+              <p>Casos donde una base ya se convierte en una pagina con contexto real.</p>
+            </div>
           </div>
-          <div>
-            <span class="panel-number" id="heroImplementationCount">00</span>
-            <p>sitios reales o en implementacion para mostrar el proceso</p>
+
+          <div class="track-step">
+            <span>02</span>
+            <div>
+              <strong>Plantillas base</strong>
+              <p>Estructuras fuertes para arrancar rapido sin caer en soluciones genericas.</p>
+            </div>
           </div>
-          <div>
-            <span class="panel-number" id="heroEditorCount">00</span>
-            <p>demos editables para ajustar contenido sin rehacer todo</p>
+
+          <div class="track-step">
+            <span>03</span>
+            <div>
+              <strong>Editor y mantenimiento</strong>
+              <p>Versiones pensadas para seguir corrigiendo oferta, contenido y CTA despues.</p>
+            </div>
           </div>
         </article>
       </aside>
     </section>
 
-    <section class="metrics" data-reveal>
-      <article>
-        <span class="metric-value">Oferta clara</span>
+    <section class="insight-band shell" data-reveal>
+      <article class="insight-card">
+        <span class="metric-value">Mas claridad</span>
         <span class="metric-label">mensaje</span>
       </article>
-      <article>
-        <span class="metric-value">Presencia seria</span>
-        <span class="metric-label">confianza</span>
+      <article class="insight-card">
+        <span class="metric-value">Mas peso visual</span>
+        <span class="metric-label">presencia</span>
       </article>
-      <article>
-        <span class="metric-value">CTA visibles</span>
-        <span class="metric-label">accion</span>
+      <article class="insight-card">
+        <span class="metric-value">Mas confianza</span>
+        <span class="metric-label">decision</span>
       </article>
-      <article>
-        <span class="metric-value">Sitio editable</span>
-        <span class="metric-label">crecimiento</span>
+      <article class="insight-card">
+        <span class="metric-value">Mas accion</span>
+        <span class="metric-label">contacto</span>
       </article>
     </section>
 
-    <section class="section" id="implementaciones">
+    <section class="section shell" id="implementaciones">
       <div class="section-head" data-reveal>
         <p class="section-label">Implementaciones</p>
-        <h2>Paginas reales y proyectos en curso para que el cliente vea capacidad de aterrizar, no solo demos.</h2>
+        <h2>Del template al negocio real: aqui es donde la base se convierte en una pagina con voz propia.</h2>
         <p>
-          Aqui separo lo que ya es trabajo aplicado de las plantillas base. Asi el portafolio se
-          entiende mejor: una cosa es la estructura adaptable y otra el sitio ya llevado a un caso
-          concreto.
+          Estas piezas muestran lo que mas me interesa que vea un cliente potencial: no solo que
+          puedo disenar una buena base, sino que puedo aterrizarla con copy, tono, enfoque y una
+          direccion visual mucho mas concreta.
         </p>
       </div>
 
@@ -146,16 +197,16 @@
       </div>
     </section>
 
-    <hr class="section-rule" />
+    <div class="section-rule" aria-hidden="true"></div>
 
-    <section class="section" id="plantillas">
+    <section class="section shell" id="plantillas">
       <div class="section-head" data-reveal>
         <p class="section-label">Plantillas base</p>
-        <h2>Bases por sector para arrancar mas rapido sin que el resultado se sienta generico.</h2>
+        <h2>Bases por sector para avanzar mas rapido sin que el resultado se sienta reciclado.</h2>
         <p>
-          No todos los negocios necesitan la misma estructura. Estas plantillas me sirven para
-          partir de una direccion clara y luego personalizar el mensaje, el tono, los CTA y el
-          recorrido segun el negocio.
+          Las plantillas me sirven para ganar tiempo donde tiene sentido. Pero la meta nunca es
+          dejar una pagina "tipo demo": la meta es usar esa base como un punto de partida serio y
+          luego llevarla a una identidad mas creible, mas clara y mejor enfocada.
         </p>
       </div>
 
@@ -164,23 +215,23 @@
       </div>
     </section>
 
-    <hr class="section-rule" />
+    <div class="section-rule" aria-hidden="true"></div>
 
-    <section class="section editor-section" id="editor">
+    <section class="section editor-section shell" id="editor">
       <div class="editor-copy" data-reveal>
         <p class="section-label">Editor y mantenimiento</p>
-        <h2>La pagina no queda congelada. Puedes seguir ajustando contenido sin empezar de cero.</h2>
+        <h2>La pagina puede seguir afinandose sin perder la estructura que ya esta funcionando.</h2>
         <p>
-          Las plantillas compatibles se abren desde un mismo selector y quedan listas para editar
-          texto, CTA, imagenes y datos clave. La idea es que el sitio siga vivo despues de
-          publicarlo.
+          Si el proyecto necesita una capa mas practica, dejo versiones listas para ajustar
+          contenido, promesa, imagenes y CTA sin desmontar todo. Eso ayuda a mantener vivo el
+          sitio y a mejorar la oferta conforme el negocio crece.
         </p>
 
         <ul class="editor-points">
-          <li>Cambiar oferta, titulos, CTA y datos importantes sin rehacer toda la pagina.</li>
-          <li>Elegir la plantilla desde un solo punto antes de abrir el editor.</li>
-          <li>Trabajar cada propuesta en otra pestana sin perder la portada.</li>
-          <li>Guardar cambios en el navegador y seguir despues.</li>
+          <li>Cambiar propuesta, servicios, CTA o datos clave sin rehacer toda la pagina.</li>
+          <li>Escoger una demo desde un punto central antes de abrir el editor.</li>
+          <li>Seguir corrigiendo textos e imagenes directamente sobre la plantilla.</li>
+          <li>Guardar cambios locales en el navegador para no perder avances.</li>
         </ul>
 
         <div class="hero-actions">
@@ -189,7 +240,7 @@
         </div>
       </div>
 
-      <div class="editor-side" data-reveal>
+      <div class="editor-side" data-reveal style="--delay: 1;">
         <div class="editor-preview">
           <div class="editor-preview-bar">
             <span></span>
@@ -198,32 +249,32 @@
           </div>
           <div class="editor-preview-body">
             <small>Editor comercial</small>
-            <strong>Tu sitio puede evolucionar sin perder la estructura que ya funciona.</strong>
+            <strong>Tu sitio no queda congelado despues de publicarse.</strong>
             <p>
-              Puedes mover la promesa, ajustar servicios, corregir CTA y mantener la pagina al dia
-              sin tener que reconstruirla cada vez.
+              Puedes mover la promesa principal, corregir el cierre comercial, actualizar servicios
+              o ajustar imagenes sin romper la estructura que ya ayuda a vender mejor.
             </p>
 
             <div class="preview-steps">
               <article>
                 <span>01</span>
                 <div>
-                  <strong>Elegir</strong>
-                  <p>Escoges la demo que mas se parece a tu negocio.</p>
+                  <strong>Elegir la base correcta</strong>
+                  <p>Partes de una estructura pensada para tu tipo de negocio.</p>
                 </div>
               </article>
               <article>
                 <span>02</span>
-            <div>
-              <strong>Ajustar</strong>
-              <p>Cambias textos, promesa, CTA e imagenes justo sobre la plantilla.</p>
-            </div>
+                <div>
+                  <strong>Aterrizarla con criterio</strong>
+                  <p>Se adapta mensaje, tono, CTA y contenido al caso real.</p>
+                </div>
               </article>
               <article>
                 <span>03</span>
                 <div>
-                  <strong>Actualizar mejor</strong>
-                  <p>La pagina se mantiene vigente para vender, reservar o recibir mensajes.</p>
+                  <strong>Seguir afinando</strong>
+                  <p>La pagina queda mas viva y mas util para cambios futuros.</p>
                 </div>
               </article>
             </div>
@@ -234,15 +285,16 @@
       </div>
     </section>
 
-    <hr class="section-rule" />
+    <div class="section-rule" aria-hidden="true"></div>
 
-    <section class="section" id="proceso">
+    <section class="section shell" id="proceso">
       <div class="section-head" data-reveal>
         <p class="section-label">Proceso</p>
-        <h2>Asi paso de una idea o una base visual a una pagina que realmente le sirve al negocio.</h2>
+        <h2>Asi paso de una idea o una demo a una pagina con mas peso visual y mejor recorrido comercial.</h2>
         <p>
-          La meta no es solo que se vea bonita. La meta es que el cliente entienda, confie y sepa
-          que hacer apenas llegue.
+          No se trata de llenar bloques. Se trata de decidir que debe verse primero, que debe dar
+          confianza despues y como debe cerrarse la accion para que la experiencia tenga mas
+          intencion.
         </p>
       </div>
 
@@ -251,103 +303,121 @@
           <small>01</small>
           <h3>Aterrizamos la oferta.</h3>
           <p>
-            Definimos que vendes, a quien le hablas y que debe quedar clarisimo desde el primer
-            pantallazo.
+            Definimos que vendes, que parte debe quedar clarisima en segundos y que fricciones hay
+            que bajar desde el inicio.
           </p>
         </article>
 
-        <article class="approach-card" data-reveal>
+        <article class="approach-card" data-reveal style="--delay: 1;">
           <small>02</small>
-          <h3>Ordenamos el recorrido.</h3>
+          <h3>Ordenamos la jerarquia.</h3>
           <p>
-            Organizamos secciones, pruebas de confianza, CTA y contenido para que la pagina no
-            distraiga: avance hacia la accion.
+            Organizamos secciones, pruebas, ritmo visual y CTA para que la pagina avance hacia la
+            accion en vez de distraer.
           </p>
         </article>
 
-        <article class="approach-card" data-reveal>
+        <article class="approach-card" data-reveal style="--delay: 2;">
           <small>03</small>
-          <h3>Le damos direccion visual.</h3>
+          <h3>Le damos presencia.</h3>
           <p>
-            La pagina queda lista para celular, con personalidad y pensada para llevar al mensaje,
-            la reserva o la cotizacion.
+            Ajustamos color, aire, bloques y contraste para que el sitio se sienta mas fino y mas
+            confiable sin perder claridad.
           </p>
         </article>
 
-        <article class="approach-card" data-reveal>
+        <article class="approach-card" data-reveal style="--delay: 3;">
           <small>04</small>
-          <h3>La dejamos util a largo plazo.</h3>
+          <h3>La dejamos util despues.</h3>
           <p>
-            Si luego cambias oferta, servicios, precios o enfoque, ya tienes una base facil de
-            ajustar sin empezar de cero.
+            Si luego cambias enfoque, servicios o cierre comercial, ya hay una base lista para
+            corregir sin volver a empezar.
           </p>
         </article>
       </div>
     </section>
 
-    <hr class="section-rule" />
+    <div class="section-rule" aria-hidden="true"></div>
 
-    <section class="section faq-section" id="faq">
+    <section class="section shell" id="faq">
       <div class="section-head" data-reveal>
         <p class="section-label">Preguntas</p>
-        <h2>Las dudas normales antes de trabajar una pagina para vender mejor.</h2>
+        <h2>Las dudas normales antes de invertir en una pagina que realmente ayude a vender mejor.</h2>
       </div>
 
       <div class="faq-grid">
         <article class="faq-card" data-reveal>
-          <h3>Todo sale de una misma plantilla?</h3>
+          <h3>Todo sale de la misma estructura?</h3>
           <p>
             No. Uso bases cuando ayudan a avanzar mas rapido, pero cada pagina se ajusta en tono,
-            copy, secciones, CTA y direccion visual segun el negocio.
+            copy, recorrido, CTA y direccion visual segun el negocio.
           </p>
         </article>
 
-        <article class="faq-card" data-reveal>
+        <article class="faq-card" data-reveal style="--delay: 1;">
           <h3>Despues quien cambia textos y fotos?</h3>
           <p>
-            Si el proyecto usa editor, la misma estructura queda lista para ajustar contenido sin
-            tocar toda la pagina otra vez.
+            Si el proyecto usa editor, la misma estructura queda lista para seguir corrigiendo
+            contenido sin tocar toda la pagina otra vez.
           </p>
         </article>
 
-        <article class="faq-card" data-reveal>
+        <article class="faq-card" data-reveal style="--delay: 2;">
           <h3>Esto sirve solo para negocios locales?</h3>
           <p>
-            No. Tambien sirve para profesionales, consultores y marcas personales que necesitan una
-            presencia mas clara, seria y orientada al contacto.
+            No. Tambien funciona para consultores, profesionales y marcas personales que necesitan
+            una presencia mas clara, mas seria y mejor orientada al contacto.
           </p>
         </article>
       </div>
     </section>
 
-    <section class="cta" id="contacto" data-reveal>
-      <div>
+    <section class="contact-cta shell" id="contacto" data-reveal>
+      <div class="contact-copy">
         <p class="section-label">Contacto</p>
-        <h2>Si tu negocio ya existe pero online todavia no se ve al nivel que deberia, trabajemos eso.</h2>
+        <h2>Si tu negocio ya tiene valor, hagamos que online se vea a la misma altura.</h2>
         <p>
           Te ayudo a escoger la estructura correcta, definir la promesa principal y convertir eso
-          en una pagina que se vea mejor y haga mas facil el contacto.
+          en una pagina mas clara, mas premium y mas util para recibir mensajes, reservas o
+          cotizaciones.
         </p>
+
+        <div class="cta-actions">
+          <a
+            class="btn btn-primary"
+            href="https://wa.me/573007561667?text=Hola,%20quiero%20trabajar%20mi%20sitio%20web."
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Hablar por WhatsApp
+          </a>
+          <a class="btn btn-secondary" href="#implementaciones">Ver trabajos reales</a>
+        </div>
       </div>
 
-      <div class="cta-actions">
-        <a
-          class="btn btn-primary"
-          href="https://wa.me/573007561667?text=Hola,%20quiero%20trabajar%20mi%20sitio%20web."
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Hablar por WhatsApp
-        </a>
-        <a class="btn btn-secondary" href="#implementaciones">Ver trabajos reales</a>
+      <div class="contact-notes">
+        <article class="contact-note">
+          <span>Lo que trabajamos</span>
+          <strong>Promesa, estructura, direccion visual, CTA y una experiencia mas convincente.</strong>
+        </article>
+        <article class="contact-note">
+          <span>Ideal para</span>
+          <strong>Negocios locales, servicios profesionales, consultorias y marcas personales.</strong>
+        </article>
+        <article class="contact-note">
+          <span>Resultado esperado</span>
+          <strong>Una pagina que se vea mas seria y haga mas facil pasar de la visita al contacto.</strong>
+        </article>
       </div>
     </section>
   </main>
 
-  <footer class="footer shell">
-    <span>Andres Valencia</span>
-    <span>Portafolio comercial para negocios y profesionales</span>
-    <span id="footerYear"></span>
+  <footer class="footer">
+    <div class="footer-inner shell">
+      <span>Andres Valencia</span>
+      <span>Portafolio comercial para negocios y profesionales</span>
+      <span id="footerYear"></span>
+    </div>
   </footer>
 
   <script type="module" src="assets/js/site.js"></script>

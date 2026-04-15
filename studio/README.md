@@ -1,6 +1,11 @@
 # Studio Interno
 
-Base local para manejar varios negocios desde un solo panel. Esta carpeta es la version canonica dentro del repo principal; `av-system/` queda como copia legacy del workspace.
+Base local legacy para manejar varios negocios desde un solo panel.
+
+## Estado
+`av-system/` es la carpeta activa del proyecto.
+
+Usa `studio/` solo como referencia historica o para comparar cambios viejos. No la tomes como base principal para nuevas ediciones.
 
 ## Que incluye
 - Paginas publicas por negocio (`/site/<slug>`)
