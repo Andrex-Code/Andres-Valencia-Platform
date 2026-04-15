@@ -1,7 +1,15 @@
 const fallbackTemplates = [
   {
+    slug: "civil-engineer",
+    name: "Strata Civil",
+    category: "engineering",
+    entry: "templates/civil-engineer/index.html",
+    readme: "templates/civil-engineer/README.md",
+    status: "ready",
+  },
+  {
     slug: "panaderia",
-    name: "Panaderia La Chiquita",
+    name: "Casa Horno",
     category: "bakery",
     entry: "templates/panaderia/index.html",
     readme: "templates/panaderia/README.md",
@@ -35,18 +43,28 @@ const fallbackTemplates = [
 
 const fallbackShowcase = [
   {
-    slug: "panaderia",
+    slug: "civil-engineer",
     order: 1,
+    cover: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1400&q=80&auto=format&fit=crop",
+    eyebrow: "Ingenieria civil / consultoria tecnica",
+    summary: "Plantilla premium para especialistas o firmas que necesitan verse solidos, tecnicos y confiables.",
+    angle: "Pensada para transmitir criterio tecnico, experiencia y claridad comercial.",
+    tags: ["Infraestructura", "Consultoria", "Proyectos"],
+    editorCopy: "Editor visual para tocar servicios, metodologia, proyectos y CTA directamente sobre la pagina.",
+  },
+  {
+    slug: "panaderia",
+    order: 2,
     cover: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1400&q=80&auto=format&fit=crop",
     eyebrow: "Panaderia / catalogo editable",
-    summary: "Pagina para mostrar productos del dia, recibir pedidos y responder dudas rapido.",
-    angle: "Pensada para vender por WhatsApp y facilitar cambios frecuentes.",
+    summary: "Plantilla para mostrar productos del dia, recibir pedidos y responder dudas rapido.",
+    angle: "Pensada para negocios locales que necesitan vitrina, horarios y WhatsApp visibles.",
     tags: ["Catalogo", "Pedidos", "WhatsApp"],
     editorCopy: "Editor visual sobre la plantilla real para cambiar texto, CTA y presentacion.",
   },
   {
     slug: "restaurant",
-    order: 2,
+    order: 3,
     cover: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1400&q=80&auto=format&fit=crop",
     eyebrow: "Restaurante / menu y reservas",
     summary: "Pagina para mostrar el lugar, la carta y facilitar reservas.",
@@ -56,7 +74,7 @@ const fallbackShowcase = [
   },
   {
     slug: "gym",
-    order: 3,
+    order: 4,
     cover: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1400&q=80&auto=format&fit=crop",
     eyebrow: "Gimnasio / planes y clases",
     summary: "Pagina comercial para mostrar planes, clases y datos clave.",
@@ -66,7 +84,7 @@ const fallbackShowcase = [
   },
   {
     slug: "tattoo-studio",
-    order: 4,
+    order: 5,
     cover: "https://images.unsplash.com/photo-1583744946564-b52ac1c389c8?w=1400&q=80&auto=format&fit=crop",
     eyebrow: "Tattoo / portafolio visual",
     summary: "Sitio para mostrar trabajos, estilo y datos de contacto.",

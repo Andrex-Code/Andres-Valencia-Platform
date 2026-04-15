@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Strata Civil | Plantilla de Ingenieria Civil</title>
+  <meta name="description" content="Plantilla premium para ingenieria civil, consultoria tecnica e infraestructura." />
+  <meta property="og:title" content="Strata Civil | Plantilla de Ingenieria Civil" />
+  <meta property="og:description" content="Demo comercial para estudios y firmas de ingenieria civil." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1600&q=80&auto=format&fit=crop" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root{--bg:#e9eef2;--card:rgba(255,255,255,.76);--ink:#0f1b23;--muted:#556673;--line:rgba(15,27,35,.1);--deep:#0e1820;--steel:#36586e;--copper:#c76f43;--ok:#81a579;--shadow:0 24px 56px rgba(15,27,35,.14);--r:28px;--max:min(1180px,calc(100% - 36px));--display:"Space Grotesk",sans-serif;--body:"IBM Plex Sans",sans-serif;--ease:cubic-bezier(.16,1,.3,1)}
+    *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:var(--body);color:var(--ink);background:radial-gradient(circle at 0 0,rgba(199,111,67,.14),transparent 28%),radial-gradient(circle at 100% 0,rgba(54,88,110,.16),transparent 24%),var(--bg);line-height:1.6;overflow-x:hidden}body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.24;background:repeating-linear-gradient(120deg,transparent 0 76px,rgba(15,27,35,.04) 76px 77px),repeating-radial-gradient(circle at 14% 16%,transparent 0 26px,rgba(54,88,110,.06) 26px 27px)}img{display:block;width:100%;height:100%;object-fit:cover}a{text-decoration:none;color:inherit}button,input,textarea{font:inherit}.shell{width:var(--max);margin:auto}.label{display:inline-flex;align-items:center;gap:10px;color:var(--steel);font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase}.label:before{content:"";width:48px;height:1px;background:linear-gradient(90deg,var(--copper),transparent)}.title{font-family:var(--display);font-size:clamp(2.3rem,6vw,5.4rem);line-height:.94;letter-spacing:-.05em}.sub{max-width:62ch;color:var(--muted)}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 22px;border-radius:999px;border:1px solid transparent;font-weight:700;transition:.28s var(--ease)}.btn:hover{transform:translateY(-2px)}.primary{background:var(--deep);color:#fff;box-shadow:0 16px 30px rgba(14,24,32,.18)}.secondary{border-color:rgba(15,27,35,.16);background:rgba(255,255,255,.7)}
+    .head{position:sticky;top:0;z-index:50;background:rgba(233,238,242,.72);backdrop-filter:blur(16px);border-bottom:1px solid rgba(15,27,35,.08)}.nav{min-height:82px;display:flex;align-items:center;justify-content:space-between;gap:18px}.brand{display:flex;align-items:center;gap:14px}.mark{width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,var(--steel),var(--deep));box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 12px 26px rgba(15,27,35,.14);position:relative}.mark:before,.mark:after{content:"";position:absolute;background:rgba(255,255,255,.9)}.mark:before{width:22px;height:2px;inset:23px 13px auto auto;transform:rotate(45deg)}.mark:after{width:2px;height:22px;inset:13px auto auto 23px;transform:rotate(45deg)}.brand strong{font-family:var(--display);font-size:1.1rem;display:block}.brand span{display:block;color:var(--muted);font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase}.links{display:flex;gap:22px;color:var(--muted);font-weight:600}.links a{position:relative;padding-bottom:3px}.links a:after{content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;background:var(--copper);transform:scaleX(0);transform-origin:left;transition:transform .28s var(--ease)}.links a:hover:after{transform:scaleX(1)}
+    .hero{padding:44px 0 82px}.hero-grid{display:grid;grid-template-columns:1.04fr .96fr;gap:28px}.hero-copy,.hero-visual{border-radius:34px;overflow:hidden;box-shadow:var(--shadow)}.hero-copy{padding:42px;background:linear-gradient(160deg,rgba(255,255,255,.92),rgba(255,255,255,.66));border:1px solid rgba(255,255,255,.7);display:grid;gap:24px}.eyebrow{width:fit-content;display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.82);border:1px solid rgba(15,27,35,.08);color:var(--steel);font-size:.74rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase}.eyebrow:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--copper);box-shadow:0 0 0 5px rgba(199,111,67,.16)}.hero-copy .title span{display:block;color:var(--steel)}.hero-actions,.hero-links,.stats{display:flex;gap:14px;flex-wrap:wrap}.hero-links{color:var(--muted);font-weight:600}.hero-links a{display:inline-flex;align-items:center;gap:8px}.hero-links a:before{content:"";width:24px;height:1px;background:var(--copper)}.stats{display:grid;grid-template-columns:repeat(3,1fr)}.stat{padding:18px;border-radius:22px;background:rgba(255,255,255,.72);border:1px solid rgba(15,27,35,.08)}.stat strong{display:block;font-family:var(--display);font-size:1.95rem;letter-spacing:-.05em}.stat span{display:block;color:var(--muted);font-size:.85rem;font-weight:600}.hero-visual{min-height:640px;position:relative;background:var(--deep)}.hero-visual:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,20,27,.08),rgba(11,20,27,.86));z-index:1}.visual-grid{position:absolute;inset:12px;display:grid;grid-template-columns:1.12fr .88fr;gap:12px}.visual-grid article,.stack article{border-radius:28px;overflow:hidden;position:relative}.stack{display:grid;grid-template-rows:1fr .85fr;gap:12px}.visual-grid article:after,.stack article:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,17,24,.06),rgba(10,17,24,.52))}.overlay{position:absolute;right:22px;bottom:22px;z-index:2;width:min(360px,calc(100% - 44px));padding:22px;border-radius:28px;color:#fff;background:rgba(11,20,27,.72);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(14px)}.overlay small{display:block;margin-bottom:10px;color:rgba(255,255,255,.64);font-size:.74rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase}.overlay strong{display:block;margin-bottom:12px;font-size:1.18rem;line-height:1.3}.overlay p{color:rgba(255,255,255,.76)}
+    section{padding:0 0 92px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:22px;margin-bottom:30px}.section-head .sub{max-width:52ch}.grid-4,.services,.projects,.process{display:grid;gap:18px}.grid-4{grid-template-columns:repeat(4,1fr)}.services,.projects,.process{grid-template-columns:repeat(3,1fr)}.card,.contact{background:var(--card);border:1px solid var(--line);box-shadow:0 18px 42px rgba(15,27,35,.1);border-radius:var(--r)}.card{padding:26px}.card h3,.sector h3,.faq button span,.contact h3{font-family:var(--display);letter-spacing:-.04em}.card p,.sector p,.contact p,.faq p{color:var(--muted)}.tag{display:inline-flex;min-height:30px;align-items:center;padding:0 12px;border-radius:999px;background:rgba(54,88,110,.08);color:var(--steel);font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;width:fit-content}.bullets{display:grid;gap:10px;margin-top:14px;font-size:.94rem;font-weight:600}.bullets li{display:flex;gap:10px;align-items:center}.bullets li:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--ok)}.sectors{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.sector{min-height:270px;padding:24px;border-radius:var(--r);overflow:hidden;position:relative;color:#fff;display:grid;align-content:end;gap:12px;box-shadow:var(--shadow)}.sector:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,20,27,.08),rgba(11,20,27,.92));z-index:1}.sector>*{position:relative;z-index:2}.sector small{color:rgba(255,255,255,.72);font-size:.74rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase}.s1{background:url("https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80&auto=format&fit=crop") center/cover}.s2{background:url("https://images.unsplash.com/photo-1489515217757-5fd1be406fef?w=1200&q=80&auto=format&fit=crop") center/cover}.s3{background:url("https://images.unsplash.com/photo-1513828583688-c52646db42da?w=1200&q=80&auto=format&fit=crop") center/cover}.s4{background:url("https://images.unsplash.com/photo-1513828742140-ccaa28f3eda0?w=1200&q=80&auto=format&fit=crop") center/cover}.faq-list{display:grid;gap:16px}.faq{overflow:hidden;background:var(--card);border:1px solid var(--line);box-shadow:0 18px 42px rgba(15,27,35,.1);border-radius:var(--r)}.faq button{width:100%;padding:22px 24px;display:flex;justify-content:space-between;gap:18px;align-items:center;border:0;background:transparent;text-align:left;color:var(--ink);cursor:pointer}.faq i{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:rgba(54,88,110,.08);color:var(--steel);font-style:normal;font-weight:700;transition:.24s var(--ease)}.faq .ans{display:grid;grid-template-rows:0fr;transition:grid-template-rows .28s var(--ease)}.faq .ans>div{overflow:hidden}.faq p{padding:0 24px 22px}.faq.active .ans{grid-template-rows:1fr}.faq.active i{transform:rotate(45deg);background:rgba(199,111,67,.12);color:var(--copper)}
+    .contact-wrap{padding:34px;border-radius:34px;background:linear-gradient(160deg,rgba(255,255,255,.92),rgba(255,255,255,.72));border:1px solid rgba(255,255,255,.78);box-shadow:var(--shadow)}.contact-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:22px}.contact{padding:26px}.contact ul{display:grid;gap:14px;margin-top:10px}.contact li{display:grid;gap:4px;padding-bottom:14px;border-bottom:1px solid rgba(15,27,35,.08)}.contact li:last-child{border:0;padding-bottom:0}.contact li strong{font-size:.8rem;letter-spacing:.13em;text-transform:uppercase;color:var(--steel)}.form{display:grid;grid-template-columns:1fr 1fr;gap:14px}.form label{display:grid;gap:8px;color:var(--muted);font-size:.88rem;font-weight:600}.form .full{grid-column:1/-1}.form input,.form textarea{width:100%;padding:15px 16px;border-radius:18px;border:1px solid rgba(15,27,35,.14);background:rgba(255,255,255,.9);color:var(--ink)}.form textarea{min-height:160px;resize:vertical}.foot{padding:0 0 34px}.footin{padding-top:22px;border-top:1px solid rgba(15,27,35,.1);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:.9rem}
+    [data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease),transform .7s var(--ease);transition-delay:calc(var(--delay,0)*.08s)}[data-reveal].is-visible{opacity:1;transform:translateY(0)}
+    @media (max-width:1080px){.hero-grid,.contact-grid,.services,.projects,.process,.grid-4,.sectors{grid-template-columns:repeat(2,1fr)}.hero-grid,.contact-grid{grid-template-columns:1fr}.hero-visual{min-height:560px}.section-head{align-items:start;flex-direction:column}}
+    @media (max-width:820px){.links,.navcta{display:none}.stats,.form{grid-template-columns:1fr}.hero-copy{padding:28px}.hero-visual{min-height:500px}}
+    @media (max-width:620px){.grid-4,.services,.projects,.process,.sectors{grid-template-columns:1fr}.visual-grid{grid-template-columns:1fr;grid-template-rows:1.1fr .9fr}.stack{grid-template-columns:1fr 1fr;grid-template-rows:none}.contact-wrap{padding:22px}}
+  </style>
+</head>
+<body>
+  <header class="head">
+    <nav class="nav shell">
+      <a class="brand" href="#inicio"><span class="mark"></span><span><strong>Strata Civil</strong><span>Ingenieria para proyectos complejos</span></span></a>
+      <div class="links">
+        <a href="#servicios">Servicios</a>
+        <a href="#sectores">Sectores</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#metodologia">Metodologia</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+      <a class="btn secondary navcta" href="#contacto">Solicitar reunion</a>
+    </nav>
+  </header>
+
+  <main>
+<section class="hero shell" id="inicio" data-av-edit-label="Hero principal" data-av-editor-key="civil-hero">
+      <div class="hero-grid">
+        <article class="hero-copy" data-reveal>
+          <span class="eyebrow">Plantilla premium para ingenieria civil</span>
+          <h1 class="title">Ingenieria civil con lenguaje de <span>firma tecnica moderna</span></h1>
+          <p class="sub">Demo para despachos, consultoras y profesionales que necesitan mostrar servicios, proyectos, metodologia y contacto con una imagen fuerte y actual.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#contacto">Solicitar reunion</a>
+            <a class="btn secondary" href="#proyectos">Explorar proyectos</a>
+          </div>
+          <div class="hero-links">
+            <a href="#servicios">Consultoria estructurada</a>
+            <a href="#metodologia">Proceso de punta a punta</a>
+          </div>
+          <div class="stats">
+            <article class="stat"><strong>14+</strong><span>Anos en obra, soporte tecnico y direccion.</span></article>
+            <article class="stat"><strong>120</strong><span>Proyectos entre vivienda, urbanismo e industria.</span></article>
+            <article class="stat"><strong>8</strong><span>Lineas de servicio listas para adaptar al cliente.</span></article>
+          </div>
+        </article>
+        <aside class="hero-visual" data-reveal style="--delay:1">
+          <div class="visual-grid">
+            <article><img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1400&q=80&auto=format&fit=crop" alt="Obra civil" /></article>
+            <div class="stack">
+              <article><img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1200&q=80&auto=format&fit=crop" alt="Equipo tecnico en obra" /></article>
+              <article><img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=1200&q=80&auto=format&fit=crop" alt="Infraestructura urbana" /></article>
+            </div>
+          </div>
+          <div class="overlay">
+            <small>Posicionamiento</small>
+            <strong>Menos discurso generico. Mas criterio, trazabilidad y confianza para decidir.</strong>
+            <p>La estructura prioriza servicios claros, casos, indicadores y cierre comercial pensado para captar reuniones tecnicas.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+<section class="shell" id="credibilidad" data-av-edit-label="Bloque de credibilidad" data-av-editor-key="civil-credibilidad">
+      <div class="section-head">
+        <div>
+          <span class="label">Credibilidad</span>
+          <h2 class="title">Una presencia que suena a proyecto serio desde el primer scroll</h2>
+        </div>
+        <p class="sub">La narrativa mezcla claridad comercial con capas tecnicas: explica que hace la firma, para que sectores trabaja y por que su criterio reduce riesgo e incertidumbre.</p>
+      </div>
+      <div class="grid-4">
+        <article class="card" data-reveal><span class="tag">Perfil</span><h3>Posicionamiento tecnico y no generico</h3><p>La pagina esta pensada para vender confianza profesional, no solo para enumerar servicios.</p></article>
+        <article class="card" data-reveal style="--delay:1"><span class="tag">Conversion</span><h3>CTA visibles para asesorias y propuestas</h3><p>El recorrido empuja al contacto y a reuniones de diagnostico sin sentirse agresivo.</p></article>
+        <article class="card" data-reveal style="--delay:2"><span class="tag">Escalable</span><h3>Funciona para independiente o firma</h3><p>Con cambios de copy, casos y fotos puede servir como marca personal o despacho consolidado.</p></article>
+        <article class="card" data-reveal style="--delay:3"><span class="tag">Editor</span><h3>Compatible con el flujo de edicion actual</h3><p>Textos, imagenes, CTA y parte de los estilos pueden ajustarse desde el editor visual del portafolio.</p></article>
+      </div>
+    </section>
+
+<section class="shell" id="servicios" data-av-edit-label="Servicios" data-av-editor-key="civil-servicios">
+      <div class="section-head">
+        <div>
+          <span class="label">Servicios</span>
+          <h2 class="title">Una base amplia para firmas que venden por especialidad</h2>
+        </div>
+        <p class="sub">Las tarjetas combinan narrativa, entregables y lectura rapida para que el visitante entienda alcance sin entrar en texto tecnico pesado.</p>
+      </div>
+      <div class="services">
+        <article class="card" data-reveal><span class="tag">01 | Estudios</span><h3>Diagnostico y viabilidad tecnica</h3><p>Lectura de sitio, riesgos, restricciones y criterios base para definir alcance realista.</p><ul class="bullets"><li>Visitas tecnicas y lectura de contexto</li><li>Informes ejecutivos para decidir</li><li>Recomendaciones previas a presupuesto</li></ul></article>
+        <article class="card" data-reveal style="--delay:1"><span class="tag">02 | Diseno</span><h3>Ingenieria de detalle y coordinacion</h3><p>Planos, memorias y definiciones tecnicas para llevar una idea a solucion ejecutable.</p><ul class="bullets"><li>Definicion de alcance y entregables</li><li>Compatibilidad entre disciplinas</li><li>Soporte para tramites y ajustes</li></ul></article>
+        <article class="card" data-reveal style="--delay:2"><span class="tag">03 | Control</span><h3>Presupuestos, APU y planeacion</h3><p>Estimaciones mas ordenadas para inversion, contratacion y cronograma.</p><ul class="bullets"><li>Escenarios comparativos de costo</li><li>Planeacion por fases</li><li>Orden para compras y contratistas</li></ul></article>
+        <article class="card" data-reveal style="--delay:3"><span class="tag">04 | Obra</span><h3>Supervision, direccion e interventoria</h3><p>Seguimiento tecnico para que la ejecucion mantenga alcance, costo y calidad.</p><ul class="bullets"><li>Control de avance y observaciones</li><li>Soporte a cliente y contratistas</li><li>Alertas tempranas sobre desvio</li></ul></article>
+        <article class="card" data-reveal style="--delay:4"><span class="tag">05 | Territorio</span><h3>Urbanismo, vias y espacio publico</h3><p>Soluciones para proyectos con mayor complejidad operativa y lectura territorial.</p><ul class="bullets"><li>Fases constructivas y accesibilidad</li><li>Compatibilidad con redes y entorno</li><li>Documentacion para contratacion</li></ul></article>
+        <article class="card" data-reveal style="--delay:5"><span class="tag">06 | Consultoria</span><h3>Conceptos y acompanamiento especializado</h3><p>Intervencion puntual para decisiones sensibles de cimentacion, rehabilitacion o ajustes de alcance.</p><ul class="bullets"><li>Revision de soluciones propuestas</li><li>Mesas tecnicas con equipos</li><li>Reportes ejecutivos orientados a accion</li></ul></article>
+      </div>
+    </section>
+
+<section class="shell" id="sectores" data-av-edit-label="Sectores" data-av-editor-key="civil-sectores">
+      <div class="section-head">
+        <div>
+          <span class="label">Sectores</span>
+          <h2 class="title">La experiencia se muestra por tipo de reto, no por discurso vacio</h2>
+        </div>
+        <p class="sub">Ideal para mostrar capacidad en varios mercados sin perder claridad, con bloques visuales que se entienden rapido en escritorio y movil.</p>
+      </div>
+      <div class="sectors">
+        <article class="sector s1" data-reveal><small>Infraestructura urbana</small><h3>Vias, espacio publico, drenajes y articulacion con redes</h3><p>Sirve para comunicar gestion tecnica en contextos de ciudad y movilidad.</p></article>
+        <article class="sector s2" data-reveal style="--delay:1"><small>Edificacion</small><h3>Vivienda, comercio y equipamientos con exigencia tecnica y comercial</h3><p>Muestra acompanamiento desde estudios previos hasta soporte en construccion.</p></article>
+        <article class="sector s3" data-reveal style="--delay:2"><small>Industria</small><h3>Plataformas, patios operativos, ampliaciones y obras de soporte</h3><p>Presenta al equipo como aliado para decisiones de alto impacto operativo.</p></article>
+        <article class="sector s4" data-reveal style="--delay:3"><small>Territorio</small><h3>Taludes, contenciones y estabilizacion con lectura compleja del sitio</h3><p>Funciona muy bien para geotecnia, supervision de riesgos y consultoria especializada.</p></article>
+      </div>
+    </section>
+
+<section class="shell" id="proyectos" data-av-edit-label="Proyectos" data-av-editor-key="civil-proyectos">
+      <div class="section-head">
+        <div>
+          <span class="label">Proyectos destacados</span>
+          <h2 class="title">Casos pensados para demostrar criterio, proceso y resultados</h2>
+        </div>
+        <p class="sub">Cada tarjeta puede adaptarse a proyectos reales y mostrar problema, solucion aplicada y valor entregado. Es el bloque que mas ayuda a convertir experiencia en confianza.</p>
+      </div>
+      <div class="projects">
+        <article class="card" data-reveal><span class="tag">Movilidad | Pereira</span><h3>Corredor vial con reorganizacion de drenajes y fases de obra</h3><p>Relectura del alcance para compatibilizar trafico, redes existentes y secuencia constructiva sin detener la operacion principal.</p><ul class="bullets"><li>Plan de ejecucion por etapas</li><li>Validacion tecnica y operativa</li><li>Menor friccion durante la obra</li></ul></article>
+        <article class="card" data-reveal style="--delay:1"><span class="tag">Edificacion | Bogota</span><h3>Complejo comercial con ajustes de cimentacion y presupuesto</h3><p>Revision de alternativas para optimizar alcance, reforzar trazabilidad del costo y reducir incertidumbre antes de construir.</p><ul class="bullets"><li>Analisis comparativo de soluciones</li><li>Paquete de ajustes priorizados</li><li>Ruta de ejecucion mas clara</li></ul></article>
+        <article class="card" data-reveal style="--delay:2"><span class="tag">Consultoria | Regional</span><h3>Portafolio de obras municipales con soporte tecnico unificado</h3><p>Acompanamiento para priorizar inversiones, revisar riesgos y estandarizar entregables entre varios frentes.</p><ul class="bullets"><li>Matriz de prioridades</li><li>Checklists tecnicos</li><li>Mayor claridad para decisiones</li></ul></article>
+      </div>
+    </section>
+<section class="shell" id="metodologia" data-av-edit-label="Metodologia" data-av-editor-key="civil-metodologia">
+      <div class="section-head">
+        <div>
+          <span class="label">Metodologia</span>
+          <h2 class="title">Un proceso visible ayuda a vender orden, control y criterio</h2>
+        </div>
+        <p class="sub">Para muchos clientes, ver como trabaja el ingeniero pesa tanto como ver el servicio. Por eso esta seccion baja ansiedad y mejora la confianza antes del contacto.</p>
+      </div>
+      <div class="process">
+        <article class="card" data-reveal><span class="tag">Paso 01</span><h3>Lectura inicial del proyecto</h3><p>Revision de necesidad, tipo de obra, restricciones y nivel de urgencia para enmarcar el alcance real.</p></article>
+        <article class="card" data-reveal style="--delay:1"><span class="tag">Paso 02</span><h3>Diagnostico y recopilacion</h3><p>Visitas, antecedentes y soporte documental para construir una base de decision defendible.</p></article>
+        <article class="card" data-reveal style="--delay:2"><span class="tag">Paso 03</span><h3>Definicion tecnica</h3><p>Se aterrizan entregables, hitos, responsables y criterios de revision para que no haya zonas grises.</p></article>
+        <article class="card" data-reveal style="--delay:3"><span class="tag">Paso 04</span><h3>Desarrollo y coordinacion</h3><p>Produccion tecnica, mesas de trabajo y ajustes con cliente, especialistas o contratistas.</p></article>
+        <article class="card" data-reveal style="--delay:4"><span class="tag">Paso 05</span><h3>Entrega clara y accionable</h3><p>La salida no es solo un archivo: es una recomendacion entendible, priorizada y lista para ejecutar.</p></article>
+        <article class="card" data-reveal style="--delay:5"><span class="tag">Paso 06</span><h3>Soporte en decision u obra</h3><p>Seguimiento a dudas, ajustes de campo o revisiones que evitan que el proyecto quede solo despues del informe.</p></article>
+      </div>
+    </section>
+
+<section class="shell" id="faq" data-av-edit-label="Preguntas frecuentes" data-av-editor-key="civil-faq">
+      <div class="section-head">
+        <div>
+          <span class="label">Preguntas frecuentes</span>
+          <h2 class="title">Una forma simple de resolver objeciones antes del primer mensaje</h2>
+        </div>
+        <p class="sub">El FAQ reduce friccion, aclara alcance y ayuda a que el lead llegue mejor preparado a la conversacion.</p>
+      </div>
+      <div class="faq-list">
+        <article class="faq active" data-reveal>
+          <button type="button"><span>Que tipo de cliente encaja mejor con esta plantilla?</span><i>+</i></button>
+          <div class="ans"><div><p>Estudios pequenos, firmas de consultoria, especialistas independientes y equipos que necesitan una presencia tecnica, clara y mas premium que una landing generica.</p></div></div>
+        </article>
+        <article class="faq" data-reveal style="--delay:1">
+          <button type="button"><span>Se puede adaptar para geotecnia, estructuras o urbanismo?</span><i>+</i></button>
+          <div class="ans"><div><p>Si. La base visual sirve para varias ramas. Solo hay que ajustar servicios, casos, fotografia e indicadores para orientar la narrativa al nicho correcto.</p></div></div>
+        </article>
+        <article class="faq" data-reveal style="--delay:2">
+          <button type="button"><span>Esta demo se puede editar desde el sistema actual?</span><i>+</i></button>
+          <div class="ans"><div><p>Si. Incluye el script del editor visual para cambiar textos, enlaces, imagenes y algunos estilos sin abrir el archivo directamente.</p></div></div>
+        </article>
+        <article class="faq" data-reveal style="--delay:3">
+          <button type="button"><span>Sirve para captar clientes desde movil?</span><i>+</i></button>
+          <div class="ans"><div><p>Si. La composicion, los CTA, las tarjetas y el formulario fueron pensados para seguir siendo claros y confiables en pantalla pequena.</p></div></div>
+        </article>
+      </div>
+    </section>
+
+<section class="shell" id="contacto" data-av-edit-label="Contacto" data-av-editor-key="civil-contacto">
+      <div class="contact-wrap" data-reveal>
+        <div class="section-head">
+          <div>
+            <span class="label">Cierre comercial</span>
+            <h2 class="title">Lista para convertir interes en una reunion tecnica</h2>
+          </div>
+          <p class="sub">El cierre mezcla mensaje de confianza, contacto rapido y formulario. Es la zona que luego se personaliza con datos reales de cada cliente.</p>
+        </div>
+        <div class="contact-grid">
+          <article class="contact">
+            <h3>Que puede comunicar esta seccion</h3>
+            <p>Disponibilidad, cobertura geografica, tiempos de respuesta y el tipo de proyectos que conviene revisar primero. Eso ayuda a filtrar mejor y a que lleguen leads mas claros.</p>
+            <ul>
+              <li><strong>Enfoque</strong><span>Consultoria, supervision, direccion y acompanamiento tecnico.</span></li>
+              <li><strong>Tiempo de respuesta</strong><span>Ideal para prometer evaluacion preliminar en 24 a 48 horas habiles.</span></li>
+              <li><strong>Canales</strong><span>Formulario, correo, telefono, WhatsApp o agenda de reunion virtual.</span></li>
+            </ul>
+          </article>
+          <form class="contact form">
+            <label>Nombre<input type="text" name="name" placeholder="Tu nombre o empresa" /></label>
+            <label>Correo<input type="email" name="email" placeholder="correo@empresa.com" /></label>
+            <label>Tipo de proyecto<input type="text" name="project" placeholder="Infraestructura, edificacion, consultoria..." /></label>
+            <label>Ciudad<input type="text" name="city" placeholder="Ciudad o zona de intervencion" /></label>
+            <label class="full">Alcance<textarea name="scope" placeholder="Describe brevemente la necesidad tecnica, estado del proyecto y fecha estimada."></textarea></label>
+            <label class="full"><button class="btn primary" type="submit">Solicitar contacto tecnico</button></label>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot shell">
+    <div class="footin">
+      <span>Strata Civil | Plantilla de ingenieria civil para el portafolio</span>
+      <span>Servicios, proyectos, metodologia y contacto listos para personalizar</span>
+    </div>
+  </footer>
+
+  <script>
+    const revealNodes=[...document.querySelectorAll("[data-reveal]")];
+    const revealObserver=new IntersectionObserver((entries)=>{entries.forEach((entry)=>{if(entry.isIntersecting){entry.target.classList.add("is-visible");revealObserver.unobserve(entry.target);}})},{threshold:.16});
+    revealNodes.forEach((node)=>revealObserver.observe(node));
+
+    const faqItems=document.querySelectorAll(".faq");
+    faqItems.forEach((item)=>{item.querySelector("button").addEventListener("click",()=>{const active=item.classList.contains("active");faqItems.forEach((entry)=>entry.classList.remove("active"));if(!active){item.classList.add("active");}});});
+  </script>
+  <script src="../../assets/js/universal-template-editor.js"></script>
+</body>
+</html>
