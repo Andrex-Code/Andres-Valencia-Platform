@@ -210,7 +210,7 @@ select {
 }
 
 .hero h1 {
-  max-width: 11ch;
+  max-width: 13ch;
   font-size: clamp(3rem, 5.8vw, 5.3rem);
 }
 
@@ -240,6 +240,25 @@ select {
   flex-wrap: wrap;
   gap: 12px;
   margin-top: 30px;
+}
+
+.hero-proof {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.hero-proof span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  font-size: 0.82rem;
 }
 
 .btn {
@@ -339,6 +358,10 @@ select {
 }
 
 .metrics article {
+  padding: 18px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, rgba(19, 19, 19, 0.88), rgba(14, 14, 14, 0.92));
   text-align: center;
 }
 
@@ -417,6 +440,10 @@ select {
   border-color: var(--line-strong);
 }
 
+.case-card-implementation {
+  border-color: rgba(126, 169, 201, 0.24);
+}
+
 .case-card-featured {
   grid-column: span 2;
   display: grid;
@@ -425,6 +452,14 @@ select {
 
 .case-card-editable {
   border-color: rgba(200, 165, 90, 0.34);
+}
+
+.case-card-live {
+  border-color: rgba(111, 196, 137, 0.28);
+}
+
+.case-card-progress {
+  border-color: rgba(205, 164, 92, 0.28);
 }
 
 .case-media {
@@ -471,10 +506,23 @@ select {
 .case-status {
   padding: 6px 12px;
   border-radius: 999px;
-  background: var(--accent-soft);
-  color: var(--accent);
   font-size: 0.76rem;
   font-weight: 700;
+}
+
+.case-status-template {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.case-status-live {
+  background: rgba(111, 196, 137, 0.14);
+  color: #8cd5a1;
+}
+
+.case-status-progress {
+  background: rgba(205, 164, 92, 0.14);
+  color: #e0bd7b;
 }
 
 .case-card h3,

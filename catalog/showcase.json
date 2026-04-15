@@ -1,11 +1,11 @@
 [
   {
     "slug": "panaderia",
-    "order": 1,
+    "order": 3,
     "cover": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1400&q=80&auto=format&fit=crop",
     "eyebrow": "Panaderia / catalogo editable",
-    "summary": "Pagina para mostrar productos del dia, recibir pedidos y responder dudas rapido.",
-    "angle": "Pensada para vender por WhatsApp y facilitar cambios frecuentes.",
+    "summary": "Plantilla para mostrar productos del dia, recibir pedidos y responder dudas rapido.",
+    "angle": "Pensada para negocios locales que necesitan vitrina, horarios y WhatsApp visibles.",
     "highlights": [
       "Catalogo con categorias y filtros",
       "Editor para cambiar contenido desde el navegador",
@@ -33,7 +33,7 @@
   },
   {
     "slug": "gym",
-    "order": 3,
+    "order": 4,
     "cover": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1400&q=80&auto=format&fit=crop",
     "eyebrow": "Gimnasio / planes y clases",
     "summary": "Pagina comercial para mostrar planes, clases y datos clave.",
@@ -49,7 +49,7 @@
   },
   {
     "slug": "tattoo-studio",
-    "order": 4,
+    "order": 5,
     "cover": "https://images.unsplash.com/photo-1583744946564-b52ac1c389c8?w=1400&q=80&auto=format&fit=crop",
     "eyebrow": "Tattoo / portafolio visual",
     "summary": "Sitio para mostrar trabajos, estilo y datos de contacto.",
@@ -62,5 +62,21 @@
     "tags": ["Galeria", "Estilo", "Contacto"],
     "editorDemo": true,
     "editorCopy": "Ajusta mensaje, estilos, CTA y datos clave desde el mismo editor central."
+  },
+  {
+    "slug": "civil-engineer",
+    "order": 1,
+    "cover": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1400&q=80&auto=format&fit=crop",
+    "eyebrow": "Ingenieria civil / consultoria tecnica",
+    "summary": "Plantilla premium para firmas o especialistas que necesitan mostrar servicios, metodologia y proyectos con una imagen profesional.",
+    "angle": "Pensada para transmitir criterio tecnico, confianza y capacidad real de acompanamiento.",
+    "highlights": [
+      "Servicios estructurados para consultoria, supervision y direccion",
+      "Bloques para sectores, proyectos y metodologia",
+      "Editor central compatible para ajustar copy, imagenes y CTA"
+    ],
+    "tags": ["Infraestructura", "Consultoria", "Proyectos"],
+    "editorDemo": true,
+    "editorCopy": "Edita propuesta, servicios, proyectos y cierre comercial desde el editor central."
   }
 ]

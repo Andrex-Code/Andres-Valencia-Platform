@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mario Valencia | Geotecnia Aplicada</title>
+  <meta name="description" content="Mario Valencia, ingeniero civil especialista en geotecnia." />
+  <meta property="og:title" content="Mario Valencia | Geotecnia Aplicada" />
+  <meta property="og:description" content="Pagina profesional para servicios de geotecnia, cimentaciones y soporte tecnico en obra." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1513828742140-ccaa28f3eda0?w=1600&q=80&auto=format&fit=crop" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root{--sand:#efe7dc;--paper:#faf6f0;--chalk:#f7f1ea;--clay:#c77d55;--clay-dark:#9a5d39;--stone:#857c73;--olive:#73826f;--basalt:#181614;--ink:#13110f;--line:rgba(19,17,15,.12);--line-strong:rgba(19,17,15,.28);--shadow:0 28px 60px rgba(19,17,15,.12);--radius-xl:36px;--radius-lg:28px;--radius-md:20px;--max:min(1220px,calc(100% - 34px));--display:"Sora",sans-serif;--mono:"IBM Plex Mono",monospace;--ease:cubic-bezier(.16,1,.3,1)}
+    *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{min-height:100vh;color:var(--ink);font-family:var(--display);line-height:1.6;background:radial-gradient(circle at 0 0,rgba(199,125,85,.18),transparent 24%),radial-gradient(circle at 100% 0,rgba(115,130,111,.16),transparent 18%),linear-gradient(180deg,#f5eee6 0%,var(--sand) 52%,#e9e0d4 100%);overflow-x:hidden}body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.22;background:repeating-linear-gradient(0deg,transparent 0 54px,rgba(19,17,15,.03) 54px 55px),repeating-linear-gradient(90deg,transparent 0 84px,rgba(19,17,15,.028) 84px 85px);mix-blend-mode:multiply}img{display:block;width:100%;height:100%;object-fit:cover}a{text-decoration:none;color:inherit}button,input,textarea{font:inherit}.shell{width:var(--max);margin-inline:auto}.mono{font-family:var(--mono);font-size:.76rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase}.section-tag{display:inline-flex;align-items:center;gap:12px;color:var(--stone)}.section-tag:before{content:"";width:44px;height:1px;background:linear-gradient(90deg,var(--clay),rgba(199,125,85,0))}.headline{font-size:clamp(2.4rem,6.2vw,6.4rem);line-height:.9;letter-spacing:-.06em;font-weight:800;text-wrap:balance}.headline span{color:var(--clay-dark)}.lede{font-size:1.02rem;color:#5d554d;max-width:62ch;text-wrap:pretty}
+    .topbar{position:sticky;top:0;z-index:50;backdrop-filter:blur(18px);background:rgba(247,241,234,.78);border-bottom:1px solid rgba(19,17,15,.08)}.topbar-inner{min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:18px}.brand{display:flex;align-items:center;gap:16px}.brand-mark{width:52px;height:52px;border-radius:18px;overflow:hidden;position:relative;border:1px solid rgba(19,17,15,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.5);background:linear-gradient(180deg,#e7ddcf 0 20%,#b98b63 20% 36%,#89745f 36% 54%,#5a524d 54% 72%,#23201f 72% 100%)}.brand-mark:after{content:"";position:absolute;inset:9px;border:1px dashed rgba(255,255,255,.42);border-radius:12px}.brand-copy{display:grid;gap:3px}.brand-copy strong{font-size:1rem;font-weight:800;letter-spacing:-.03em}.brand-copy span{color:var(--stone);font-size:.77rem;letter-spacing:.14em;text-transform:uppercase;font-family:var(--mono)}.nav{display:flex;gap:22px;flex-wrap:wrap;color:#5d554d;font-family:var(--mono);font-size:.74rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase}.nav a{position:relative;padding-bottom:4px}.nav a:after{content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;background:var(--clay);transform:scaleX(0);transform-origin:left;transition:transform .28s var(--ease)}.nav a:hover:after{transform:scaleX(1)}
+    .hero{padding:28px 0 60px}.hero-board{position:relative;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(380px,.9fr);gap:24px;padding:22px;border-radius:var(--radius-xl);background:rgba(250,246,240,.72);border:1px solid rgba(255,255,255,.7);box-shadow:var(--shadow);overflow:hidden}.hero-board:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.4),transparent 40%),radial-gradient(circle at 88% 14%,rgba(199,125,85,.16),transparent 16%);pointer-events:none}.hero-copy{position:relative;z-index:1;display:grid;align-content:space-between;gap:24px;min-height:620px;padding:10px 4px 4px}.hero-copy-top{display:grid;gap:18px}.intro-chip{width:fit-content;display:inline-flex;align-items:center;gap:10px;min-height:38px;padding:0 16px;border-radius:999px;background:rgba(255,255,255,.66);border:1px solid rgba(19,17,15,.1);color:var(--clay-dark);font-family:var(--mono);font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase}.intro-chip:before{content:"";width:10px;height:10px;border-radius:50%;background:var(--clay);box-shadow:0 0 0 5px rgba(199,125,85,.14)}.hero-actions{display:flex;flex-wrap:wrap;gap:12px}.cta{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 20px;border-radius:999px;border:1px solid transparent;transition:transform .28s var(--ease),background-color .28s var(--ease),border-color .28s var(--ease);font-weight:700}.cta:hover{transform:translateY(-2px)}.cta-primary{background:var(--basalt);color:#fff;box-shadow:0 14px 28px rgba(24,22,20,.18)}.cta-secondary{background:rgba(255,255,255,.78);border-color:rgba(19,17,15,.12)}.hero-notes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.note{padding:14px 14px 16px;border-radius:22px;background:rgba(255,255,255,.66);border:1px solid rgba(19,17,15,.08);min-height:110px;display:grid;align-content:start;gap:8px}.note strong{display:block;font-size:.94rem;line-height:1.22}.note p{color:#635d57;font-size:.84rem}
+    .terrain-pane{position:relative;min-height:620px;border-radius:calc(var(--radius-xl) - 8px);overflow:hidden;background:#1f1a17}.terrain-photo{position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,17,15,.08),rgba(20,17,15,.6)),url("https://images.unsplash.com/photo-1513828742140-ccaa28f3eda0?w=1600&q=80&auto=format&fit=crop") center/cover;transform:scale(1.02)}.terrain-photo:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(24,22,20,.18),rgba(24,22,20,.86))}.strata{position:absolute;inset:auto 0 0 0;height:52%;z-index:2;pointer-events:none}.band{position:absolute;left:0;right:0;display:flex;align-items:center;padding-left:24px;color:rgba(255,255,255,.72);font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;border-top:1px solid rgba(255,255,255,.12)}.band-1{top:0;height:18%;background:rgba(218,194,164,.22);clip-path:polygon(0 8%,100% 0,100% 100%,0 100%)}.band-2{top:17%;height:18%;background:rgba(199,125,85,.28);clip-path:polygon(0 0,100% 10%,100% 100%,0 92%)}.band-3{top:34%;height:20%;background:rgba(115,130,111,.22);clip-path:polygon(0 12%,100% 0,100% 100%,0 88%)}.band-4{top:53%;height:22%;background:rgba(90,82,77,.36);clip-path:polygon(0 0,100% 14%,100% 100%,0 100%)}.band-5{top:74%;height:26%;background:rgba(24,22,20,.7)}.terrain-callout{position:absolute;right:18px;top:18px;z-index:3;width:min(300px,calc(100% - 36px));padding:16px;border-radius:24px;background:rgba(247,241,234,.14);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(18px);color:#fff}.terrain-callout strong{display:block;margin:8px 0 8px;font-size:1rem;line-height:1.28}.terrain-callout p{color:rgba(255,255,255,.72);font-size:.88rem}
+    .section{padding:0 0 72px}.split-head{display:grid;grid-template-columns:.72fr 1.28fr;gap:26px;align-items:start;margin-bottom:22px}.split-head h2{font-size:clamp(1.9rem,4.2vw,3.9rem);line-height:.94;letter-spacing:-.06em}.split-head p{color:#60584f;font-size:.96rem;max-width:60ch}
+    .ledger{display:grid;gap:0;border-top:1px solid var(--line-strong);background:rgba(250,246,240,.56);border-radius:26px;overflow:hidden;box-shadow:var(--shadow)}.ledger-row{display:grid;grid-template-columns:98px minmax(0,1.1fr) minmax(0,1fr);gap:16px;padding:18px 20px;border-bottom:1px solid var(--line);align-items:start;transition:background-color .28s var(--ease)}.ledger-row:last-child{border-bottom:0}.ledger-row:hover{background:rgba(255,255,255,.5)}.ledger-index{color:var(--clay-dark);font-family:var(--mono);font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase}.ledger-row h3{font-size:1.08rem;line-height:1.22;letter-spacing:-.04em;margin-bottom:4px}.ledger-copy p{color:#625a52;font-size:.92rem}.ledger-copy small{display:block;margin-top:8px;color:var(--stone);font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase}
+    .trigger-copy{display:grid;grid-template-columns:.8fr 1.2fr;gap:20px;align-items:start}.trigger-intro{position:sticky;top:108px;padding:22px;border-radius:28px;background:var(--basalt);color:#fff;box-shadow:0 24px 48px rgba(24,22,20,.2)}.trigger-intro p{color:rgba(255,255,255,.72);margin-top:10px}.trigger-list{display:grid;gap:14px}.trigger{padding:20px;border-radius:28px;background:rgba(255,255,255,.66);border:1px solid rgba(19,17,15,.1);box-shadow:var(--shadow);display:grid;grid-template-columns:82px 1fr;gap:14px;align-items:start}.trigger-no{color:var(--clay-dark);font-family:var(--mono);font-size:.82rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase}.trigger h3{font-size:1.1rem;line-height:1.22;letter-spacing:-.04em;margin-bottom:6px}.trigger p{color:#625a52;margin-bottom:10px;font-size:.94rem}.trigger ul{display:flex;flex-wrap:wrap;gap:8px;list-style:none}.trigger li{min-height:28px;display:inline-flex;align-items:center;padding:0 10px;border-radius:999px;background:rgba(199,125,85,.1);color:var(--clay-dark);font-size:.68rem;font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase}
+    .strata-board{padding:22px;border-radius:34px;background:rgba(250,246,240,.68);border:1px solid rgba(255,255,255,.72);box-shadow:var(--shadow);overflow:hidden}.layer{position:relative;min-height:122px;padding:22px 20px 20px 104px;border-radius:24px;overflow:hidden;margin-bottom:12px}.layer:last-child{margin-bottom:0}.layer:before{content:"";position:absolute;left:20px;top:20px;bottom:20px;width:56px;border-radius:18px;opacity:.9}.layer-1{background:linear-gradient(135deg,rgba(228,217,198,.9),rgba(244,237,226,.92))}.layer-1:before{background:linear-gradient(180deg,#d6c0a2,#b58d62)}.layer-2{background:linear-gradient(135deg,rgba(209,166,138,.26),rgba(252,243,237,.9))}.layer-2:before{background:linear-gradient(180deg,#cf8e66,#ad6944)}.layer-3{background:linear-gradient(135deg,rgba(171,181,160,.28),rgba(245,240,232,.9))}.layer-3:before{background:linear-gradient(180deg,#97a68f,#73826f)}.layer-4{background:linear-gradient(135deg,rgba(80,74,69,.18),rgba(244,240,234,.9))}.layer-4:before{background:linear-gradient(180deg,#6e6660,#322d2a)}.layer small{display:inline-block;margin-bottom:8px;color:#6b6259;font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase}.layer h3{font-size:1.12rem;line-height:1.2;letter-spacing:-.04em;margin-bottom:6px}.layer p{color:#645d55;max-width:64ch;font-size:.94rem}
+    .profile-block{display:grid;grid-template-columns:minmax(320px,.88fr) minmax(0,1.12fr);gap:20px}.profile-panel,.contact-panel{padding:22px;border-radius:30px;background:rgba(255,255,255,.66);border:1px solid rgba(19,17,15,.1);box-shadow:var(--shadow)}.portrait{min-height:430px;position:relative;overflow:hidden;border-radius:30px;background:linear-gradient(180deg,rgba(24,22,20,.12),rgba(24,22,20,.54)),url("https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1400&q=80&auto=format&fit=crop") center/cover;box-shadow:var(--shadow)}.portrait:after{content:"";position:absolute;inset:18px;border:1px solid rgba(255,255,255,.18);border-radius:22px}.portrait-note{position:absolute;left:18px;right:18px;bottom:18px;padding:16px;border-radius:22px;background:rgba(24,22,20,.5);border:1px solid rgba(255,255,255,.12);color:#fff;backdrop-filter:blur(18px)}.portrait-note p{color:rgba(255,255,255,.76);margin-top:8px;font-size:.9rem}.profile-panel{display:grid;gap:18px}.profile-panel h3,.contact-panel h3{font-size:1.3rem;line-height:1.16;letter-spacing:-.04em}.profile-panel p,.contact-panel p{color:#625a52}.fact-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.fact{padding:14px;border-radius:18px;background:rgba(245,238,228,.9);border:1px solid rgba(19,17,15,.08)}.fact strong{display:block;margin-bottom:6px;color:var(--clay-dark);font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase}.fact span{display:block;font-size:.9rem;line-height:1.38}.principles{list-style:none;display:grid;gap:10px}.principles li{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;color:#625a52;font-size:.95rem}.principles li:before{content:"";width:10px;height:10px;margin-top:.48em;border-radius:50%;background:var(--clay);box-shadow:0 0 0 5px rgba(199,125,85,.14)}
+    .faq-stack{display:grid;gap:10px}.faq{border-radius:22px;background:rgba(255,255,255,.64);border:1px solid rgba(19,17,15,.1);box-shadow:var(--shadow);overflow:hidden}.faq button{width:100%;padding:18px 20px;border:0;background:transparent;display:flex;align-items:center;justify-content:space-between;gap:18px;text-align:left;cursor:pointer}.faq button span{font-size:.96rem;font-weight:700;letter-spacing:-.02em}.faq button i{width:32px;height:32px;flex-shrink:0;border-radius:50%;display:grid;place-items:center;font-style:normal;color:var(--clay-dark);background:rgba(199,125,85,.1);transition:transform .24s var(--ease)}.faq-answer{display:grid;grid-template-rows:0fr;transition:grid-template-rows .28s var(--ease)}.faq-answer>div{overflow:hidden}.faq-answer p{padding:0 20px 18px;color:#625a52;max-width:68ch;font-size:.94rem}.faq.active .faq-answer{grid-template-rows:1fr}.faq.active i{transform:rotate(45deg)}
+    .contact-wrap{display:grid;grid-template-columns:minmax(320px,.85fr) minmax(0,1.15fr);gap:20px}.contact-panel-dark{padding:24px;border-radius:30px;background:linear-gradient(180deg,rgba(24,22,20,.96),rgba(24,22,20,.92));color:#fff;box-shadow:0 24px 48px rgba(24,22,20,.22)}.contact-panel-dark p{color:rgba(255,255,255,.72);margin-top:10px}.contact-points{display:grid;gap:12px;margin-top:18px}.contact-points article{padding:14px 0;border-top:1px solid rgba(255,255,255,.12)}.contact-points strong{display:block;margin-bottom:4px;font-family:var(--mono);font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.62)}.contact-points span{color:rgba(255,255,255,.84);font-size:.94rem}.contact-panel{display:grid;gap:16px}.contact-form{display:grid;grid-template-columns:1fr 1fr;gap:12px}.contact-form label{display:grid;gap:8px;color:#5f564d;font-family:var(--mono);font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase}.contact-form .full{grid-column:1 / -1}.contact-form input,.contact-form textarea{width:100%;border:1px solid rgba(19,17,15,.14);border-radius:18px;padding:13px 14px;background:rgba(250,246,240,.86);color:var(--ink);outline:none;transition:border-color .24s var(--ease),box-shadow .24s var(--ease),background-color .24s var(--ease)}.contact-form textarea{min-height:142px;resize:vertical}.contact-form input:focus,.contact-form textarea:focus{border-color:rgba(154,93,57,.42);background:rgba(255,255,255,.96);box-shadow:0 0 0 4px rgba(199,125,85,.1)}.footer{padding:0 0 30px}.footer-inner{padding-top:18px;border-top:1px solid rgba(19,17,15,.12);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;color:#665d54;font-size:.84rem}
+    [data-reveal]{opacity:0;transform:translateY(28px);transition:opacity .7s var(--ease),transform .7s var(--ease);transition-delay:calc(var(--delay,0)*.08s)}[data-reveal].is-visible{opacity:1;transform:translateY(0)}
+    @media (max-width:1120px){.hero-board,.trigger-copy,.profile-block,.contact-wrap,.split-head{grid-template-columns:1fr}.hero-copy,.terrain-pane{min-height:auto}.terrain-pane{min-height:620px}.trigger-intro{position:static}}
+    @media (max-width:820px){.nav{display:none}.hero-board{padding:18px}.hero-copy{padding:4px}.hero-notes,.contact-form,.fact-grid,.ledger-row{grid-template-columns:1fr}.ledger-row{gap:8px}.trigger{grid-template-columns:1fr}.layer{padding-left:24px;padding-top:96px}.layer:before{left:24px;right:24px;top:20px;bottom:auto;width:auto;height:48px}}
+    @media (max-width:620px){.shell{width:min(100% - 22px,1220px)}.hero{padding-top:20px}.headline{font-size:clamp(2.2rem,12vw,4.8rem)}.terrain-pane{min-height:520px}.terrain-callout{left:16px;right:16px;width:auto}.section{padding-bottom:74px}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner shell">
+      <a class="brand" href="#inicio" aria-label="Ir al inicio">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-copy">
+          <strong>Mario Valencia</strong>
+          <span>Geotecnia aplicada</span>
+        </span>
+      </a>
+      <nav class="nav" aria-label="Principal">
+        <a href="#servicios">Servicios</a>
+        <a href="#cuando">Cuando me llaman</a>
+        <a href="#metodo">Metodo</a>
+        <a href="#perfil">Perfil</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero shell" id="inicio">
+      <div class="hero-board">
+        <article class="hero-copy" data-reveal>
+          <div class="hero-copy-top">
+            <span class="intro-chip">Ingeniero civil especialista en geotecnia</span>
+            <div class="section-tag mono">Hoja de terreno / 01</div>
+            <h1 class="headline">El terreno habla antes de <span>la estructura.</span></h1>
+            <p class="lede">
+              Mario Valencia acompana decisiones donde el suelo, la excavacion o la cimentacion cambian el rumbo del proyecto.
+              La idea es simple: menos ruido y mas criterio tecnico cuando el terreno se vuelve protagonista.
+            </p>
+            <div class="hero-actions">
+              <a class="cta cta-primary" href="#contacto">Solicitar primera revision</a>
+              <a class="cta cta-secondary" href="#cuando">Ver en que casos aporta valor</a>
+            </div>
+          </div>
+
+          <div class="hero-notes">
+            <article class="note">
+              <span class="mono">Antes del diseno</span>
+              <strong>Lectura del sitio y del subsuelo para reducir incertidumbre.</strong>
+              <p>Base tecnica para decidir mejor desde el inicio.</p>
+            </article>
+            <article class="note">
+              <span class="mono">Durante la obra</span>
+              <strong>Apoyo cuando la condicion real del terreno obliga a replantear.</strong>
+              <p>Soporte claro cuando el terreno obliga a ajustar.</p>
+            </article>
+            <article class="note">
+              <span class="mono">Segunda opinion</span>
+              <strong>Criterio independiente para revisar informes, supuestos y riesgos.</strong>
+              <p>Util para contrastar informes o soluciones ya planteadas.</p>
+            </article>
+          </div>
+        </article>
+
+        <aside class="terrain-pane" data-reveal style="--delay:1">
+          <div class="terrain-photo"></div>
+          <div class="terrain-callout">
+            <span class="mono">Lectura estratigrafica</span>
+            <strong>Una pagina menos "corporativa" y mas cercana a un dossier de campo.</strong>
+            <p>
+              La direccion visual usa capas de terreno y ritmo editorial para salirse del molde repetido.
+            </p>
+          </div>
+          <div class="strata" aria-hidden="true">
+            <div class="band band-1">capa superficial</div>
+            <div class="band band-2">zona intermedia</div>
+            <div class="band band-3">lectura de estabilidad</div>
+            <div class="band band-4">criterio de soporte</div>
+            <div class="band band-5">estrato resistente</div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section shell" id="servicios">
+      <div class="split-head">
+        <div>
+          <span class="section-tag mono">Servicios / 02</span>
+          <h2>Una oferta explicada como informe, no como lista de brochure.</h2>
+        </div>
+        <p>
+          Esta seccion funciona como un ledger tecnico: que se resuelve, cuando conviene y como aporta a la decision.
+        </p>
+      </div>
+
+      <div class="ledger">
+        <article class="ledger-row" data-reveal>
+          <div class="ledger-index">01 / estudios</div>
+          <div>
+            <h3>Estudios geotecnicos para proyectos de edificacion e infraestructura</h3>
+            <p>Lectura del sitio y base tecnica para avanzar con mas claridad.</p>
+          </div>
+          <div class="ledger-copy">
+            <p>Util antes de comprometer cimentacion, costo o estrategia constructiva.</p>
+            <small>suelo / viabilidad / decision temprana</small>
+          </div>
+        </article>
+        <article class="ledger-row" data-reveal style="--delay:1">
+          <div class="ledger-index">02 / cimentacion</div>
+          <div>
+            <h3>Criterios para soporte, capacidad portante y alternativas de fundacion</h3>
+            <p>Analisis del terreno para traducir condicion del sitio en recomendaciones utiles.</p>
+          </div>
+          <div class="ledger-copy">
+            <p>Ayuda a comparar opciones y sostener mejor la solucion elegida.</p>
+            <small>fundacion / comparativos / criterio tecnico</small>
+          </div>
+        </article>
+        <article class="ledger-row" data-reveal style="--delay:2">
+          <div class="ledger-index">03 / excavacion</div>
+          <div>
+            <h3>Revision de taludes, cortes, contenciones y soporte temporal</h3>
+            <p>Lectura puntual cuando la estabilidad o la condicion real del campo cambian la obra.</p>
+          </div>
+          <div class="ledger-copy">
+            <p>Especialmente valioso cuando aparece una duda urgente en obra.</p>
+            <small>estabilidad / pendiente / fase constructiva</small>
+          </div>
+        </article>
+        <article class="ledger-row" data-reveal style="--delay:3">
+          <div class="ledger-index">04 / soporte</div>
+          <div>
+            <h3>Acompanamiento tecnico durante ejecucion y toma de decisiones de campo</h3>
+            <p>Revision puntual de hallazgos, cambios y decisiones de campo.</p>
+          </div>
+          <div class="ledger-copy">
+            <p>El objetivo es ayudar a decidir cuando el proyecto se mueve.</p>
+            <small>obra / visitas / interpretacion</small>
+          </div>
+        </article>
+        <article class="ledger-row" data-reveal style="--delay:4">
+          <div class="ledger-index">05 / revision</div>
+          <div>
+            <h3>Segunda opinion sobre informes, supuestos o soluciones ya planteadas</h3>
+            <p>Revision de documentos existentes para reforzar la base tecnica.</p>
+          </div>
+          <div class="ledger-copy">
+            <p>Util para validar una decision sin empezar de cero.</p>
+            <small>informe / contraste / respaldo</small>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section shell" id="cuando">
+      <div class="split-head">
+        <div>
+          <span class="section-tag mono">Cuando me llaman / 03</span>
+          <h2>La geotecnia suele entrar justo donde el proyecto empieza a dudar.</h2>
+        </div>
+        <p>
+          En vez de prometer de todo, esta parte muestra momentos concretos donde conviene pedir criterio tecnico.
+        </p>
+      </div>
+
+      <div class="trigger-copy">
+        <article class="trigger-intro" data-reveal>
+          <span class="mono">senal de entrada</span>
+          <h3>Cuando el lote, la pendiente o la excavacion empiezan a condicionar el diseno.</h3>
+          <p>
+            Si el terreno se vuelve protagonista, hace falta una lectura que lo traduzca en decisiones accionables.
+          </p>
+        </article>
+
+        <div class="trigger-list">
+          <article class="trigger" data-reveal style="--delay:1">
+            <div class="trigger-no">Caso 01</div>
+            <div>
+              <h3>Hay un lote para construir, pero todavia no esta claro que tipo de cimentacion conviene.</h3>
+              <p>Ayuda a ordenar el panorama antes de arrancar una decision estructural debil.</p>
+              <ul>
+                <li>lote</li>
+                <li>cimentacion</li>
+                <li>viabilidad</li>
+              </ul>
+            </div>
+          </article>
+          <article class="trigger" data-reveal style="--delay:2">
+            <div class="trigger-no">Caso 02</div>
+            <div>
+              <h3>La obra ya empezo y la excavacion muestra condiciones distintas a las previstas.</h3>
+              <p>El valor esta en interpretar rapido y ayudar a decidir sin improvisar.</p>
+              <ul>
+                <li>campo</li>
+                <li>ajuste</li>
+                <li>soporte</li>
+              </ul>
+            </div>
+          </article>
+          <article class="trigger" data-reveal style="--delay:3">
+            <div class="trigger-no">Caso 03</div>
+            <div>
+              <h3>Existe un informe o una recomendacion previa, pero el cliente necesita contrastarla.</h3>
+              <p>Una segunda opinion bien explicada puede ahorrar decisiones debiles y sobrecostos.</p>
+              <ul>
+                <li>segunda opinion</li>
+                <li>revision</li>
+                <li>criterio</li>
+              </ul>
+            </div>
+          </article>
+          <article class="trigger" data-reveal style="--delay:4">
+            <div class="trigger-no">Caso 04</div>
+            <div>
+              <h3>El proyecto tiene topografia compleja, taludes o preguntas sobre estabilidad.</h3>
+              <p>Cuando la pendiente condiciona seguridad y manejo de obra, conviene leer el problema con otra profundidad.</p>
+              <ul>
+                <li>taludes</li>
+                <li>estabilidad</li>
+                <li>riesgo</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section shell" id="metodo">
+      <div class="split-head">
+        <div>
+          <span class="section-tag mono">Metodo / 04</span>
+          <h2>El proceso se cuenta como capas de lectura, no como pasos decorativos.</h2>
+        </div>
+        <p>
+          Cada franja representa una etapa de lectura para que la metodologia se vea propia del oficio y no como un paso decorativo.
+        </p>
+      </div>
+
+      <div class="strata-board">
+        <article class="layer layer-1" data-reveal>
+          <small>Capa 01 / contexto</small>
+          <h3>Se entiende el tipo de proyecto, la pregunta tecnica y el momento exacto en que aparece.</h3>
+          <p>No es lo mismo revisar un lote que intervenir una excavacion activa.</p>
+        </article>
+        <article class="layer layer-2" data-reveal style="--delay:1">
+          <small>Capa 02 / lectura</small>
+          <h3>Se organizan antecedentes, observaciones de sitio y cualquier evidencia disponible sobre el terreno.</h3>
+          <p>La calidad de la decision mejora cuando campo y necesidad del proyecto se leen juntos.</p>
+        </article>
+        <article class="layer layer-3" data-reveal style="--delay:2">
+          <small>Capa 03 / criterio</small>
+          <h3>Los datos se traducen en recomendaciones comprensibles para diseno, obra o revision documental.</h3>
+          <p>El objetivo es bajar incertidumbre y ordenar el siguiente paso.</p>
+        </article>
+        <article class="layer layer-4" data-reveal style="--delay:3">
+          <small>Capa 04 / acompanamiento</small>
+          <h3>Si el proyecto lo requiere, se acompana la decision con soporte puntual durante ajustes o ejecucion.</h3>
+          <p>La recomendacion puede conversar con obra, disenador o cliente segun el caso.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section shell" id="perfil">
+      <div class="split-head">
+        <div>
+          <span class="section-tag mono">Perfil / 05</span>
+          <h2>Una marca personal puede verse tecnica sin verse rigida.</h2>
+        </div>
+        <p>
+          Mantiene tono profesional, pero evita la clasica hoja de vida fria. La idea es mostrar criterio y especialidad con una presencia mas humana.
+        </p>
+      </div>
+
+      <div class="profile-block">
+        <div class="portrait" data-reveal>
+          <div class="portrait-note">
+            <span class="mono">Mario Valencia</span>
+            <p>Ingeniero civil con foco en geotecnia aplicada a decisiones de proyecto y obra.</p>
+          </div>
+        </div>
+        <article class="profile-panel" data-reveal style="--delay:1">
+          <div>
+            <h3>Una pagina para explicar valor tecnico con claridad y sin ruido visual.</h3>
+            <p>
+              Lenguaje directo, estructura clara y una estetica distinta a la landing corporativa tipica.
+            </p>
+          </div>
+
+          <div class="fact-grid">
+            <article class="fact">
+              <strong>Perfil</strong>
+              <span>Ingeniero civil especialista en geotecnia.</span>
+            </article>
+            <article class="fact">
+              <strong>Foco</strong>
+              <span>Suelo, cimentacion, estabilidad y apoyo a decisiones de obra.</span>
+            </article>
+            <article class="fact">
+              <strong>Formato</strong>
+              <span>Conceptos, revision tecnica y acompanamiento puntual.</span>
+            </article>
+            <article class="fact">
+              <strong>Tono</strong>
+              <span>Sobrio, tecnico y cercano a la realidad del proyecto.</span>
+            </article>
+          </div>
+
+          <ul class="principles">
+            <li>Explicar la geotecnia de forma util para el cliente.</li>
+            <li>Ayudar a decidir cuando el terreno cambia el proyecto.</li>
+            <li>Convertir observacion y antecedentes en recomendaciones accionables.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section shell">
+      <div class="split-head">
+        <div>
+          <span class="section-tag mono">Preguntas / 06</span>
+          <h2>Un FAQ corto, pero realmente util.</h2>
+        </div>
+        <p>
+          Aqui se priorizan dudas que suelen aparecer antes de pedir una revision geotecnica o una segunda opinion.
+        </p>
+      </div>
+
+      <div class="faq-stack">
+        <article class="faq active" data-reveal>
+          <button type="button">
+            <span>En que momento conviene pedir una revision geotecnica?</span>
+            <i>+</i>
+          </button>
+          <div class="faq-answer">
+            <div>
+              <p>
+                Idealmente antes de cerrar decisiones sobre cimentacion o excavacion. Tambien cuando obra encuentra una condicion no prevista.
+              </p>
+            </div>
+          </div>
+        </article>
+        <article class="faq" data-reveal style="--delay:1">
+          <button type="button">
+            <span>Que informacion sirve para una primera conversacion?</span>
+            <i>+</i>
+          </button>
+          <div class="faq-answer">
+            <div>
+              <p>
+                Ubicacion, tipo de obra, duda principal, etapa actual y antecedentes del terreno, el diseno o la excavacion.
+              </p>
+            </div>
+          </div>
+        </article>
+        <article class="faq" data-reveal style="--delay:2">
+          <button type="button">
+            <span>La geotecnia solo sirve para proyectos grandes?</span>
+            <i>+</i>
+          </button>
+          <div class="faq-answer">
+            <div>
+              <p>
+                No. Tambien aporta mucho en vivienda, comercio, lotes con pendiente y excavaciones delicadas.
+              </p>
+            </div>
+          </div>
+        </article>
+        <article class="faq" data-reveal style="--delay:3">
+          <button type="button">
+            <span>Esta pagina puede seguir creciendo despues?</span>
+            <i>+</i>
+          </button>
+          <div class="faq-answer">
+            <div>
+              <p>
+                Si. Esta direccion visual ya permite sumar casos reales, datos validados y contacto final sin perder personalidad.
+              </p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section shell" id="contacto">
+      <div class="split-head">
+        <div>
+          <span class="section-tag mono">Contacto / 07</span>
+          <h2>La pagina cierra como una mesa de trabajo, no como un formulario de plantilla.</h2>
+        </div>
+        <p>
+          El cierre mantiene el mismo lenguaje del resto y deja espacio para recibir el alcance del proyecto con claridad.
+        </p>
+      </div>
+
+      <div class="contact-wrap">
+        <article class="contact-panel-dark" data-reveal>
+          <span class="mono">Punto de entrada</span>
+          <h3>Cuando el suelo empieza a condicionar el proyecto, conviene hablarlo a tiempo.</h3>
+          <p>
+            Esta seccion puede conectarse a WhatsApp, correo o agenda de revision. Ya deja armado el espacio para recibir el problema bien descrito.
+          </p>
+
+          <div class="contact-points">
+            <article>
+              <strong>Tipo de consulta</strong>
+              <span>Estudios de suelos, cimentacion, excavaciones, taludes o segunda opinion tecnica.</span>
+            </article>
+            <article>
+              <strong>Ideal para enviar</strong>
+              <span>Ubicacion, etapa del proyecto, duda principal, antecedentes y urgencia.</span>
+            </article>
+            <article>
+              <strong>Siguiente paso</strong>
+              <span>Definir si se requiere revision inicial, visita, concepto o acompanamiento tecnico.</span>
+            </article>
+          </div>
+        </article>
+
+        <form class="contact-panel contact-form" data-reveal style="--delay:1">
+          <label>
+            Nombre
+            <input type="text" name="name" placeholder="Tu nombre o empresa" />
+          </label>
+          <label>
+            Correo
+            <input type="email" name="email" placeholder="correo@empresa.com" />
+          </label>
+          <label>
+            Tipo de proyecto
+            <input type="text" name="project" placeholder="Vivienda, lote, excavacion, infraestructura..." />
+          </label>
+          <label>
+            Ciudad o zona
+            <input type="text" name="city" placeholder="Ubicacion del proyecto" />
+          </label>
+          <label class="full">
+            Consulta tecnica
+            <textarea name="scope" placeholder="Describe la situacion del proyecto, la condicion del terreno o la decision que hoy necesitas resolver."></textarea>
+          </label>
+          <label class="full">
+            <button class="cta cta-primary" type="submit">Solicitar primera revision</button>
+          </label>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer shell">
+    <div class="footer-inner">
+      <span>Mario Valencia | Ingeniero civil especialista en geotecnia</span>
+      <span>Direccion visual tipo dossier de terreno para romper el molde anterior</span>
+    </div>
+  </footer>
+
+  <script>
+    const revealNodes=[...document.querySelectorAll("[data-reveal]")];
+    const revealObserver=new IntersectionObserver((entries)=>{entries.forEach((entry)=>{if(entry.isIntersecting){entry.target.classList.add("is-visible");revealObserver.unobserve(entry.target);}})},{threshold:.14});
+    revealNodes.forEach((node)=>revealObserver.observe(node));
+
+    const faqItems=document.querySelectorAll(".faq");
+    faqItems.forEach((item)=>{item.querySelector("button").addEventListener("click",()=>{const active=item.classList.contains("active");faqItems.forEach((entry)=>entry.classList.remove("active"));if(!active){item.classList.add("active");}});});
+  </script>
+</body>
+</html>

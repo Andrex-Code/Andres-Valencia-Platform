@@ -1,0 +1,42 @@
+[
+  {
+    "slug": "mario-valencia",
+    "order": 1,
+    "name": "Mario Valencia",
+    "category": "engineering",
+    "entry": "av-system/deploy/mario-valencia/index.html",
+    "templateEntry": "templates/civil-engineer/index.html",
+    "cover": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1400&q=80&auto=format&fit=crop",
+    "eyebrow": "Geotecnia / pagina en implementacion",
+    "summary": "Landing para ingeniero civil especialista en geotecnia, con una direccion visual mas editorial y tecnica.",
+    "angle": "Sirve para mostrar que una base sectorial puede convertirse en una marca personal con identidad propia.",
+    "highlights": [
+      "Narrativa enfocada en consultoria, estudios y confianza tecnica",
+      "Estilo distinto al resto del portafolio para evitar soluciones repetidas",
+      "Pensada para clientes de obra, consultoria e infraestructura"
+    ],
+    "tags": ["Geotecnia", "Marca personal", "Consultoria"],
+    "statusLabel": "En implementacion",
+    "state": "progress"
+  },
+  {
+    "slug": "panaderia-la-chiquita",
+    "order": 2,
+    "name": "Panaderia La Chiquita",
+    "category": "bakery",
+    "entry": "av-system/deploy/panaderia-la-chiquita/index.html",
+    "templateEntry": "templates/panaderia/index.html",
+    "cover": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1400&q=80&auto=format&fit=crop",
+    "eyebrow": "Panaderia local / adaptacion real",
+    "summary": "Version implementada a partir de la base para panaderias, aterrizada a catalogo, productos y contacto directo por WhatsApp.",
+    "angle": "Muestra como una plantilla base se convierte en una pagina concreta para un negocio local.",
+    "highlights": [
+      "Contenido real de productos, horarios y pedido rapido",
+      "Estructura afinada para negocio de vitrina y encargos",
+      "Separada de la plantilla base para no mezclar demo con caso aplicado"
+    ],
+    "tags": ["Caso real", "Catalogo", "WhatsApp"],
+    "statusLabel": "Implementado",
+    "state": "live"
+  }
+]

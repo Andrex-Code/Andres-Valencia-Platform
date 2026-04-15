@@ -3,9 +3,6 @@ __pycache__/
 *.pyc
 *.pyo
 
-# Legacy local lab
-av-system/
-
 # Studio local artifacts
 studio/.vercel/
 studio/.vercel-global/

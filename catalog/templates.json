@@ -25,10 +25,18 @@
   },
   {
     "slug": "panaderia",
-    "name": "Panadería La Chiquita",
+    "name": "Casa Horno",
     "category": "bakery",
     "entry": "templates/panaderia/index.html",
     "readme": "templates/panaderia/README.md",
+    "status": "ready"
+  },
+  {
+    "slug": "civil-engineer",
+    "name": "Strata Civil",
+    "category": "engineering",
+    "entry": "templates/civil-engineer/index.html",
+    "readme": "templates/civil-engineer/README.md",
     "status": "ready"
   }
 ]

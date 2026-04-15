@@ -1,4 +1,4 @@
-# Panaderia La Chiquita
+# Casa Horno
 
 ## Concepto
 Demo para panaderia o reposteria local con una direccion artesanal calida, catalogo por categorias y pedidos directos por WhatsApp.
