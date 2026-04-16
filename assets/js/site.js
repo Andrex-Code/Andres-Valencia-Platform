@@ -181,6 +181,8 @@ const fallbackImplementations = [
 ];
 
 const externalLinkAttrs = 'target="_blank" rel="noopener noreferrer"';
+const leadFormDefaultStatus =
+  "Esto no envia datos a terceros: solo te abre WhatsApp con el mensaje ya ordenado.";
 
 async function fetchJson(path, fallback) {
   try {
@@ -361,6 +363,93 @@ function revealOnScroll() {
   nodes.forEach((node) => observer.observe(node));
 }
 
+function buildLeadMessage(payload) {
+  const businessLine = payload.sector
+    ? `Tengo un negocio llamado ${payload.business} en el sector ${payload.sector}.`
+    : `Tengo un negocio llamado ${payload.business}.`;
+  const cityLine = payload.city ? `Estoy en ${payload.city}.` : "";
+  const referenceLine = payload.reference
+    ? `Mi referencia actual es: ${payload.reference}.`
+    : "";
+
+  return [
+    `Hola Andres, soy ${payload.name}.`,
+    businessLine,
+    cityLine,
+    `Quiero trabajar una ${payload.offer.toLowerCase()} y mi objetivo principal es ${payload.goal}.`,
+    referenceLine,
+    "Vi tu portafolio y me gustaria que me dijeras que demo me conviene y como arrancarias una propuesta inicial.",
+  ]
+    .filter(Boolean)
+    .join("\n");
+}
+
+function initLeadForm() {
+  const form = document.getElementById("leadForm");
+  if (!form) {
+    return;
+  }
+
+  const statusNode = document.getElementById("leadFormStatus");
+  const offerSelect = document.getElementById("leadOffer");
+  const whatsappNumber = form.dataset.whatsappNumber || "573007561667";
+
+  document.querySelectorAll("[data-lead-offer]").forEach((link) => {
+    link.addEventListener("click", () => {
+      const preset = link.dataset.leadOffer;
+      if (offerSelect && preset) {
+        offerSelect.value = preset;
+      }
+
+      if (statusNode) {
+        statusNode.textContent = `Ya deje marcada la opcion "${preset}". Completa los datos y abrimos WhatsApp con el mensaje listo.`;
+      }
+    });
+  });
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const payload = {
+      name: form.elements.name?.value.trim() || "",
+      business: form.elements.business?.value.trim() || "",
+      sector: form.elements.sector?.value.trim() || "",
+      goal: form.elements.goal?.value.trim() || "",
+      offer: form.elements.offer?.value.trim() || "propuesta inicial",
+      city: form.elements.city?.value.trim() || "",
+      reference: form.elements.reference?.value.trim() || "",
+    };
+
+    if (!payload.name || !payload.business || !payload.goal) {
+      if (statusNode) {
+        statusNode.textContent =
+          "Escribe al menos tu nombre, el negocio y el objetivo principal para preparar mejor el mensaje.";
+      }
+      return;
+    }
+
+    if (statusNode) {
+      statusNode.textContent = "Abriendo WhatsApp con un mensaje mas claro para arrancar la conversacion.";
+    }
+
+    const href = `https://wa.me/${encodeURIComponent(whatsappNumber)}?text=${encodeURIComponent(
+      buildLeadMessage(payload)
+    )}`;
+
+    window.open(href, "_blank", "noopener,noreferrer");
+  });
+
+  form.addEventListener("reset", () => {
+    if (statusNode) {
+      statusNode.textContent = leadFormDefaultStatus;
+    }
+  });
+
+  if (statusNode) {
+    statusNode.textContent = leadFormDefaultStatus;
+  }
+}
+
 async function renderPortfolio() {
   const [templates, showcase, implementations] = await Promise.all([
     fetchJson("catalog/templates.json", fallbackTemplates),
@@ -415,4 +504,5 @@ async function renderPortfolio() {
   revealOnScroll();
 }
 
+initLeadForm();
 renderPortfolio();
