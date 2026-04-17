@@ -1490,6 +1490,19 @@
         width: 100%;
       }
     }
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid var(--caramel);
+      outline-offset: 3px;
+      border-radius: 6px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .rise { animation: none; opacity: 1; }
+      * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+    }
   </style>
 </head>
 <body>
@@ -1786,8 +1799,8 @@
             </div>
         <div class="catalog-toolbar ">
           
-          <div class="search-wrap">
-            <input id="catalogSearch" class="catalog-search" type="text" placeholder="Buscar pan, torta, hojaldre o bebida..." />
+          <div class="search-wrap" role="search">
+            <input id="catalogSearch" class="catalog-search" type="text" aria-label="Buscar productos del catálogo" placeholder="Buscar pan, torta, hojaldre o bebida..." />
             <button class="catalog-clear" type="button" id="catalogClear">Limpiar busqueda</button>
           </div>
         
@@ -2154,7 +2167,7 @@
     <span>Demo pensada para mover encargos, catalogo y contacto local sin complicaciones.</span>
   </footer>
 
-  <a class="whatsapp-float" href="https://wa.me/573007561667?text=Hola,%20quiero%20hacer%20un%20pedido%20en%20Casa%20Horno." target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
+  <a class="whatsapp-float" href="https://wa.me/573007561667?text=Hola,%20quiero%20hacer%20un%20pedido%20en%20Casa%20Horno." target="_blank" rel="noopener noreferrer" aria-label="Pedir por WhatsApp a Casa Horno (abre WhatsApp)">Pedir por WhatsApp</a>
   <script>
     let menuToggle;
     let navPanel;
