@@ -244,6 +244,22 @@
       .hero-btns .btn { justify-content: center; }
       .contact-form { padding: 24px; }
     }
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -276,7 +292,7 @@
     </nav>
     <div class="nav-cta">
       <a href="https://wa.me/573001234567" target="_blank" class="btn btn-primary">Agendar Cita</a>
-      <button class="hamburger" id="hamburger" onclick="toggleMobile()">
+      <button class="hamburger" id="hamburger" onclick="toggleMobile()" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -656,11 +672,14 @@
     const ham = document.getElementById('hamburger');
     menu.classList.toggle('open');
     ham.classList.toggle('active');
+    ham.setAttribute('aria-expanded', menu.classList.contains('open'));
     document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
   }
   function closeMobile() {
     document.getElementById('mobileMenu').classList.remove('open');
-    document.getElementById('hamburger').classList.remove('active');
+    const ham = document.getElementById('hamburger');
+    ham.classList.remove('active');
+    ham.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
   }
 

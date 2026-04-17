@@ -1549,6 +1549,22 @@ footer {
   .trainers__grid { grid-template-columns: 1fr; }
   .stats__grid { grid-template-columns: 1fr; }
 }
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -1568,7 +1584,7 @@ footer {
         <li><a href="#contact">Contacto</a></li>
       </ul>
       <a href="#contact" class="nav__cta"><span>Clase de prueba</span></a>
-      <button class="nav__hamburger" id="hamburger" aria-label="Menu">
+      <button class="nav__hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mobileNav">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -2310,6 +2326,7 @@ footer {
   hamburger.addEventListener('click', () => {
     const open = hamburger.classList.toggle('open');
     mobileMenu.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', open);
     document.body.style.overflow = open ? 'hidden' : '';
   });
   document.querySelectorAll('.mobile-link, .nav__mobile .nav__cta').forEach(link => {

@@ -1359,6 +1359,22 @@ footer {
   .hero__actions { flex-direction: column; align-items: flex-start; }
   .chef__credentials { gap: 20px; }
 }
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -1377,7 +1393,7 @@ footer {
         <li><a href="#gallery" class="nav__link">Ambiente</a></li>
       </ul>
       <a href="#reserve" class="nav__reserve">Reservar</a>
-      <button class="nav__burger" id="navBurger" aria-label="Open menu">
+      <button class="nav__burger" id="navBurger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -2076,6 +2092,7 @@ footer {
   burger.addEventListener('click', () => {
     const open = burger.classList.toggle('open');
     overlay.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open);
     document.body.style.overflow = open ? 'hidden' : '';
   });
   document.querySelectorAll('.nav-ol-link').forEach(link => {
