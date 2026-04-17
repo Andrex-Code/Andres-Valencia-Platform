@@ -1490,6 +1490,139 @@
         width: 100%;
       }
     }
+    /* ── HOVER & INTERACTIONS ── */
+    .btn.primary {
+      transition: filter .22s ease, transform .22s ease, box-shadow .22s ease;
+    }
+    .btn.primary:hover {
+      filter: brightness(1.08);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(150,77,34,.26);
+    }
+    .btn.ghost {
+      transition: background .22s ease, border-color .22s ease, color .22s ease, transform .22s ease;
+    }
+    .btn.ghost:hover {
+      background: var(--cream);
+      border-color: var(--caramel);
+      color: var(--caramel-dark);
+      transform: translateY(-2px);
+    }
+    .product-card {
+      transition: transform .28s ease, box-shadow .28s ease;
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 28px 56px rgba(43,28,20,.14);
+    }
+    .catalog-card {
+      transition: transform .28s ease, box-shadow .28s ease;
+    }
+    .catalog-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 48px rgba(43,28,20,.13);
+    }
+    .catalog-image {
+      transition: transform .42s ease;
+    }
+    .catalog-card:hover .catalog-image {
+      transform: scale(1.06);
+    }
+    .catalog-link {
+      transition: background .22s ease, color .22s ease, border-color .22s ease;
+    }
+    .catalog-link:hover {
+      background: var(--caramel);
+      color: #fff;
+      border-color: var(--caramel);
+    }
+    .product-meta-right a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: #fff6ec;
+      border: 1px solid var(--line);
+      transition: background .22s ease, color .22s ease, border-color .22s ease;
+    }
+    .product-meta-right a:hover {
+      background: var(--caramel);
+      color: #fff;
+      border-color: var(--caramel);
+    }
+    .carousel-btn {
+      transition: background .2s ease, border-color .2s ease, color .2s ease;
+    }
+    .carousel-btn:hover {
+      background: var(--cream);
+      border-color: var(--caramel);
+      color: var(--caramel-dark);
+    }
+    .catalog-filter {
+      transition: background .2s ease, color .2s ease, border-color .2s ease;
+    }
+    .catalog-filter:hover:not(.active) {
+      background: var(--cream);
+    }
+    .category-shortcut {
+      transition: border-color .2s ease, background .2s ease, transform .2s ease;
+    }
+    .category-shortcut:hover {
+      border-color: var(--caramel);
+      transform: translateY(-1px);
+    }
+    .meta-card {
+      transition: border-color .22s ease, background .22s ease;
+    }
+    .meta-card:hover {
+      background: rgba(255,255,255,.96);
+      border-color: var(--caramel);
+    }
+    .nav-cta {
+      transition: filter .2s ease, transform .2s ease;
+    }
+    .nav-cta:hover {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+    }
+    .whatsapp-float {
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .whatsapp-float:hover {
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 16px 32px rgba(37,211,102,.32);
+    }
+    .story-photo {
+      transition: box-shadow .3s ease;
+    }
+    .story-photo:hover {
+      box-shadow: 0 32px 64px rgba(43,28,20,.18);
+    }
+    /* ── DECORATIVE POLISH ── */
+    .section-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-kicker::before {
+      content: "";
+      display: inline-block;
+      width: 18px;
+      height: 2px;
+      background: var(--caramel);
+      border-radius: 1px;
+      flex-shrink: 0;
+    }
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: .022;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
     a:focus-visible,
     button:focus-visible,
     input:focus-visible,
