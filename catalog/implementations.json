@@ -4,7 +4,7 @@
     "order": 1,
     "name": "Mario Valencia",
     "category": "engineering",
-    "entry": "av-system/deploy/mario-valencia/index.html",
+    "entry": "templates/civil-engineer/index.html",
     "templateEntry": "templates/civil-engineer/index.html",
     "cover": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1400&q=80&auto=format&fit=crop",
     "eyebrow": "Geotecnia / pagina en implementacion",
@@ -20,11 +20,31 @@
     "state": "progress"
   },
   {
+    "slug": "monica-valencia",
+    "order": 3,
+    "name": "Monica Valencia H.",
+    "category": "psicologa",
+    "entry": "templates/monica-valencia/index.html",
+    "templateEntry": "",
+    "cover": "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?w=1400&q=80&auto=format&fit=crop",
+    "eyebrow": "Psicologa / Neuropsicopedagogia",
+    "summary": "Pagina para psicologa especialista en evaluacion infantil, TDAH y sesion de padres. Presencial en Manizales y virtual para todo el pais.",
+    "angle": "Tono calido y profesional a la vez: genera confianza desde el primer pantallazo y lleva directo a WhatsApp.",
+    "highlights": [
+      "Servicios reales con precios, modalidad y CTA por WhatsApp",
+      "Paleta vino y mauve inspirada en su marca personal",
+      "Evaluaciones ENI-2 y ATENTO con descripcion clara para padres"
+    ],
+    "tags": ["Evaluacion", "TDAH", "Crianza"],
+    "statusLabel": "Implementado",
+    "state": "live"
+  },
+  {
     "slug": "panaderia-la-chiquita",
     "order": 2,
     "name": "Panaderia La Chiquita",
     "category": "bakery",
-    "entry": "av-system/deploy/panaderia-la-chiquita/index.html",
+    "entry": "templates/la-chiquita/index.html",
     "templateEntry": "templates/panaderia/index.html",
     "cover": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1400&q=80&auto=format&fit=crop",
     "eyebrow": "Panaderia local / adaptacion real",

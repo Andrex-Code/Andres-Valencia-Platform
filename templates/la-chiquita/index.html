@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Casa Horno | Demo para panaderías</title>
-  <meta name="description" content="Demo comercial para panaderías de barrio: vitrina clara, tortas por encargo y pedidos fáciles por WhatsApp." />
-  <meta property="og:title" content="Casa Horno | Demo para panaderías" />
-  <meta property="og:description" content="Demo comercial para panaderías de barrio: vitrina clara, tortas por encargo y pedidos fáciles por WhatsApp." />
+  <title>Panadería La Chiquita | Belalcázar, Caldas — Desde 1978</title>
+  <meta name="description" content="Pan recién horneado, tortas de ahuyama, brownies y Chiqui Galletas en Belalcázar, Caldas. Tradición artesanal desde 1978. Pedidos por WhatsApp." />
+  <meta property="og:title" content="Panadería La Chiquita | Belalcázar, Caldas" />
+  <meta property="og:description" content="Pan recién horneado, tortas de ahuyama, brownies y Chiqui Galletas en Belalcázar, Caldas. Tradición artesanal desde 1978." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=1600&q=80&auto=format&fit=crop" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -224,37 +224,17 @@
       white-space: nowrap;
     }
     .hero {
-      position: relative;
-      overflow: hidden;
-      min-height: 88vh;
-      margin-top: 18px;
-      border-radius: 28px;
-      display: flex;
-      align-items: flex-end;
-    }
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      background: linear-gradient(
-        to top,
-        rgba(14,6,2,.94) 0%,
-        rgba(14,6,2,.76) 30%,
-        rgba(14,6,2,.40) 60%,
-        rgba(14,6,2,.10) 100%
-      );
+      display: grid;
+      grid-template-columns: 1fr 1.05fr;
+      gap: 16px;
+      margin-top: 28px;
     }
     .hero-copy {
-      position: relative;
-      z-index: 2;
-      background: transparent;
-      border: none;
-      border-radius: 0;
-      box-shadow: none;
-      padding: 72px 52px;
-      color: #fff;
-      max-width: min(740px, 100%);
+      background: var(--paper-strong);
+      border: 1px solid var(--line);
+      border-radius: 32px;
+      box-shadow: var(--shadow);
+      padding: 48px 44px;
     }
     .eyebrow {
       display: inline-flex;
@@ -275,12 +255,6 @@
       background: var(--caramel);
       border-radius: 2px;
     }
-    .hero-copy .eyebrow {
-      color: rgba(255,208,140,.9);
-    }
-    .hero-copy .eyebrow::before {
-      background: rgba(255,188,100,.8);
-    }
     h1 {
       font-family: "Fraunces", serif;
       font-size: clamp(2.8rem, 5vw, 5rem);
@@ -289,12 +263,8 @@
       max-width: 10ch;
       margin-bottom: 20px;
     }
-    .hero-copy h1 {
-      color: #fff;
-      text-shadow: 0 2px 32px rgba(0,0,0,.35);
-    }
     .hero-copy p {
-      color: rgba(255,243,222,.86);
+      color: var(--muted);
       max-width: 50ch;
       margin-bottom: 28px;
       font-size: 1rem;
@@ -336,11 +306,6 @@
       font-size: .75rem;
       font-weight: 800;
     }
-    .hero-copy .chip {
-      background: rgba(255,255,255,.12);
-      border-color: rgba(255,255,255,.2);
-      color: rgba(255,243,222,.9);
-    }
     .hero-meta {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -355,12 +320,6 @@
       border: 1px solid var(--line);
       background: rgba(255,255,255,.75);
     }
-    .hero-copy .meta-card {
-      background: rgba(255,255,255,.08);
-      border-color: rgba(255,255,255,.14);
-    }
-    .hero-copy .hero-meta { color: rgba(255,243,222,.82); }
-    .hero-copy .hero-meta strong { color: #fff; }
     .meta-card small {
       display: inline-block;
       margin-bottom: 6px;
@@ -370,25 +329,55 @@
       text-transform: uppercase;
       letter-spacing: .08em;
     }
-    .hero-copy .meta-card small { color: rgba(255,200,130,.85); }
     .hero-visual {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      display: block;
+      display: grid;
+      grid-template-columns: 1fr .44fr;
+      gap: 12px;
     }
     .hero-photo {
+      min-height: 560px;
+      border-radius: 28px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: var(--shadow);
+      background: #ddd center/cover no-repeat url('https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=1600&q=80&auto=format&fit=crop');
+    }
+    .hero-photo::after {
+      content: "";
       position: absolute;
       inset: 0;
-      border-radius: 0;
-      overflow: hidden;
-      box-shadow: none;
-      background: #2a140a center/cover no-repeat url('https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1600&q=80&auto=format&fit=crop');
+      background: linear-gradient(to top, rgba(32,20,14,.58), rgba(32,20,14,.12));
     }
-    .hero-photo::after { display: none; }
-    .hero-caption { display: none; }
-    .hero-stack { display: none; }
-    .mini-photo { display: none; }
+    .hero-caption {
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      bottom: 18px;
+      z-index: 1;
+      color: #fff7ed;
+    }
+    .hero-caption strong {
+      display: block;
+      font-family: "Fraunces", serif;
+      font-size: 1.42rem;
+      margin-bottom: 4px;
+    }
+    .hero-caption span {
+      font-size: .84rem;
+      color: rgba(255,247,237,.88);
+    }
+    .hero-stack {
+      display: grid;
+      grid-template-rows: 1fr auto;
+      gap: 12px;
+    }
+    .mini-photo {
+      min-height: 270px;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      background: #ddd center/cover no-repeat url('https://images.unsplash.com/photo-1483695028939-5bb13f8648b0?w=1200&q=80&auto=format&fit=crop');
+    }
     .note-card {
       border-radius: 22px;
       border: 1px solid var(--line);
@@ -1357,14 +1346,7 @@
       font-size: .78rem;
     }
     @media (max-width: 980px) {
-      .hero {
-        min-height: 78vh;
-        align-items: flex-end;
-      }
-      .hero-copy {
-        padding: 56px 32px;
-        max-width: 100%;
-      }
+      .hero,
       .story-grid,
       .contact-grid {
         grid-template-columns: 1fr;
@@ -1378,6 +1360,16 @@
       .catalog-summary {
         text-align: left;
         justify-content: flex-start;
+      }
+      .hero-visual {
+        grid-template-columns: 1fr;
+      }
+      .hero-photo {
+        min-height: 420px;
+      }
+      .hero-stack {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: none;
       }
       .cake-carousel {
         grid-auto-columns: minmax(260px, 68%);
@@ -1429,7 +1421,7 @@
         justify-content: flex-start;
       }
       .hero-copy {
-        padding: 44px 24px;
+        padding: 32px 28px;
       }
       .panel,
       .story-copy,
@@ -1660,7 +1652,7 @@
   <div class="utility editable-block" data-editor-section="navigation">
     
     <div class="utility-inner">
-      <div class="utility-badges"><span class="utility-badge">Tu ciudad, Colombia</span><span class="utility-badge">Pan y pastelería del día</span><span class="utility-badge">Pedidos por WhatsApp</span></div>
+      <div class="utility-badges"><span class="utility-badge">Belalcázar, Caldas</span><span class="utility-badge">Pan y pastelería del día</span><span class="utility-badge">Pedidos por WhatsApp</span></div>
       <div class="utility-side">
         <div class="utility-copy">
           <strong>Listo para negocio real</strong>
@@ -1677,17 +1669,17 @@
     
     <nav class="nav">
       <a class="brand" href="#inicio">
-        <span class="brand-mark">CH</span>
+        <span class="brand-mark">LC</span>
         <span class="brand-copy">
-          <small>Panadería de barrio</small>
-          <strong>Casa Horno</strong>
-          <span>Tu ciudad, Colombia</span>
+          <small>Panadería artesanal desde 1978</small>
+          <strong>La Chiquita</strong>
+          <span>Belalcázar, Caldas</span>
         </span>
       </a>
       <button class="menu-toggle" type="button" id="menuToggle" aria-expanded="false" aria-controls="navPanel">Menu</button>
       <div class="nav-panel" id="navPanel">
         <div class="nav-links"><a href="#inicio">Inicio</a><a href="#destacados">Destacados</a><a href="#tortas">Tortas</a><a href="#historia">Nosotros</a><a href="#catalogo">Catalogo</a><a href="#contacto">Contacto</a><a href="#faq">FAQ</a></div>
-        <a class="nav-cta" href="https://wa.me/573007561667?text=Hola,%20quiero%20hacer%20un%20pedido%20en%20Casa%20Horno." target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
+        <a class="nav-cta" href="https://wa.me/573203818931?text=Hola,%20quiero%20hacer%20un%20pedido%20en%20Panadería%20La%20Chiquita." target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
       </div>
     </nav>
   </div>
@@ -1695,18 +1687,18 @@
   <header class="hero editable-block" id="inicio" data-editor-section="hero">
     
     <section class="hero-copy rise">
-      <span class="eyebrow">Demo comercial para panaderías de barrio</span>
-      <h1>Pan recién horneado, tortas y antojos del día sin perder el sabor del barrio</h1>
-      <p>Una portada pensada para que la gente entienda rápido qué vendes, vea lo mejor del día y llegue a WhatsApp con ganas reales de pedir.</p>
+      <span class="eyebrow">Belalcázar, Caldas — Tradición artesanal desde 1978</span>
+      <h1>Pan recién horneado, torta de ahuyama y antojos del día en Panadería La Chiquita</h1>
+      <p>Desde 1978 endulzando a las familias de Belalcázar. Pan fresco cada mañana, Chiqui Galletas, brownies y la mejor torta de ahuyama del municipio. Pide fácil por WhatsApp.</p>
       <div class="hero-actions">
-        <a class="btn primary" href="https://wa.me/573007561667?text=Hola,%20quiero%20hacer%20un%20pedido%20en%20Casa%20Horno." target="_blank" rel="noopener noreferrer">Hacer pedido</a>
-        <a class="btn ghost" href="https://www.google.com/maps/search/?api=1&query=Panaderia+en+tu+ciudad+Colombia" target="_blank" rel="noopener noreferrer">Cómo llegar</a>
+        <a class="btn primary" href="https://wa.me/573203818931?text=Hola,%20quiero%20hacer%20un%20pedido%20en%20Panadería%20La%20Chiquita." target="_blank" rel="noopener noreferrer">Hacer pedido</a>
+        <a class="btn ghost" href="https://www.google.com/maps/place/Panaderia+La+Chiquita/@4.9927671,-75.8125328,20.75z" target="_blank" rel="noopener noreferrer">Cómo llegar</a>
       </div>
-      <div class="hero-chips"><span class="chip">Pan del día</span><span class="chip">Onces</span><span class="chip">Tortas por encargo</span><span class="chip">Café</span></div>
+      <div class="hero-chips"><span class="chip">Pan del día</span><span class="chip">Torta de ahuyama</span><span class="chip">Chiqui Galletas</span><span class="chip">Encargos</span></div>
       <div class="hero-meta">
         <article class="meta-card">
           <small>Dirección</small>
-          <strong>Tu barrio, tu ciudad</strong>
+          <strong>Cra 3 #10-02, Belalcázar, Caldas</strong>
         </article>
         <article class="meta-card">
           <small>Horario</small>
@@ -1732,7 +1724,7 @@
           <small>Conversion local</small>
           <h2>Una pagina que ayuda a vender mejor lo que sale del horno</h2>
           <p>Sirve para mostrar vitrina, mover encargos y hacer que el negocio se vea mas serio sin complicar el pedido.</p>
-          <a class="btn primary" href="https://wa.me/573007561667?text=Hola,%20quiero%20hacer%20un%20pedido%20en%20Casa%20Horno." target="_blank" rel="noopener noreferrer">Consultar por WhatsApp</a>
+          <a class="btn primary" href="https://wa.me/573203818931?text=Hola,%20quiero%20hacer%20un%20pedido%20en%20Panadería%20La%20Chiquita." target="_blank" rel="noopener noreferrer">Consultar por WhatsApp</a>
         </article>
       </div>
     </section>
@@ -1756,7 +1748,7 @@
                 <small>Pan tradicional</small>
                 <div class="product-meta-right">
                   <strong>$ 2.500</strong>
-                  <a href="https://wa.me/573007561667?text=Hola,%20quiero%20pedir%20Pan%20alinado%20en%20Casa%20Horno." target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
+                  <a href="https://wa.me/573203818931?text=Hola,%20quiero%20pedir%20Pan%20alinado%20en%20Panaderia%20La%20Chiquita." target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
                 </div>
               </div>
             </article>
@@ -1771,7 +1763,7 @@
                 <small>Pan tradicional</small>
                 <div class="product-meta-right">
                   <strong>$ 3.200</strong>
-                  <a href="https://wa.me/573007561667?text=Hola,%20quiero%20pedir%20Pan%20campesino%20en%20Casa%20Horno." target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
+                  <a href="https://wa.me/573203818931?text=Hola,%20quiero%20pedir%20Pan%20campesino%20en%20Panaderia%20La%20Chiquita." target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
                 </div>
               </div>
             </article>
@@ -1786,7 +1778,7 @@
                 <small>Panes especiales</small>
                 <div class="product-meta-right">
                   <strong>$ 2.000</strong>
-                  <a href="https://wa.me/573007561667?text=Hola,%20quiero%20pedir%20Mogolla%20integral%20en%20Casa%20Horno." target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
+                  <a href="https://wa.me/573203818931?text=Hola,%20quiero%20pedir%20Mogolla%20integral%20en%20Panaderia%20La%20Chiquita." target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
                 </div>
               </div>
             </article>
@@ -1801,7 +1793,7 @@
                 <small>Panes especiales</small>
                 <div class="product-meta-right">
                   <strong>$ 2.965</strong>
-                  <a href="https://wa.me/573007561667?text=Hola,%20quiero%20pedir%20Pan%20de%20queso%20en%20Casa%20Horno." target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
+                  <a href="https://wa.me/573203818931?text=Hola,%20quiero%20pedir%20Pan%20de%20queso%20en%20Panaderia%20La%20Chiquita." target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
                 </div>
               </div>
             </article>
@@ -1867,9 +1859,9 @@
       <article class="story-photo rise"></article>
       <article class="story-copy rise" style="animation-delay:.08s">
         <span class="section-kicker">Conoce la panaderia</span>
-        <h2 class="section-title">Una panadería de barrio que ahora se entiende y se antoja mejor</h2>
-        <p>Casa Horno muestra cómo puede verse una panadería local mejor presentada: con portada antojable, categorías fáciles de recorrer y un canal de pedido directo que ayuda a convertir mejor.</p>
-        <div class="story-points"><span>La portada deja claro qué se vende y cómo se pide.</span><span>El catálogo ayuda a encontrar panes, tortas y bebidas sin perder tiempo.</span><span>WhatsApp recibe mensajes con más contexto y menos fricción.</span></div>
+        <h2 class="section-title">Desde 1978 horneando con el mismo amor de siempre</h2>
+        <p>Panadería La Chiquita es un negocio de familia en el corazón de Belalcázar. Cada pan sale fresco del horno cada mañana, las Chiqui Galletas son el antojo favorito del barrio, y la torta de ahuyama es orgullo del municipio — hecha con el dulzor natural de la ahuyama como siempre se ha hecho aquí.</p>
+        <div class="story-points"><span>Pan fresco cada mañana, hecho con los ingredientes de siempre.</span><span>Torta de ahuyama: el postre típico de Belalcázar que más nos piden.</span><span>Pedidos por WhatsApp — rápido, sin enredos y con atención cercana.</span></div>
       </article>
     </div>
   </section>
@@ -1940,7 +1932,7 @@
                 <p>Crujiente por fuera y suave por dentro, ideal para el desayuno.</p>
                 <div class="catalog-foot">
                   <strong>$ 2.500</strong>
-                  <a href="https://wa.me/573007561667?text=Hola,%20quiero%20pedir%20Pan%20alinado%20en%20Casa%20Horno." class="catalog-link" target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
+                  <a href="https://wa.me/573203818931?text=Hola,%20quiero%20pedir%20Pan%20alinado%20en%20Panaderia%20La%20Chiquita." class="catalog-link" target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
                 </div>
               </div>
             </article>
@@ -1955,7 +1947,7 @@
                 <p>Miga suave, corteza dorada y sabor casero para compartir.</p>
                 <div class="catalog-foot">
                   <strong>$ 3.200</strong>
-                  <a href="https://wa.me/573007561667?text=Hola,%20quiero%20pedir%20Pan%20campesino%20en%20Casa%20Horno." class="catalog-link" target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
+                  <a href="https://wa.me/573203818931?text=Hola,%20quiero%20pedir%20Pan%20campesino%20en%20Panaderia%20La%20Chiquita." class="catalog-link" target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
                 </div>
               </div>
             </article>
@@ -1970,7 +1962,7 @@
                 <p>Ideal para desayuno y onces, con textura suave y sabor balanceado.</p>
                 <div class="catalog-foot">
                   <strong>$ 2.000</strong>
-                  <a href="https://wa.me/573007561667?text=Hola,%20quiero%20pedir%20Mogolla%20integral%20en%20Casa%20Horno." class="catalog-link" target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
+                  <a href="https://wa.me/573203818931?text=Hola,%20quiero%20pedir%20Mogolla%20integral%20en%20Panaderia%20La%20Chiquita." class="catalog-link" target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
                 </div>
               </div>
             </article>
@@ -1985,7 +1977,7 @@
                 <p>Recien horneado, suave por dentro y con mucho sabor.</p>
                 <div class="catalog-foot">
                   <strong>$ 2.965</strong>
-                  <a href="https://wa.me/573007561667?text=Hola,%20quiero%20pedir%20Pan%20de%20queso%20en%20Casa%20Horno." class="catalog-link" target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
+                  <a href="https://wa.me/573203818931?text=Hola,%20quiero%20pedir%20Pan%20de%20queso%20en%20Panaderia%20La%20Chiquita." class="catalog-link" target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
                 </div>
               </div>
             </article>
@@ -2000,7 +1992,7 @@
                 <p>Hojaldre relleno, horneado del dia, perfecto para acompanar un cafe.</p>
                 <div class="catalog-foot">
                   <strong>$ 3.500</strong>
-                  <a href="https://wa.me/573007561667?text=Hola,%20quiero%20pedir%20Pastel%20de%20guayaba%20en%20Casa%20Horno." class="catalog-link" target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
+                  <a href="https://wa.me/573203818931?text=Hola,%20quiero%20pedir%20Pastel%20de%20guayaba%20en%20Panaderia%20La%20Chiquita." class="catalog-link" target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
                 </div>
               </div>
             </article>
@@ -2015,7 +2007,7 @@
                 <p>Laminado, liviano y dorado, con textura hojaldrada.</p>
                 <div class="catalog-foot">
                   <strong>$ 4.500</strong>
-                  <a href="https://wa.me/573007561667?text=Hola,%20quiero%20pedir%20Croissant%20de%20mantequilla%20en%20Casa%20Horno." class="catalog-link" target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
+                  <a href="https://wa.me/573203818931?text=Hola,%20quiero%20pedir%20Croissant%20de%20mantequilla%20en%20Panaderia%20La%20Chiquita." class="catalog-link" target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
                 </div>
               </div>
             </article>
@@ -2030,7 +2022,7 @@
                 <p>Porcion suave y esponjosa para celebraciones o antojos del dia.</p>
                 <div class="catalog-foot">
                   <strong>$ 6.500</strong>
-                  <a href="https://wa.me/573007561667?text=Hola,%20quiero%20pedir%20Torta%20de%20vainilla%20por%20porcion%20en%20Casa%20Horno." class="catalog-link" target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
+                  <a href="https://wa.me/573203818931?text=Hola,%20quiero%20pedir%20Torta%20de%20vainilla%20por%20porcion%20en%20Panaderia%20La%20Chiquita." class="catalog-link" target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
                 </div>
               </div>
             </article>
@@ -2045,7 +2037,7 @@
                 <p>Bizcocho humedo con cubierta cremosa y sabor intenso.</p>
                 <div class="catalog-foot">
                   <strong>$ 7.000</strong>
-                  <a href="https://wa.me/573007561667?text=Hola,%20quiero%20pedir%20Torta%20de%20chocolate%20por%20porcion%20en%20Casa%20Horno." class="catalog-link" target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
+                  <a href="https://wa.me/573203818931?text=Hola,%20quiero%20pedir%20Torta%20de%20chocolate%20por%20porcion%20en%20Panaderia%20La%20Chiquita." class="catalog-link" target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
                 </div>
               </div>
             </article>
@@ -2060,7 +2052,7 @@
                 <p>Bebida caliente tradicional para una tarde de pan y onces.</p>
                 <div class="catalog-foot">
                   <strong>$ 3.999</strong>
-                  <a href="https://wa.me/573007561667?text=Hola,%20quiero%20pedir%20Chocolate%20caliente%20en%20Casa%20Horno." class="catalog-link" target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
+                  <a href="https://wa.me/573203818931?text=Hola,%20quiero%20pedir%20Chocolate%20caliente%20en%20Panaderia%20La%20Chiquita." class="catalog-link" target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
                 </div>
               </div>
             </article>
@@ -2075,7 +2067,7 @@
                 <p>Cafe recien preparado para acompanar panes, hojaldres y postres.</p>
                 <div class="catalog-foot">
                   <strong>$ 2.500</strong>
-                  <a href="https://wa.me/573007561667?text=Hola,%20quiero%20pedir%20Cafe%20americano%20en%20Casa%20Horno." class="catalog-link" target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
+                  <a href="https://wa.me/573203818931?text=Hola,%20quiero%20pedir%20Cafe%20americano%20en%20Panaderia%20La%20Chiquita." class="catalog-link" target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
                 </div>
               </div>
             </article>
@@ -2226,22 +2218,22 @@
       <div class="contact-grid">
         <article class="contact-card">
           <div class="contact-list">
-            <span><strong>Negocio:</strong> Casa Horno</span>
-            <span><strong>Ciudad:</strong> Tu ciudad, Colombia</span>
-            <span><strong>Dirección:</strong> Tu barrio, tu ciudad</span>
-            <span><strong>Horario:</strong> Lunes a Sábado 6:00 a.m. – 8:00 p.m.</span>
-            <span><strong>WhatsApp:</strong> +573007561667</span>
+            <span><strong>Negocio:</strong> Panadería La Chiquita</span>
+            <span><strong>Ciudad:</strong> Belalcázar, Caldas</span>
+            <span><strong>Dirección:</strong> Cra 3 #10-02, Belalcázar, Caldas</span>
+            <span><strong>Horario:</strong> Lunes–Sáb 6:00 a.m.–8:00 p.m. | Dom 6:30 a.m.–2:00 p.m.</span>
+            <span><strong>WhatsApp:</strong> +57 320 381 8931</span>
           </div>
           <div class="contact-actions">
-            <a class="btn primary" href="https://wa.me/573007561667?text=Hola,%20quiero%20hacer%20un%20pedido%20en%20Casa%20Horno." target="_blank" rel="noopener noreferrer">Escribir por WhatsApp</a>
-            <a class="btn ghost" href="https://www.google.com/maps/search/?api=1&query=Panaderia+en+tu+ciudad+Colombia" target="_blank" rel="noopener noreferrer">Abrir mapa</a>
+            <a class="btn primary" href="https://wa.me/573203818931?text=Hola,%20quiero%20hacer%20un%20pedido%20en%20Panadería%20La%20Chiquita." target="_blank" rel="noopener noreferrer">Escribir por WhatsApp</a>
+            <a class="btn ghost" href="https://www.google.com/maps/place/Panaderia+La+Chiquita/@4.9927671,-75.8125328,20.75z" target="_blank" rel="noopener noreferrer">Abrir mapa</a>
           </div>
         </article>
         <article class="schedule-card">
-          <small>Uso recomendado</small>
-          <h3>La demo sirve para vitrina diaria, encargos y visibilidad local.</h3>
-          <p>La idea no es sonar grande; es sonar clara, confiable y fácil de contactar desde el celular.</p>
-          <p><strong>Nota:</strong> Ideal para panaderías, reposterías o negocios de onces.</p>
+          <small>Desde 1978</small>
+          <h3>Más de 45 años endulzando a las familias de Belalcázar.</h3>
+          <p>La torta de ahuyama es nuestra especialidad y orgullo — un postre típico del municipio que hacemos con la receta de siempre.</p>
+          <p><strong>Encargos:</strong> Escríbenos con un día de anticipación para tortas de celebración y pedidos especiales.</p>
         </article>
       </div>
     </div>
@@ -2274,11 +2266,11 @@
         
 
   <footer class="footer">
-    <span>Casa Horno — Demo adaptable para tu ciudad</span>
-    <span>Demo pensada para mover encargos, catálogo y contacto local sin complicaciones.</span>
+    <span>Panadería La Chiquita — Belalcázar, Caldas</span>
+    <span>Tradición artesanal desde 1978. Cra 3 #10-02, Belalcázar, Caldas.</span>
   </footer>
 
-  <a class="whatsapp-float" href="https://wa.me/573007561667?text=Hola,%20quiero%20hacer%20un%20pedido%20en%20Casa%20Horno." target="_blank" rel="noopener noreferrer" aria-label="Pedir por WhatsApp a Casa Horno">Pedir por WhatsApp</a>
+  <a class="whatsapp-float" href="https://wa.me/573203818931?text=Hola,%20quiero%20hacer%20un%20pedido%20en%20Panadería%20La%20Chiquita." target="_blank" rel="noopener noreferrer" aria-label="Pedir por WhatsApp a Panadería La Chiquita">Pedir por WhatsApp</a>
   <script>
     let menuToggle;
     let navPanel;
@@ -2304,110 +2296,114 @@
     if (visualEditEnabled) {
       document.body.classList.add('edit-mode');
     }
-    const initialBusinessData = {"slug": "panaderia-belalcazar", "name": "Panaderia La Chiquita", "category": "Panaderia", "city": "Belalcazar, Caldas, Colombia", "whatsapp": "573007561667", "hero_title": "Pan fresco, tortas y antojos del dia en Panaderia La Chiquita", "hero_subtitle": "Panaderia local con productos frescos, atencion cercana y pedidos faciles por WhatsApp.", "items_label": "Productos", "items": [{"name": "Pan alinado", "description": "Crujiente por fuera y suave por dentro, ideal para el desayuno.", "price": "2.500", "category": "Pan tradicional", "image": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=900&q=80&auto=format&fit=crop", "status": "active", "badge": "", "search_terms": "", "featured": true}, {"name": "Pan campesino", "description": "Miga suave, corteza dorada y sabor casero para compartir.", "price": "3.200", "category": "Pan tradicional", "image": "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=900&q=80&auto=format&fit=crop", "status": "active", "badge": "", "search_terms": "", "featured": true}, {"name": "Mogolla integral", "description": "Ideal para desayuno y onces, con textura suave y sabor balanceado.", "price": "2.000", "category": "Panes especiales", "image": "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=900&q=80&auto=format&fit=crop", "status": "active", "badge": "", "search_terms": "", "featured": true}, {"name": "Pan de queso", "description": "Recien horneado, suave por dentro y con mucho sabor.", "price": "2.965", "category": "Panes especiales", "image": "https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=900&q=80&auto=format&fit=crop", "status": "active", "badge": "", "search_terms": "", "featured": true}, {"name": "Pastel de guayaba", "description": "Hojaldre relleno, horneado del dia, perfecto para acompanar un cafe.", "price": "3.500", "category": "Hojaldres y pasteleria", "image": "https://images.unsplash.com/photo-1483695028939-5bb13f8648b0?w=900&q=80&auto=format&fit=crop", "status": "active", "badge": "", "search_terms": "", "featured": false}, {"name": "Croissant de mantequilla", "description": "Laminado, liviano y dorado, con textura hojaldrada.", "price": "4.500", "category": "Hojaldres y pasteleria", "image": "https://images.unsplash.com/photo-1555507036-ab794f575c4d?w=900&q=80&auto=format&fit=crop", "status": "active", "badge": "", "search_terms": "", "featured": false}, {"name": "Torta de vainilla por porcion", "description": "Porcion suave y esponjosa para celebraciones o antojos del dia.", "price": "6.500", "category": "Tortas y postres", "image": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=900&q=80&auto=format&fit=crop", "status": "active", "badge": "", "search_terms": "", "featured": false}, {"name": "Torta de chocolate por porcion", "description": "Bizcocho humedo con cubierta cremosa y sabor intenso.", "price": "7.000", "category": "Tortas y postres", "image": "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=900&q=80&auto=format&fit=crop", "status": "active", "badge": "", "search_terms": "", "featured": false}, {"name": "Chocolate caliente", "description": "Bebida caliente tradicional para una tarde de pan y onces.", "price": "3.999", "category": "Bebidas", "image": "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=900&q=80&auto=format&fit=crop", "status": "active", "badge": "", "search_terms": "", "featured": false}, {"name": "Cafe americano", "description": "Cafe recien preparado para acompanar panes, hojaldres y postres.", "price": "2.500", "category": "Bebidas", "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=900&q=80&auto=format&fit=crop", "status": "active", "badge": "", "search_terms": "", "featured": false}], "address": "Parque principal, Belalcazar, Caldas", "open_hours": "Lunes a Sabado 6:00 a.m. - 8:00 p.m. | Domingo 6:30 a.m. - 2:00 p.m.", "order_note": "Pedidos por WhatsApp para recoger en tienda", "short_description": "Mostramos panes, tortas y productos del dia de una forma clara para que mas personas conozcan la panaderia y pidan facil por WhatsApp.", "about_text": "Panaderia La Chiquita trabaja con horneado diario, productos de vitrina y atencion cercana para las familias del sector. La idea de la pagina es que la gente vea rapido lo que ofreces, encuentre precios y pueda escribir sin complicaciones.", "map_query": "Panaderia La Chiquita Belalcazar Caldas", "faq": [{"q": "Reciben pedidos por WhatsApp?", "a": "Si, te confirmamos disponibilidad y tiempo aproximado de entrega o recogida."}, {"q": "Manejan encargos para eventos?", "a": "Si, puedes escribirnos para pedidos especiales de pan y pasteleria."}, {"q": "Puedo preguntar por productos del dia?", "a": "Claro, por WhatsApp te compartimos lo recien salido del horno."}], "cake_gallery": ["https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1200&q=80&auto=format&fit=crop", "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=1200&q=80&auto=format&fit=crop", "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=1200&q=80&auto=format&fit=crop", "https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=1200&q=80&auto=format&fit=crop"], "sample_seed_version": 2, "brand_tagline": "Panaderia artesanal", "utility_badges": ["Belalcazar, Caldas, Colombia", "Pan y pasteleria del dia", "Pedidos por WhatsApp"], "hero_badge": "Panaderia local en Colombia", "hero_image": "https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=1600&q=80&auto=format&fit=crop", "hero_secondary_image": "https://images.unsplash.com/photo-1483695028939-5bb13f8648b0?w=1200&q=80&auto=format&fit=crop", "story_image": "https://images.unsplash.com/photo-1555507036-ab794f575c4d?w=1200&q=80&auto=format&fit=crop", "hero_caption_title": "Productos que antojan desde el primer vistazo", "hero_caption_text": "Una vitrina digital clara para mostrar panes, tortas, horarios y pedidos sin enredos.", "hero_note_label": "Encargos y pedidos", "hero_note_title": "Todo listo para vender mejor por celular", "hero_note_text": "Muestra productos, resuelve dudas rapido y lleva a la gente directo a WhatsApp.", "hero_highlights": ["Desayuno", "Onces", "Tortas", "Encargos"], "featured_title": "Lo mas pedido en la vitrina", "featured_subtitle": "Una seleccion pensada para provocar antojo y ayudar a que el cliente encuentre rapido lo mejor del dia.", "cakes_title": "Tortas y encargos especiales", "cakes_subtitle": "Espacio ideal para mostrar tortas de celebracion, encargos personalizados y trabajos destacados.", "story_title": "Una panaderia cercana, bien presentada y facil de contactar", "story_points": ["Fotos y precios visibles para que el cliente decida rapido.", "Categorias claras para buscar mejor desde el celular.", "Pedido directo por WhatsApp sin pasos innecesarios."], "catalog_title": "Catalogo de productos", "catalog_subtitle": "Busca por nombre, filtra por categoria y encuentra mas rapido lo que quieres pedir.", "catalog_placeholder": "Buscar pan, torta, hojaldre o bebida...", "contact_title": "Informacion para pedir o visitarnos", "contact_text": "Atendemos pedidos por WhatsApp, consultas sobre disponibilidad y encargos especiales.", "footer_note": "Pagina comercial para visibilidad local y pedidos directos.", "announcement_badge": "Horneado del dia", "announcement_text": "Haz tu pedido por WhatsApp y recoge en tienda sin enredos.", "announcement_cta_label": "Ver catalogo", "nav_label_home": "Inicio", "nav_label_featured": "Destacados", "nav_label_cakes": "Tortas", "nav_label_story": "Nosotros", "nav_label_catalog": "Catalogo", "nav_label_contact": "Contacto", "nav_label_faq": "FAQ", "nav_cta_label": "Pedir por WhatsApp", "hero_primary_cta_label": "Hacer pedido", "hero_secondary_cta_label": "Como llegar", "hero_note_cta_label": "Consultar por WhatsApp", "meta_label_address": "Direccion", "meta_label_hours": "Horario", "meta_label_orders": "Pedidos", "featured_kicker": "Lo que mas se mueve", "cakes_kicker": "Tortas y celebraciones", "story_kicker": "Conoce la panaderia", "catalog_kicker": "Catalogo completo", "catalog_clear_label": "Limpiar busqueda", "catalog_empty_message": "No encontramos productos con esa busqueda. Prueba otra palabra o cambia de categoria.", "catalog_sort_label": "Ordenar", "catalog_results_label": "productos visibles hoy", "contact_kicker": "Contacto directo", "contact_primary_cta_label": "Escribir por WhatsApp", "contact_secondary_cta_label": "Abrir mapa", "faq_kicker": "Dudas frecuentes", "faq_title": "Preguntas frecuentes", "seo_title": "Panaderia La Chiquita", "seo_description": "Mostramos panes, tortas y productos del dia de una forma clara para que mas personas conozcan la panaderia y pidan facil por WhatsApp.", "show_announcement": true, "show_featured": true, "show_cakes": true, "show_story": true, "show_catalog": true, "show_contact": true, "show_faq": true, "show_category_shortcuts": true, "show_catalog_filters": true, "show_catalog_search": true, "show_category_boards": true, "show_whatsapp_float": true, "featured_limit": 4, "theme_preset": "artesanal", "theme_background": "#f5ede2", "theme_surface": "#fffaf3", "theme_surface_strong": "#fffdf9", "theme_text": "#2b1c14", "theme_muted": "#6d594b", "theme_line": "#e3cfbc", "theme_soft": "#f2e5d4", "theme_accent": "#b86736", "theme_accent_dark": "#964d22"};
+    const initialBusinessData = {"slug": "panaderia-belalcazar", "name": "Panaderia La Chiquita", "category": "Panaderia", "city": "Belalcazar, Caldas, Colombia", "whatsapp": "573203818931", "hero_title": "Pan fresco, tortas y antojos del dia en Panaderia La Chiquita", "hero_subtitle": "Panaderia local con productos frescos, atencion cercana y pedidos faciles por WhatsApp.", "items_label": "Productos", "items": [{"name": "Pan alinado", "description": "Crujiente por fuera y suave por dentro, ideal para el desayuno.", "price": "2.500", "category": "Pan tradicional", "image": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=900&q=80&auto=format&fit=crop", "status": "active", "badge": "", "search_terms": "", "featured": true}, {"name": "Pan campesino", "description": "Miga suave, corteza dorada y sabor casero para compartir.", "price": "3.200", "category": "Pan tradicional", "image": "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=900&q=80&auto=format&fit=crop", "status": "active", "badge": "", "search_terms": "", "featured": true}, {"name": "Mogolla integral", "description": "Ideal para desayuno y onces, con textura suave y sabor balanceado.", "price": "2.000", "category": "Panes especiales", "image": "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=900&q=80&auto=format&fit=crop", "status": "active", "badge": "", "search_terms": "", "featured": true}, {"name": "Pan de queso", "description": "Recien horneado, suave por dentro y con mucho sabor.", "price": "2.965", "category": "Panes especiales", "image": "https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=900&q=80&auto=format&fit=crop", "status": "active", "badge": "", "search_terms": "", "featured": true}, {"name": "Pastel de guayaba", "description": "Hojaldre relleno, horneado del dia, perfecto para acompanar un cafe.", "price": "3.500", "category": "Hojaldres y pasteleria", "image": "https://images.unsplash.com/photo-1483695028939-5bb13f8648b0?w=900&q=80&auto=format&fit=crop", "status": "active", "badge": "", "search_terms": "", "featured": false}, {"name": "Croissant de mantequilla", "description": "Laminado, liviano y dorado, con textura hojaldrada.", "price": "4.500", "category": "Hojaldres y pasteleria", "image": "https://images.unsplash.com/photo-1555507036-ab794f575c4d?w=900&q=80&auto=format&fit=crop", "status": "active", "badge": "", "search_terms": "", "featured": false}, {"name": "Torta de vainilla por porcion", "description": "Porcion suave y esponjosa para celebraciones o antojos del dia.", "price": "6.500", "category": "Tortas y postres", "image": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=900&q=80&auto=format&fit=crop", "status": "active", "badge": "", "search_terms": "", "featured": false}, {"name": "Torta de chocolate por porcion", "description": "Bizcocho humedo con cubierta cremosa y sabor intenso.", "price": "7.000", "category": "Tortas y postres", "image": "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=900&q=80&auto=format&fit=crop", "status": "active", "badge": "", "search_terms": "", "featured": false}, {"name": "Chocolate caliente", "description": "Bebida caliente tradicional para una tarde de pan y onces.", "price": "3.999", "category": "Bebidas", "image": "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=900&q=80&auto=format&fit=crop", "status": "active", "badge": "", "search_terms": "", "featured": false}, {"name": "Cafe americano", "description": "Cafe recien preparado para acompanar panes, hojaldres y postres.", "price": "2.500", "category": "Bebidas", "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=900&q=80&auto=format&fit=crop", "status": "active", "badge": "", "search_terms": "", "featured": false}], "address": "Parque principal, Belalcazar, Caldas", "open_hours": "Lunes a Sabado 6:00 a.m. - 8:00 p.m. | Domingo 6:30 a.m. - 2:00 p.m.", "order_note": "Pedidos por WhatsApp para recoger en tienda", "short_description": "Mostramos panes, tortas y productos del dia de una forma clara para que mas personas conozcan la panaderia y pidan facil por WhatsApp.", "about_text": "Panaderia La Chiquita trabaja con horneado diario, productos de vitrina y atencion cercana para las familias del sector. La idea de la pagina es que la gente vea rapido lo que ofreces, encuentre precios y pueda escribir sin complicaciones.", "map_query": "Panaderia La Chiquita Belalcazar Caldas", "faq": [{"q": "Reciben pedidos por WhatsApp?", "a": "Si, te confirmamos disponibilidad y tiempo aproximado de entrega o recogida."}, {"q": "Manejan encargos para eventos?", "a": "Si, puedes escribirnos para pedidos especiales de pan y pasteleria."}, {"q": "Puedo preguntar por productos del dia?", "a": "Claro, por WhatsApp te compartimos lo recien salido del horno."}], "cake_gallery": ["https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1200&q=80&auto=format&fit=crop", "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=1200&q=80&auto=format&fit=crop", "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=1200&q=80&auto=format&fit=crop", "https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=1200&q=80&auto=format&fit=crop"], "sample_seed_version": 2, "brand_tagline": "Panaderia artesanal", "utility_badges": ["Belalcazar, Caldas, Colombia", "Pan y pasteleria del dia", "Pedidos por WhatsApp"], "hero_badge": "Panaderia local en Colombia", "hero_image": "https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=1600&q=80&auto=format&fit=crop", "hero_secondary_image": "https://images.unsplash.com/photo-1483695028939-5bb13f8648b0?w=1200&q=80&auto=format&fit=crop", "story_image": "https://images.unsplash.com/photo-1555507036-ab794f575c4d?w=1200&q=80&auto=format&fit=crop", "hero_caption_title": "Productos que antojan desde el primer vistazo", "hero_caption_text": "Una vitrina digital clara para mostrar panes, tortas, horarios y pedidos sin enredos.", "hero_note_label": "Encargos y pedidos", "hero_note_title": "Todo listo para vender mejor por celular", "hero_note_text": "Muestra productos, resuelve dudas rapido y lleva a la gente directo a WhatsApp.", "hero_highlights": ["Desayuno", "Onces", "Tortas", "Encargos"], "featured_title": "Lo mas pedido en la vitrina", "featured_subtitle": "Una seleccion pensada para provocar antojo y ayudar a que el cliente encuentre rapido lo mejor del dia.", "cakes_title": "Tortas y encargos especiales", "cakes_subtitle": "Espacio ideal para mostrar tortas de celebracion, encargos personalizados y trabajos destacados.", "story_title": "Una panaderia cercana, bien presentada y facil de contactar", "story_points": ["Fotos y precios visibles para que el cliente decida rapido.", "Categorias claras para buscar mejor desde el celular.", "Pedido directo por WhatsApp sin pasos innecesarios."], "catalog_title": "Catalogo de productos", "catalog_subtitle": "Busca por nombre, filtra por categoria y encuentra mas rapido lo que quieres pedir.", "catalog_placeholder": "Buscar pan, torta, hojaldre o bebida...", "contact_title": "Informacion para pedir o visitarnos", "contact_text": "Atendemos pedidos por WhatsApp, consultas sobre disponibilidad y encargos especiales.", "footer_note": "Pagina comercial para visibilidad local y pedidos directos.", "announcement_badge": "Horneado del dia", "announcement_text": "Haz tu pedido por WhatsApp y recoge en tienda sin enredos.", "announcement_cta_label": "Ver catalogo", "nav_label_home": "Inicio", "nav_label_featured": "Destacados", "nav_label_cakes": "Tortas", "nav_label_story": "Nosotros", "nav_label_catalog": "Catalogo", "nav_label_contact": "Contacto", "nav_label_faq": "FAQ", "nav_cta_label": "Pedir por WhatsApp", "hero_primary_cta_label": "Hacer pedido", "hero_secondary_cta_label": "Como llegar", "hero_note_cta_label": "Consultar por WhatsApp", "meta_label_address": "Direccion", "meta_label_hours": "Horario", "meta_label_orders": "Pedidos", "featured_kicker": "Lo que mas se mueve", "cakes_kicker": "Tortas y celebraciones", "story_kicker": "Conoce la panaderia", "catalog_kicker": "Catalogo completo", "catalog_clear_label": "Limpiar busqueda", "catalog_empty_message": "No encontramos productos con esa busqueda. Prueba otra palabra o cambia de categoria.", "catalog_sort_label": "Ordenar", "catalog_results_label": "productos visibles hoy", "contact_kicker": "Contacto directo", "contact_primary_cta_label": "Escribir por WhatsApp", "contact_secondary_cta_label": "Abrir mapa", "faq_kicker": "Dudas frecuentes", "faq_title": "Preguntas frecuentes", "seo_title": "Panaderia La Chiquita", "seo_description": "Mostramos panes, tortas y productos del dia de una forma clara para que mas personas conozcan la panaderia y pidan facil por WhatsApp.", "show_announcement": true, "show_featured": true, "show_cakes": true, "show_story": true, "show_catalog": true, "show_contact": true, "show_faq": true, "show_category_shortcuts": true, "show_catalog_filters": true, "show_catalog_search": true, "show_category_boards": true, "show_whatsapp_float": true, "featured_limit": 4, "theme_preset": "artesanal", "theme_background": "#f5ede2", "theme_surface": "#fffaf3", "theme_surface_strong": "#fffdf9", "theme_text": "#2b1c14", "theme_muted": "#6d594b", "theme_line": "#e3cfbc", "theme_soft": "#f2e5d4", "theme_accent": "#b86736", "theme_accent_dark": "#964d22"};
     Object.assign(initialBusinessData, {
-      slug: "panaderia-demo",
-      name: "Casa Horno",
-      city: "Tu ciudad, Colombia",
-      whatsapp: "573007561667",
-      hero_title: "Pan recién horneado, tortas y antojos del día sin perder el sabor del barrio",
-      hero_subtitle: "Una panadería de barrio bien presentada: vitrina clara, tortas por encargo y pedidos fáciles por WhatsApp.",
-      address: "Tu barrio, tu ciudad",
-      open_hours: "Lunes a Sábado 6:00 a.m. – 8:00 p.m.",
-      order_note: "Pedidos y encargos por WhatsApp",
-      short_description: "Una página simple y comercial para panaderías de barrio: muestra vitrina, tortas y contacto directo sin perder cercanía.",
-      about_text: "Casa Horno muestra cómo puede verse una panadería local mejor presentada: con portada antojable, categorías fáciles de recorrer y un canal de pedido directo que ayuda a convertir mejor.",
-      map_query: "Panaderia en tu ciudad Colombia",
-      brand_tagline: "Panadería de barrio",
-      utility_badges: ["Tu ciudad, Colombia", "Pan y pastelería del día", "Pedidos por WhatsApp"],
-      hero_badge: "Demo comercial para panaderías",
-      hero_caption_title: "Una portada que mezcla antojo y facilidad de pedido",
-      hero_caption_text: "La demo prioriza fotos, categorías y una ruta de contacto simple para que el cliente no se pierda.",
-      hero_note_label: "Conversión local",
-      hero_note_title: "Una página que ayuda a vender mejor lo que sale del horno",
-      hero_note_text: "Sirve para mostrar vitrina, mover encargos y hacer que el negocio se vea más serio sin complicar el pedido.",
-      hero_highlights: ["Pan del día", "Onces", "Tortas por encargo", "Café"],
-      featured_kicker: "Lo que más se mueve",
-      featured_title: "Lo primero que debería ver un cliente con hambre",
-      featured_subtitle: "Esta selección pone al frente los productos que mejor venden la panadería y ayudan a decidir en pocos segundos.",
-      cakes_subtitle: "Esta sección sirve para mostrar tortas, pedidos por fecha y encargos especiales que muchas veces se pierden por no verse bien.",
-      story_title: "Una panadería de barrio que ahora se entiende y se antoja mejor",
+      slug: "panaderia-la-chiquita",
+      name: "Panadería La Chiquita",
+      city: "Belalcázar, Caldas",
+      whatsapp: "573203818931",
+      hero_title: "Pan recién horneado, torta de ahuyama y antojos del día en Panadería La Chiquita",
+      hero_subtitle: "Desde 1978 endulzando a las familias de Belalcázar. Pan fresco cada mañana, Chiqui Galletas y la mejor torta de ahuyama del municipio.",
+      address: "Cra 3 #10-02, Belalcázar, Caldas",
+      open_hours: "Lunes–Sáb 6:00 a.m.–8:00 p.m. | Dom 6:30 a.m.–2:00 p.m.",
+      order_note: "Pedidos por WhatsApp para recoger en tienda",
+      short_description: "Pan recién horneado, tortas de ahuyama, brownies y Chiqui Galletas en Belalcázar, Caldas. Tradición artesanal desde 1978.",
+      about_text: "Desde 1978, Panadería La Chiquita hornea cada día con los mismos ingredientes y el mismo amor de siempre. Somos un negocio de familia en el corazón de Belalcázar, donde el pan sale fresco cada mañana y la torta de ahuyama es orgullo del municipio. Esta página existe para que más personas nos encuentren, vean lo que tenemos hoy y pidan fácil por WhatsApp.",
+      map_query: "Panadería La Chiquita, Cra 3 10-02, Belalcázar, Caldas",
+      brand_tagline: "Panadería artesanal desde 1978",
+      utility_badges: ["Belalcázar, Caldas", "Pan y pastelería del día", "Pedidos por WhatsApp"],
+      hero_badge: "Belalcázar, Caldas — Tradición desde 1978",
+      hero_caption_title: "Tradición horneada cada mañana desde 1978",
+      hero_caption_text: "Pan fresco, torta de ahuyama, brownies y Chiqui Galletas — lo mejor del día visible desde el celular.",
+      hero_note_label: "Encargos y pedidos",
+      hero_note_title: "Haz tu pedido fácil desde donde estés",
+      hero_note_text: "Escríbenos por WhatsApp y te confirmamos disponibilidad, precios y hora de recogida sin enredos.",
+      hero_highlights: ["Pan del día", "Torta de ahuyama", "Chiqui Galletas", "Encargos"],
+      featured_kicker: "Lo más pedido",
+      featured_title: "Lo primero que deberías pedir en La Chiquita",
+      featured_subtitle: "Pan recién horneado, torta de ahuyama y nuestras Chiqui Galletas — los productos que más nos piden y que no puedes perderte.",
+      cakes_subtitle: "Tortas para celebrar, postre para el antojo. La torta de ahuyama es nuestra especialidad: suave, casera y orgullo de Belalcázar.",
+      story_title: "Desde 1978 horneando con el mismo amor de siempre",
       story_points: [
-        "La portada deja claro qué se vende y cómo se pide.",
-        "El catálogo ayuda a encontrar panes, tortas y bebidas sin perder tiempo.",
-        "WhatsApp recibe mensajes con más contexto y menos fricción.",
+        "Pan fresco cada mañana, hecho con los ingredientes de siempre.",
+        "Torta de ahuyama: el postre típico de Belalcázar que más nos piden.",
+        "Pedidos por WhatsApp — rápido, sin enredos y con atención cercana.",
       ],
-      catalog_subtitle: "Busca por nombre, filtra por categoría y entiende cómo puede verse un catálogo útil para un negocio real.",
-      contact_title: "Contacto claro para pasar de antojo a pedido",
-      contact_text: "La información importante aparece sin rodeos: ciudad, dirección, horario y un WhatsApp listo para recibir pedidos o encargos.",
-      footer_note: "Demo pensada para mover encargos, catálogo y contacto local sin complicaciones.",
-      announcement_badge: "Listo para negocio real",
-      announcement_text: "Esta demo combina antojo, ubicación y pedido rápido para una panadería de barrio.",
-      seo_title: "Casa Horno | Demo para panaderías",
-      seo_description: "Demo comercial para panaderías de barrio: vitrina clara, tortas por encargo y pedidos fáciles por WhatsApp.",
+      catalog_subtitle: "Busca por nombre, filtra por categoría y encuentra lo que quieres pedir hoy en La Chiquita.",
+      contact_title: "¿Dónde estamos y cómo pedimos?",
+      contact_text: "Estamos en el corazón de Belalcázar. Puedes venir, llamar o escribirnos por WhatsApp para encargos y pedidos del día.",
+      footer_note: "Panadería La Chiquita — Belalcázar, Caldas. Tradición artesanal desde 1978.",
+      announcement_badge: "Horneado del día",
+      announcement_text: "Torta de ahuyama, Chiqui Galletas y pan fresco — escríbenos por WhatsApp y recoge sin enredos.",
+      seo_title: "Panadería La Chiquita | Belalcázar, Caldas — Desde 1978",
+      seo_description: "Pan recién horneado, tortas de ahuyama, brownies y Chiqui Galletas en Belalcázar, Caldas. Tradición artesanal desde 1978. Pedidos por WhatsApp.",
     });
     initialBusinessData.faq = [
       {
-        q: "¿Se puede pedir para recoger?",
-        a: "Sí. Escríbenos por WhatsApp, te confirmamos disponibilidad y la hora de recogida sin complicaciones.",
+        q: "¿Hacen encargos de torta de ahuyama?",
+        a: "Sí, es nuestra especialidad. Escríbenos por WhatsApp con al menos un día de anticipación y te confirmamos disponibilidad y precio.",
       },
       {
-        q: "¿Manejan encargos para eventos?",
-        a: "Sí, puedes escribirnos para pedidos especiales de pan, tortas y pastelería con anticipación.",
+        q: "¿Reciben pedidos por WhatsApp?",
+        a: "Claro. Escríbenos, te confirmamos lo que tenemos del día y coordinamos la hora de recogida sin enredos.",
       },
       {
-        q: "¿Puedo preguntar por productos del día?",
-        a: "Claro, por WhatsApp te compartimos lo recién salido del horno y lo que hay disponible.",
+        q: "¿A qué hora abren?",
+        a: "De lunes a sábado desde las 6:00 a.m. hasta las 8:00 p.m. Los domingos de 6:30 a.m. a 2:00 p.m.",
+      },
+      {
+        q: "¿Dónde están ubicados?",
+        a: "Estamos en Cra 3 #10-02, en el corazón de Belalcázar, Caldas. Fácil de encontrar desde el parque principal.",
       },
     ];
     initialBusinessData.items = [
       {
-        name: "Pan alinado",
-        description: "Crujiente por fuera y suave por dentro, ideal para el desayuno de cada día.",
+        name: "Torta de Ahuyama",
+        description: "El postre típico de Belalcázar. Suave, esponjosa y con el dulzor natural de la ahuyama — orgullo de La Chiquita desde 1978.",
+        price: "6.000",
+        category: "Tortas y postres",
+        image: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=900&q=80&auto=format&fit=crop",
+        status: "active", badge: "Especialidad", search_terms: "ahuyama torta postre tipico", featured: true,
+      },
+      {
+        name: "Chiqui Galletas",
+        description: "Crujientes, coloridas y llenas de sabor. El antojo favorito del barrio para grandes y chicos en La Chiquita.",
+        price: "1.500",
+        category: "Pastelería",
+        image: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=900&q=80&auto=format&fit=crop",
+        status: "active", badge: "Favorito", search_terms: "galletas dulce antojo chiqui", featured: true,
+      },
+      {
+        name: "Pan de la Casa",
+        description: "Crujiente por fuera, suave y esponjoso por dentro. Hecho con amor desde 1978 en Panadería La Chiquita.",
         price: "2.500",
         category: "Pan tradicional",
         image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=900&q=80&auto=format&fit=crop",
         status: "active", badge: "Sale primero", search_terms: "pan desayuno tradicional", featured: true,
       },
       {
-        name: "Pan campesino",
+        name: "Pan Campesino",
         description: "Miga suave, corteza dorada y sabor casero para compartir en familia.",
         price: "3.200",
         category: "Pan tradicional",
         image: "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=900&q=80&auto=format&fit=crop",
-        status: "active", badge: "Favorito del barrio", search_terms: "campesino familiar onces", featured: true,
+        status: "active", badge: "Para compartir", search_terms: "campesino familiar onces", featured: true,
       },
       {
-        name: "Mogolla integral",
-        description: "Para el desayuno saludable o las onces, con textura suave y sabor balanceado.",
-        price: "2.000",
-        category: "Panes especiales",
-        image: "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=900&q=80&auto=format&fit=crop",
-        status: "active", badge: "Opción ligera", search_terms: "integral desayuno saludable", featured: true,
-      },
-      {
-        name: "Pan de queso",
-        description: "Recién horneado, suave por dentro y con ese sabor a queso que no se puede resistir.",
-        price: "2.965",
-        category: "Panes especiales",
-        image: "https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=900&q=80&auto=format&fit=crop",
-        status: "active", badge: "Para onces", search_terms: "queso snack tarde", featured: true,
-      },
-      {
-        name: "Pastel de guayaba",
-        description: "Hojaldre relleno, horneado del día, perfecto para acompañar un café.",
-        price: "3.500",
-        category: "Hojaldres y pastelería",
-        image: "https://images.unsplash.com/photo-1483695028939-5bb13f8648b0?w=900&q=80&auto=format&fit=crop",
-        status: "active", badge: "Hojaldre del día", search_terms: "guayaba hojaldre cafe", featured: false,
-      },
-      {
-        name: "Croissant de mantequilla",
-        description: "Laminado, liviano y dorado, con textura hojaldrada irresistible.",
+        name: "Brownie de Chocolate",
+        description: "Textura esponjosa con sabor intenso a chocolate y ese toque casero que tanto te gusta. Un pedacito de felicidad.",
         price: "4.500",
-        category: "Hojaldres y pastelería",
-        image: "https://images.unsplash.com/photo-1555507036-ab794f575c4d?w=900&q=80&auto=format&fit=crop",
-        status: "active", badge: "Más mantequilla", search_terms: "croissant desayuno hojaldre", featured: false,
+        category: "Pastelería",
+        image: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=900&q=80&auto=format&fit=crop",
+        status: "active", badge: "", search_terms: "brownie chocolate postre dulce", featured: false,
+      },
+      {
+        name: "Milhojas",
+        description: "El equilibrio perfecto entre textura crujiente y dulzura. Un clásico que nunca pasa de moda en La Chiquita.",
+        price: "4.000",
+        category: "Pastelería",
+        image: "https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=900&q=80&auto=format&fit=crop",
+        status: "active", badge: "", search_terms: "milhojas pasteleria postre", featured: false,
       },
       {
         name: "Mogolla Integral",
@@ -2455,7 +2451,7 @@
     let activeEditorSection = null;
     let activeEditorMeta = {};
     let hasUnsavedChanges = false;
-    const STORAGE_KEY = 'av-panaderia-demo-v2';
+    const STORAGE_KEY = 'av-la-chiquita-v1';
     const editorDrawer = document.getElementById('visualEditorDrawer');
     const editorBackdrop = document.getElementById('visualEditorBackdrop');
     const editorBody = document.getElementById('editorPanelBody');
