@@ -1,6 +1,8 @@
 (function () {
   const params = new URLSearchParams(window.location.search);
-  if (params.get("edit") !== "1") {
+  const editMode = params.get("edit") === "1";
+  if (!editMode) {
+    injectLauncherIfNeeded();
     return;
   }
 
@@ -30,6 +32,10 @@
   ]);
   const containerTags = new Set(["section", "article", "header", "main", "aside", "nav", "footer", "div"]);
   const profileBySlug = {
+    "portfolio-home": {
+      title: "Editor del portafolio",
+      hint: "Toca cualquier bloque del home para ajustar copy, enlaces, imagenes y llamadas a la accion.",
+    },
     panaderia: {
       title: "Editor de panaderias",
       hint: "Toca cualquier bloque para cambiar textos, enlaces, imagenes y aspecto sin salir de la pagina.",
@@ -49,6 +55,22 @@
     "civil-engineer": {
       title: "Editor de ingenieria civil",
       hint: "Ajusta servicios, bloques tecnicos y cierre comercial sobre la pagina real.",
+    },
+    "health-consultation": {
+      title: "Editor de salud y consulta",
+      hint: "Edita mensajes, servicios y citas directamente sobre la plantilla de salud.",
+    },
+    "professional-services": {
+      title: "Editor de servicios profesionales",
+      hint: "Ajusta propuesta, metodologia y CTA sobre la base de servicios profesionales.",
+    },
+    "mario-valencia": {
+      title: "Editor de Mario Valencia",
+      hint: "Ajusta la implementacion real de geotecnia sobre la pagina publicada.",
+    },
+    "panaderia-la-chiquita": {
+      title: "Editor de La Chiquita",
+      hint: "Ajusta la implementacion real de panaderia sobre la pagina publicada.",
     },
   };
 
@@ -104,13 +126,82 @@
   function resolveTemplateSlug() {
     const parts = window.location.pathname.split("/").filter(Boolean);
     const templateIndex = parts.indexOf("templates");
-    return templateIndex >= 0 ? parts[templateIndex + 1] || "demo" : "demo";
+    if (templateIndex >= 0) {
+      return parts[templateIndex + 1] || "demo";
+    }
+
+    const deployIndex = parts.indexOf("deploy");
+    if (deployIndex >= 0) {
+      return parts[deployIndex + 1] || "demo";
+    }
+
+    if (parts.length === 0 || parts[0] === "index.html") {
+      return "portfolio-home";
+    }
+
+    return "demo";
   }
 
   function buildPublicUrl() {
     const url = new URL(window.location.href);
     url.searchParams.delete("edit");
     return url.toString();
+  }
+
+  function injectLauncherIfNeeded() {
+    const pathname = window.location.pathname;
+    if (!pathname.includes("/templates/")) {
+      return;
+    }
+
+    const url = new URL(window.location.href);
+    url.searchParams.set("edit", "1");
+
+    const style = document.createElement("style");
+    style.textContent = `
+      .av-editor-launcher-fab {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        z-index: 2147483647;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 18px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(30, 41, 59, 0.96));
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        text-decoration: none;
+        box-shadow: 0 18px 42px rgba(2, 6, 23, 0.28);
+        font: 600 0.875rem/1 var(--av-editor-font, system-ui, sans-serif);
+      }
+      .av-editor-launcher-fab:hover { transform: translateY(-1px); }
+      .av-editor-launcher-fab svg { width: 16px; height: 16px; flex: none; }
+      @media (max-width: 640px) {
+        .av-editor-launcher-fab {
+          left: 16px;
+          right: 16px;
+          justify-content: center;
+          border-radius: 16px;
+        }
+      }
+    `;
+
+    const launcher = document.createElement("a");
+    launcher.className = "av-editor-launcher-fab";
+    launcher.href = url.toString();
+    launcher.rel = "noopener noreferrer";
+    launcher.innerHTML = `
+      <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 20h9" />
+        <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4 11.5-11.5Z" />
+      </svg>
+      <span>Editar</span>
+    `;
+
+    document.head.appendChild(style);
+    document.body.appendChild(launcher);
   }
 
   function normalizeState(value) {

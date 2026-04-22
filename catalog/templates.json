@@ -1,42 +1,68 @@
-﻿[
+[
   {
-    "slug": "gym",
-    "name": "IRONFORM Gym",
-    "category": "fitness",
-    "entry": "templates/gym/index.html",
-    "readme": "templates/gym/README.md",
-    "status": "ready"
-  },
-  {
-    "slug": "restaurant",
-    "name": "Aubergine",
-    "category": "restaurant",
-    "entry": "templates/restaurant/index.html",
-    "readme": "templates/restaurant/README.md",
-    "status": "ready"
-  },
-  {
-    "slug": "tattoo-studio",
-    "name": "Sombra Ink",
-    "category": "tattoo",
-    "entry": "templates/tattoo-studio/index.html",
-    "readme": "templates/tattoo-studio/README.md",
-    "status": "ready"
+    "slug": "health-consultation",
+    "name": "Health Consultation",
+    "category": "health",
+    "family": "salud-consulta",
+    "focus": "primary",
+    "entry": "templates/health-consultation/index.html",
+    "readme": "templates/health-consultation/README.md",
+    "status": "ready",
+    "order": 1
   },
   {
     "slug": "panaderia",
     "name": "Casa Horno",
-    "category": "bakery",
+    "category": "food-local",
+    "family": "comida-local",
+    "focus": "primary",
     "entry": "templates/panaderia/index.html",
     "readme": "templates/panaderia/README.md",
-    "status": "ready"
+    "status": "ready",
+    "order": 2
   },
   {
-    "slug": "civil-engineer",
-    "name": "Strata Civil",
-    "category": "engineering",
-    "entry": "templates/civil-engineer/index.html",
-    "readme": "templates/civil-engineer/README.md",
-    "status": "ready"
+    "slug": "professional-services",
+    "name": "Professional Services",
+    "category": "professional-services",
+    "family": "servicios-profesionales",
+    "focus": "primary",
+    "entry": "templates/professional-services/index.html",
+    "readme": "templates/professional-services/README.md",
+    "status": "ready",
+    "order": 3
+  },
+  {
+    "slug": "restaurant",
+    "name": "Aubergine",
+    "category": "food-local",
+    "family": "comida-local",
+    "focus": "primary",
+    "entry": "templates/restaurant/index.html",
+    "readme": "templates/restaurant/README.md",
+    "status": "ready",
+    "order": 4
+  },
+  {
+    "slug": "gym",
+    "name": "IRONFORM Gym",
+    "category": "fitness",
+    "family": "bienestar",
+    "focus": "secondary",
+    "entry": "templates/gym/index.html",
+    "readme": "templates/gym/README.md",
+    "status": "ready",
+    "order": 5
+  },
+  {
+    "slug": "tattoo-studio",
+    "name": "Sombra Ink",
+    "category": "creative",
+    "family": "marca-visual",
+    "focus": "secondary",
+    "entry": "templates/tattoo-studio/index.html",
+    "readme": "templates/tattoo-studio/README.md",
+    "status": "ready",
+    "order": 6
   }
 ]

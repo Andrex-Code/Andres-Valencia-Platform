@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Health Consultation | Psicologia, salud y bienestar</title>
+  <meta name="description" content="Plantilla premium para psicologia, salud y bienestar. Base editable para consultas, servicios profesionales y contacto por WhatsApp o cita." />
+  <meta property="og:title" content="Health Consultation | Base para salud y consulta" />
+  <meta property="og:description" content="Base editable para profesionales de salud, psicologia y bienestar con una landing clara y orientada al contacto." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --wine:        #6B1F3A;
+      --wine-dark:   #4A1429;
+      --wine-soft:   rgba(107,31,58,.08);
+      --rose:        #C49AAD;
+      --rose-light:  #EDD9E2;
+      --rose-soft:   #F7EFF3;
+      --cream:       #FDF8F6;
+      --cream-warm:  #FAF2F5;
+      --text:        #2D1F27;
+      --muted:       #8B6B79;
+      --line:        rgba(107,31,58,.13);
+      --line-strong: rgba(107,31,58,.26);
+      --max:         min(1160px, 92%);
+      --radius:      14px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "DM Sans", sans-serif;
+      color: var(--text);
+      background: var(--cream);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Grain overlay */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: .016;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .wrap { width: var(--max); margin-inline: auto; }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Utility bar ── */
+    .utility-bar {
+      background: var(--wine);
+      color: rgba(255,255,255,.88);
+      padding: 10px 0;
+      font-size: .76rem;
+      font-weight: 500;
+      letter-spacing: .03em;
+    }
+    .utility-bar .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .utility-bar span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .utility-bar span::before {
+      content: "•";
+      color: var(--rose);
+    }
+    .utility-bar span:first-child::before { display: none; }
+
+    /* ── Nav ── */
+    .nav-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(253,248,246,.96);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 72px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-mark {
+      width: 56px;
+      height: 56px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .brand-mark img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .brand-copy strong {
+      display: block;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--wine-dark);
+      letter-spacing: -.01em;
+    }
+    .brand-copy small {
+      display: block;
+      font-size: .7rem;
+      color: var(--muted);
+      font-weight: 500;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-size: .84rem;
+      color: var(--muted);
+    }
+    .nav-links a:hover { color: var(--wine); }
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      padding: 11px 18px;
+      background: var(--wine);
+      color: #fff;
+      border-radius: var(--radius);
+      font-size: .83rem;
+      font-weight: 600;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 22px rgba(107,31,58,.3);
+    }
+    .menu-toggle {
+      display: none;
+      border: 1px solid var(--line-strong);
+      background: #fff;
+      color: var(--wine);
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: .82rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .nav-panel { display: contents; }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 22px;
+      border-radius: var(--radius);
+      font-size: .9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform .2s ease, box-shadow .2s ease;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--wine);
+      color: #fff;
+      box-shadow: 0 10px 28px rgba(107,31,58,.28);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(107,31,58,.34); }
+    .btn-secondary {
+      background: transparent;
+      color: var(--wine);
+      border: 1.5px solid var(--line-strong);
+    }
+    .btn-secondary:hover { background: var(--wine-soft); transform: translateY(-1px); }
+
+    /* ── Kicker / label ── */
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--wine);
+      margin-bottom: 14px;
+    }
+    .kicker::before {
+      content: "";
+      display: inline-block;
+      width: 18px;
+      height: 1.5px;
+      background: var(--rose);
+      border-radius: 1px;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      min-height: calc(100vh - 108px);
+      align-items: stretch;
+    }
+    .hero-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 64px 80px 0;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .73rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--wine);
+      margin-bottom: 20px;
+    }
+    .hero-eyebrow::before {
+      content: "";
+      display: inline-block;
+      width: 18px;
+      height: 1.5px;
+      background: var(--rose);
+      border-radius: 1px;
+    }
+    .hero h1 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(3rem, 5vw, 5.2rem);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -.02em;
+      color: var(--wine-dark);
+      max-width: 12ch;
+      margin-bottom: 22px;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--wine);
+    }
+    .hero-lead {
+      color: var(--muted);
+      font-size: 1.04rem;
+      line-height: 1.72;
+      max-width: 46ch;
+      margin-bottom: 32px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+    .hero-trust {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .trust-item strong {
+      font-size: .95rem;
+      color: var(--wine-dark);
+      font-weight: 700;
+    }
+    .trust-item small {
+      font-size: .72rem;
+      color: var(--muted);
+      font-weight: 500;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .trust-divider {
+      width: 1px;
+      background: var(--line-strong);
+      align-self: stretch;
+      min-height: 32px;
+    }
+
+    /* Hero image side */
+    .hero-image {
+      position: relative;
+      overflow: hidden;
+      background: var(--cream-warm);
+    }
+    .hero-image-inner {
+      position: absolute;
+      inset: 0;
+      background:
+        url('https://images.unsplash.com/photo-1573497620053-ea5300f94f21?w=1400&q=80&auto=format&fit=crop') center/cover no-repeat;
+    }
+    .hero-image::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(135deg, rgba(107,31,58,.22), rgba(74,20,41,.06));
+    }
+    .hero-image-badge {
+      position: absolute;
+      left: 28px;
+      bottom: 28px;
+      z-index: 2;
+      background: rgba(253,248,246,.92);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      max-width: 230px;
+    }
+    .hero-image-badge strong {
+      display: block;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.1rem;
+      color: var(--wine-dark);
+      font-weight: 600;
+      line-height: 1.15;
+      margin-bottom: 4px;
+    }
+    .hero-image-badge span {
+      font-size: .78rem;
+      color: var(--muted);
+    }
+    .hero-monogram {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      z-index: 2;
+      width: 80px;
+      height: 80px;
+      border-radius: 16px;
+      background: rgba(253,248,246,.92);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--line);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 12px 30px rgba(107,31,58,.18);
+      overflow: hidden;
+      padding: 6px;
+    }
+    .hero-monogram img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* ── Band ── */
+    .band {
+      background: var(--wine);
+      color: rgba(255,255,255,.9);
+      padding: 32px 0;
+    }
+    .band .wrap {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,.14);
+    }
+    .band-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 4px;
+      padding: 24px 20px;
+      background: var(--wine);
+    }
+    .band-item strong {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.9rem;
+      font-weight: 600;
+      color: #fff;
+      font-style: italic;
+      line-height: 1;
+    }
+    .band-item span {
+      font-size: .78rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.72);
+    }
+
+    /* ── Services ── */
+    .section {
+      padding: 96px 0;
+    }
+    .section-head {
+      margin-bottom: 48px;
+    }
+    .section-head h2 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(2.4rem, 4.5vw, 4rem);
+      font-weight: 600;
+      line-height: 1.08;
+      letter-spacing: -.02em;
+      color: var(--wine-dark);
+      max-width: 20ch;
+      margin-bottom: 12px;
+    }
+    .section-head p {
+      color: var(--muted);
+      max-width: 52ch;
+      font-size: .98rem;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .service-card {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: #fff;
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      overflow: hidden;
+      transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 56px rgba(107,31,58,.11);
+      border-color: var(--rose);
+    }
+    .service-card::before {
+      content: "";
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: var(--rose-soft);
+      pointer-events: none;
+    }
+    .service-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: var(--rose-soft);
+      border: 1px solid var(--line);
+      display: grid;
+      place-items: center;
+      font-size: 1.5rem;
+    }
+    .service-badge {
+      display: inline-block;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--wine);
+      background: var(--rose-soft);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 5px 10px;
+      width: fit-content;
+    }
+    .service-card h3 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.7rem;
+      font-weight: 600;
+      line-height: 1.1;
+      color: var(--wine-dark);
+      letter-spacing: -.01em;
+    }
+    .service-card p {
+      color: var(--muted);
+      font-size: .9rem;
+      flex: 1;
+      line-height: 1.68;
+    }
+    .service-detail {
+      display: grid;
+      gap: 6px;
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+      font-size: .82rem;
+    }
+    .service-detail span {
+      display: flex;
+      gap: 8px;
+      color: var(--text);
+    }
+    .service-detail span b {
+      color: var(--wine);
+      font-weight: 600;
+      min-width: 70px;
+    }
+    .service-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .83rem;
+      font-weight: 700;
+      color: var(--wine);
+      letter-spacing: .01em;
+      text-decoration: none;
+      border: none;
+      background: none;
+      cursor: pointer;
+      padding: 0;
+      transition: gap .2s ease;
+    }
+    .service-cta:hover { gap: 10px; }
+
+    /* ── About ── */
+    .about {
+      padding: 96px 0;
+      background: var(--cream-warm);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: center;
+    }
+    .about-image {
+      position: relative;
+    }
+    .about-photo {
+      width: 100%;
+      aspect-ratio: 3/4;
+      border-radius: 24px;
+      background: var(--rose-soft);
+      border: 1px solid var(--line);
+      overflow: hidden;
+      position: relative;
+    }
+    .about-photo-inner {
+      position: absolute;
+      inset: 0;
+      background: url('foto-monica.jpg') center top/cover no-repeat;
+    }
+    .about-photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(107,31,58,.18), transparent 60%);
+    }
+    .about-card {
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      background: var(--wine);
+      color: #fff;
+      border-radius: 18px;
+      padding: 22px 24px;
+      box-shadow: 0 20px 48px rgba(107,31,58,.26);
+      max-width: 200px;
+    }
+    .about-card strong {
+      display: block;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      font-style: italic;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+    .about-card span {
+      font-size: .76rem;
+      color: rgba(255,255,255,.82);
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .about-copy { display: grid; gap: 20px; }
+    .about-copy h2 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(2.2rem, 4vw, 3.6rem);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -.02em;
+      color: var(--wine-dark);
+    }
+    .about-copy p {
+      color: var(--muted);
+      font-size: .97rem;
+      line-height: 1.74;
+    }
+    .creds {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+    }
+    .cred-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: .88rem;
+    }
+    .cred-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--wine);
+      flex-shrink: 0;
+    }
+    .cred-item span { color: var(--text); font-weight: 500; }
+
+    /* ── Process ── */
+    .process {
+      padding: 96px 0;
+    }
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      margin-top: 48px;
+    }
+    .process-step {
+      background: #fff;
+      padding: 36px 32px;
+      display: grid;
+      gap: 12px;
+    }
+    .step-num {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 2.8rem;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--rose);
+      line-height: 1;
+    }
+    .process-step h3 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.55rem;
+      font-weight: 600;
+      color: var(--wine-dark);
+      line-height: 1.1;
+    }
+    .process-step p {
+      color: var(--muted);
+      font-size: .88rem;
+      line-height: 1.7;
+    }
+
+    /* ── FAQ ── */
+    .faq {
+      padding: 96px 0;
+      background: var(--cream-warm);
+    }
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 48px;
+    }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      padding: 26px 24px;
+      transition: border-color .22s ease;
+    }
+    .faq-card:hover { border-color: var(--rose); }
+    .faq-card h4 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.22rem;
+      font-weight: 600;
+      color: var(--wine-dark);
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+    .faq-card p {
+      color: var(--muted);
+      font-size: .88rem;
+      line-height: 1.7;
+    }
+
+    /* ── CTA Section ── */
+    .cta-section {
+      padding: 100px 0;
+      background: var(--wine);
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: "mp";
+      position: absolute;
+      right: -80px;
+      top: -60px;
+      font-family: "Cormorant Garamond", serif;
+      font-style: italic;
+      font-size: 22rem;
+      color: rgba(255,255,255,.04);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+    .cta-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 48px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .cta-copy h2 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+      font-weight: 600;
+      font-style: italic;
+      line-height: 1.08;
+      color: #fff;
+      margin-bottom: 14px;
+      letter-spacing: -.02em;
+      max-width: 18ch;
+    }
+    .cta-copy p {
+      color: rgba(255,255,255,.78);
+      font-size: .98rem;
+      max-width: 48ch;
+    }
+    .cta-side { display: grid; gap: 12px; }
+    .cta-contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: rgba(255,255,255,.86);
+      font-size: .88rem;
+    }
+    .cta-contact-item strong {
+      display: block;
+      color: #fff;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+    .cta-contact-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.2);
+      display: grid;
+      place-items: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .btn-white {
+      background: #fff;
+      color: var(--wine);
+      box-shadow: 0 10px 28px rgba(0,0,0,.2);
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(0,0,0,.26); }
+    .btn-ghost-white {
+      background: transparent;
+      color: rgba(255,255,255,.9);
+      border: 1.5px solid rgba(255,255,255,.28);
+    }
+    .btn-ghost-white:hover { background: rgba(255,255,255,.1); transform: translateY(-1px); }
+
+    /* ── Footer ── */
+    .footer {
+      background: var(--wine-dark);
+      color: rgba(255,255,255,.72);
+      padding: 36px 0;
+    }
+    .footer .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: rgba(255,255,255,.9);
+    }
+    .footer-brand-mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(255,255,255,.18);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      padding: 4px;
+    }
+    .footer-brand-mark img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .footer-brand strong {
+      font-size: .92rem;
+      font-weight: 600;
+    }
+    .footer-brand small {
+      display: block;
+      font-size: .68rem;
+      color: rgba(255,255,255,.5);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      font-size: .8rem;
+    }
+    .footer-links a { color: rgba(255,255,255,.6); }
+    .footer-links a:hover { color: rgba(255,255,255,.9); }
+    .footer-copy {
+      font-size: .76rem;
+      color: rgba(255,255,255,.42);
+    }
+
+    /* ── WhatsApp float ── */
+    .wa-float {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 80;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #25D366;
+      color: #fff;
+      border-radius: 999px;
+      padding: 13px 18px;
+      font-size: .84rem;
+      font-weight: 700;
+      box-shadow: 0 16px 32px rgba(37,211,102,.34);
+      text-decoration: none;
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .wa-float:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 22px 44px rgba(37,211,102,.4); }
+
+    /* ── Responsive ── */
+    @media (max-width: 1000px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-copy { padding: 60px 0 0; }
+      .hero-image { min-height: 440px; }
+      .hero-image { display: block; position: relative; }
+      .hero-image-inner { position: absolute; inset: 0; }
+      .services-grid { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-card { right: 0; }
+      .process-grid { grid-template-columns: 1fr; }
+      .faq-grid { grid-template-columns: 1fr; }
+      .cta-inner { grid-template-columns: 1fr; }
+      .band .wrap { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px) {
+      .nav-links { display: none; }
+      .menu-toggle { display: inline-flex; }
+      .nav-panel.is-open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        left: 0; right: 0;
+        top: calc(100% + 8px);
+        background: rgba(253,248,246,.98);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 14px;
+        gap: 10px;
+      }
+      .nav-panel.is-open .nav-links {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .nav-wrap { position: relative; }
+      .hero-copy { padding: 40px 0; }
+      .section { padding: 64px 0; }
+      .about, .faq, .process { padding: 64px 0; }
+      .cta-section { padding: 64px 0; }
+      .services-grid { grid-template-columns: 1fr; }
+      .hero-trust { flex-direction: column; gap: 12px; }
+      .trust-divider { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Utility bar -->
+  <div class="utility-bar" data-av-edit-label="Barra superior" data-av-editor-key="monica-utility">
+    <div class="wrap">
+      <span>Manizales, Caldas</span>
+      <span>Edificio Portal del Cable · Consultorio 808</span>
+      <span>Presencial y Virtual</span>
+      <span>+57 311 313 6927</span>
+    </div>
+  </div>
+
+  <!-- Nav -->
+  <div class="nav-wrap" data-av-edit-label="Navegacion principal" data-av-editor-key="monica-nav">
+    <nav class="nav wrap" aria-label="Principal">
+      <a class="brand" href="#inicio" aria-label="Inicio">
+        <span class="brand-mark"><img src="logo.jpg" alt="Logo Health Consultation" /></span>
+        <span class="brand-copy">
+          <strong>Health Consultation</strong>
+          <small>Psicologia · Salud · Bienestar</small>
+        </span>
+      </a>
+
+      <button class="menu-toggle" type="button" id="menuToggle" aria-expanded="false" aria-controls="navPanel">Menú</button>
+
+      <div class="nav-panel" id="navPanel">
+        <div class="nav-links">
+          <a href="#servicios">Servicios</a>
+          <a href="#sobre-mi">Sobre mí</a>
+          <a href="#proceso">Proceso</a>
+          <a href="#faq">Preguntas</a>
+        </div>
+        <a class="nav-cta" href="https://wa.me/573113136927?text=Hola%20M%C3%B3nica%2C%20quiero%20agendar%20una%20cita." target="_blank" rel="noopener noreferrer">Agendar cita</a>
+      </div>
+    </nav>
+  </div>
+
+  <main data-av-edit-label="Pagina principal" data-av-editor-key="monica-main">
+    <!-- Hero -->
+    <section class="hero wrap" id="inicio" data-av-edit-label="Hero principal" data-av-editor-key="monica-hero">
+      <div class="hero-copy">
+        <p class="hero-eyebrow">Psicologia · Salud · Bienestar</p>
+        <h1>Acompaño a <em>personas y familias</em> a encontrar claridad y bienestar.</h1>
+        <p class="hero-lead">
+          Evaluaciones neuropsicológicas, atención a dificultades de aprendizaje,
+          TDAH y orientación a padres. Atiendo en Manizales y también
+          de forma virtual para todo el país.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://wa.me/573113136927?text=Hola%20M%C3%B3nica%2C%20quiero%20agendar%20una%20cita." target="_blank" rel="noopener noreferrer">Agendar por WhatsApp</a>
+          <a class="btn btn-secondary" href="#servicios">Ver mis servicios</a>
+        </div>
+        <div class="hero-trust">
+          <div class="trust-item">
+            <strong>Presencial y Virtual</strong>
+            <small>modalidad flexible</small>
+          </div>
+          <div class="trust-divider"></div>
+          <div class="trust-item">
+            <strong>Niños desde 5 años</strong>
+            <small>hasta adolescentes</small>
+          </div>
+          <div class="trust-divider"></div>
+          <div class="trust-item">
+            <strong>Informe profesional</strong>
+            <small>incluido en evaluación</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-image">
+        <div class="hero-image-inner"></div>
+        <div class="hero-monogram"><img src="logo.jpg" alt="Logo" /></div>
+        <div class="hero-image-badge">
+          <strong>"Un diagnóstico claro cambia el camino de un niño."</strong>
+          <span>Health Consultation</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Band -->
+    <section class="band" data-av-edit-label="Banda de confianza" data-av-editor-key="monica-band">
+      <div class="wrap">
+        <div class="band-item">
+          <strong>ENI-2</strong>
+          <span>Evaluación neuropsicológica</span>
+        </div>
+        <div class="band-item">
+          <strong>ATENTO</strong>
+          <span>Funciones ejecutivas y TDAH</span>
+        </div>
+        <div class="band-item">
+          <strong>Padres</strong>
+          <span>Crianza y comunicación</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section class="section" id="servicios" data-av-edit-label="Servicios" data-av-editor-key="monica-servicios">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker">Mis servicios</p>
+          <h2>¿En qué te puedo ayudar?</h2>
+          <p>Trabajo con evaluaciones estandarizadas y acompañamiento real, no solo diagnósticos. Cada proceso termina con orientación clara para el niño y la familia.</p>
+        </div>
+
+        <div class="services-grid">
+
+          <!-- Servicio 1 -->
+          <article class="service-card">
+            <div class="service-icon">🧠</div>
+            <span class="service-badge">Niños 5–16 años</span>
+            <h3>Evaluación Neuropsicológica Infantil (ENI-2)</h3>
+            <p>
+              Evaluación estandarizada que analiza el perfil cognitivo de tu hijo: memoria, atención, funciones ejecutivas, lenguaje y habilidades académicas. Ideal cuando hay bajo rendimiento escolar, dificultades de atención o sospecha de TDA-H.
+            </p>
+            <div class="service-detail">
+              <span><b>Modalidad</b> Presencial · Individual</span>
+              <span><b>Duración</b> 2 sesiones de ~2 horas</span>
+              <span><b>Incluye</b> Informe profesional completo</span>
+            </div>
+            <a class="service-cta" href="https://wa.me/573113136927?text=Hola%20M%C3%B3nica%2C%20quiero%20informaci%C3%B3n%20sobre%20la%20evaluaci%C3%B3n%20ENI-2." target="_blank" rel="noopener noreferrer">Preguntar por esta evaluación →</a>
+          </article>
+
+          <!-- Servicio 2 -->
+          <article class="service-card">
+            <div class="service-icon">🎯</div>
+            <span class="service-badge">Niños 6–18 años</span>
+            <h3>Evaluación de Funciones Ejecutivas y TDAH (ATENTO)</h3>
+            <p>
+              Cuestionario estandarizado para identificar dificultades en atención, concentración, control de impulsos, memoria de trabajo y riesgo de TDAH. Se aplica con la familia, el colegio o el mismo adolescente.
+            </p>
+            <div class="service-detail">
+              <span><b>Modalidad</b> Presencial y Virtual</span>
+              <span><b>Costo</b> $140.000 (en terapia)</span>
+              <span><b>Costo</b> $200.000 (evaluación independiente)</span>
+            </div>
+            <a class="service-cta" href="https://wa.me/573113136927?text=Hola%20M%C3%B3nica%2C%20quiero%20informaci%C3%B3n%20sobre%20la%20prueba%20ATENTO." target="_blank" rel="noopener noreferrer">Preguntar por esta prueba →</a>
+          </article>
+
+          <!-- Servicio 3 -->
+          <article class="service-card">
+            <div class="service-icon">👨‍👩‍👧</div>
+            <span class="service-badge">Familias y padres</span>
+            <h3>Sesión de Padres</h3>
+            <p>
+              Espacio de orientación en crianza desde la Neuropsicopedagogía. Construimos comunicación asertiva, entendemos las etapas del desarrollo y aprendemos a ser equipo en la crianza. Porque ser padres también se aprende.
+            </p>
+            <div class="service-detail">
+              <span><b>Modalidad</b> Presencial y Virtual</span>
+              <span><b>Costo</b> $100.000 por sesión</span>
+              <span><b>Para</b> Padres con hijos de cualquier edad</span>
+            </div>
+            <a class="service-cta" href="https://wa.me/573113136927?text=Hola%20M%C3%B3nica%2C%20quiero%20informaci%C3%B3n%20sobre%20la%20sesi%C3%B3n%20de%20padres." target="_blank" rel="noopener noreferrer">Agendar sesión →</a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="about" id="sobre-mi" data-av-edit-label="Sobre Monica" data-av-editor-key="monica-about">
+      <div class="wrap">
+        <div class="about-grid">
+          <div class="about-image">
+            <div class="about-photo">
+              <div class="about-photo-inner"></div>
+              <div class="about-photo-overlay"></div>
+            </div>
+            <div class="about-card">
+              <strong>Health Consultation</strong>
+              <span>Base para psicologia, salud y bienestar</span>
+            </div>
+          </div>
+
+          <div class="about-copy">
+            <p class="kicker">Sobre mí</p>
+            <h2>Creo que entender cómo aprende un niño cambia su vida.</h2>
+            <p>
+              Esta base esta pensada para profesionales de salud y consulta que necesitan una landing clara, humana y confiable para presentar servicios, resolver dudas frecuentes y facilitar el primer contacto.
+            </p>
+            <p>
+              Mi enfoque combina evaluación rigurosa con acompañamiento humano. No me limito a un diagnóstico: me interesa que las familias salgan de cada proceso con herramientas reales para el día a día en casa y en el colegio.
+            </p>
+            <div class="creds">
+              <div class="cred-item">
+                <div class="cred-dot"></div>
+                <span>Psicóloga</span>
+              </div>
+              <div class="cred-item">
+                <div class="cred-dot"></div>
+                <span>Especialista en Neuropsicopedagogía</span>
+              </div>
+              <div class="cred-item">
+                <div class="cred-dot"></div>
+                <span>Consultorio · Edificio Portal del Cable 808 · Manizales</span>
+              </div>
+              <div class="cred-item">
+                <div class="cred-dot"></div>
+                <span>Atención presencial y virtual para todo el país</span>
+              </div>
+            </div>
+            <a class="btn btn-primary" href="https://wa.me/573113136927?text=Hola%20M%C3%B3nica%2C%20quiero%20agendar%20una%20cita." target="_blank" rel="noopener noreferrer">Agendar consulta</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Process -->
+    <section class="process" id="proceso" data-av-edit-label="Proceso" data-av-editor-key="monica-proceso">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker">Cómo funciona</p>
+          <h2>Tres pasos para empezar.</h2>
+          <p>Sin burocracia, sin esperas largas. Un mensaje es suficiente para saber si tengo el servicio que tu familia necesita.</p>
+        </div>
+        <div class="process-grid">
+          <div class="process-step">
+            <span class="step-num">01</span>
+            <h3>Escríbeme por WhatsApp</h3>
+            <p>Cuéntame brevemente qué está pasando con tu hijo o en tu familia. Te respondo rápido y sin compromiso.</p>
+          </div>
+          <div class="process-step">
+            <span class="step-num">02</span>
+            <h3>Primera sesión o evaluación</h3>
+            <p>Definimos juntos qué tipo de proceso se ajusta mejor. Puede ser una evaluación, una sesión de padres o una consulta de orientación.</p>
+          </div>
+          <div class="process-step">
+            <span class="step-num">03</span>
+            <h3>Devolución y acompañamiento</h3>
+            <p>Si fue una evaluación, recibes un informe detallado y una sesión de devolución de resultados con recomendaciones claras para casa y colegio.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" id="faq" data-av-edit-label="Preguntas frecuentes" data-av-editor-key="monica-faq">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker">Preguntas frecuentes</p>
+          <h2>Lo que más me preguntan antes de la primera cita.</h2>
+        </div>
+        <div class="faq-grid">
+          <div class="faq-card">
+            <h4>¿Desde qué edad puedo traer a mi hijo?</h4>
+            <p>La evaluación ENI-2 aplica desde los 5 años, la prueba ATENTO desde los 6. Las sesiones de padres son para familias con hijos de cualquier edad.</p>
+          </div>
+          <div class="faq-card">
+            <h4>¿Cómo sé si mi hijo necesita una evaluación neuropsicológica?</h4>
+            <p>Si hay dificultades persistentes en el rendimiento escolar, atención, memoria o comportamiento que no mejoran, una evaluación puede darte claridad y un plan de acción concreto.</p>
+          </div>
+          <div class="faq-card">
+            <h4>¿Atiende de forma virtual?</h4>
+            <p>Sí. Las sesiones de padres y la prueba ATENTO se pueden realizar por videollamada. La evaluación ENI-2 requiere presencialidad en Manizales.</p>
+          </div>
+          <div class="faq-card">
+            <h4>¿Cuánto demora el proceso de evaluación?</h4>
+            <p>La evaluación ENI-2 toma 2 sesiones de aproximadamente 2 horas cada una. El informe se entrega en un plazo acordado y se socializa en una sesión de devolución.</p>
+          </div>
+          <div class="faq-card">
+            <h4>¿Trabajan en equipo con el colegio?</h4>
+            <p>Sí. La prueba ATENTO tiene versiones para familia, colegio y el mismo estudiante, lo que permite integrar perspectivas y hacer recomendaciones más completas.</p>
+          </div>
+          <div class="faq-card">
+            <h4>¿Cómo agendo una cita?</h4>
+            <p>Escríbeme por WhatsApp al +57 311 313 6927. Coordinamos el horario y el tipo de servicio que mejor se ajusta a lo que necesitas.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section" data-av-edit-label="Cierre comercial" data-av-editor-key="monica-cta">
+      <div class="wrap cta-inner">
+        <div class="cta-copy">
+          <h2>¿Listo para dar el primer paso?</h2>
+          <p>Un mensaje es suficiente para empezar. Te respondo con claridad, sin compromiso y sin procesos largos.</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:28px;">
+            <a class="btn btn-white" href="https://wa.me/573113136927?text=Hola%20M%C3%B3nica%2C%20quiero%20agendar%20una%20cita." target="_blank" rel="noopener noreferrer">Escribir por WhatsApp</a>
+            <a class="btn btn-ghost-white" href="#servicios">Ver servicios</a>
+          </div>
+        </div>
+        <div class="cta-side">
+          <div class="cta-contact-item">
+            <div class="cta-contact-icon">📍</div>
+            <div>
+              <strong>Consultorio</strong>
+              Edificio Portal del Cable, Consultorio 808<br>Manizales, Caldas, Colombia
+            </div>
+          </div>
+          <div class="cta-contact-item">
+            <div class="cta-contact-icon">📱</div>
+            <div>
+              <strong>WhatsApp</strong>
+              +57 311 313 6927
+            </div>
+          </div>
+          <div class="cta-contact-item">
+            <div class="cta-contact-icon">💻</div>
+            <div>
+              <strong>Virtual</strong>
+              Atención para todo el país por videollamada
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" data-av-edit-label="Footer" data-av-editor-key="monica-footer">
+    <div class="wrap">
+      <div class="footer-brand">
+        <div class="footer-brand-mark"><img src="logo.jpg" alt="Logo" /></div>
+        <div>
+          <strong>Health Consultation</strong>
+          <small>Base editable para salud y consulta</small>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="#servicios">Servicios</a>
+        <a href="#sobre-mi">Sobre mí</a>
+        <a href="https://wa.me/573113136927?text=Hola%20M%C3%B3nica%2C%20quiero%20agendar%20una%20cita." target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      </div>
+      <span class="footer-copy">Manizales, Caldas · Presencial y Virtual</span>
+    </div>
+  </footer>
+
+  <!-- WhatsApp flotante -->
+  <a class="wa-float" href="https://wa.me/573113136927?text=Hola%20M%C3%B3nica%2C%20quiero%20agendar%20una%20cita." target="_blank" rel="noopener noreferrer" aria-label="Agendar por WhatsApp">
+    💬 Agendar cita
+  </a>
+
+  <script>
+    const toggle = document.getElementById('menuToggle');
+    const panel  = document.getElementById('navPanel');
+    if (toggle && panel) {
+      toggle.addEventListener('click', () => {
+        const open = panel.classList.toggle('is-open');
+        toggle.setAttribute('aria-expanded', open);
+      });
+      panel.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          panel.classList.remove('is-open');
+          toggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+  </script>
+  <script src="../../assets/js/universal-template-editor.js"></script>
+</body>
+</html>

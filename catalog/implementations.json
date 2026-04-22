@@ -1,15 +1,36 @@
 [
   {
-    "slug": "mario-valencia",
+    "slug": "monica-valencia",
     "order": 1,
+    "name": "Monica Valencia H.",
+    "category": "psychology",
+    "entry": "https://monica-valencia.vercel.app/",
+    "templateEntry": null,
+    "cover": "https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=1400&q=80&auto=format&fit=crop",
+    "eyebrow": "Psicologia / implementado",
+    "summary": "Sitio profesional para psicologa especializada en neuropsicopedagogia infantil, con servicios clinicos, orientacion a padres y modalidad presencial mas virtual.",
+    "angle": "Demuestra como un profesional de salud puede comunicar expertise clinico con calidez humana en una landing clara y de confianza.",
+    "highlights": [
+      "Propuesta de valor centrada en el impacto del diagnostico en la vida del nino",
+      "Estructura de evaluaciones especificas para diferentes edades y diagnosticos",
+      "Llamadas a la accion enfocadas en consulta inicial"
+    ],
+    "tags": ["Psicologia", "Neuropsicopedagogia", "Consulta"],
+    "statusLabel": "Implementado",
+    "state": "live"
+  },
+  {
+    "slug": "mario-valencia",
+    "order": 2,
     "name": "Mario Valencia",
     "category": "engineering",
-    "entry": "av-system/deploy/mario-valencia/index.html",
-    "templateEntry": "templates/civil-engineer/index.html",
+    "entry": "https://mario-valencia.vercel.app/",
+    "adminUrl": "https://mario-valencia.vercel.app/admin/",
+    "templateEntry": "templates/professional-services/index.html",
     "cover": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1400&q=80&auto=format&fit=crop",
-    "eyebrow": "Geotecnia / pagina en implementacion",
+    "eyebrow": "Geotecnia / en implementacion",
     "summary": "Landing para ingeniero civil especialista en geotecnia, con una direccion visual mas editorial y tecnica.",
-    "angle": "Sirve para mostrar que una base sectorial puede convertirse en una marca personal con identidad propia.",
+    "angle": "Sirve para mostrar como una base sectorial puede convertirse en una marca personal con identidad propia.",
     "highlights": [
       "Narrativa enfocada en consultoria, estudios y confianza tecnica",
       "Estilo distinto al resto del portafolio para evitar soluciones repetidas",
@@ -21,21 +42,22 @@
   },
   {
     "slug": "panaderia-la-chiquita",
-    "order": 2,
+    "order": 3,
     "name": "Panaderia La Chiquita",
     "category": "bakery",
-    "entry": "av-system/deploy/panaderia-la-chiquita/index.html",
+    "entry": "https://la-chiquita.vercel.app/",
+    "adminUrl": "https://la-chiquita.vercel.app/admin/",
     "templateEntry": "templates/panaderia/index.html",
-    "cover": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1400&q=80&auto=format&fit=crop",
-    "eyebrow": "Panaderia local / adaptacion real",
-    "summary": "Version implementada a partir de la base para panaderias, aterrizada a catalogo, productos y contacto directo por WhatsApp.",
-    "angle": "Muestra como una plantilla base se convierte en una pagina concreta para un negocio local.",
+    "cover": "https://images.unsplash.com/photo-1568254183919-78a4f43a2877?w=1400&q=80&auto=format&fit=crop",
+    "eyebrow": "Panaderia tradicional / implementado",
+    "summary": "Version aterrizada a negocio real para una panaderia artesanal con historia, catalogo, encargos y contacto directo por WhatsApp.",
+    "angle": "Muestra como una plantilla base se convierte en una pagina concreta para un negocio local con tono propio.",
     "highlights": [
       "Contenido real de productos, horarios y pedido rapido",
       "Estructura afinada para negocio de vitrina y encargos",
       "Separada de la plantilla base para no mezclar demo con caso aplicado"
     ],
-    "tags": ["Caso real", "Catalogo", "WhatsApp"],
+    "tags": ["Panaderia", "Tradicion", "WhatsApp"],
     "statusLabel": "Implementado",
     "state": "live"
   }

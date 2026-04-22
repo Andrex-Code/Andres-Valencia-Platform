@@ -6,6 +6,7 @@ Este repo es el escaparate comercial de Andres Valencia para vender sitios web p
 ## Mapa canonico
 - `index.html`: portada principal del portafolio.
 - `assets/`: CSS y JS del portafolio publico.
+- `admin/`: acceso protegido por Supabase para editar el portafolio principal.
 - `catalog/templates.json`: inventario minimo de demos publicas.
 - `catalog/showcase.json`: copy comercial y metadatos para renderizar las tarjetas del portafolio.
 - `templates/`: demos publicas por vertical.

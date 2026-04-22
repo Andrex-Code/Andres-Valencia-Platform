@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Admin | Panaderia La Chiquita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="https://andresvalencia.vercel.app/assets/css/admin-gate.css" />
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://andresvalencia.vercel.app/assets/js/admin/config.js"></script>
+  <script src="https://andresvalencia.vercel.app/assets/js/admin/supabase-client.js"></script>
+  <script src="https://andresvalencia.vercel.app/assets/js/admin/auth.js"></script>
+  <script src="https://andresvalencia.vercel.app/assets/js/admin/gate.js"></script>
+  <script>
+    AVAdminGate.init({
+      siteId: "panaderia-la-chiquita",
+      siteLabel: "Panaderia La Chiquita",
+      homeUrl: "../index.html",
+      targetUrl: "../index.html",
+      title: "Admin para Panaderia La Chiquita",
+      description: "Acceso privado para editar la implementacion real de la panaderia con una puerta de entrada limpia.",
+      eyebrow: "Implementacion real",
+      panelTitle: "Entrar al editor de La Chiquita",
+      panelText: "Usa tu cuenta admin de Supabase para abrir la pagina con el editor activo.",
+    });
+  </script>
+</body>
+</html>

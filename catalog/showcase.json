@@ -1,59 +1,103 @@
 [
   {
-    "slug": "panaderia",
-    "order": 3,
-    "cover": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1400&q=80&auto=format&fit=crop",
-    "eyebrow": "Panaderia / catalogo editable",
-    "summary": "Plantilla para mostrar productos del dia, recibir pedidos y responder dudas rapido.",
-    "angle": "Pensada para negocios locales que necesitan vitrina, horarios y WhatsApp visibles.",
+    "slug": "health-consultation",
+    "order": 1,
+    "focus": "primary",
+    "family": "salud-consulta",
+    "cover": "https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=1400&q=80&auto=format&fit=crop",
+    "eyebrow": "Salud / psicologia y consulta",
+    "summary": "Base para psicologia, salud y bienestar con una landing calmada, confiable y lista para contacto por WhatsApp o cita.",
+    "angle": "Sirve como punto de partida para profesionales que venden por confianza y necesitan una presencia mas humana que corporativa.",
     "highlights": [
-      "Catalogo con categorias y filtros",
+      "Estructura clara para servicios, autoridad y preguntas frecuentes",
+      "Direccion visual calmada y premium para salud y consulta",
+      "Editor visual para ajustar propuesta, CTA y bloques clave"
+    ],
+    "tags": ["Salud", "Consulta", "Confianza"],
+    "editorDemo": true,
+    "editorCopy": "Edita propuesta, servicios, FAQ y cierre comercial para psicologia, salud y bienestar."
+  },
+  {
+    "slug": "panaderia",
+    "order": 2,
+    "focus": "primary",
+    "family": "comida-local",
+    "cover": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1400&q=80&auto=format&fit=crop",
+    "eyebrow": "Comida local / panaderia y catalogo",
+    "summary": "Plantilla para panaderias, cafes y negocios de comida local que necesitan mostrar productos, horarios y pedidos por WhatsApp.",
+    "angle": "Pensada para negocios de vitrina y encargos que necesitan verse bien y facilitar el contacto desde el celular.",
+    "highlights": [
+      "Catalogo con categorias y filtros para productos destacados",
       "Editor para cambiar contenido desde el navegador",
       "Botones directos a pedido, mapa y preguntas frecuentes"
     ],
-    "tags": ["Catalogo", "Pedidos", "WhatsApp"],
+    "tags": ["Comida local", "Catalogo", "WhatsApp"],
     "editorDemo": true,
-    "editorCopy": "Edita textos, imagenes, colores y CTA desde un editor central separado de la plantilla."
+    "editorCopy": "Edita textos, imagenes, colores y CTA para panaderias, cafes y negocios de comida local."
+  },
+  {
+    "slug": "professional-services",
+    "order": 3,
+    "focus": "primary",
+    "family": "servicios-profesionales",
+    "cover": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1400&q=80&auto=format&fit=crop",
+    "eyebrow": "Servicios profesionales / consultoria y confianza",
+    "summary": "Base premium para ingenieros, arquitectos, consultores y otros servicios profesionales que necesitan comunicar criterio, experiencia y un cierre comercial claro.",
+    "angle": "La base tecnica actual se usa como familia de servicios profesionales, no solo como pagina para ingenieria civil.",
+    "highlights": [
+      "Bloques para servicios, metodologia, experiencia y proyectos",
+      "Direccion visual sobria para consultoria y marca personal tecnica",
+      "Editor visual para ajustar copy, imagenes y CTA"
+    ],
+    "tags": ["Servicios", "Consultoria", "Confianza"],
+    "editorDemo": true,
+    "editorCopy": "Edita propuesta, servicios, proyectos y cierre comercial para servicios profesionales."
   },
   {
     "slug": "restaurant",
-    "order": 2,
+    "order": 4,
+    "focus": "primary",
+    "family": "comida-local",
     "cover": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1400&q=80&auto=format&fit=crop",
-    "eyebrow": "Restaurante / menu y reservas",
-    "summary": "Pagina para mostrar el lugar, la carta y facilitar reservas.",
-    "angle": "Busca transmitir confianza y ganas de visitar el sitio.",
+    "eyebrow": "Comida local / restaurante y cafe",
+    "summary": "Pagina para restaurantes, cafes y propuestas gastronomicas que necesitan mostrar experiencia, menu y reservas o contacto.",
+    "angle": "Sirve como segunda base de comida local para negocios que venden experiencia, ambiente y visita al lugar.",
     "highlights": [
-      "Presentacion clara del lugar y la experiencia",
-      "Secciones para menu, historia y reservas",
+      "Presentacion clara del lugar, la experiencia y la carta",
+      "Secciones para menu, historia, reservas o contacto",
       "Diseno limpio para celular y escritorio"
     ],
-    "tags": ["Menu", "Reservas", "Presentacion"],
+    "tags": ["Restaurante", "Cafe", "Reservas"],
     "editorDemo": true,
-    "editorCopy": "Ajusta propuesta, experiencia y reserva desde un editor central separado de la plantilla."
+    "editorCopy": "Ajusta propuesta, experiencia, menu y reserva desde el editor visual de la demo."
   },
   {
     "slug": "gym",
-    "order": 4,
+    "order": 5,
+    "focus": "secondary",
+    "family": "bienestar",
     "cover": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1400&q=80&auto=format&fit=crop",
-    "eyebrow": "Gimnasio / planes y clases",
-    "summary": "Pagina comercial para mostrar planes, clases y datos clave.",
-    "angle": "La idea es explicar rapido la oferta y llevar al contacto.",
+    "eyebrow": "Bienestar / gimnasio y planes",
+    "summary": "Pagina comercial para mostrar planes, clases y datos clave de bienestar o entrenamiento.",
+    "angle": "Se mantiene como demo secundaria util para fitness, entrenadores y negocios de bienestar.",
     "highlights": [
       "Planes y clases en bloques faciles de leer",
       "Secciones para entrenadores, horarios y beneficios",
       "Botones de contacto visibles desde el inicio"
     ],
-    "tags": ["Planes", "Clases", "Contacto"],
+    "tags": ["Fitness", "Planes", "Contacto"],
     "editorDemo": true,
-    "editorCopy": "Edita promesa, planes, CTA y datos de contacto desde un editor central reutilizable."
+    "editorCopy": "Edita promesa, planes, CTA y datos de contacto desde el editor visual."
   },
   {
     "slug": "tattoo-studio",
-    "order": 5,
-    "cover": "https://images.unsplash.com/photo-1583744946564-b52ac1c389c8?w=1400&q=80&auto=format&fit=crop",
-    "eyebrow": "Tattoo / portafolio visual",
+    "order": 6,
+    "focus": "secondary",
+    "family": "marca-visual",
+    "cover": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='800' viewBox='0 0 1400 800'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%230a0a0a'/%3E%3Cstop offset='100%25' stop-color='%23141414'/%3E%3C/linearGradient%3E%3ClinearGradient id='gld' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23e8c96b'/%3E%3Cstop offset='100%25' stop-color='%238a6f2c'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1400' height='800' fill='url(%23bg)'/%3E%3Cg transform='translate(700 400)' stroke='url(%23gld)' stroke-width='2' fill='none'%3E%3Ccircle r='280' opacity='0.8'/%3E%3Ccircle r='220' opacity='0.6'/%3E%3Ccircle r='160' opacity='0.4'/%3E%3Ccircle r='100' opacity='0.5'/%3E%3C/g%3E%3Cg transform='translate(700 400)' stroke='%23C9A84C' stroke-width='2.5' fill='none' stroke-linecap='round'%3E%3Cpath d='M0 -240 C -80 -180 -120 -80 0 0 C 120 -80 80 -180 0 -240 Z' opacity='0.9'/%3E%3Cpath d='M-140 -60 C -220 -20 -260 100 -140 160 C -80 130 -50 50 -140 -60 Z' opacity='0.75'/%3E%3Cpath d='M140 -60 C 220 -20 260 100 140 160 C 80 130 50 50 140 -60 Z' opacity='0.75'/%3E%3C/g%3E%3Ctext x='700' y='100' font-family='Bebas Neue, sans-serif' font-size='72' letter-spacing='8' fill='%23ffffff' text-anchor='middle' opacity='0.9'%3ESOMBRA INK%3C/text%3E%3Ctext x='700' y='150' font-family='Bebas Neue, sans-serif' font-size='32' letter-spacing='4' fill='%23C9A84C' text-anchor='middle' opacity='0.8'%3EPEREIRA - COLOMBIA%3C/text%3E%3Cg fill='%23C9A84C' opacity='0.8'%3E%3Ccircle cx='300' cy='200' r='6'/%3E%3Ccircle cx='1100' cy='250' r='6'/%3E%3Ccircle cx='400' cy='650' r='6'/%3E%3Ccircle cx='1050' cy='600' r='6'/%3E%3Ccircle cx='700' cy='100' r='8'/%3E%3Ccircle cx='700' cy='700' r='8'/%3E%3C/g%3E%3C/svg%3E",
+    "eyebrow": "Marca visual / tattoo",
     "summary": "Sitio para mostrar trabajos, estilo y datos de contacto.",
-    "angle": "La confianza entra por las piezas publicadas y un contacto claro.",
+    "angle": "Se mantiene como demo secundaria para negocios muy visuales o creativos.",
     "highlights": [
       "Galeria de trabajos como pieza principal",
       "Secciones para artistas, cuidados y preguntas comunes",
@@ -61,22 +105,6 @@
     ],
     "tags": ["Galeria", "Estilo", "Contacto"],
     "editorDemo": true,
-    "editorCopy": "Ajusta mensaje, estilos, CTA y datos clave desde el mismo editor central."
-  },
-  {
-    "slug": "civil-engineer",
-    "order": 1,
-    "cover": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1400&q=80&auto=format&fit=crop",
-    "eyebrow": "Ingenieria civil / consultoria tecnica",
-    "summary": "Plantilla premium para firmas o especialistas que necesitan mostrar servicios, metodologia y proyectos con una imagen profesional.",
-    "angle": "Pensada para transmitir criterio tecnico, confianza y capacidad real de acompanamiento.",
-    "highlights": [
-      "Servicios estructurados para consultoria, supervision y direccion",
-      "Bloques para sectores, proyectos y metodologia",
-      "Editor central compatible para ajustar copy, imagenes y CTA"
-    ],
-    "tags": ["Infraestructura", "Consultoria", "Proyectos"],
-    "editorDemo": true,
-    "editorCopy": "Edita propuesta, servicios, proyectos y cierre comercial desde el editor central."
+    "editorCopy": "Ajusta mensaje, estilos, CTA y datos clave desde la propia demo."
   }
 ]

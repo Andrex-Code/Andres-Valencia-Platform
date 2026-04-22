@@ -70,6 +70,7 @@ Con eso los `.cmd` siguen funcionando igual.
 - `assets/`: estilos y scripts del sitio principal.
 - `catalog/`: inventario y copy comercial.
 - `templates/`: demos publicas por vertical.
+- `admin/`: puerta de acceso protegida por Supabase para el portafolio principal.
 - `av-system/`: panel local y paginas por negocio.
 - `scripts/`: automatizaciones para arrancar, exportar y actualizar.
 - `tools/`: utilidades portables no versionadas.
