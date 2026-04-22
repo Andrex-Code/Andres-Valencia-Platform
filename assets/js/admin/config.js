@@ -11,6 +11,7 @@
       url: "https://yfghlhfhglyinizifrgo.supabase.co",
       anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlmZ2hsaGZoZ2x5aW5pemlmcmdvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1ODk0MzEsImV4cCI6MjA5MjE2NTQzMX0.VVsI6dKnRJpKTtDvFro9bP0hE6tX3zdoGzMuk3DYy4Q",
     },
+    workspaceTable: "editor_workspaces",
     mode: "auto",
     sessionHours: 24,
     debug: false,

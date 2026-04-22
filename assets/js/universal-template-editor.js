@@ -13,8 +13,9 @@
 
   const releaseAccessLock = lockEditorAccess();
   ensureEditorAccess(context)
-    .then((result) => {
+    .then(async (result) => {
       if (result.ok) {
+        await hydrateWorkspaceState();
         releaseAccessLock();
         return;
       }
@@ -97,6 +98,7 @@
   };
 
   const slug = context.slug;
+  const siteId = context.slug;
   const storageKey = `av-template-editor::${slug}`;
   const publicUrl = buildPublicUrl();
   const pickerUrl = new URL(`/editor.html?template=${encodeURIComponent(slug)}`, window.location.origin).toString();
@@ -115,6 +117,10 @@
     ui: null,
     profile,
     previewMode: "desktop",
+    editorMode: "pro",
+    syncProvider: "local",
+    syncWarning: "",
+    syncSaveTimer: null,
     baseValues: {},
     history: {
       past: [],
@@ -311,6 +317,43 @@
     await loadScriptOnce("av-editor-admin-config", `${sharedAssetOrigin}/assets/js/admin/config.js`);
     await loadScriptOnce("av-editor-admin-supabase", `${sharedAssetOrigin}/assets/js/admin/supabase-client.js`);
     await loadScriptOnce("av-editor-admin-auth", `${sharedAssetOrigin}/assets/js/admin/auth.js`);
+    await loadScriptOnce("av-editor-content-store", `${sharedAssetOrigin}/assets/js/admin/content-store.js`);
+  }
+
+  async function hydrateWorkspaceState() {
+    if (!window.AVContentStore) {
+      return;
+    }
+
+    const result = await window.AVContentStore.loadPageState(siteId, slug);
+    runtime.syncProvider = result.provider || "local";
+    runtime.syncWarning = result.warning || "";
+
+    if (result.workspace?.settings?.editorMode) {
+      runtime.editorMode = result.workspace.settings.editorMode;
+    }
+
+    if (result.state && hasMeaningfulState(result.state)) {
+      replaceState(result.state);
+      showToast(
+        runtime.syncProvider === "supabase"
+          ? "Estado del editor sincronizado desde Supabase."
+          : "Estado del editor cargado desde el workspace local.",
+        "success"
+      );
+    } else if (runtime.syncWarning) {
+      showToast("El editor sigue operativo, pero la sincronizacion remota no estuvo disponible.", "muted");
+    }
+  }
+
+  function hasMeaningfulState(value) {
+    return Boolean(
+      value &&
+        (value.pageTitle ||
+          value.metaDescription ||
+          value.customCss ||
+          (value.patches && Object.keys(value.patches).length))
+    );
   }
 
   function loadScriptOnce(key, src) {
@@ -389,6 +432,7 @@
       pageTitle: typeof value?.pageTitle === "string" ? value.pageTitle : "",
       metaDescription: typeof value?.metaDescription === "string" ? value.metaDescription : "",
       customCss: typeof value?.customCss === "string" ? value.customCss : "",
+      updatedAt: typeof value?.updatedAt === "string" ? value.updatedAt : "",
       patches: {},
     };
 
@@ -418,7 +462,9 @@
   }
 
   function persistState() {
+    state.updatedAt = new Date().toISOString();
     localStorage.setItem(storageKey, JSON.stringify(state));
+    scheduleRemoteSync();
   }
 
   function buildUi() {
@@ -431,6 +477,11 @@
           <small>${escapeHtml(profile.title)}</small>
           <strong id="avEditorStatus">${escapeHtml(profile.hint)}</strong>
         </div>
+        <div class="av-editor-toolbar-mode">
+          <span>Modo</span>
+          <button type="button" data-editor-action="mode-client" id="avEditorModeClient">Cliente</button>
+          <button type="button" data-editor-action="mode-pro" id="avEditorModePro">Pro</button>
+        </div>
         <div class="av-editor-toolbar-preview">
           <span>Vista</span>
           <button type="button" data-editor-action="preview-desktop" id="avEditorPreviewDesktop">PC</button>
@@ -439,13 +490,13 @@
         </div>
         <div class="av-editor-toolbar-actions">
           <a href="${escapeHtml(pickerUrl)}" target="_blank" rel="noopener noreferrer">Plantillas</a>
-          <button type="button" data-editor-action="page">Pagina</button>
+          <button type="button" data-editor-action="page" data-editor-pro="true">Pagina</button>
           <button type="button" data-editor-action="undo" id="avEditorUndo">Deshacer</button>
           <button type="button" data-editor-action="redo" id="avEditorRedo">Rehacer</button>
-          <button type="button" data-editor-action="export-html">Exportar HTML</button>
-          <button type="button" data-editor-action="export-json">Exportar JSON</button>
-          <button type="button" data-editor-action="import">Importar</button>
-          <button type="button" data-editor-action="reset">Restablecer</button>
+          <button type="button" data-editor-action="export-html" data-editor-pro="true">Exportar HTML</button>
+          <button type="button" data-editor-action="export-json" data-editor-pro="true">Exportar JSON</button>
+          <button type="button" data-editor-action="import" data-editor-pro="true">Importar</button>
+          <button type="button" data-editor-action="reset" data-editor-pro="true">Restablecer</button>
           <a href="${escapeHtml(publicUrl)}" target="_blank" rel="noopener noreferrer">Ver demo</a>
         </div>
         <input type="file" id="avEditorImportFile" accept="application/json" hidden />
@@ -500,6 +551,8 @@
       toasts: shell.querySelector("#avEditorToasts"),
       importFile: shell.querySelector("#avEditorImportFile"),
       toolbar: shell.querySelector(".av-editor-toolbar"),
+      modeClientButton: shell.querySelector("#avEditorModeClient"),
+      modeProButton: shell.querySelector("#avEditorModePro"),
       previewDesktopButton: shell.querySelector("#avEditorPreviewDesktop"),
       previewMobileButton: shell.querySelector("#avEditorPreviewMobile"),
       undoButton: shell.querySelector("#avEditorUndo"),
@@ -573,6 +626,18 @@
     if (name === "page") {
       event.preventDefault();
       renderPageSheet();
+      return;
+    }
+
+    if (name === "mode-client") {
+      event.preventDefault();
+      setEditorMode("client");
+      return;
+    }
+
+    if (name === "mode-pro") {
+      event.preventDefault();
+      setEditorMode("pro");
       return;
     }
 
@@ -726,7 +791,10 @@
     runtime.ui.sheetEyebrow.textContent = "Elemento seleccionado";
     runtime.ui.sheetTitle.textContent = runtime.selection.title;
     runtime.ui.sheetSubtitle.textContent = runtime.selection.subtitle || descriptor;
-    runtime.ui.sheetStatus.textContent = "Cambios guardados localmente para esta plantilla.";
+    runtime.ui.sheetStatus.textContent =
+      runtime.syncProvider === "supabase"
+        ? "Cambios sincronizados con Supabase para este sitio."
+        : "Cambios guardados en este dispositivo y pendientes de sincronizacion remota si aplica.";
     runtime.ui.sheetBody.innerHTML = `
       <div class="av-editor-sheet-meta">
         <span>${escapeHtml(descriptor)}</span>
@@ -751,7 +819,10 @@
     runtime.ui.sheetEyebrow.textContent = slug;
     runtime.ui.sheetTitle.textContent = "Ajustes globales";
     runtime.ui.sheetSubtitle.textContent = "Controla SEO, descripcion y CSS extra sin salir de la pagina.";
-    runtime.ui.sheetStatus.textContent = "Los cambios globales tambien se guardan localmente.";
+    runtime.ui.sheetStatus.textContent =
+      runtime.syncProvider === "supabase"
+        ? "Los cambios se sincronizan con Supabase para este sitio."
+        : "Los cambios se guardan en este dispositivo y se intentan sincronizar.";
     runtime.ui.sheetBody.innerHTML = `
       ${buildFieldGroup({
         title: "Basico",
@@ -772,7 +843,7 @@
           },
         ],
       })}
-      <details class="av-editor-advanced">
+      <details class="av-editor-advanced"${runtime.editorMode === "client" ? " hidden" : ""}>
         <summary>Avanzado</summary>
         ${buildFieldGroup({
           title: "CSS adicional",
@@ -1077,12 +1148,19 @@
     if (runtime.ui.redoButton) {
       runtime.ui.redoButton.disabled = !runtime.history.future.length;
     }
+    if (runtime.ui.modeClientButton) {
+      runtime.ui.modeClientButton.dataset.active = runtime.editorMode === "client" ? "true" : "false";
+    }
+    if (runtime.ui.modeProButton) {
+      runtime.ui.modeProButton.dataset.active = runtime.editorMode === "pro" ? "true" : "false";
+    }
     if (runtime.ui.previewDesktopButton) {
       runtime.ui.previewDesktopButton.dataset.active = runtime.previewMode === "desktop" ? "true" : "false";
     }
     if (runtime.ui.previewMobileButton) {
       runtime.ui.previewMobileButton.dataset.active = runtime.previewMode === "mobile" ? "true" : "false";
     }
+    runtime.ui.shell.dataset.editorMode = runtime.editorMode;
   }
 
   function setPreviewMode(mode) {
@@ -1104,6 +1182,46 @@
   function openMobilePreviewWindow() {
     window.open(publicUrl, "_blank", "noopener,noreferrer,width=430,height=932");
     setStatus("Se abrio una ventana movil para revisar el sitio.");
+  }
+
+  function setEditorMode(mode) {
+    runtime.editorMode = mode === "client" ? "client" : "pro";
+    updateToolbarState();
+    scheduleEditorModeSync();
+    showToast(
+      runtime.editorMode === "client"
+        ? "Modo cliente activo: menos ruido y menos controles avanzados."
+        : "Modo profesional activo: controles completos restaurados.",
+      "info"
+    );
+  }
+
+  function scheduleEditorModeSync() {
+    if (!window.AVContentStore) {
+      return;
+    }
+    window.AVContentStore.updateSetting(siteId, "editorMode", runtime.editorMode).then((result) => {
+      runtime.syncProvider = result.provider || runtime.syncProvider;
+      runtime.syncWarning = result.warning || "";
+      if (runtime.syncWarning) {
+        showToast("El modo se guardo solo localmente.", "muted");
+      }
+    });
+  }
+
+  function scheduleRemoteSync() {
+    if (!window.AVContentStore) {
+      return;
+    }
+    window.clearTimeout(runtime.syncSaveTimer);
+    runtime.syncSaveTimer = window.setTimeout(async () => {
+      const result = await window.AVContentStore.savePageState(siteId, slug, state);
+      runtime.syncProvider = result.provider || runtime.syncProvider;
+      runtime.syncWarning = result.warning || "";
+      if (runtime.syncWarning) {
+        setStatus("Cambio aplicado. Guardado remoto no disponible; se mantuvo en este dispositivo.");
+      }
+    }, 420);
   }
 
   function applyState() {
@@ -1692,13 +1810,17 @@
       .av-editor-toolbar-copy{display:grid;gap:4px;min-width:0;}
       .av-editor-toolbar-copy small{margin:0;color:rgba(255,255,255,.58);font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
       .av-editor-toolbar-copy strong{color:#fff;font-size:.96rem;line-height:1.35;}
+      .av-editor-toolbar-mode,
       .av-editor-toolbar-preview{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+      .av-editor-toolbar-mode span,
       .av-editor-toolbar-preview span{color:rgba(255,255,255,.6);font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
       .av-editor-toolbar-actions{display:flex;gap:8px;overflow:auto;padding-bottom:2px;}
       .av-editor-toolbar-actions::-webkit-scrollbar{height:0;}
       .av-editor-toolbar-actions a,.av-editor-toolbar-actions button,.av-editor-sheet-head button,.av-editor-sheet-foot button,.av-editor-modal-actions button{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:0 13px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;text-decoration:none;font:600 .82rem/1 inherit;cursor:pointer;white-space:nowrap;}
+      .av-editor-toolbar-mode button[data-active="true"],
       .av-editor-toolbar-preview button[data-active="true"]{background:linear-gradient(135deg,rgba(116,240,209,.24),rgba(123,176,255,.22));border-color:rgba(123,176,255,.36);}
       .av-editor-toolbar-actions button:disabled{opacity:.42;cursor:not-allowed;}
+      .av-editor-shell[data-editor-mode="client"] [data-editor-pro="true"]{display:none!important;}
       .av-editor-toast-stack{position:fixed;top:112px;right:14px;width:min(360px,calc(100vw - 28px));display:grid;gap:10px;}
       .av-editor-toast{padding:12px 14px;border-radius:16px;border:1px solid rgba(255,255,255,.12);color:#fff;font-size:.84rem;line-height:1.4;background:rgba(15,15,15,.95);box-shadow:0 20px 40px rgba(0,0,0,.24);transition:opacity .2s ease,transform .2s ease;}
       .av-editor-toast-success{border-color:rgba(91,201,132,.34);}

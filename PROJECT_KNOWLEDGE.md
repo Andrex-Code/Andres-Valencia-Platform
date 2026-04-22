@@ -9,6 +9,7 @@ Este repo es el escaparate comercial de Andres Valencia para vender sitios web p
 - `admin/`: shell principal de AV Studio, protegida por Supabase.
 - `assets/js/universal-template-editor.js`: unico motor de edicion para home, plantillas e implementaciones.
 - `assets/js/admin/`: capa de acceso, auth y dashboard de AV Studio.
+- `assets/js/admin/content-store.js`: store compartido para page state, modo del editor y colecciones universales.
 - `catalog/templates.json`: inventario minimo de demos publicas.
 - `catalog/showcase.json`: copy comercial y metadatos para renderizar las tarjetas del portafolio.
 - `catalog/implementations.json`: casos reales, estado y rutas de admin/live.
@@ -31,20 +32,27 @@ Este repo es el escaparate comercial de Andres Valencia para vender sitios web p
 ### 2. AV Studio
 - Entrada: `admin/index.html`.
 - Auth: Supabase (`assets/js/admin/config.js`, `assets/js/admin/supabase-client.js`, `assets/js/admin/auth.js`, `assets/js/admin/gate.js`).
-- Shell actual: dashboard con acceso a portafolio, plantillas e implementaciones.
+- Shell actual: consola con selector de sitio, modos `cliente/pro`, estado de pagina y gestor de colecciones.
+- Persistencia compartida: `assets/js/admin/content-store.js`.
+- Tabla esperada en Supabase: `editor_workspaces` (guia en `docs/supabase-editor-workspaces.sql`).
 - Regla: la puerta segura es `/admin`; el editor no debe depender de enlaces publicos sin validacion.
 
 ### 3. Editor universal
 - Canonico: `assets/js/universal-template-editor.js`.
 - Sirve para `index.html`, `templates/*` e implementaciones publicadas.
 - El launcher flotante solo aparece en plantillas; las implementaciones entran por `/<dominio>/admin`.
-- Ya tiene una primera vista integrada `PC / Movil` y una ventana movil rapida.
+- Ya tiene vista integrada `PC / Movil`, modos `cliente/pro` y sincronizacion de page state con el workspace cuando Supabase esta disponible.
 
-### 4. Demos publicas
+### 4. Colecciones universales
+- Hoy el sistema ya modela: `projects`, `products`, `services`, `testimonials`, `faq`, `gallery`.
+- Todas viven dentro del workspace por sitio y se administran desde `/admin`.
+- Todavia falta conectarlas al render publico de cada template; en esta iteracion ya existe el modelo, el UI y el guardado.
+
+### 5. Demos publicas
 - Cada demo vive en `templates/<slug>/index.html`.
 - Todas deben cargar el mismo `assets/js/universal-template-editor.js`.
 
-### 5. Studio interno
+### 6. Studio interno
 - Stack: Python standard library + JSON local.
 - Entry points: `studio/app.py` y `studio/export_static.py`.
 - Fuente de verdad: `studio/data/businesses.json`.

@@ -69,7 +69,7 @@ Con eso los `.cmd` siguen funcionando igual.
 ## Mapa rapido
 - `assets/`: estilos y scripts del sitio principal.
 - `assets/js/universal-template-editor.js`: motor unico del editor.
-- `assets/js/admin/`: login Supabase, gate y shell de AV Studio.
+- `assets/js/admin/`: login Supabase, gate, store compartido y shell de AV Studio.
 - `catalog/`: inventario y copy comercial.
 - `templates/`: demos publicas por vertical.
 - `admin/`: acceso protegido y dashboard principal de AV Studio.
@@ -83,6 +83,8 @@ Con eso los `.cmd` siguen funcionando igual.
 - Las plantillas muestran un boton `Editar` en la esquina inferior derecha.
 - Las implementaciones se abren desde `/<dominio>/admin`.
 - El home principal se administra desde `/admin`.
+- El workspace compartido vive en `assets/js/admin/content-store.js`.
+- Las colecciones universales se administran desde `/admin` y usan `docs/supabase-editor-workspaces.sql` como referencia de tabla.
 
 ## Documentos clave
 - `PROJECT_KNOWLEDGE.md`

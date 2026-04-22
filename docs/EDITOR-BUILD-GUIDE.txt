@@ -1,6 +1,24 @@
 AV STUDIO
 GUIA MAESTRA PARA CONSTRUIR EL EDITOR UNIVERSAL DEL PORTAFOLIO Y DE CLIENTES
 
+ESTADO ACTUAL DE IMPLEMENTACION
+
+- AV Studio ya tiene shell real en /admin con login Supabase
+- existe un solo motor de edicion en assets/js/universal-template-editor.js
+- el editor ya protege el acceso y redirige a /admin si no hay sesion valida
+- ya existe vista PC / Movil dentro del editor
+- ya existe modo Cliente / Pro dentro del workspace
+- ya existe store compartido en assets/js/admin/content-store.js
+- ya existe gestor de colecciones en /admin
+- la persistencia remota usa la tabla editor_workspaces si existe
+- si la tabla no existe o falla la policy, el sistema cae a guardado local sin romperse
+
+PENDIENTE PRINCIPAL DE LA SIGUIENTE ITERACION
+
+- conectar las colecciones universales al render publico de cada pagina
+- hacer que proyectos, productos, servicios, FAQ y galeria ya alimenten bloques reales
+- endurecer mas el modo cliente para esconder controles avanzados en mas superficies
+
 ====================================================================
 1. PROPOSITO DEL DOCUMENTO
 ====================================================================
