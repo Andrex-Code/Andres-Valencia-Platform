@@ -110,13 +110,29 @@
       cachedAdminSites = null;
       cachedIsSuperAdmin = null;
     },
-    async isLoggedIn() {
+    async waitForSession(maxAttempts = 6, waitMs = 180) {
       const sb = global.AVSupabase.client();
-      const { data } = await sb.auth.getSession();
-      return Boolean(data?.session);
+      for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
+        const { data } = await sb.auth.getSession();
+        if (data?.session) {
+          return data.session;
+        }
+        if (attempt < maxAttempts - 1) {
+          await new Promise((resolve) => window.setTimeout(resolve, waitMs));
+        }
+      }
+      return null;
+    },
+    async isLoggedIn() {
+      const session = await this.waitForSession();
+      return Boolean(session);
     },
     async currentUser() {
       const sb = global.AVSupabase.client();
+      const session = await this.waitForSession();
+      if (!session) {
+        return null;
+      }
       const { data } = await sb.auth.getUser();
       const u = data?.user;
       return u ? { id: u.id, email: u.email } : null;

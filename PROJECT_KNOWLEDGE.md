@@ -6,9 +6,12 @@ Este repo es el escaparate comercial de Andres Valencia para vender sitios web p
 ## Mapa canonico
 - `index.html`: portada principal del portafolio.
 - `assets/`: CSS y JS del portafolio publico.
-- `admin/`: acceso protegido por Supabase para editar el portafolio principal.
+- `admin/`: shell principal de AV Studio, protegida por Supabase.
+- `assets/js/universal-template-editor.js`: unico motor de edicion para home, plantillas e implementaciones.
+- `assets/js/admin/`: capa de acceso, auth y dashboard de AV Studio.
 - `catalog/templates.json`: inventario minimo de demos publicas.
 - `catalog/showcase.json`: copy comercial y metadatos para renderizar las tarjetas del portafolio.
+- `catalog/implementations.json`: casos reales, estado y rutas de admin/live.
 - `templates/`: demos publicas por vertical.
 - `studio/`: copia versionada del sistema Python interno para operar contenido y explorar un CMS real.
 - `docs/`: despliegue, referencias y notas operativas.
@@ -25,11 +28,23 @@ Este repo es el escaparate comercial de Andres Valencia para vender sitios web p
 - Fuente de verdad para tarjetas y textos comerciales: `catalog/templates.json` + `catalog/showcase.json`.
 - Despliegue objetivo: Vercel como sitio estatico.
 
-### 2. Demos publicas
-- Cada demo vive en `templates/<slug>/index.html`.
-- La demo de `templates/panaderia/index.html` tambien funciona como laboratorio de editor visual en el navegador.
+### 2. AV Studio
+- Entrada: `admin/index.html`.
+- Auth: Supabase (`assets/js/admin/config.js`, `assets/js/admin/supabase-client.js`, `assets/js/admin/auth.js`, `assets/js/admin/gate.js`).
+- Shell actual: dashboard con acceso a portafolio, plantillas e implementaciones.
+- Regla: la puerta segura es `/admin`; el editor no debe depender de enlaces publicos sin validacion.
 
-### 3. Studio interno
+### 3. Editor universal
+- Canonico: `assets/js/universal-template-editor.js`.
+- Sirve para `index.html`, `templates/*` e implementaciones publicadas.
+- El launcher flotante solo aparece en plantillas; las implementaciones entran por `/<dominio>/admin`.
+- Ya tiene una primera vista integrada `PC / Movil` y una ventana movil rapida.
+
+### 4. Demos publicas
+- Cada demo vive en `templates/<slug>/index.html`.
+- Todas deben cargar el mismo `assets/js/universal-template-editor.js`.
+
+### 5. Studio interno
 - Stack: Python standard library + JSON local.
 - Entry points: `studio/app.py` y `studio/export_static.py`.
 - Fuente de verdad: `studio/data/businesses.json`.
@@ -59,5 +74,7 @@ Este repo es el escaparate comercial de Andres Valencia para vender sitios web p
 
 ## Regla para cambios futuros
 - Si el cambio afecta marketing y demos publicas: trabajar en `index.html`, `assets/`, `catalog/` y `templates/`.
-- Si el cambio afecta operacion multi-negocio o admin: trabajar en `studio/`.
+- Si el cambio afecta el acceso, dashboard o permisos del editor: trabajar en `admin/` y `assets/js/admin/`.
+- Si el cambio afecta la experiencia de edicion: trabajar en `assets/js/universal-template-editor.js`.
+- Si el cambio afecta operacion multi-negocio o admin local legacy: trabajar en `studio/`.
 - No reconstruir contenido comercial en varios sitios si puede vivir en JSON o en documentacion central.

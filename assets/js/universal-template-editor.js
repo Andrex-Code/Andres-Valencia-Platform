@@ -1,10 +1,28 @@
 (function () {
+  const scriptUrl = document.currentScript?.src
+    ? new URL(document.currentScript.src, window.location.href)
+    : new URL("/assets/js/universal-template-editor.js", window.location.origin);
+  const sharedAssetOrigin = scriptUrl.origin;
   const params = new URLSearchParams(window.location.search);
   const editMode = params.get("edit") === "1";
+  const context = resolveSiteContext();
   if (!editMode) {
     injectLauncherIfNeeded();
     return;
   }
+
+  const releaseAccessLock = lockEditorAccess();
+  ensureEditorAccess(context)
+    .then((result) => {
+      if (result.ok) {
+        releaseAccessLock();
+        return;
+      }
+      redirectToAdmin(result.reason || "signin");
+    })
+    .catch(() => {
+      redirectToAdmin("error");
+    });
 
   const HISTORY_LIMIT = 50;
   const HISTORY_BURST_MS = 700;
@@ -64,6 +82,10 @@
       title: "Editor de servicios profesionales",
       hint: "Ajusta propuesta, metodologia y CTA sobre la base de servicios profesionales.",
     },
+    "monica-valencia": {
+      title: "Editor de Monica Valencia",
+      hint: "Ajusta la implementacion real de salud sobre la pagina publicada.",
+    },
     "mario-valencia": {
       title: "Editor de Mario Valencia",
       hint: "Ajusta la implementacion real de geotecnia sobre la pagina publicada.",
@@ -74,10 +96,10 @@
     },
   };
 
-  const slug = resolveTemplateSlug();
+  const slug = context.slug;
   const storageKey = `av-template-editor::${slug}`;
   const publicUrl = buildPublicUrl();
-  const pickerUrl = new URL(`../../editor.html?template=${encodeURIComponent(slug)}`, window.location.href).toString();
+  const pickerUrl = new URL(`/editor.html?template=${encodeURIComponent(slug)}`, window.location.origin).toString();
   const profile = profileBySlug[slug] || {
     title: "Editor visual",
     hint: "Toca cualquier elemento visible y editalo aqui mismo.",
@@ -92,6 +114,7 @@
     selection: createSelectionState(),
     ui: null,
     profile,
+    previewMode: "desktop",
     baseValues: {},
     history: {
       past: [],
@@ -107,6 +130,7 @@
   buildUi();
   document.documentElement.classList.add("av-editor-on");
   document.body.classList.add("av-editor-on");
+  applyPreviewMode();
   applyState();
   bindEvents();
   updateToolbarState();
@@ -123,23 +147,37 @@
     };
   }
 
-  function resolveTemplateSlug() {
+  function resolveSiteContext() {
+    const host = window.location.hostname.toLowerCase();
     const parts = window.location.pathname.split("/").filter(Boolean);
+
+    if (host.includes("mario-valencia")) {
+      return { slug: "mario-valencia", type: "implementation" };
+    }
+
+    if (host.includes("la-chiquita")) {
+      return { slug: "panaderia-la-chiquita", type: "implementation" };
+    }
+
+    if (host.includes("monica-valencia")) {
+      return { slug: "monica-valencia", type: "implementation" };
+    }
+
     const templateIndex = parts.indexOf("templates");
     if (templateIndex >= 0) {
-      return parts[templateIndex + 1] || "demo";
+      return { slug: parts[templateIndex + 1] || "demo", type: "template" };
     }
 
     const deployIndex = parts.indexOf("deploy");
     if (deployIndex >= 0) {
-      return parts[deployIndex + 1] || "demo";
+      return { slug: parts[deployIndex + 1] || "demo", type: "implementation" };
     }
 
     if (parts.length === 0 || parts[0] === "index.html") {
-      return "portfolio-home";
+      return { slug: "portfolio-home", type: "home" };
     }
 
-    return "demo";
+    return { slug: "demo", type: "unknown" };
   }
 
   function buildPublicUrl() {
@@ -148,9 +186,151 @@
     return url.toString();
   }
 
+  function resolveAdminUrl() {
+    if (context.type === "template" || context.type === "home") {
+      return new URL("/admin/", window.location.origin);
+    }
+
+    return new URL("admin/", window.location.href);
+  }
+
+  function redirectToAdmin(reason) {
+    const next = new URL(buildPublicUrl());
+    next.searchParams.set("edit", "1");
+    const adminUrl = resolveAdminUrl();
+    adminUrl.searchParams.set("next", `${next.pathname}${next.search}${next.hash}`);
+    adminUrl.searchParams.set("reason", reason || "signin");
+    window.location.replace(adminUrl.toString());
+  }
+
+  function lockEditorAccess() {
+    const style = document.createElement("style");
+    style.id = "av-editor-access-style";
+    style.textContent = `
+      html.av-editor-access-lock,
+      html.av-editor-access-lock body {
+        overflow: hidden !important;
+      }
+      html.av-editor-access-lock body > * {
+        visibility: hidden;
+      }
+      .av-editor-access-screen {
+        position: fixed;
+        inset: 0;
+        z-index: 2147483647;
+        display: grid;
+        place-items: center;
+        background:
+          radial-gradient(circle at top left, rgba(116, 240, 209, 0.18), transparent 32%),
+          radial-gradient(circle at top right, rgba(123, 176, 255, 0.2), transparent 34%),
+          rgba(5, 10, 20, 0.96);
+        color: #f5f8ff;
+        font: 500 15px/1.5 Inter, system-ui, sans-serif;
+        text-align: center;
+        padding: 24px;
+      }
+      .av-editor-access-card {
+        width: min(460px, calc(100vw - 32px));
+        padding: 22px;
+        border-radius: 26px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(11, 16, 28, 0.9);
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+      }
+      .av-editor-access-card small {
+        display: block;
+        margin-bottom: 10px;
+        color: rgba(255, 255, 255, 0.6);
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        font-size: 11px;
+        font-weight: 700;
+      }
+      .av-editor-access-card strong {
+        display: block;
+        font-size: 22px;
+        line-height: 1.15;
+      }
+      .av-editor-access-card p {
+        margin: 12px 0 0;
+        color: rgba(255, 255, 255, 0.72);
+      }
+    `;
+    document.head.appendChild(style);
+    document.documentElement.classList.add("av-editor-access-lock");
+
+    const overlay = document.createElement("div");
+    overlay.className = "av-editor-access-screen";
+    overlay.innerHTML = `
+      <div class="av-editor-access-card">
+        <small>AV Studio</small>
+        <strong>Validando sesion admin...</strong>
+        <p>Esta pagina solo debe abrir el editor despues de confirmar permisos en Supabase.</p>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+
+    return () => {
+      document.documentElement.classList.remove("av-editor-access-lock");
+      style.remove();
+      overlay.remove();
+    };
+  }
+
+  async function ensureEditorAccess(siteContext) {
+    await ensureAdminRuntime();
+
+    if (window.AVConfig?.resolvedMode() === "supabase") {
+      window.AVSupabase?.init();
+    }
+
+    const loggedIn = await window.AVAuth?.isLoggedIn?.();
+    if (!loggedIn) {
+      return { ok: false, reason: "signin" };
+    }
+
+    const allowedSiteIds = new Set(["portfolio-home"]);
+    if (siteContext.slug) {
+      allowedSiteIds.add(siteContext.slug);
+    }
+
+    for (const siteId of allowedSiteIds) {
+      if (await window.AVAuth.isAdminOf(siteId)) {
+        return { ok: true };
+      }
+    }
+
+    return { ok: false, reason: "forbidden" };
+  }
+
+  async function ensureAdminRuntime() {
+    await loadScriptOnce(
+      "av-editor-supabase-lib",
+      "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    );
+    await loadScriptOnce("av-editor-admin-config", `${sharedAssetOrigin}/assets/js/admin/config.js`);
+    await loadScriptOnce("av-editor-admin-supabase", `${sharedAssetOrigin}/assets/js/admin/supabase-client.js`);
+    await loadScriptOnce("av-editor-admin-auth", `${sharedAssetOrigin}/assets/js/admin/auth.js`);
+  }
+
+  function loadScriptOnce(key, src) {
+    if (document.querySelector(`script[data-av-runtime="${key}"]`)) {
+      return Promise.resolve();
+    }
+
+    return new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.async = false;
+      script.dataset.avRuntime = key;
+      script.onload = () => resolve();
+      script.onerror = () => reject(new Error(`No se pudo cargar ${src}`));
+      document.head.appendChild(script);
+    });
+  }
+
   function injectLauncherIfNeeded() {
-    const pathname = window.location.pathname;
-    if (!pathname.includes("/templates/")) {
+    if (context.type !== "template") {
       return;
     }
 
@@ -251,6 +431,12 @@
           <small>${escapeHtml(profile.title)}</small>
           <strong id="avEditorStatus">${escapeHtml(profile.hint)}</strong>
         </div>
+        <div class="av-editor-toolbar-preview">
+          <span>Vista</span>
+          <button type="button" data-editor-action="preview-desktop" id="avEditorPreviewDesktop">PC</button>
+          <button type="button" data-editor-action="preview-mobile" id="avEditorPreviewMobile">Movil</button>
+          <button type="button" data-editor-action="preview-window">Ventana movil</button>
+        </div>
         <div class="av-editor-toolbar-actions">
           <a href="${escapeHtml(pickerUrl)}" target="_blank" rel="noopener noreferrer">Plantillas</a>
           <button type="button" data-editor-action="page">Pagina</button>
@@ -314,6 +500,8 @@
       toasts: shell.querySelector("#avEditorToasts"),
       importFile: shell.querySelector("#avEditorImportFile"),
       toolbar: shell.querySelector(".av-editor-toolbar"),
+      previewDesktopButton: shell.querySelector("#avEditorPreviewDesktop"),
+      previewMobileButton: shell.querySelector("#avEditorPreviewMobile"),
       undoButton: shell.querySelector("#avEditorUndo"),
       redoButton: shell.querySelector("#avEditorRedo"),
       sheet: shell.querySelector("#avEditorSheet"),
@@ -385,6 +573,24 @@
     if (name === "page") {
       event.preventDefault();
       renderPageSheet();
+      return;
+    }
+
+    if (name === "preview-desktop") {
+      event.preventDefault();
+      setPreviewMode("desktop");
+      return;
+    }
+
+    if (name === "preview-mobile") {
+      event.preventDefault();
+      setPreviewMode("mobile");
+      return;
+    }
+
+    if (name === "preview-window") {
+      event.preventDefault();
+      openMobilePreviewWindow();
       return;
     }
 
@@ -871,6 +1077,33 @@
     if (runtime.ui.redoButton) {
       runtime.ui.redoButton.disabled = !runtime.history.future.length;
     }
+    if (runtime.ui.previewDesktopButton) {
+      runtime.ui.previewDesktopButton.dataset.active = runtime.previewMode === "desktop" ? "true" : "false";
+    }
+    if (runtime.ui.previewMobileButton) {
+      runtime.ui.previewMobileButton.dataset.active = runtime.previewMode === "mobile" ? "true" : "false";
+    }
+  }
+
+  function setPreviewMode(mode) {
+    runtime.previewMode = mode === "mobile" ? "mobile" : "desktop";
+    applyPreviewMode();
+    updateToolbarState();
+    showToast(
+      runtime.previewMode === "mobile"
+        ? "Vista movil activada dentro del editor."
+        : "Vista de escritorio restaurada.",
+      "info"
+    );
+  }
+
+  function applyPreviewMode() {
+    document.documentElement.dataset.avEditorViewport = runtime.previewMode;
+  }
+
+  function openMobilePreviewWindow() {
+    window.open(publicUrl, "_blank", "noopener,noreferrer,width=430,height=932");
+    setStatus("Se abrio una ventana movil para revisar el sitio.");
   }
 
   function applyState() {
@@ -1459,9 +1692,12 @@
       .av-editor-toolbar-copy{display:grid;gap:4px;min-width:0;}
       .av-editor-toolbar-copy small{margin:0;color:rgba(255,255,255,.58);font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
       .av-editor-toolbar-copy strong{color:#fff;font-size:.96rem;line-height:1.35;}
+      .av-editor-toolbar-preview{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+      .av-editor-toolbar-preview span{color:rgba(255,255,255,.6);font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
       .av-editor-toolbar-actions{display:flex;gap:8px;overflow:auto;padding-bottom:2px;}
       .av-editor-toolbar-actions::-webkit-scrollbar{height:0;}
       .av-editor-toolbar-actions a,.av-editor-toolbar-actions button,.av-editor-sheet-head button,.av-editor-sheet-foot button,.av-editor-modal-actions button{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:0 13px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;text-decoration:none;font:600 .82rem/1 inherit;cursor:pointer;white-space:nowrap;}
+      .av-editor-toolbar-preview button[data-active="true"]{background:linear-gradient(135deg,rgba(116,240,209,.24),rgba(123,176,255,.22));border-color:rgba(123,176,255,.36);}
       .av-editor-toolbar-actions button:disabled{opacity:.42;cursor:not-allowed;}
       .av-editor-toast-stack{position:fixed;top:112px;right:14px;width:min(360px,calc(100vw - 28px));display:grid;gap:10px;}
       .av-editor-toast{padding:12px 14px;border-radius:16px;border:1px solid rgba(255,255,255,.12);color:#fff;font-size:.84rem;line-height:1.4;background:rgba(15,15,15,.95);box-shadow:0 20px 40px rgba(0,0,0,.24);transition:opacity .2s ease,transform .2s ease;}
@@ -1494,6 +1730,12 @@
       .av-editor-modal-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.54);}
       .av-editor-modal-card{position:absolute;left:50%;top:50%;width:min(420px,calc(100vw - 28px));padding:18px;border-radius:22px;background:rgba(16,16,16,.98);border:1px solid rgba(255,255,255,.12);box-shadow:0 28px 60px rgba(0,0,0,.34);transform:translate(-50%,-50%);}
       .av-editor-modal-actions,.av-editor-sheet-foot-actions{display:flex;gap:8px;flex-wrap:wrap;}
+      html[data-av-editor-viewport="mobile"] body.av-editor-on{width:min(430px,calc(100vw - 24px));margin:96px auto 56px!important;border-radius:28px;overflow-x:hidden;box-shadow:0 32px 90px rgba(2,8,23,.42);background:inherit;}
+      html[data-av-editor-viewport="mobile"]{background:
+        radial-gradient(circle at top left, rgba(116,240,209,.14), transparent 32%),
+        radial-gradient(circle at top right, rgba(123,176,255,.18), transparent 36%),
+        #050914;}
+      html[data-av-editor-viewport="mobile"] body > :not(.av-editor-shell):not(script):not(style){max-width:100%!important;}
       @media (max-width: 760px){
         .av-editor-toolbar{top:10px;left:10px;right:10px;padding:12px;border-radius:18px;}
         .av-editor-toast-stack{top:104px;right:10px;width:calc(100vw - 20px);}

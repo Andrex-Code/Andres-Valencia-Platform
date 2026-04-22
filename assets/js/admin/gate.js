@@ -199,6 +199,20 @@
     if (form) form.hidden = true;
     if (continueButton) continueButton.hidden = false;
     if (logoutButton) logoutButton.hidden = false;
+
+    if (typeof config.onAuthorized === "function") {
+      if (continueButton) continueButton.hidden = true;
+      await config.onAuthorized({
+        config,
+        state,
+        user,
+        logout: () => global.AVAuth.logout(),
+        redirectToEditor: () => redirectToEditor(state.next),
+        setStatus,
+      });
+      return;
+    }
+
     setStatus({
       tone: "success",
       text: `Sesion lista para ${user?.email || "tu cuenta admin"}. Puedes entrar al editor.`,
@@ -221,6 +235,7 @@
         options.panelText || "Usa tu cuenta admin asignada en Supabase para entrar al editor de este sitio.",
       homeUrl: options.homeUrl || "/",
       targetUrl: options.targetUrl || "/",
+      onAuthorized: typeof options.onAuthorized === "function" ? options.onAuthorized : null,
     };
     const state = resolveState(config);
 

@@ -1,0 +1,1002 @@
+AV STUDIO
+GUIA MAESTRA PARA CONSTRUIR EL EDITOR UNIVERSAL DEL PORTAFOLIO Y DE CLIENTES
+
+====================================================================
+1. PROPOSITO DEL DOCUMENTO
+====================================================================
+
+Este archivo define de manera clara, detallada y estable lo que debe
+ser el editor universal del sistema.
+
+Su objetivo es:
+
+- evitar perder direccion durante la construccion
+- alinear decisiones tecnicas y de producto
+- mantener una sola vision para plantillas, implementaciones y sitios reales
+- asegurar que el sistema se construya como producto vendible, no solo como demo
+- servir como fuente de verdad para futuras iteraciones
+
+Este documento describe:
+
+- la vision del producto
+- el alcance del sistema
+- la experiencia esperada para clientes y administradores
+- la arquitectura funcional
+- los modulos del editor
+- el modelo de datos base
+- las fases de construccion
+- criterios de calidad
+- principios para no desviar el proyecto
+
+
+====================================================================
+2. VISION DEL PRODUCTO
+====================================================================
+
+El sistema no debe ser solo un editor visual.
+
+Debe convertirse en un panel profesional para administrar sitios web
+comerciales, contenido, colecciones, inventario, proyectos, servicios
+e implementaciones reales, de forma simple para clientes y completa
+para administradores.
+
+Nombre conceptual del producto:
+
+AV Studio
+
+Definicion corta:
+
+AV Studio es un sistema de administracion visual para editar y mantener
+paginas web comerciales sin tocar codigo, con soporte para sitios,
+colecciones, inventario, proyectos, contenido y publicacion.
+
+Promesa comercial:
+
+- el cliente puede actualizar su sitio sin depender de un programador
+- el negocio puede gestionar contenido real desde celular o PC
+- el sistema se ve profesional y transmite confianza
+- el mismo editor sirve para muchas industrias
+- el sistema crece con cada nuevo cliente sin rehacerse desde cero
+
+
+====================================================================
+3. OBJETIVO PRINCIPAL
+====================================================================
+
+Construir un solo editor universal que sirva para:
+
+- el portafolio principal
+- plantillas
+- implementaciones reales
+- sitios de clientes
+- paginas simples
+- paginas con listados dinamicos
+- paginas con inventario
+- paginas con proyectos
+- paginas con servicios
+- paginas con galerias
+
+El sistema debe permitir editar tanto contenido fijo como contenido
+repetible.
+
+Contenido fijo:
+
+- titulos
+- subtitulos
+- parrafos
+- botones
+- enlaces
+- imagenes
+- etiquetas
+- banners
+- bloques individuales
+
+Contenido repetible:
+
+- proyectos
+- productos
+- servicios
+- testimonios
+- FAQs
+- galerias
+- clientes
+- equipo
+- horarios
+- combos
+- categorias
+- casos de exito
+
+
+====================================================================
+4. PRINCIPIOS DEL SISTEMA
+====================================================================
+
+4.1 Un solo editor
+
+Debe existir un solo motor de edicion.
+No se deben seguir creando editores diferentes por cada pagina.
+
+4.2 Una sola logica de acceso
+
+La autenticacion y permisos deben seguir un esquema unico:
+
+- login con Supabase
+- permisos por sitio
+- posibilidad de super admin
+- acceso por /admin en implementaciones reales
+
+4.3 Una sola forma de guardar
+
+Todo cambio persistente debe tender a un mismo modelo:
+
+- contenido por sitio
+- contenido por pagina
+- contenido por coleccion
+- contenido por item
+
+4.4 Experiencia simple para cliente
+
+El sistema debe estar pensado para una persona no tecnica.
+
+4.5 Experiencia completa para administrador
+
+En PC debe existir una capa mas potente para gestion profesional.
+
+4.6 Modo movil real
+
+El editor debe tener vista movil propia.
+No debe depender de herramientas del navegador.
+
+4.7 El sistema debe vender
+
+No basta con que funcione.
+Debe verse serio, confiable, premium y facil de usar.
+
+
+====================================================================
+5. TIPOS DE USUARIO
+====================================================================
+
+5.1 Owner
+
+Permisos:
+
+- administrar todo
+- editar cualquier sitio
+- editar estructura
+- editar colecciones
+- publicar
+- gestionar usuarios
+- gestionar medios
+
+5.2 Editor
+
+Permisos:
+
+- editar contenido
+- editar imagenes
+- editar colecciones asignadas
+- guardar borradores
+- publicar si se habilita ese permiso
+
+5.3 Viewer
+
+Permisos:
+
+- solo ver
+- revisar contenido
+- no publicar
+- no editar
+
+Nota:
+
+En el futuro se puede agregar rol cliente con restricciones, pero al
+inicio basta con owner, editor y viewer.
+
+
+====================================================================
+6. MODOS DE USO
+====================================================================
+
+6.1 Modo Cliente
+
+Objetivo:
+
+Permitir que un cliente haga cambios sin confundirse.
+
+Debe priorizar:
+
+- simplicidad
+- botones claros
+- lenguaje no tecnico
+- cambios guiados
+- pocas decisiones por pantalla
+
+Debe permitir:
+
+- editar textos
+- cambiar imagenes
+- cambiar enlaces
+- agregar o quitar items simples
+- cambiar orden basico
+- activar o desactivar elementos
+- ver como queda en movil o PC
+
+No debe exponer:
+
+- conceptos tecnicos innecesarios
+- configuraciones avanzadas
+- estructura interna del DOM
+- opciones complejas sin contexto
+
+6.2 Modo Profesional
+
+Objetivo:
+
+Dar control completo al administrador.
+
+Debe permitir:
+
+- editar estructura de pagina
+- reordenar modulos
+- configurar colecciones
+- editar campos avanzados
+- controlar estados
+- manejar SEO
+- manejar metadata
+- configurar visibilidad
+- controlar publicacion
+
+6.3 Modo Vista
+
+Objetivo:
+
+Revisar resultado antes de publicar.
+
+Debe incluir:
+
+- vista desktop
+- vista tablet si es viable
+- vista movil
+- opcion de navegar la pagina en esas vistas
+
+
+====================================================================
+7. EXPERIENCIA POR DISPOSITIVO
+====================================================================
+
+7.1 En PC
+
+Debe ser la experiencia recomendada.
+
+Ventajas:
+
+- mas espacio
+- paneles laterales o superiores
+- manejo mas completo de colecciones
+- reordenado por drag and drop
+- mas visibilidad de contexto
+
+Debe incluir:
+
+- panel principal
+- area de vista previa
+- barra de herramientas
+- inspector de bloque
+- historial
+- editor de colecciones
+- biblioteca de medios
+
+7.2 En movil
+
+Debe ser funcional, pero mas simple.
+
+Uso esperado:
+
+- cambios rapidos
+- revisar contenido
+- corregir textos
+- actualizar imagenes
+- activar o desactivar items
+- ver como quedo la pagina
+
+Debe incluir:
+
+- interfaz de panel inferior o pantalla completa
+- botones grandes
+- menos densidad de controles
+- reordenado con subir y bajar
+- flujo guiado
+
+7.3 Conmutador de vista
+
+Debe haber un conmutador visible para:
+
+- PC
+- tablet si aplica
+- movil
+
+Este conmutador debe vivir dentro del editor.
+No debe depender de consola ni de herramientas del navegador.
+
+
+====================================================================
+8. SUPERFICIES DEL SISTEMA
+====================================================================
+
+8.1 Dashboard principal
+
+Debe mostrar:
+
+- sitios
+- implementaciones
+- plantillas
+- borradores
+- contenidos publicados
+- ultimos cambios
+- accesos rapidos
+
+8.2 Gestor de sitios
+
+Debe permitir:
+
+- ver todos los sitios
+- ver estado de cada uno
+- abrir editor
+- abrir admin
+- ver ultima actualizacion
+- diferenciar plantilla de implementacion
+
+8.3 Editor visual de pagina
+
+Debe permitir:
+
+- hacer click en bloques editables
+- abrir panel contextual
+- editar rapidamente
+- guardar
+- deshacer
+- rehacer
+
+8.4 Gestor de colecciones
+
+Debe permitir:
+
+- crear coleccion
+- listar items
+- editar items
+- duplicar items
+- ocultar items
+- archivar items
+- reordenar items
+
+8.5 Biblioteca de medios
+
+Debe permitir:
+
+- subir imagenes
+- reemplazar imagenes
+- ver donde se usan
+- organizar por sitio
+- reutilizar medios
+
+8.6 Centro de publicacion
+
+Debe permitir:
+
+- guardar borrador
+- publicar cambios
+- revisar antes de publicar
+- revertir si aplica
+
+
+====================================================================
+9. MODELO CONCEPTUAL DEL CONTENIDO
+====================================================================
+
+El sistema debe trabajar con cuatro niveles:
+
+9.1 Sitio
+
+Ejemplos:
+
+- portfolio-home
+- mario-valencia
+- panaderia-la-chiquita
+
+9.2 Pagina
+
+Ejemplos:
+
+- home
+- servicios
+- contacto
+- menu
+- proyectos
+
+9.3 Modulo
+
+Ejemplos:
+
+- hero
+- testimonios
+- CTA
+- lista de servicios
+- galeria
+- FAQ
+
+9.4 Coleccion
+
+Ejemplos:
+
+- products
+- projects
+- services
+- testimonials
+- faq
+- gallery
+
+
+====================================================================
+10. MODULOS QUE EL EDITOR DEBE SOPORTAR
+====================================================================
+
+Modulos base:
+
+- hero
+- encabezado simple
+- texto enriquecido
+- CTA
+- lista de servicios
+- lista de caracteristicas
+- estadisticas
+- testimonios
+- FAQ
+- galeria
+- equipo
+- logos de clientes
+- contacto
+- formulario
+- banner promocional
+- timeline
+- lista de proyectos
+- lista de productos
+- tarjetas de coleccion
+
+Cada modulo debe tener:
+
+- visibilidad
+- orden
+- contenido editable
+- estilos basicos configurables
+- opcion de ocultar
+
+
+====================================================================
+11. COLECCIONES GENERICAS
+====================================================================
+
+Colecciones iniciales recomendadas:
+
+- projects
+- products
+- services
+- testimonials
+- faq
+- gallery
+- team
+- clients
+- stats
+- links
+
+Campos frecuentes por item:
+
+- id
+- title
+- subtitle
+- description
+- image
+- status
+- order
+- tags
+- category
+- cta_label
+- cta_url
+- featured
+- visible
+
+Campos especiales por tipo:
+
+Projects:
+
+- client
+- location
+- year
+- project_type
+- progress_state
+
+Products:
+
+- price
+- stock
+- sku
+- category
+- availability
+
+Services:
+
+- icon
+- summary
+- benefit
+
+Testimonials:
+
+- author
+- role
+- company
+- rating
+
+
+====================================================================
+12. CASOS DE USO POR INDUSTRIA
+====================================================================
+
+12.1 Ingeniero Mario
+
+Debe poder manejar:
+
+- proyectos
+- servicios
+- especialidades
+- preguntas frecuentes
+- datos de contacto
+- fotos de proyectos
+- orden de casos destacados
+
+12.2 Panaderia o restaurante
+
+Debe poder manejar:
+
+- productos
+- categorias
+- disponibilidad
+- precios
+- promociones
+- horarios
+- combos
+- preguntas frecuentes
+
+12.3 Psicologia o salud
+
+Debe poder manejar:
+
+- servicios
+- perfiles
+- horarios
+- testimonios
+- modalidades de atencion
+- llamadas a accion
+
+12.4 Portafolio principal
+
+Debe poder manejar:
+
+- orden de plantillas
+- orden de implementaciones
+- estado de implementaciones
+- visibilidad
+- copy comercial
+- portadas
+- enlaces
+
+
+====================================================================
+13. ESTADOS DEL SISTEMA
+====================================================================
+
+13.1 Para sitios
+
+- draft
+- ready
+- published
+- paused
+- archived
+
+13.2 Para items de coleccion
+
+- draft
+- active
+- hidden
+- archived
+
+13.3 Para proyectos del ingeniero
+
+- en estudio
+- en ejecucion
+- finalizado
+- destacado
+
+13.4 Para inventario
+
+- disponible
+- bajo stock
+- agotado
+- descontinuado
+
+
+====================================================================
+14. FUNCIONES MINIMAS QUE EL EDITOR DEBE TENER
+====================================================================
+
+Base obligatoria:
+
+- seleccionar bloque
+- editar texto
+- editar boton
+- cambiar enlace
+- cambiar imagen
+- cambiar orden
+- ocultar bloque
+- mostrar bloque
+- guardar cambios
+- deshacer
+- rehacer
+- reset de pagina o bloque
+- vista movil
+- vista PC
+
+Necesarias para comercializar:
+
+- autosave
+- indicador de cambios sin guardar
+- historial
+- mensajes de exito y error claros
+- confirmaciones antes de acciones destructivas
+
+
+====================================================================
+15. FUNCIONES AVANZADAS RECOMENDADAS
+====================================================================
+
+No todas deben existir desde fase 1, pero deben quedar contempladas:
+
+- duplicar modulo
+- duplicar item
+- clonar pagina
+- crear nueva seccion desde presets
+- plantillas de bloques
+- importacion y exportacion de contenido
+- editor de SEO
+- scheduler de publicacion
+- biblioteca de medios central
+- auditoria de cambios
+- comentarios internos
+- restaurar version anterior
+
+
+====================================================================
+16. FLUJO IDEAL PARA CLIENTE NO TECNICO
+====================================================================
+
+Flujo simple:
+
+1. entra a /admin
+2. inicia sesion
+3. ve su sitio
+4. elige que quiere editar
+5. cambia contenido
+6. revisa en PC y movil
+7. guarda
+8. publica
+
+El sistema debe guiarlo con acciones claras como:
+
+- Editar portada
+- Cambiar imagen principal
+- Agregar proyecto
+- Subir producto
+- Actualizar contacto
+- Revisar vista movil
+- Publicar cambios
+
+No con lenguaje como:
+
+- editar selector
+- cambiar nodo
+- editar HTML
+- modificar DOM
+
+
+====================================================================
+17. FLUJO IDEAL PARA ADMINISTRADOR
+====================================================================
+
+Flujo profesional:
+
+1. entra al dashboard
+2. elige sitio
+3. entra al editor visual o gestor de colecciones
+4. reorganiza bloques o items
+5. edita contenido avanzado
+6. revisa responsive
+7. guarda
+8. publica
+
+
+====================================================================
+18. GUARDADO Y PERSISTENCIA
+====================================================================
+
+El sistema debe avanzar hacia un modelo central con Supabase.
+
+Se debe guardar como minimo:
+
+- sitio
+- pagina
+- modulo
+- campo
+- valor
+- timestamp
+- usuario que actualizo
+
+El guardado local puede existir como apoyo temporal, pero no debe ser
+el destino final del sistema.
+
+Preferencia:
+
+- Supabase como backend real
+- cache local para experiencia rapida
+- sincronizacion clara
+
+
+====================================================================
+19. PERMISOS Y SEGURIDAD
+====================================================================
+
+Debe mantenerse:
+
+- login con Supabase
+- permisos por site_id
+- posibilidad de super admin
+- rutas /admin protegidas
+
+Se debe evitar:
+
+- exponer herramientas de edicion al visitante publico
+- depender solo de localStorage como seguridad
+- mezclar permisos entre sitios
+
+
+====================================================================
+20. PUBLICACION
+====================================================================
+
+El sistema debe diferenciar entre:
+
+- guardar borrador
+- publicar
+- despublicar si aplica
+
+Idealmente:
+
+- un cliente puede guardar sin publicar
+- un owner puede revisar y publicar
+
+
+====================================================================
+21. HISTORIAL Y SEGURIDAD DE CAMBIO
+====================================================================
+
+Debe existir como minimo:
+
+- deshacer
+- rehacer
+- ultima fecha de cambio
+- usuario que edito
+
+Deseable en siguientes fases:
+
+- versiones
+- restaurar version
+- comparar cambios
+
+
+====================================================================
+22. DISEÑO Y POSICIONAMIENTO DEL PRODUCTO
+====================================================================
+
+El sistema debe sentirse:
+
+- premium
+- tecnico
+- claro
+- confiable
+- facil
+
+No debe verse:
+
+- improvisado
+- experimental
+- recargado
+- infantil
+- genrico
+
+El diseño del admin debe vender el sistema por si solo.
+
+Debe permitir que cuando un cliente lo vea piense:
+
+"esto es serio"
+"puedo usarlo"
+"no dependo de nadie para cambios simples"
+
+
+====================================================================
+23. FASES DE CONSTRUCCION
+====================================================================
+
+FASE 1
+NUCLEO DEL EDITOR
+
+Objetivo:
+
+Consolidar un solo editor universal funcional.
+
+Incluye:
+
+- seleccion de bloque
+- edicion de texto
+- edicion de links
+- cambio de imagen
+- panel contextual
+- guardado local o temporal
+- deshacer y rehacer
+
+FASE 2
+VISTA RESPONSIVE INTERNA
+
+Objetivo:
+
+Agregar selector de vista PC y movil dentro del editor.
+
+Incluye:
+
+- conmutador de dispositivo
+- preview desktop
+- preview movil
+- ajuste del editor al modo visual
+
+FASE 3
+COLECCIONES
+
+Objetivo:
+
+Permitir manejar contenido repetible.
+
+Incluye:
+
+- proyectos
+- productos
+- servicios
+- FAQ
+- testimonios
+- galeria
+- reordenado
+- estados
+
+FASE 4
+ADMIN CENTRAL Y SUPABASE
+
+Objetivo:
+
+Hacer persistencia real y permisos estables.
+
+Incluye:
+
+- login
+- roles
+- permisos por sitio
+- guardado real
+- sincronizacion
+- dashboard de sitios
+
+FASE 5
+PULIDO COMERCIAL
+
+Objetivo:
+
+Convertir el sistema en un producto vendible.
+
+Incluye:
+
+- experiencia simplificada para cliente
+- autosave
+- historial
+- mejoras visuales
+- textos del sistema
+- onboarding
+
+
+====================================================================
+24. ORDEN REAL DE IMPLEMENTACION
+====================================================================
+
+Orden recomendado:
+
+1. reforzar el editor universal actual
+2. hacer el modo PC / movil
+3. construir colecciones
+4. conectar guardado real
+5. construir dashboard de administracion
+6. pulir experiencia de cliente
+
+
+====================================================================
+25. CRITERIOS DE CALIDAD
+====================================================================
+
+El sistema solo se considera correcto si:
+
+- una plantilla se puede editar sin tocar codigo
+- una implementacion se puede editar por /admin
+- el login funciona con Supabase
+- el cliente puede ver modo movil y modo PC
+- se pueden manejar colecciones reales
+- el sistema no depende de consola del navegador
+- funciona en movil y PC
+- es claro para usuarios no tecnicos
+- no existen editores separados por pagina
+
+
+====================================================================
+26. ERRORES QUE NO DEBEN REPETIRSE
+====================================================================
+
+- crear paneles paralelos que duplican funciones
+- mezclar varios editores con logicas distintas
+- agregar accesos rotos
+- editar catalogos sin sincronizar fallbacks
+- hacer funciones solo para una plantilla
+- pensar el sistema como demo y no como producto
+- depender de hacks manuales del navegador
+
+
+====================================================================
+27. REGLA DE ORO
+====================================================================
+
+Cada nueva funcion debe responder esta pregunta:
+
+"esto fortalece el editor universal o crea otra excepcion?"
+
+Si crea otra excepcion, no se debe implementar asi.
+
+
+====================================================================
+28. DEFINICION FINAL DEL PRODUCTO
+====================================================================
+
+AV Studio debe terminar siendo:
+
+un sistema profesional, visual y vendible para administrar sitios web
+comerciales, plantillas e implementaciones reales, con soporte para
+contenido, colecciones, inventario, proyectos, responsive preview,
+publicacion y permisos por usuario.
+
+No se construira como un conjunto de parches.
+Se construira como una plataforma.
+
+
+====================================================================
+29. SIGUIENTE PASO OPERATIVO
+====================================================================
+
+Tomar esta guia como referencia principal.
+
+Cada fase de construccion debe:
+
+- derivarse de este documento
+- respetar la arquitectura de editor unico
+- evitar duplicacion de logica
+- dejar base para la siguiente fase
+
+Fin del documento.

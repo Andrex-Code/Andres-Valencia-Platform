@@ -1,6 +1,6 @@
 # Andres Valencia Web Portfolio
 
-Portafolio comercial con demos por industria, editor visual inline y un sistema local para administrar negocios sin depender de instalaciones complejas.
+Portafolio comercial con demos por industria, un solo editor universal y AV Studio como entrada protegida para administrar home, plantillas e implementaciones.
 
 ## Que carpeta usamos de verdad
 - `av-system/`: sistema activo para trabajar localmente.
@@ -68,13 +68,21 @@ Con eso los `.cmd` siguen funcionando igual.
 
 ## Mapa rapido
 - `assets/`: estilos y scripts del sitio principal.
+- `assets/js/universal-template-editor.js`: motor unico del editor.
+- `assets/js/admin/`: login Supabase, gate y shell de AV Studio.
 - `catalog/`: inventario y copy comercial.
 - `templates/`: demos publicas por vertical.
-- `admin/`: puerta de acceso protegida por Supabase para el portafolio principal.
+- `admin/`: acceso protegido y dashboard principal de AV Studio.
 - `av-system/`: panel local y paginas por negocio.
 - `scripts/`: automatizaciones para arrancar, exportar y actualizar.
 - `tools/`: utilidades portables no versionadas.
 - `PROJECT_KNOWLEDGE.md`: contexto del proyecto.
+
+## Regla del editor
+- Solo existe un editor canonico: `assets/js/universal-template-editor.js`.
+- Las plantillas muestran un boton `Editar` en la esquina inferior derecha.
+- Las implementaciones se abren desde `/<dominio>/admin`.
+- El home principal se administra desde `/admin`.
 
 ## Documentos clave
 - `PROJECT_KNOWLEDGE.md`
