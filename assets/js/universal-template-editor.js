@@ -994,37 +994,44 @@
       });
     }
 
-    mediaFields.push({
-      key: "backgroundImage",
-      label: "Imagen de fondo",
-      type: "text",
-      value: parseBackgroundImage(element.style.backgroundImage || computed.backgroundImage),
-      placeholder: "https://... o linear-gradient(...)",
-    });
+    const isInlineElement = new Set(["strong","b","em","i","u","s","span","small","sub","sup","mark","abbr","cite","code","kbd"]).has(tag);
 
-    appearanceFields.push(
-      {
-        key: "backgroundColor",
-        label: "Color de fondo",
+    if (!isInlineElement) {
+      mediaFields.push({
+        key: "backgroundImage",
+        label: "Imagen de fondo",
         type: "text",
-        value: normalizeCssValue(element.style.backgroundColor || computed.backgroundColor),
-        placeholder: "#111111 o rgba(...)",
-      },
-      {
-        key: "color",
-        label: "Color del texto",
-        type: "text",
-        value: normalizeCssValue(element.style.color || computed.color),
-        placeholder: "#ffffff o rgb(...)",
-      },
-      {
-        key: "borderRadius",
-        label: "Borde redondeado",
-        type: "text",
-        value: element.style.borderRadius || computed.borderRadius || "",
-        placeholder: "18px",
-      }
-    );
+        value: parseBackgroundImage(element.style.backgroundImage || computed.backgroundImage),
+        placeholder: "URL de imagen o degradado CSS",
+      });
+    }
+
+    if (!isInlineElement) {
+      appearanceFields.push(
+        {
+          key: "backgroundColor",
+          label: "Color de fondo",
+          type: "text",
+          value: normalizeCssValue(element.style.backgroundColor || computed.backgroundColor),
+          placeholder: "ej. #f5f5f5",
+        },
+        {
+          key: "borderRadius",
+          label: "Borde redondeado",
+          type: "text",
+          value: element.style.borderRadius || computed.borderRadius || "",
+          placeholder: "ej. 18px",
+        }
+      );
+    }
+
+    appearanceFields.push({
+      key: "color",
+      label: "Color del texto",
+      type: "text",
+      value: normalizeCssValue(element.style.color || computed.color),
+      placeholder: "ej. #ffffff",
+    });
 
     if (isTextElement && tag !== "img") {
       appearanceFields.push({
@@ -1032,7 +1039,7 @@
         label: "Tamano de texto",
         type: "text",
         value: element.style.fontSize || computed.fontSize || "",
-        placeholder: "clamp(2rem, 4vw, 4rem)",
+        placeholder: "ej. 18px",
       });
     }
 
@@ -1698,13 +1705,20 @@
 
     const tag = element.tagName.toLowerCase();
     if (tag === "h1") return "Titular principal";
-    if (tag === "h2" || tag === "h3" || tag === "h4" || tag === "h5" || tag === "h6") return "Titular";
-    if (tag === "p" || tag === "blockquote" || tag === "li") return "Texto";
-    if (tag === "a") return "Boton o enlace";
+    if (tag === "h2") return "Subtitular";
+    if (tag === "h3" || tag === "h4" || tag === "h5" || tag === "h6") return "Titular";
+    if (tag === "p" || tag === "blockquote") return "Parrafo";
+    if (tag === "li") return "Elemento de lista";
+    if (tag === "a") return "Enlace o boton";
     if (tag === "button") return "Boton";
     if (tag === "img") return "Imagen";
+    if (tag === "strong" || tag === "b") return "Texto en negrita";
+    if (tag === "em" || tag === "i") return "Texto en cursiva";
+    if (tag === "span") return element.textContent?.trim() ? "Texto" : "Decoracion";
+    if (tag === "label") return "Etiqueta de campo";
+    if (tag === "small" || tag === "sub" || tag === "sup") return "Texto pequeno";
     if (tag === "input" || tag === "textarea" || tag === "select") return "Campo de formulario";
-    if (tag === "section" || tag === "article" || tag === "header" || tag === "main") {
+    if (tag === "section" || tag === "article" || tag === "header" || tag === "main" || tag === "div") {
       return `Bloque ${humanizeToken(element.id || element.classList[0] || "principal")}`;
     }
 
@@ -1728,21 +1742,41 @@
     return humanizeToken(bemSuffix || tag);
   }
 
+  const sectionNameMap = {
+    brand: "cabecera del negocio", logo: "logo", hero: "seccion principal",
+    header: "encabezado", nav: "navegacion", navbar: "navegacion",
+    footer: "pie de pagina", about: "quienes somos", story: "historia",
+    services: "servicios", service: "servicio", menu: "menu",
+    gallery: "galeria", portfolio: "portafolio", work: "trabajos",
+    contact: "contacto", cta: "llamado a accion",
+    products: "productos", product: "producto",
+    testimonials: "testimonios", reviews: "resenas", team: "equipo",
+    pricing: "precios", price: "precio", features: "caracteristicas",
+    awards: "premios", stats: "estadisticas", social: "redes sociales",
+    reservation: "reservaciones", booking: "reservaciones",
+    hours: "horarios", schedule: "horario",
+  };
+
+  function friendlySectionName(raw) {
+    const key = String(raw || "").toLowerCase().replace(/[-_\s]/g, "");
+    return sectionNameMap[key] || humanizeToken(raw);
+  }
+
   function getSelectionContext(element) {
     const sectionOwner = element.closest("[data-editor-section], section[id], header[id], main, section, article");
     if (!sectionOwner || sectionOwner === element) {
-      return "Cambia contenido y apariencia sobre la pagina real.";
+      return "Cambia el contenido y apariencia sobre la pagina real.";
     }
 
     if (sectionOwner.getAttribute("data-editor-section")) {
-      return `Dentro de ${humanizeToken(sectionOwner.getAttribute("data-editor-section"))}`;
+      return `En la seccion de ${friendlySectionName(sectionOwner.getAttribute("data-editor-section"))}`;
     }
 
     if (sectionOwner.id) {
-      return `Dentro de ${humanizeToken(sectionOwner.id)}`;
+      return `En la seccion de ${friendlySectionName(sectionOwner.id)}`;
     }
 
-    return `Dentro de ${humanizeToken(sectionOwner.classList[0] || sectionOwner.tagName.toLowerCase())}`;
+    return `En la seccion de ${friendlySectionName(sectionOwner.classList[0] || sectionOwner.tagName.toLowerCase())}`;
   }
 
   function describeElement(element) {
@@ -1861,8 +1895,13 @@
         #050914;}
       html[data-av-editor-viewport="mobile"] body > :not(.av-editor-shell):not(script):not(style){max-width:100%!important;}
       @media (max-width: 760px){
-        .av-editor-toolbar{top:10px;left:10px;right:10px;padding:12px;border-radius:18px;}
-        .av-editor-toast-stack{top:104px;right:10px;width:calc(100vw - 20px);}
+        .av-editor-toolbar{top:10px;left:10px;right:10px;padding:10px 12px;border-radius:18px;display:flex;align-items:center;gap:8px;}
+        .av-editor-toolbar-copy{flex:1;min-width:0;}
+        .av-editor-toolbar-copy small{display:none;}
+        .av-editor-toolbar-copy strong{font-size:.84rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+        .av-editor-toolbar-mode,.av-editor-toolbar-preview{display:none!important;}
+        .av-editor-toolbar-actions{flex-shrink:0;display:flex;gap:6px;}
+        .av-editor-toast-stack{top:80px;right:10px;width:calc(100vw - 20px);}
         .av-editor-sheet{left:8px;right:8px;bottom:8px;}
         .av-editor-sheet-panel{width:100%;max-height:62vh;border-radius:22px;}
         .av-editor-sheet-head,.av-editor-sheet-foot,.av-editor-sheet-body{padding-left:14px;padding-right:14px;}
