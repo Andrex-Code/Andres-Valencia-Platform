@@ -40,106 +40,135 @@
     return { next, reason };
   }
 
-  function configDefaultMessage() {
-    return "Acceso privado para administradores del sitio. La sesion se valida con Supabase.";
-  }
-
   function messageForReason(reason) {
     switch (reason) {
       case "signin":
         return {
           tone: "info",
-          text: "Inicia sesion con tu cuenta admin para abrir el editor de esta pagina.",
+          text: "Ingresa tu correo y contrasena para abrir el editor de tu sitio.",
         };
       case "forbidden":
         return {
           tone: "danger",
-          text: "Tu sesion existe, pero esta cuenta no tiene permisos para este sitio.",
+          text: "Esta cuenta no tiene acceso a este sitio. Prueba con otra cuenta.",
         };
       case "error":
         return {
           tone: "danger",
-          text: "No se pudo validar el acceso desde la pagina. Entra desde aqui para continuar.",
+          text: "Hubo un problema al verificar el acceso. Intenta entrar desde aqui.",
         };
       default:
         return {
           tone: "info",
-          text: configDefaultMessage(),
+          text: "Ingresa tu correo y contrasena para editar el sitio.",
         };
     }
   }
 
+  function iconPencil() {
+    return `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M14.166 2.5a2.357 2.357 0 0 1 3.334 3.333L6.25 17.083l-4.166 1.083 1.083-4.166L14.166 2.5z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`;
+  }
+
+  function iconImage() {
+    return `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="2" y="2" width="16" height="16" rx="3" stroke="currentColor" stroke-width="1.6"/>
+      <circle cx="7" cy="7.5" r="1.5" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M2 13l4-4 3 3 3-3 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`;
+  }
+
+  function iconSave() {
+    return `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M10 2v9m0 0-3-3m3 3 3-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M4 13v3a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>`;
+  }
+
   function render(config, state) {
     document.body.innerHTML = `
-      <main class="av-admin-gate-shell">
-        <section class="av-admin-gate-card">
-          <article class="av-admin-gate-brand">
-            <div class="av-admin-gate-brand-top">
-              <span class="av-admin-gate-kicker">Admin privado</span>
-              <h1>${escapeHtml(config.title)}</h1>
-              <p>${escapeHtml(config.description)}</p>
-            </div>
+      <main class="av-gate-shell">
+        <section class="av-gate-card">
 
-            <div class="av-admin-gate-brand-bottom">
-              <div class="av-admin-gate-points">
-                <div class="av-admin-gate-point">
-                  <strong>Sesion real</strong>
-                  <span>El acceso se valida con Supabase antes de abrir el editor.</span>
-                </div>
-                <div class="av-admin-gate-point">
-                  <strong>Control por sitio</strong>
-                  <span>Solo los usuarios autorizados en este dominio pueden continuar.</span>
-                </div>
-                <div class="av-admin-gate-point">
-                  <strong>Entrada limpia</strong>
-                  <span>El editor se abre despues del login, no sobre una pantalla publica.</span>
-                </div>
-                <div class="av-admin-gate-point">
-                  <strong>Listo en movil</strong>
-                  <span>El acceso cabe bien en pantalla pequena y evita overlays torpes.</span>
-                </div>
+          <article class="av-gate-welcome">
+            <div class="av-gate-welcome-inner">
+              <div class="av-gate-logo">AV</div>
+              <div class="av-gate-headline">
+                <h1>Tu sitio,<br>en tus manos</h1>
+                <p>Desde aqui puedes cambiar textos, imagenes y colores de tu sitio. Sin ayuda tecnica.</p>
+              </div>
+              <ul class="av-gate-steps" role="list">
+                <li class="av-gate-step">
+                  <span class="av-gate-step-icon">${iconPencil()}</span>
+                  <span>Haz clic en cualquier texto para editarlo al instante</span>
+                </li>
+                <li class="av-gate-step">
+                  <span class="av-gate-step-icon">${iconImage()}</span>
+                  <span>Cambia imagenes y colores con un solo clic</span>
+                </li>
+                <li class="av-gate-step">
+                  <span class="av-gate-step-icon">${iconSave()}</span>
+                  <span>Guarda los cambios cuando quieras y son tuyos</span>
+                </li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="av-gate-panel">
+            <div class="av-gate-panel-inner">
+              <header class="av-gate-header">
+                <h2>Bienvenido de nuevo</h2>
+                <p>Escribe tu correo y contrasena para entrar al editor de tu sitio.</p>
+              </header>
+
+              <div class="av-gate-status" id="avAdminGateStatus" role="status" aria-live="polite"></div>
+
+              <form class="av-gate-form" id="avAdminGateForm" autocomplete="on" novalidate>
+                <label class="av-gate-field">
+                  <span class="av-gate-label">Correo electronico</span>
+                  <input
+                    type="email"
+                    name="email"
+                    inputmode="email"
+                    autocomplete="email"
+                    placeholder="tu@correo.com"
+                    required
+                  />
+                </label>
+                <label class="av-gate-field">
+                  <span class="av-gate-label">Contrasena</span>
+                  <input
+                    type="password"
+                    name="password"
+                    autocomplete="current-password"
+                    placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
+                    minlength="6"
+                    required
+                  />
+                </label>
+                <button type="submit" class="av-gate-btn-primary" id="avAdminGateSubmit">
+                  Entrar al editor
+                </button>
+              </form>
+
+              <div class="av-gate-alt-actions">
+                <button type="button" class="av-gate-btn-primary" id="avAdminGateContinue" hidden>
+                  Continuar al editor
+                </button>
+                <button type="button" class="av-gate-btn-secondary" id="avAdminGateLogout" hidden>
+                  Cerrar sesion
+                </button>
+                <a class="av-gate-back" id="avAdminGateBack" href="${escapeHtml(config.homeUrl)}">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M9 11L5 7l4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  Volver al sitio
+                </a>
               </div>
             </div>
           </article>
 
-          <article class="av-admin-gate-panel">
-            <header class="av-admin-gate-header">
-              <small>${escapeHtml(config.eyebrow)}</small>
-              <h2>${escapeHtml(config.panelTitle)}</h2>
-              <p>${escapeHtml(config.panelText)}</p>
-            </header>
-
-            <div class="av-admin-gate-status" id="avAdminGateStatus"></div>
-
-            <form class="av-admin-gate-form" id="avAdminGateForm" autocomplete="on">
-              <label class="av-admin-gate-field">
-                <span>Correo admin</span>
-                <input type="email" name="email" inputmode="email" autocomplete="email" required />
-              </label>
-              <label class="av-admin-gate-field">
-                <span>Contrasena</span>
-                <input type="password" name="password" autocomplete="current-password" minlength="6" required />
-              </label>
-              <button type="submit" class="av-admin-gate-submit" id="avAdminGateSubmit">Entrar al editor</button>
-            </form>
-
-            <div class="av-admin-gate-actions">
-              <button type="button" class="av-admin-gate-secondary" id="avAdminGateContinue" hidden>Continuar al editor</button>
-              <button type="button" class="av-admin-gate-ghost" id="avAdminGateLogout" hidden>Cerrar sesion</button>
-              <a class="av-admin-gate-ghost" id="avAdminGateBack" href="${escapeHtml(config.homeUrl)}">Volver al sitio</a>
-            </div>
-
-            <div class="av-admin-gate-meta">
-              <div class="av-admin-gate-meta-row">
-                <span>Sitio</span>
-                <strong>${escapeHtml(config.siteLabel)}</strong>
-              </div>
-              <div class="av-admin-gate-meta-row">
-                <span>Site ID</span>
-                <strong>${escapeHtml(config.siteId)}</strong>
-              </div>
-            </div>
-          </article>
         </section>
       </main>
     `;
@@ -152,19 +181,20 @@
     if (!box) return;
     box.dataset.tone = status.tone || "info";
     box.textContent = status.text;
+    box.hidden = !status.text;
   }
 
   function setBusy(isBusy) {
     const submit = $("#avAdminGateSubmit");
     if (!submit) return;
     submit.disabled = isBusy;
-    submit.textContent = isBusy ? "Validando..." : "Entrar al editor";
+    submit.textContent = isBusy ? "Verificando..." : "Entrar al editor";
   }
 
   async function redirectToEditor(nextUrl) {
     setStatus({
       tone: "success",
-      text: "Sesion validada. Abriendo el editor...",
+      text: "Todo listo. Abriendo tu editor...",
     });
     window.location.replace(nextUrl.toString());
   }
@@ -191,7 +221,7 @@
       if (logoutButton) logoutButton.hidden = false;
       setStatus({
         tone: "danger",
-        text: `La cuenta ${user?.email || ""} no administra este sitio.`,
+        text: `La cuenta ${user?.email || ""} no tiene acceso a este sitio.`,
       });
       return;
     }
@@ -215,7 +245,7 @@
 
     setStatus({
       tone: "success",
-      text: `Sesion lista para ${user?.email || "tu cuenta admin"}. Puedes entrar al editor.`,
+      text: `Sesion lista para ${user?.email || "tu cuenta"}. Entrando al editor...`,
     });
     setTimeout(() => {
       redirectToEditor(state.next);
@@ -226,13 +256,8 @@
     const config = {
       siteId: options.siteId,
       siteLabel: options.siteLabel || options.siteId,
-      title: options.title || "Admin seguro para editar tu pagina",
-      description:
-        options.description || "Acceso reservado para administradores. Desde aqui abres el editor real sin exponerlo al publico.",
-      eyebrow: options.eyebrow || "Acceso protegido",
-      panelTitle: options.panelTitle || "Inicia sesion",
-      panelText:
-        options.panelText || "Usa tu cuenta admin asignada en Supabase para entrar al editor de este sitio.",
+      title: options.title || "Edita tu sitio desde aqui",
+      description: options.description || "Acceso privado para editar el sitio. Solo tu puedes entrar.",
       homeUrl: options.homeUrl || "/",
       targetUrl: options.targetUrl || "/",
       onAuthorized: typeof options.onAuthorized === "function" ? options.onAuthorized : null,
@@ -262,7 +287,7 @@
       if (!result.ok) {
         setStatus({
           tone: "danger",
-          text: result.error || "No fue posible iniciar sesion.",
+          text: "Correo o contrasena incorrectos. Intentalo de nuevo.",
         });
         return;
       }
@@ -279,7 +304,7 @@
       form?.reset();
       setStatus({
         tone: "info",
-        text: "Sesion cerrada. Puedes entrar con otra cuenta admin.",
+        text: "Sesion cerrada. Puedes entrar con otra cuenta.",
       });
       await refreshSession(config, state);
     });
