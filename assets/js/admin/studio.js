@@ -50,9 +50,7 @@
   async function fetchJson(path, fallback) {
     try {
       const response = await fetch(path, { credentials: "same-origin" });
-      if (!response.ok) {
-        throw new Error(`No se pudo cargar ${path}`);
-      }
+      if (!response.ok) throw new Error(`No se pudo cargar ${path}`);
       return await response.json();
     } catch (error) {
       console.warn("[AVAdminStudio]", error.message);
@@ -104,9 +102,7 @@
 
   function activeWorkspace() {
     const site = activeSite();
-    if (!site) {
-      return global.AVContentStore.defaultWorkspace("portfolio-home");
-    }
+    if (!site) return global.AVContentStore.defaultWorkspace("portfolio-home");
     return runtime.workspaces.get(site.siteId) || global.AVContentStore.defaultWorkspace(site.siteId);
   }
 
@@ -119,6 +115,15 @@
     return activeCollectionItems().find((item) => item.id === runtime.selectedItemId) || null;
   }
 
+  function siteTypeLabel(type) {
+    switch (type) {
+      case "home": return "Portafolio";
+      case "template": return "Plantilla base";
+      case "implementation": return "Sitio activo";
+      default: return "Sitio";
+    }
+  }
+
   function buildSites(templates, implementations, showcase) {
     const showcaseBySlug = new Map(showcase.map((item) => [item.slug, item]));
     const sites = [
@@ -126,7 +131,7 @@
         siteId: "portfolio-home",
         type: "home",
         name: "Portafolio principal",
-        eyebrow: "Home / sistema comercial",
+        eyebrow: "Pagina de inicio y portafolio",
         summary: "Entrada principal del portafolio y capa de venta del sistema.",
         previewUrl: "/",
         editUrl: "/?edit=1",
@@ -163,7 +168,7 @@
           siteId: implementation.slug,
           type: "implementation",
           name: implementation.name,
-          eyebrow: implementation.eyebrow || implementation.category || "Implementacion",
+          eyebrow: implementation.eyebrow || implementation.category || "Sitio activo",
           summary: implementation.summary || "Caso real derivado de una plantilla base.",
           previewUrl: normalizeUrl(implementation.entry, "/"),
           editUrl: implementation.adminUrl || toEditUrl(implementation.entry),
@@ -178,9 +183,7 @@
   }
 
   async function ensureWorkspace(siteId) {
-    if (runtime.workspaces.has(siteId)) {
-      return runtime.workspaces.get(siteId);
-    }
+    if (runtime.workspaces.has(siteId)) return runtime.workspaces.get(siteId);
     const result = await global.AVContentStore.loadWorkspace(siteId);
     runtime.workspaces.set(siteId, result.workspace);
     runtime.providerBySite.set(siteId, result.provider || "local");
@@ -191,14 +194,10 @@
   function saveStateLabel(siteId) {
     const state = runtime.saveState.get(siteId) || "idle";
     switch (state) {
-      case "saving":
-        return "Guardando...";
-      case "saved":
-        return "Guardado";
-      case "error":
-        return "Revisa la sincronizacion";
-      default:
-        return "Sin cambios pendientes";
+      case "saving": return "Guardando...";
+      case "saved": return "Guardado";
+      case "error": return "Problema al guardar";
+      default: return "Todo guardado";
     }
   }
 
@@ -206,43 +205,34 @@
     return statusTone(runtime.saveState.get(siteId) || "idle");
   }
 
-  function syncProviderLabel(siteId) {
+  function storageLabel(siteId) {
     const provider = runtime.providerBySite.get(siteId) || "local";
-    return provider === "supabase" ? "Supabase activo" : "Guardado local";
-  }
-
-  function buildTopStat(label, value, hint) {
-    return `
-      <article class="av-studio-stat-card">
-        <small>${escapeHtml(label)}</small>
-        <strong>${escapeHtml(value)}</strong>
-        <p>${escapeHtml(hint)}</p>
-      </article>
-    `;
+    return provider === "supabase" ? "Guardado en la nube" : "Guardado en este dispositivo";
   }
 
   function buildSidebar() {
     return `
       <aside class="av-studio-sidebar">
         <div class="av-studio-sidebar-brand">
-          <small>AV Studio</small>
-          <strong>Content Console</strong>
-          <p>Un solo panel para sitios, editor y colecciones.</p>
+          <div class="av-studio-sidebar-logo">AV</div>
+          <strong>Panel de edicion</strong>
+          <p>Elige el sitio que quieres editar.</p>
         </div>
-        <div class="av-studio-sidebar-list">
+        <nav class="av-studio-sidebar-list" aria-label="Sitios">
           ${runtime.sites
             .map((site) => {
               const active = site.siteId === runtime.selectedSiteId;
               return `
-                <button type="button" class="av-studio-site-item${active ? " is-active" : ""}" data-site-select="${escapeHtml(site.siteId)}">
-                  <small>${escapeHtml(site.type)}</small>
+                <button type="button" class="av-studio-site-item${active ? " is-active" : ""}" data-site-select="${escapeHtml(site.siteId)}" title="${escapeHtml(site.name)}">
+                  <small>${escapeHtml(siteTypeLabel(site.type))}</small>
                   <strong>${escapeHtml(site.name)}</strong>
                   <span>${escapeHtml(site.eyebrow || "")}</span>
                 </button>
               `;
             })
             .join("")}
-        </div>
+        </nav>
+        <button type="button" class="av-studio-sidebar-logout" id="avStudioLogout">Cerrar sesion</button>
       </aside>
     `;
   }
@@ -252,14 +242,14 @@
     return `
       <div class="av-studio-mode-grid">
         <button type="button" class="av-studio-mode-card${currentMode === "client" ? " is-active" : ""}" data-editor-mode="client">
-          <small>Modo cliente</small>
-          <strong>Simple y directo</strong>
-          <p>Para cambiar textos, imagenes, inventario y datos sin ruido tecnico.</p>
+          <small>Modo simple</small>
+          <strong>Para el cliente</strong>
+          <p>Muestra solo lo necesario: textos, imagenes e inventario. Sin opciones tecnicas.</p>
         </button>
         <button type="button" class="av-studio-mode-card${currentMode === "pro" ? " is-active" : ""}" data-editor-mode="pro">
-          <small>Modo profesional</small>
-          <strong>Completo y estructural</strong>
-          <p>Para controlar SEO, orden de modulos, CSS extra, estados y colecciones.</p>
+          <small>Modo avanzado</small>
+          <strong>Para el editor</strong>
+          <p>Acceso completo a SEO, CSS, estructura de modulos y colecciones.</p>
         </button>
       </div>
     `;
@@ -267,12 +257,12 @@
 
   function buildCollectionTabs() {
     return `
-      <div class="av-studio-collection-tabs">
+      <div class="av-studio-collection-tabs" role="tablist">
         ${Object.entries(definitions())
           .map(([key, definition]) => {
             const active = key === runtime.selectedCollection;
             return `
-              <button type="button" class="av-studio-collection-tab${active ? " is-active" : ""}" data-collection-tab="${escapeHtml(key)}">
+              <button type="button" class="av-studio-collection-tab${active ? " is-active" : ""}" data-collection-tab="${escapeHtml(key)}" role="tab" aria-selected="${active}">
                 ${escapeHtml(definition.label)}
               </button>
             `;
@@ -296,6 +286,7 @@
     return items
       .map((item, index) => {
         const active = item.id === runtime.selectedItemId;
+        const stateLabel = item.status === "published" ? "Publicado" : item.status === "draft" ? "Borrador" : item.status || "Borrador";
         return `
           <article class="av-studio-collection-card${active ? " is-active" : ""}" data-item-select="${escapeHtml(item.id)}">
             <div class="av-studio-collection-card-head">
@@ -303,7 +294,7 @@
                 <small>#${String(index + 1).padStart(2, "0")}</small>
                 <strong>${escapeHtml(item.title || "Sin titulo")}</strong>
               </div>
-              <span class="av-studio-pill" data-tone="${escapeHtml(statusTone(item.status || "draft"))}">${escapeHtml(item.status || "draft")}</span>
+              <span class="av-studio-pill" data-tone="${escapeHtml(statusTone(item.status || "draft"))}">${escapeHtml(stateLabel)}</span>
             </div>
             <p>${escapeHtml(item.summary || "Sin descripcion todavia.")}</p>
           </article>
@@ -330,7 +321,10 @@
         <label class="av-studio-field">
           <span>${escapeHtml(label)}</span>
           <select data-item-field="${escapeHtml(key)}">
-            ${options.map((option) => `<option value="${escapeHtml(option)}"${option === value ? " selected" : ""}>${escapeHtml(option)}</option>`).join("")}
+            ${options.map((option) => {
+              const optLabel = option === "published" ? "Publicado" : option === "draft" ? "Borrador" : option;
+              return `<option value="${escapeHtml(option)}"${option === value ? " selected" : ""}>${escapeHtml(optLabel)}</option>`;
+            }).join("")}
           </select>
         </label>
       `;
@@ -350,13 +344,15 @@
       <section class="av-studio-workspace-grid">
         <article class="av-studio-panel-card av-studio-panel-tall">
           <div class="av-studio-panel-head">
-            <small>Colecciones</small>
-            <h2>${escapeHtml(definition.label)}</h2>
+            <div>
+              <small>Tu contenido</small>
+              <h2>${escapeHtml(definition.label)}</h2>
+            </div>
           </div>
           <p>${escapeHtml(definition.description)}</p>
           ${buildCollectionTabs()}
           <div class="av-studio-card-actions">
-            <button type="button" data-collection-add="${escapeHtml(runtime.selectedCollection)}">Agregar item</button>
+            <button type="button" data-collection-add="${escapeHtml(runtime.selectedCollection)}">+ Agregar nuevo</button>
           </div>
           <div class="av-studio-collection-list">
             ${buildCollectionList(items, definition)}
@@ -365,8 +361,10 @@
 
         <article class="av-studio-panel-card av-studio-panel-tall">
           <div class="av-studio-panel-head">
-            <small>Detalle</small>
-            <h2>${escapeHtml(item?.title || "Selecciona un item")}</h2>
+            <div>
+              <small>Detalle</small>
+              <h2>${escapeHtml(item?.title || "Elige uno de la lista")}</h2>
+            </div>
           </div>
           ${
             item
@@ -384,8 +382,8 @@
               : `
                 <article class="av-studio-empty-card">
                   <small>Detalle</small>
-                  <strong>Elige un item de la lista</strong>
-                  <p>Desde aqui editas campos, orden y estado de cada elemento.</p>
+                  <strong>Selecciona una entrada</strong>
+                  <p>Haz clic en cualquier elemento de la lista para ver y editar sus datos.</p>
                 </article>
               `
           }
@@ -403,53 +401,80 @@
     const warning = runtime.warningBySite.get(site.siteId) || "";
     const pageState = workspace.pageStates?.[site.siteId] || null;
     const patchCount = Object.keys(pageState?.patches || {}).length;
+    const saveLabel = saveStateLabel(site.siteId);
+    const saveTone = saveStateTone(site.siteId);
 
     document.body.innerHTML = `
       <main class="av-studio-app">
         ${buildSidebar()}
+
         <section class="av-studio-main">
+
+          <!-- Hero del sitio seleccionado -->
           <section class="av-studio-hero">
             <div class="av-studio-hero-copy">
-              <span class="av-studio-kicker">${escapeHtml(site.eyebrow || "AV Studio")}</span>
+              <span class="av-studio-kicker">${escapeHtml(site.eyebrow || siteTypeLabel(site.type))}</span>
               <h1>${escapeHtml(site.name)}</h1>
-              <p>${escapeHtml(site.summary || "Sin descripcion todavia.")}</p>
+              <p>${escapeHtml(site.summary || "")}</p>
               <div class="av-studio-hero-actions">
-                <a href="${escapeHtml(site.editUrl)}" target="_blank" rel="noopener noreferrer">Abrir editor</a>
-                <a href="${escapeHtml(site.previewUrl)}" target="_blank" rel="noopener noreferrer" data-ghost="true">Ver sitio</a>
-                <button type="button" id="avStudioLogout">Cerrar sesion</button>
+                <a href="${escapeHtml(site.editUrl)}" target="_blank" rel="noopener noreferrer">
+                  Editar sitio
+                </a>
+                <a href="${escapeHtml(site.previewUrl)}" target="_blank" rel="noopener noreferrer" data-ghost="true">
+                  Ver sitio
+                </a>
               </div>
             </div>
             <aside class="av-studio-hero-aside">
               <div class="av-studio-stat-grid">
-                ${buildTopStat("Provider", syncProviderLabel(site.siteId), "destino actual de guardado")}
-                ${buildTopStat("Estado", saveStateLabel(site.siteId), "autosave del workspace")}
-                ${buildTopStat("Colecciones", String(Object.keys(defs).length).padStart(2, "0"), "familias universales activas")}
-                ${buildTopStat("Parches", String(patchCount).padStart(2, "0"), "ajustes de pagina guardados")}
+                <article class="av-studio-stat-card">
+                  <small>Tipo de sitio</small>
+                  <strong>${escapeHtml(siteTypeLabel(site.type))}</strong>
+                  <p>categoria de este sitio</p>
+                </article>
+                <article class="av-studio-stat-card" data-tone="${escapeHtml(saveTone)}">
+                  <small>Guardado</small>
+                  <strong>${escapeHtml(saveLabel)}</strong>
+                  <p>${escapeHtml(storageLabel(site.siteId))}</p>
+                </article>
+                <article class="av-studio-stat-card">
+                  <small>Secciones</small>
+                  <strong>${String(Object.keys(defs).length).padStart(2, "0")}</strong>
+                  <p>tipos de contenido activos</p>
+                </article>
+                <article class="av-studio-stat-card">
+                  <small>Cambios</small>
+                  <strong>${String(patchCount).padStart(2, "0")}</strong>
+                  <p>${patchCount === 1 ? "ajuste guardado en pagina" : "ajustes guardados en pagina"}</p>
+                </article>
               </div>
             </aside>
           </section>
 
+          <!-- Paneles de configuracion -->
           <section class="av-studio-panel-grid av-studio-panel-grid-wide">
             <article class="av-studio-panel-card">
               <div class="av-studio-panel-head">
-                <small>Modo del editor</small>
-                <h2>Cliente o profesional</h2>
+                <div>
+                  <small>Experiencia de edicion</small>
+                  <h2>Como quieres trabajar</h2>
+                </div>
               </div>
-              <p>Esto define que tan simple o completa debe sentirse la experiencia para este sitio.</p>
+              <p>Elige si prefieres ver solo lo esencial o tener acceso a todas las opciones.</p>
               ${buildModeCards(workspace)}
             </article>
 
             <article class="av-studio-panel-card">
               <div class="av-studio-panel-head">
-                <small>Sincronizacion</small>
-                <h2>${escapeHtml(syncProviderLabel(site.siteId))}</h2>
+                <div>
+                  <small>Guardado automatico</small>
+                  <h2>${escapeHtml(storageLabel(site.siteId))}</h2>
+                </div>
               </div>
               <p>
-                ${
-                  warning
-                    ? escapeHtml(`No se pudo usar la tabla de Supabase y se activo el guardado local: ${warning}`)
-                    : "Si la tabla y las policies existen, este sitio ya puede compartir estado entre dispositivos."
-                }
+                ${warning
+                  ? "Los cambios se estan guardando en este navegador. Para habilitar el guardado en la nube, contacta al administrador."
+                  : "Los cambios se guardan automaticamente. Tambien puedes forzar el guardado o recargar si algo no se ve actualizado."}
               </p>
               <div class="av-studio-card-actions">
                 <button type="button" data-workspace-save="true">Guardar ahora</button>
@@ -459,21 +484,25 @@
 
             <article class="av-studio-panel-card">
               <div class="av-studio-panel-head">
-                <small>Pagina</small>
-                <h2>Estado del editor</h2>
+                <div>
+                  <small>Estado del sitio</small>
+                  <h2>${patchCount ? "Con cambios guardados" : "Sin cambios pendientes"}</h2>
+                </div>
               </div>
               <p>
-                ${patchCount ? escapeHtml(`Hay ${patchCount} bloques con cambios guardados para esta pagina.`) : "Todavia no hay cambios de pagina sincronizados para este sitio."}
+                ${patchCount
+                  ? `Hay ${patchCount} ${patchCount === 1 ? "ajuste guardado" : "ajustes guardados"} en esta pagina. Abre el editor para verlos o modificarlos.`
+                  : "Todavia no hay cambios de diseno guardados para este sitio. Abre el editor y haz clic en cualquier elemento para empezar."}
               </p>
-              <ul class="av-studio-list">
-                <li>El editor visual ya carga sobre este sitio.</li>
-                <li>La vista PC / movil ya vive dentro del editor.</li>
-                <li>Las colecciones ya se administran desde esta consola.</li>
-              </ul>
+              <div class="av-studio-card-actions">
+                <a href="${escapeHtml(site.editUrl)}" target="_blank" rel="noopener noreferrer">Abrir editor</a>
+              </div>
             </article>
           </section>
 
+          <!-- Editor de contenido -->
           ${buildCollectionEditor(items, definition)}
+
         </section>
       </main>
     `;
@@ -564,7 +593,11 @@
     mutateItems((items) => {
       const index = items.findIndex((item) => item.id === runtime.selectedItemId);
       if (index < 0) return;
-      const cloned = { ...items[index], id: `${items[index].id}-copy-${Date.now()}`, title: `${items[index].title} copia` };
+      const cloned = {
+        ...items[index],
+        id: `${items[index].id}-copy-${Date.now()}`,
+        title: `${items[index].title} (copia)`,
+      };
       items.splice(index + 1, 0, cloned);
       runtime.selectedItemId = cloned.id;
     });
@@ -573,12 +606,10 @@
 
   function deleteSelected() {
     if (!runtime.selectedItemId) return;
-    if (!window.confirm("Se eliminara este item de la coleccion. Deseas continuar?")) return;
+    if (!window.confirm("Se eliminara este elemento del contenido. Esta accion no se puede deshacer. Deseas continuar?")) return;
     mutateItems((items) => {
       const index = items.findIndex((item) => item.id === runtime.selectedItemId);
-      if (index >= 0) {
-        items.splice(index, 1);
-      }
+      if (index >= 0) items.splice(index, 1);
     });
     render();
   }
@@ -700,11 +731,9 @@
 
     ctx.setStatus?.({
       tone: "success",
-      text: "Sesion validada. AV Studio listo.",
+      text: "Sesion activa. Panel listo para editar.",
     });
   }
 
-  global.AVAdminStudio = {
-    mount,
-  };
+  global.AVAdminStudio = { mount };
 })(window);
