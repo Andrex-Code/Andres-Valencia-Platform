@@ -339,6 +339,7 @@ body {
 
 /* ── Responsive ── */
 
+/* Tablet: card apila verticalmente, welcome encima del form */
 @media (max-width: 860px) {
   .av-gate-card {
     grid-template-columns: 1fr;
@@ -346,39 +347,89 @@ body {
   }
 
   .av-gate-welcome {
-    padding: clamp(24px, 4vw, 36px);
+    padding: clamp(28px, 4vw, 40px);
   }
 
   .av-gate-welcome-inner {
-    gap: 24px;
+    gap: 20px;
+  }
+
+  .av-gate-headline h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
   }
 }
 
+/* Movil: welcome se convierte en barra compacta + form abajo */
 @media (max-width: 600px) {
   .av-gate-shell {
     padding: 0;
     align-items: flex-end;
+    min-height: 100svh;
   }
 
   .av-gate-card {
     width: 100%;
-    border-radius: 24px 24px 0 0;
+    border-radius: 28px 28px 0 0;
     min-height: auto;
   }
 
+  /* Welcome compacto: logo + titulo en una fila */
   .av-gate-welcome {
-    padding: 24px 20px;
+    padding: 20px;
   }
 
-  .av-gate-panel-inner {
-    padding: 24px 20px 32px;
+  .av-gate-welcome-inner {
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .av-gate-logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .av-gate-headline {
+    flex: 1;
+    min-width: 0;
   }
 
   .av-gate-headline h1 {
-    font-size: 2rem;
+    font-size: 1.35rem;
+    margin-bottom: 0;
+    letter-spacing: -0.03em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
+  /* Ocultar texto y pasos: solo logo + titulo visible en móvil */
+  .av-gate-headline p,
   .av-gate-steps {
     display: none;
+  }
+
+  /* Formulario con más espacio inferior para safe area */
+  .av-gate-panel-inner {
+    padding: 24px 20px calc(24px + env(safe-area-inset-bottom, 0px));
+    gap: 18px;
+  }
+
+  /* Inputs y botones más cómodos al tacto */
+  .av-gate-field input {
+    padding: 15px;
+    font-size: 1rem;
+  }
+
+  .av-gate-btn-primary {
+    padding: 16px 18px;
+    font-size: 1.05rem;
+  }
+
+  .av-gate-header h2 {
+    font-size: 1.6rem;
   }
 }

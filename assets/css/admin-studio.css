@@ -535,6 +535,7 @@ body {
 
 /* ── Responsive ── */
 
+/* Tablet: sidebar sube al top, contenido apila en 2 columnas */
 @media (max-width: 1180px) {
   .av-studio-app {
     grid-template-columns: 1fr;
@@ -547,7 +548,7 @@ body {
 
   .av-studio-sidebar-list {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .av-studio-hero,
@@ -561,40 +562,204 @@ body {
   }
 }
 
+/* Móvil: sidebar se convierte en nav compacto horizontal */
 @media (max-width: 760px) {
   .av-studio-app {
-    padding: 12px;
-    gap: 12px;
+    padding: 0;
+    gap: 0;
+    display: flex;
+    flex-direction: column;
   }
 
-  .av-studio-sidebar,
+  /* Sidebar: barra compacta fija en top */
+  .av-studio-sidebar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    max-height: none;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-bottom: 1px solid var(--sv-border);
+    padding: 12px 14px;
+    gap: 10px;
+    backdrop-filter: blur(20px);
+    background: rgba(7, 11, 22, 0.92);
+  }
+
+  /* Brand compacta en móvil: logo + texto en fila */
+  .av-studio-sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .av-studio-sidebar-logo {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    margin-bottom: 0;
+  }
+
+  .av-studio-sidebar-brand strong {
+    font-size: 1rem;
+    white-space: nowrap;
+  }
+
+  .av-studio-sidebar-brand p {
+    display: none;
+  }
+
+  /* Lista de sitios: scroll horizontal de pills compactas */
+  .av-studio-sidebar-list {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 8px;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    grid-template-columns: none;
+  }
+
+  .av-studio-sidebar-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Botones de sitio: pill compacta horizontal */
+  .av-studio-site-item {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-shrink: 0;
+    min-width: 130px;
+    max-width: 180px;
+    padding: 10px 12px;
+    border-radius: 14px;
+    width: auto;
+  }
+
+  .av-studio-site-item small {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+  }
+
+  .av-studio-site-item strong {
+    font-size: 0.88rem;
+    margin-top: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  /* Ocultar eyebrow en sitios (ahorra espacio) */
+  .av-studio-site-item span {
+    display: none;
+  }
+
+  /* Botón logout al costado de la lista, discreto */
+  .av-studio-sidebar-logout {
+    display: none;
+  }
+
+  /* Main: padding lateral y separación */
+  .av-studio-main {
+    padding: 14px;
+    gap: 14px;
+  }
+
+  /* Radios más pequeños en móvil */
   .av-studio-hero-copy,
   .av-studio-hero-aside,
   .av-studio-panel-card,
   .av-studio-empty-card,
-  .av-studio-site-item,
   .av-studio-collection-card,
   .av-studio-mode-card {
     border-radius: 20px;
   }
 
-  .av-studio-sidebar-list,
-  .av-studio-hero,
+  /* Hero: apila copy + aside */
+  .av-studio-hero {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .av-studio-hero-copy h1 {
+    font-size: clamp(1.9rem, 8vw, 2.6rem);
+    max-width: none;
+  }
+
+  /* Botón "Editar sitio" más prominente en móvil */
+  .av-studio-hero-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .av-studio-hero-actions a:first-child {
+    background: linear-gradient(135deg, rgba(119, 240, 210, 0.3), rgba(127, 178, 255, 0.28));
+    border-color: rgba(127, 178, 255, 0.3);
+    min-height: 48px;
+    font-size: 1rem;
+    border-radius: 14px;
+  }
+
+  .av-studio-hero-actions a:not(:first-child),
+  .av-studio-hero-actions button {
+    min-height: 44px;
+    border-radius: 14px;
+  }
+
+  /* Stats: mantener 2x2 en móvil */
+  .av-studio-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Paneles: 1 columna en móvil */
   .av-studio-panel-grid,
   .av-studio-workspace-grid,
   .av-studio-mode-grid,
-  .av-studio-stat-grid,
   .av-studio-field-grid {
     grid-template-columns: 1fr;
   }
 
-  .av-studio-hero-copy h1 {
-    font-size: clamp(2rem, 10vw, 2.8rem);
+  /* Panel head: mantiene fila con flex-wrap */
+  .av-studio-panel-head {
+    flex-wrap: wrap;
+    gap: 8px;
   }
 
-  .av-studio-panel-head,
+  /* Collection card head: fila con badge a la derecha */
   .av-studio-collection-card-head {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  /* Tabs de colección: scroll horizontal */
+  .av-studio-collection-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+
+  .av-studio-collection-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Cards de acciones: botones full-width en móvil */
+  .av-studio-card-actions {
     flex-direction: column;
-    gap: 8px;
+  }
+
+  .av-studio-card-actions a,
+  .av-studio-card-actions button {
+    min-height: 44px;
+    border-radius: 12px;
+    justify-content: center;
   }
 }
