@@ -335,12 +335,7 @@
 
     if (result.state && hasMeaningfulState(result.state)) {
       replaceState(result.state);
-      showToast(
-        runtime.syncProvider === "supabase"
-          ? "Estado del editor sincronizado desde Supabase."
-          : "Estado del editor cargado desde el workspace local.",
-        "success"
-      );
+      showToast("Cambios anteriores restaurados.", "success");
     } else if (runtime.syncWarning) {
       showToast("El editor sigue operativo, pero la sincronizacion remota no estuvo disponible.", "muted");
     }
@@ -790,17 +785,10 @@
     runtime.ui.sheet.dataset.state = "open";
     runtime.ui.sheetEyebrow.textContent = "Elemento seleccionado";
     runtime.ui.sheetTitle.textContent = runtime.selection.title;
-    runtime.ui.sheetSubtitle.textContent = runtime.selection.subtitle || descriptor;
-    runtime.ui.sheetStatus.textContent =
-      runtime.syncProvider === "supabase"
-        ? "Cambios sincronizados con Supabase para este sitio."
-        : "Cambios guardados en este dispositivo y pendientes de sincronizacion remota si aplica.";
+    runtime.ui.sheetSubtitle.textContent = runtime.selection.subtitle || "Cambia el contenido y apariencia de este elemento.";
+    runtime.ui.sheetStatus.textContent = "Cambios guardados automaticamente.";
     runtime.ui.sheetBody.innerHTML = `
-      <div class="av-editor-sheet-meta">
-        <span>${escapeHtml(descriptor)}</span>
-        <span>${escapeHtml(selector)}</span>
-      </div>
-      ${groups.map(buildFieldGroup).join("") || '<div class="av-editor-empty-state"><p>Este elemento no expone campos editables todavia.</p></div>'}
+      ${groups.map(buildFieldGroup).join("") || '<div class="av-editor-empty-state"><p>Selecciona un titular, boton o imagen para editarlo desde aqui.</p></div>'}
     `;
     refreshSelectionReference();
   }
@@ -819,10 +807,7 @@
     runtime.ui.sheetEyebrow.textContent = slug;
     runtime.ui.sheetTitle.textContent = "Ajustes globales";
     runtime.ui.sheetSubtitle.textContent = "Controla SEO, descripcion y CSS extra sin salir de la pagina.";
-    runtime.ui.sheetStatus.textContent =
-      runtime.syncProvider === "supabase"
-        ? "Los cambios se sincronizan con Supabase para este sitio."
-        : "Los cambios se guardan en este dispositivo y se intentan sincronizar.";
+    runtime.ui.sheetStatus.textContent = "Los cambios se guardan automaticamente.";
     runtime.ui.sheetBody.innerHTML = `
       ${buildFieldGroup({
         title: "Basico",
@@ -1219,7 +1204,7 @@
       runtime.syncProvider = result.provider || runtime.syncProvider;
       runtime.syncWarning = result.warning || "";
       if (runtime.syncWarning) {
-        setStatus("Cambio aplicado. Guardado remoto no disponible; se mantuvo en este dispositivo.");
+        setStatus("Cambio guardado en este dispositivo.");
       }
     }, 420);
   }
@@ -1723,7 +1708,24 @@
       return `Bloque ${humanizeToken(element.id || element.classList[0] || "principal")}`;
     }
 
-    return humanizeToken(element.classList[0] || tag);
+    const firstClass = element.classList[0] || "";
+    const bemSuffix = firstClass.includes("__") ? firstClass.split("__").pop() : firstClass;
+    const suffixMap = {
+      symbol: "Simbolo", icon: "Icono", img: "Imagen", image: "Imagen", photo: "Foto",
+      text: "Texto", title: "Titulo", heading: "Titulo", label: "Etiqueta",
+      btn: "Boton", button: "Boton", link: "Enlace", cta: "Boton principal",
+      item: "Elemento", content: "Contenido", body: "Contenido",
+      wrapper: "Contenedor", container: "Contenedor", inner: "Interior",
+      card: "Tarjeta", badge: "Distintivo", tag: "Etiqueta",
+      number: "Numero", count: "Cantidad", price: "Precio",
+      name: "Nombre", description: "Descripcion", subtitle: "Subtitulo",
+      logo: "Logo", avatar: "Foto de perfil", thumbnail: "Miniatura",
+      rating: "Calificacion", stars: "Estrellas", score: "Puntuacion",
+      date: "Fecha", time: "Hora", address: "Direccion", phone: "Telefono",
+      stat: "Estadistica", value: "Valor", info: "Informacion",
+    };
+    if (suffixMap[bemSuffix]) return suffixMap[bemSuffix];
+    return humanizeToken(bemSuffix || tag);
   }
 
   function getSelectionContext(element) {
@@ -1862,7 +1864,7 @@
         .av-editor-toolbar{top:10px;left:10px;right:10px;padding:12px;border-radius:18px;}
         .av-editor-toast-stack{top:104px;right:10px;width:calc(100vw - 20px);}
         .av-editor-sheet{left:8px;right:8px;bottom:8px;}
-        .av-editor-sheet-panel{width:100%;max-height:78vh;border-radius:22px;}
+        .av-editor-sheet-panel{width:100%;max-height:62vh;border-radius:22px;}
         .av-editor-sheet-head,.av-editor-sheet-foot,.av-editor-sheet-body{padding-left:14px;padding-right:14px;}
       }
     `;
