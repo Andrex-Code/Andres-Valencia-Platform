@@ -1,12 +1,21 @@
 const fallbackTemplates = [
   {
+    slug: "professional-services",
+    name: "Vertex Pro",
+    category: "professional-services",
+    entry: "templates/professional-services/index.html",
+    readme: "templates/professional-services/README.md",
+    status: "ready",
+    order: 1,
+  },
+  {
     slug: "health-consultation",
     name: "Health Consultation",
     category: "health",
     entry: "templates/health-consultation/index.html",
     readme: "templates/health-consultation/README.md",
     status: "ready",
-    order: 1,
+    order: 2,
   },
   {
     slug: "panaderia",
@@ -14,15 +23,6 @@ const fallbackTemplates = [
     category: "food-local",
     entry: "templates/panaderia/index.html",
     readme: "templates/panaderia/README.md",
-    status: "ready",
-    order: 2,
-  },
-  {
-    slug: "professional-services",
-    name: "Professional Services",
-    category: "professional-services",
-    entry: "templates/professional-services/index.html",
-    readme: "templates/professional-services/README.md",
     status: "ready",
     order: 3,
   },
@@ -45,20 +45,48 @@ const fallbackTemplates = [
     order: 5,
   },
   {
+    slug: "civil-engineer",
+    name: "Strata Civil",
+    category: "engineering",
+    entry: "templates/civil-engineer/index.html",
+    readme: "templates/civil-engineer/README.md",
+    status: "ready",
+    order: 6,
+  },
+  {
     slug: "tattoo-studio",
     name: "Sombra Ink",
     category: "creative",
     entry: "templates/tattoo-studio/index.html",
     readme: "templates/tattoo-studio/README.md",
     status: "ready",
-    order: 6,
+    order: 7,
   },
 ];
 
 const fallbackShowcase = [
   {
-    slug: "health-consultation",
+    slug: "professional-services",
     order: 1,
+    cover: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1400&q=80&auto=format&fit=crop",
+    eyebrow: "Servicios profesionales / consultoria y marca personal",
+    summary:
+      "Base premium oscura para consultores, arquitectos, ingenieros y profesionales independientes que necesitan comunicar criterio y experiencia.",
+    angle:
+      "La direccion visual editorial y oscura transmite seriedad y diferenciacion frente a las tipicas landing corporativas claras.",
+    highlights: [
+      "Bloques para servicios, metodologia, proyectos y contacto",
+      "Diseno oscuro premium para consultoria tecnica y marca personal",
+      "Editor visual para ajustar copy, imagenes y CTA",
+    ],
+    tags: ["Servicios", "Consultoria", "Marca personal"],
+    editorDemo: true,
+    editorCopy:
+      "Edita propuesta, servicios, proyectos y cierre comercial para cualquier servicio profesional.",
+  },
+  {
+    slug: "health-consultation",
+    order: 2,
     cover: "https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=1400&q=80&auto=format&fit=crop",
     eyebrow: "Salud / psicologia y consulta",
     summary:
@@ -77,7 +105,7 @@ const fallbackShowcase = [
   },
   {
     slug: "panaderia",
-    order: 2,
+    order: 3,
     cover: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1400&q=80&auto=format&fit=crop",
     eyebrow: "Comida local / panaderia y catalogo",
     summary:
@@ -93,25 +121,6 @@ const fallbackShowcase = [
     editorDemo: true,
     editorCopy:
       "Edita textos, imagenes, colores y CTA para panaderias, cafes y negocios de comida local.",
-  },
-  {
-    slug: "professional-services",
-    order: 3,
-    cover: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1400&q=80&auto=format&fit=crop",
-    eyebrow: "Servicios profesionales / consultoria y confianza",
-    summary:
-      "Base premium para ingenieros, arquitectos, consultores y otros servicios profesionales que necesitan comunicar criterio, experiencia y un cierre comercial claro.",
-    angle:
-      "La base tecnica actual se usa como familia de servicios profesionales, no solo como pagina para ingenieria civil.",
-    highlights: [
-      "Bloques para servicios, metodologia, experiencia y proyectos",
-      "Direccion visual sobria para consultoria y marca personal tecnica",
-      "Editor visual para ajustar copy, imagenes y CTA",
-    ],
-    tags: ["Servicios", "Consultoria", "Confianza"],
-    editorDemo: true,
-    editorCopy:
-      "Edita propuesta, servicios, proyectos y cierre comercial para servicios profesionales.",
   },
   {
     slug: "restaurant",
@@ -133,11 +142,47 @@ const fallbackShowcase = [
       "Ajusta propuesta, experiencia, menu y reserva desde el editor visual de la demo.",
   },
   {
-    slug: "tattoo-studio",
+    slug: "gym",
+    order: 5,
+    cover: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1400&q=80&auto=format&fit=crop",
+    eyebrow: "Bienestar / gimnasio y planes",
+    summary: "Pagina comercial para mostrar planes, clases y datos clave de bienestar o entrenamiento.",
+    angle: "Util para fitness, entrenadores personales y negocios de bienestar.",
+    highlights: [
+      "Planes y clases en bloques faciles de leer",
+      "Secciones para entrenadores, horarios y beneficios",
+      "Botones de contacto visibles desde el inicio",
+    ],
+    tags: ["Fitness", "Planes", "Contacto"],
+    editorDemo: true,
+    editorCopy:
+      "Edita promesa, planes, CTA y datos de contacto desde el editor visual.",
+  },
+  {
+    slug: "civil-engineer",
     order: 6,
+    cover: "https://images.unsplash.com/photo-1513828742140-ccaa28f3eda0?w=1400&q=80&auto=format&fit=crop",
+    eyebrow: "Ingenieria civil / marca tecnica especializada",
+    summary:
+      "Base tecnica clara para ingenieros civiles, consultores de suelos y profesionales de infraestructura que necesitan una presencia con criterio propio.",
+    angle:
+      "Muestra como un tecnico puede comunicar su especialidad con lenguaje directo y una estetica distinta a la landing corporativa comun.",
+    highlights: [
+      "Servicios con metodologia y entregables explicados por utilidad",
+      "Perfil tecnico con foco en criterio y tipo de proyecto",
+      "Editor visual para ajustar copy, imagenes y contacto",
+    ],
+    tags: ["Ingenieria", "Tecnico", "Marca personal"],
+    editorDemo: true,
+    editorCopy:
+      "Edita servicios, metodologia, perfil y contacto para ingenieria civil o consultoria tecnica.",
+  },
+  {
+    slug: "tattoo-studio",
+    order: 7,
     cover: "https://images.unsplash.com/photo-1583744946564-b52ac1c389c8?w=1400&q=80&auto=format&fit=crop",
-    eyebrow: "Tattoo / portafolio visual",
-    summary: "Sitio para mostrar trabajos, estilo y datos de contacto.",
+    eyebrow: "Marca visual / tattoo y creativos",
+    summary: "Sitio para mostrar trabajos, estilo y datos de contacto para negocios muy visuales o creativos.",
     angle: "La confianza entra por las piezas publicadas y un contacto claro.",
     highlights: [
       "Galeria de trabajos como pieza principal",
@@ -147,52 +192,30 @@ const fallbackShowcase = [
     tags: ["Galeria", "Estilo", "Contacto"],
     editorDemo: true,
     editorCopy:
-      "Ajusta mensaje, estilos, CTA y datos clave desde el mismo editor central.",
+      "Ajusta mensaje, estilos, CTA y datos clave desde la propia demo.",
   },
 ];
 
 const fallbackImplementations = [
   {
-    slug: "mario-valencia",
+    slug: "monica-valencia",
     order: 1,
-    name: "Mario Valencia",
-    category: "engineering",
-    entry: "av-system/deploy/mario-valencia/index.html",
-    templateEntry: "templates/civil-engineer/index.html",
-    cover: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1400&q=80&auto=format&fit=crop",
-    eyebrow: "Geotecnia / pagina en implementacion",
+    name: "Monica Valencia H.",
+    category: "psychology",
+    entry: "https://monica-valencia.vercel.app/",
+    templateEntry: null,
+    cover: "https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=1400&q=80&auto=format&fit=crop",
+    eyebrow: "Psicologia / implementado",
     summary:
-      "Landing para ingeniero civil especialista en geotecnia, con una direccion visual mas editorial y tecnica.",
+      "Sitio profesional para psicologa especializada en neuropsicopedagogia infantil, con servicios clinicos, orientacion a padres y modalidad presencial mas virtual.",
     angle:
-      "Sirve para mostrar que una base sectorial puede convertirse en una marca personal con identidad propia.",
+      "Demuestra como un profesional de salud puede comunicar expertise clinico con calidez humana en una landing clara y de confianza.",
     highlights: [
-      "Narrativa enfocada en consultoria, estudios y confianza tecnica",
-      "Estilo distinto al resto del portafolio para evitar soluciones repetidas",
-      "Pensada para clientes de obra, consultoria e infraestructura",
+      "Propuesta de valor centrada en el impacto del diagnostico en la vida del nino",
+      "Estructura de evaluaciones especificas para diferentes edades y diagnosticos",
+      "Llamadas a la accion enfocadas en consulta inicial",
     ],
-    tags: ["Geotecnia", "Marca personal", "Consultoria"],
-    statusLabel: "En implementacion",
-    state: "progress",
-  },
-  {
-    slug: "panaderia-la-chiquita",
-    order: 2,
-    name: "Panaderia La Chiquita",
-    category: "bakery",
-    entry: "av-system/deploy/panaderia-la-chiquita/index.html",
-    templateEntry: "templates/panaderia/index.html",
-    cover: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1400&q=80&auto=format&fit=crop",
-    eyebrow: "Panaderia local / adaptacion real",
-    summary:
-      "Version implementada a partir de la base para panaderias, aterrizada a catalogo, productos y contacto directo por WhatsApp.",
-    angle:
-      "Muestra como una plantilla base se convierte en una pagina concreta para un negocio local.",
-    highlights: [
-      "Contenido real de productos, horarios y pedido rapido",
-      "Estructura afinada para negocio de vitrina y encargos",
-      "Separada de la plantilla base para no mezclar demo con caso aplicado",
-    ],
-    tags: ["Caso real", "Catalogo", "WhatsApp"],
+    tags: ["Psicologia", "Neuropsicopedagogia", "Consulta"],
     statusLabel: "Implementado",
     state: "live",
   },

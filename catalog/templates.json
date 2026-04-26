@@ -1,5 +1,16 @@
 [
   {
+    "slug": "professional-services",
+    "name": "Vertex Pro",
+    "category": "professional-services",
+    "family": "servicios-profesionales",
+    "focus": "primary",
+    "entry": "templates/professional-services/index.html",
+    "readme": "templates/professional-services/README.md",
+    "status": "ready",
+    "order": 1
+  },
+  {
     "slug": "health-consultation",
     "name": "Health Consultation",
     "category": "health",
@@ -8,7 +19,7 @@
     "entry": "templates/health-consultation/index.html",
     "readme": "templates/health-consultation/README.md",
     "status": "ready",
-    "order": 1
+    "order": 2
   },
   {
     "slug": "panaderia",
@@ -18,17 +29,6 @@
     "focus": "primary",
     "entry": "templates/panaderia/index.html",
     "readme": "templates/panaderia/README.md",
-    "status": "ready",
-    "order": 2
-  },
-  {
-    "slug": "professional-services",
-    "name": "Professional Services",
-    "category": "professional-services",
-    "family": "servicios-profesionales",
-    "focus": "primary",
-    "entry": "templates/professional-services/index.html",
-    "readme": "templates/professional-services/README.md",
     "status": "ready",
     "order": 3
   },
@@ -55,6 +55,17 @@
     "order": 5
   },
   {
+    "slug": "civil-engineer",
+    "name": "Strata Civil",
+    "category": "engineering",
+    "family": "ingenieria",
+    "focus": "secondary",
+    "entry": "templates/civil-engineer/index.html",
+    "readme": "templates/civil-engineer/README.md",
+    "status": "ready",
+    "order": 6
+  },
+  {
     "slug": "tattoo-studio",
     "name": "Sombra Ink",
     "category": "creative",
@@ -63,6 +74,6 @@
     "entry": "templates/tattoo-studio/index.html",
     "readme": "templates/tattoo-studio/README.md",
     "status": "ready",
-    "order": 6
+    "order": 7
   }
 ]
