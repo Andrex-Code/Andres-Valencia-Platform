@@ -473,6 +473,14 @@ function initLeadForm() {
 }
 
 async function renderPortfolio() {
+  // Mostrar numeros reales de inmediato con los fallbacks — nunca "00"
+  setNodeText("heroTemplateCount", formatCount(fallbackTemplates.length));
+  setNodeText("heroImplementationCount", formatCount(fallbackImplementations.length));
+  setNodeText(
+    "heroEditorCount",
+    formatCount(fallbackShowcase.filter((entry) => entry.editorDemo).length)
+  );
+
   const [templates, showcase, implementations] = await Promise.all([
     fetchJson("catalog/templates.json", fallbackTemplates),
     fetchJson("catalog/showcase.json", fallbackShowcase),
