@@ -1,101 +1,80 @@
-# Andres Valencia Web Portfolio
+# Andrés Valencia Portfolio
 
-Portafolio comercial con demos por industria, un solo editor universal y AV Studio como entrada protegida para administrar home, plantillas e implementaciones.
+Landing personal para presentar mi perfil como programador y los tipos de soluciones que construyo.
 
-## Que carpeta usamos de verdad
-- `av-system/`: sistema activo para trabajar localmente.
-- `studio/`: referencia legada. No es la carpeta principal para seguir construyendo.
-- `index.html`, `assets/`, `templates/`, `catalog/`: portafolio publico y demos estaticas.
+## Enfoque actual
 
-## Arranque rapido
+Este repositorio queda simplificado como un sitio estático de portafolio. La versión anterior mezclaba portafolio, editor visual, demos por industria y una idea de CMS; eso hacía difícil entender el objetivo principal.
 
-### Abrir el portafolio
-Haz doble clic en:
+Ahora la prioridad es clara:
 
-```text
-run-portfolio.cmd
-```
+- presentar quién soy como programador;
+- explicar qué tipo de soluciones desarrollo;
+- mostrar casos generales sin exponer información privada;
+- dar a entender que también construyo sitios, landings y productos web;
+- servir como página principal para GitHub y Vercel.
 
-Luego abre:
+## Qué comunica la landing
 
-```text
-http://127.0.0.1:4173
-```
+La página se centra en cuatro líneas de trabajo:
 
-### Abrir AV System
-Haz doble clic en:
+1. **Asistentes de conocimiento interno con IA**  
+   Aplicaciones donde se cargan documentos, se estructura información y se consulta mediante IA con contexto.
 
-```text
-run-av-system.cmd
-```
+2. **Plataformas de seguimiento operativo**  
+   Sistemas para registrar incidencias, mejoras, prioridades, estados, usuarios e historial.
 
-Luego abre:
+3. **Automatización de reportes y procesos**  
+   Herramientas para procesar Excel, CSV, TXT y generar reportes o archivos finales con reglas de negocio.
 
-```text
-http://127.0.0.1:8765
-```
+4. **Productos web y experiencias digitales**  
+   Frontends, dashboards, landings y sitios comerciales cuando el proyecto lo requiere.
 
-### Exportar una version publica
-Haz doble clic en:
+## Stack mencionado
 
-```text
-export-av-system.cmd
-```
+- JavaScript
+- TypeScript
+- React
+- Next.js
+- Python
+- FastAPI
+- OpenAI
+- PostgreSQL
+- Prisma
+- Vercel
+- GitHub
+- Automatización de Excel y reportes
 
-## Como usarlo en casa y en el trabajo
-1. En un equipo haces cambios y los subes a Git.
-2. En el otro equipo abres esta misma carpeta y ejecutas:
-
-```text
-update-from-git.cmd
-```
-
-3. Trabajas normalmente con `run-portfolio.cmd` o `run-av-system.cmd`.
-
-## Python sin permisos de administrador
-Los scripts buscan Python en este orden:
-1. `tools/python/python.exe`
-2. `python`
-3. `py`
-
-Si en tu trabajo no puedes instalar Python, copia una version portable dentro de:
+## Estructura principal
 
 ```text
-tools/python/python.exe
+Andres-Valencia-Platform/
+├── index.html        # landing principal del portafolio
+├── README.md         # resumen del objetivo actual
+├── assets/           # recursos antiguos o reutilizables
+├── admin/            # legado del intento de editor/CMS
+├── catalog/          # legado de demos comerciales
+├── docs/             # documentación histórica
+├── scripts/          # automatizaciones antiguas
+└── templates/        # demos comerciales antiguas
 ```
 
-Con eso los `.cmd` siguen funcionando igual.
+## Estado del repo
 
-## Mapa rapido
-- `assets/`: estilos y scripts del sitio principal.
-- `assets/js/universal-template-editor.js`: motor unico del editor.
-- `assets/js/admin/`: login Supabase, gate, store compartido y shell de AV Studio.
-- `catalog/`: inventario y copy comercial.
-- `templates/`: demos publicas por vertical.
-- `admin/`: acceso protegido y dashboard principal de AV Studio.
-- `av-system/`: panel local y paginas por negocio.
-- `scripts/`: automatizaciones para arrancar, exportar y actualizar.
-- `tools/`: utilidades portables no versionadas.
-- `PROJECT_KNOWLEDGE.md`: contexto del proyecto.
+El portafolio principal vive en `index.html` y no depende del editor anterior.
 
-## Regla del editor
-- Solo existe un editor canonico: `assets/js/universal-template-editor.js`.
-- Las plantillas muestran un boton `Editar` en la esquina inferior derecha.
-- Las implementaciones se abren desde `/<dominio>/admin`.
-- El home principal se administra desde `/admin`.
-- El workspace compartido vive en `assets/js/admin/content-store.js`.
-- Las colecciones universales se administran desde `/admin` y usan `docs/supabase-editor-workspaces.sql` como referencia de tabla.
+Las carpetas como `admin/`, `catalog/`, `templates/`, `studio/` o `av-system/` pueden servir como referencia histórica, pero no son necesarias para la nueva landing. La recomendación es reconstruir cualquier editor o CMS desde cero en otro repo o en una rama separada, con objetivos más claros.
 
-## Documentos clave
-- `PROJECT_KNOWLEDGE.md`
-- `docs/DEPLOYMENT.md`
-- `docs/LOCAL_SETUP.md`
-- `docs/REFERENCES.md`
-- `docs/structure.md`
+## Despliegue
 
-## Crear una nueva plantilla
-```powershell
-./scripts/new-template.ps1 -Slug "dental-clinic" -Name "Dental Clinic" -Category "health"
-```
+El proyecto puede desplegarse como sitio estático en Vercel sin build step especial.
 
-Despues agrega la entrada correspondiente en `catalog/templates.json` y el copy comercial en `catalog/showcase.json`.
+Configuración sugerida:
+
+- Framework preset: `Other`
+- Build command: vacío
+- Output directory: raíz del proyecto
+
+## Nota de privacidad
+
+Algunos casos descritos en el portafolio vienen de proyectos privados. Se explican de forma general para mostrar el tipo de solución desarrollada sin mencionar nombres, datos operativos ni información sensible.
