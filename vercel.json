@@ -1,0 +1,7 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "npm --prefix portfolio ci",
+  "buildCommand": "npm --prefix portfolio run build:vercel",
+  "outputDirectory": "portfolio/dist/client"
+}

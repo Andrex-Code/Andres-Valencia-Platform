@@ -1,80 +1,34 @@
-# Andrés Valencia Portfolio
+# Andrés Valencia — Portafolio
 
-Landing personal para presentar mi perfil como programador y los tipos de soluciones que construyo.
+Sitio público: https://andresvalencia.vercel.app
 
-## Enfoque actual
+Diseño y desarrollo web para negocios. Incluye formación en Ingeniería de Sistemas y Computación en la Universidad Tecnológica de Pereira, proyectos con capturas reales de demostración y contactos.
 
-Este repositorio queda simplificado como un sitio estático de portafolio. La versión anterior mezclaba portafolio, editor visual, demos por industria y una idea de CMS; eso hacía difícil entender el objetivo principal.
+## Fuente actual
 
-Ahora la prioridad es clara:
+La aplicación vive en `portfolio/` (React, TypeScript y Vinext). Los archivos anteriores de la raíz se conservan como legado; no se publican en el despliegue actual.
 
-- presentar quién soy como programador;
-- explicar qué tipo de soluciones desarrollo;
-- mostrar casos generales sin exponer información privada;
-- dar a entender que también construyo sitios, landings y productos web;
-- servir como página principal para GitHub y Vercel.
+## Desarrollo y validación
 
-## Qué comunica la landing
-
-La página se centra en cuatro líneas de trabajo:
-
-1. **Asistentes de conocimiento interno con IA**  
-   Aplicaciones donde se cargan documentos, se estructura información y se consulta mediante IA con contexto.
-
-2. **Plataformas de seguimiento operativo**  
-   Sistemas para registrar incidencias, mejoras, prioridades, estados, usuarios e historial.
-
-3. **Automatización de reportes y procesos**  
-   Herramientas para procesar Excel, CSV, TXT y generar reportes o archivos finales con reglas de negocio.
-
-4. **Productos web y experiencias digitales**  
-   Frontends, dashboards, landings y sitios comerciales cuando el proyecto lo requiere.
-
-## Stack mencionado
-
-- JavaScript
-- TypeScript
-- React
-- Next.js
-- Python
-- FastAPI
-- OpenAI
-- PostgreSQL
-- Prisma
-- Vercel
-- GitHub
-- Automatización de Excel y reportes
-
-## Estructura principal
-
-```text
-Andres-Valencia-Platform/
-├── index.html        # landing principal del portafolio
-├── README.md         # resumen del objetivo actual
-├── assets/           # recursos antiguos o reutilizables
-├── admin/            # legado del intento de editor/CMS
-├── catalog/          # legado de demos comerciales
-├── docs/             # documentación histórica
-├── scripts/          # automatizaciones antiguas
-└── templates/        # demos comerciales antiguas
+```sh
+cd portfolio
+npm ci
+npm run dev
+npm run build:vercel
 ```
 
-## Estado del repo
-
-El portafolio principal vive en `index.html` y no depende del editor anterior.
-
-Las carpetas como `admin/`, `catalog/`, `templates/`, `studio/` o `av-system/` pueden servir como referencia histórica, pero no son necesarias para la nueva landing. La recomendación es reconstruir cualquier editor o CMS desde cero en otro repo o en una rama separada, con objetivos más claros.
+`build:vercel` genera HTML estático y recursos en `portfolio/dist/client`, sin servidor ni claves de API. Vercel instala y compila mediante la configuración de la raíz.
 
 ## Despliegue
 
-El proyecto puede desplegarse como sitio estático en Vercel sin build step especial.
+La rama `master` está conectada al proyecto Vercel `web`, en el equipo `andres-projects-bf9797b2`. Los cambios en esta rama generan el despliegue de producción. URL canónica: https://andresvalencia.vercel.app
 
-Configuración sugerida:
+La configuración de Sites se conserva en la aplicación para mantener compatible la edición original; Vercel usa la exportación estática.
 
-- Framework preset: `Other`
-- Build command: vacío
-- Output directory: raíz del proyecto
+## Contenido y privacidad
 
-## Nota de privacidad
+Los proyectos internos están anonimizados. Las capturas inmobiliarias contienen datos de demostración. La formación está indicada como en curso. Se enlaza el programa oficial de la UTP sin usar su logo ni sugerir aval institucional.
 
-Algunos casos descritos en el portafolio vienen de proyectos privados. Se explican de forma general para mostrar el tipo de solución desarrollada sin mencionar nombres, datos operativos ni información sensible.
+Contactos: pipevv999@gmail.com · WhatsApp +57 3007561667 · Instagram @andres_fv9.
+
+Inspiración editorial: Brittany Chiang v3 (2018), con una adaptación visual propia inspirada en la web personal de los 2000.
