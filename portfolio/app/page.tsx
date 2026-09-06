@@ -10,12 +10,13 @@ export default function Home() {
   return <>
     <a className="skip-link" href="#contenido">Saltar al contenido</a>
     <header className="masthead wrap" id="inicio">
-      <a className="wordmark" href="#inicio">Andrés Valencia<span> / portafolio</span></a>
+      <a className="wordmark" href="#inicio"><Image src="/brand/av-white.svg" width={48} height={30} alt="AV" unoptimized /><span className="wordmark-name">Andrés Valencia</span><span className="window-caption"> / portafolio</span></a>
       <a href={github} target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={16} /></a>
     </header>
+    <nav className="toolbar wrap" aria-label="Accesos del portafolio"><a href="#inicio">Inicio</a><a href="#servicios">Sitios web</a><a href="#proyectos">Mis proyectos</a><a href="#formacion">Formación</a><a href="#contacto">Contacto</a><span className="toolbar-address" aria-hidden="true">andresvalencia.vercel.app</span></nav>
     <main className="wrap" id="contenido">
       <section className="intro" aria-labelledby="intro-title">
-        <p className="intro-greeting">Hola, soy Andrés.</p><a className="student-line" href="#formacion">Estudiante de Ingeniería de Sistemas y Computación · UTP</a>
+        <div className="profile-stamp"><Image src="/brand/av-blue.svg" width={152} height={96} alt="Monograma AV de Andrés Valencia" unoptimized /><span>Andrés Valencia</span><small>Diseño &amp; desarrollo web</small></div><p className="intro-greeting">Hola, soy Andrés.</p><a className="student-line" href="#formacion">Estudiante de Ingeniería de Sistemas y Computación · UTP</a>
         <h1 id="intro-title">Sitios web para <br />presentar tu negocio <br />y conectar con tus clientes<span className="period">.</span></h1>
         <div className="intro-bottom"><p>Diseño y desarrollo sitios web para emprendedores, pequeños y medianos negocios. Tu oferta, tus productos y una forma clara de contactarte, también desde el celular.</p><a className="underlined" href={whatsapp} target="_blank" rel="noreferrer">Hablemos de tu web <ArrowUpRight size={19} /></a></div>
         <SocialLinks /><a className="browse" href="#proyectos">Una selección de mi trabajo <ArrowDown size={17} /></a>
@@ -59,6 +60,6 @@ export default function Home() {
         </div>
       </div>
     </main>
-    <footer className="wrap"><span>Andrés Valencia © 2026</span><a href="https://v3.brittanychiang.com/" target="_blank" rel="noreferrer">Inspirado en Brittany Chiang v3</a><a href="#inicio">Volver arriba ↑</a></footer>
+    <footer className="wrap"><span>Andrés Valencia © 2026</span><a href="/brand/av-blue.svg" download="Andres-Valencia-AV.svg">Logo AV ↓</a><a href="#inicio">Volver arriba ↑</a></footer>
   </>;
 }
